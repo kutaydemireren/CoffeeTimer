@@ -48,7 +48,7 @@ final class CountdownTimerImpl: CountdownTimer {
 
 	@objc private func timerDidFire() {
 
-		var newTimeLeft = timeLeft - 1
+		let newTimeLeft = timeLeft - 1
 
 		if newTimeLeft < 1 {
 			timer?.invalidate()
