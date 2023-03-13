@@ -15,24 +15,17 @@ extension TimeInterval {
 	}
 }
 
-class SingleStageTimerViewModel: ObservableObject {
+final class SingleStageTimerViewModel: ObservableObject {
 
-	@Published var timeLeft: String
-
-	private var timeIntervalLeft: TimeInterval {
-		didSet {
-			timeLeft = timeIntervalLeft.toRepresentableString
-		}
-	}
-
-	private var countdownTimer: CountdownTimerImpl
+	@Published private(set) var timeIntervalLeft: TimeInterval
 
 	private var cancellables: [AnyCancellable] = []
+
+	private var countdownTimer: CountdownTimerImpl
 
 	init(
 		timeIntervalLeft: TimeInterval
 	) {
-		self.timeLeft = timeIntervalLeft.toRepresentableString
 		self.timeIntervalLeft = timeIntervalLeft
 		self.countdownTimer = CountdownTimerImpl(timeLeft: timeIntervalLeft)
 
@@ -61,12 +54,11 @@ struct SingleStageTimerView: View {
 		Circle()
 			.strokeBorder(Color.blue.opacity(0.6), lineWidth: 4)
 			.overlay {
-				Text(viewModel.timeLeft)
+				Text(viewModel.timeIntervalLeft.toRepresentableString)
 					.font(.largeTitle)
 					.foregroundColor(.blue)
 			}
-			.padding(24)
-			.background(Color.black.opacity(0.9))
+			.background()
 			.onTapGesture {
 				viewModel.startOrStop()
 			}

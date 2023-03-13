@@ -24,7 +24,7 @@ final class CountdownTimerImpl {
 
 	@Published private(set) var timeLeft: TimeInterval {
 		didSet {
-			debugPrint("\(#function) -> time left = \(timeLeft)")
+			debugPrint("\(#function) -> \(timeLeft)")
 		}
 	}
 
