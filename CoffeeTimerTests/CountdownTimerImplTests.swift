@@ -1,63 +1,13 @@
 //
 //  CountdownTimerImplTests.swift
-//  CountdownTimerImplTests
+//  CoffeeTimerTests
 //
-//  Created by Kutay Demireren on 19/02/2023.
+//  Created by Kutay Demireren on 13/03/2023.
 //
 
 import XCTest
 import Combine
 @testable import CoffeeTimer
-
-protocol CountdownTimer {
-
-}
-
-final class CountdownTimerImpl: CountdownTimer {
-
-	var isRunning: Bool {
-		return timer != nil
-	}
-	private var timer: Timer?
-
-	@Published private(set) var timeLeft: TimeInterval
-
-	init(timeLeft: TimeInterval) {
-		self.timeLeft = timeLeft
-	}
-
-	deinit {
-		timer?.invalidate()
-		timer = nil
-	}
-
-	func start() {
-		guard canStart() else {
-			return
-		}
-
-		let timer = Timer(timeInterval: 1, target: self, selector: #selector(timerDidFire), userInfo: nil, repeats: true)
-		RunLoop.current.add(timer, forMode: .common)
-
-		self.timer = timer
-	}
-
-	private func canStart() -> Bool {
-		return timeLeft > 0
-	}
-
-	@objc private func timerDidFire() {
-
-		let newTimeLeft = timeLeft - 1
-
-		if newTimeLeft < 1 {
-			timer?.invalidate()
-			timer = nil
-		}
-
-		self.timeLeft = newTimeLeft
-	}
-}
 
 final class CountdownTimerImplTests: XCTestCase {
 
@@ -67,16 +17,16 @@ final class CountdownTimerImplTests: XCTestCase {
 
 	var cancellables: [AnyCancellable] = []
 
-    override func setUpWithError() throws {
+	override func setUpWithError() throws {
 
 		sut = CountdownTimerImpl(timeLeft: defaultInitialTimeLeft)
-    }
+	}
 
-    func test_start_shouldStartRunning() {
+	func test_start_shouldStartRunning() {
 		sut.start()
 
 		XCTAssertTrue(sut.isRunning)
-    }
+	}
 
 	func test_start_whenTimeLeftIsZero_shouldNotStartRunning() {
 		sut = CountdownTimerImpl(timeLeft: 0)
@@ -136,3 +86,4 @@ final class CountdownTimerImplTests: XCTestCase {
 		XCTAssertFalse(sut.isRunning)
 	}
 }
+
