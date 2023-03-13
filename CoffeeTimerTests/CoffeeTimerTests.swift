@@ -1,6 +1,6 @@
 //
-//  CoffeeTimerTests.swift
-//  CoffeeTimerTests
+//  CountdownTimerImplTests.swift
+//  CountdownTimerImplTests
 //
 //  Created by Kutay Demireren on 19/02/2023.
 //
@@ -59,7 +59,7 @@ final class CountdownTimerImpl: CountdownTimer {
 	}
 }
 
-final class CoffeeTimerTests: XCTestCase {
+final class CountdownTimerImplTests: XCTestCase {
 
 	var sut: CountdownTimerImpl!
 
