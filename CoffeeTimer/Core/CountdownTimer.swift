@@ -33,8 +33,7 @@ final class CountdownTimerImpl {
 	}
 
 	deinit {
-		timer?.invalidate()
-		timer = nil
+		stop()
 	}
 
 	func start() throws {
@@ -57,10 +56,14 @@ final class CountdownTimerImpl {
 		let newTimeLeft = timeLeft - 1
 
 		if newTimeLeft < 1 {
-			timer?.invalidate()
-			timer = nil
+			stop()
 		}
 
 		self.timeLeft = newTimeLeft
+	}
+
+	func stop() {
+		timer?.invalidate()
+		timer = nil
 	}
 }

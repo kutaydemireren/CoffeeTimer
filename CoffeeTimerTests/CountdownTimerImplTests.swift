@@ -96,5 +96,21 @@ final class CountdownTimerImplTests: XCTestCase {
 		subs.cancel()
 		XCTAssertFalse(sut.isRunning)
 	}
+
+	func test_stop_shouldStop() {
+
+		sut.stop()
+
+		XCTAssertFalse(sut.isRunning)
+	}
+
+	func test_stop_whenAfterStarted_shouldStop() {
+
+		try? sut.start()
+
+		sut.stop()
+
+		XCTAssertFalse(sut.isRunning)
+	}
 }
 

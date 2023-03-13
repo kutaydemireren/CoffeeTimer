@@ -35,16 +35,20 @@ class SingleStageTimerViewModel: ObservableObject {
 		self.timeLeft = timeIntervalLeft.toRepresentableString
 		self.timeIntervalLeft = timeIntervalLeft
 		self.countdownTimer = CountdownTimerImpl(timeLeft: timeIntervalLeft)
-	}
-
-	func start() {
-		try? countdownTimer.start()
 
 		countdownTimer.$timeLeft
 			.sink { timeIntervalLeft in
 				self.timeIntervalLeft = timeIntervalLeft
 			}
 			.store(in: &cancellables)
+	}
+
+	func startOrStop() {
+		if countdownTimer.isRunning {
+			countdownTimer.stop()
+		} else {
+			try? countdownTimer.start()
+		}
 	}
 }
 
@@ -64,7 +68,7 @@ struct SingleStageTimerView: View {
 			.padding(24)
 			.background(Color.black.opacity(0.9))
 			.onTapGesture {
-				viewModel.start()
+				viewModel.startOrStop()
 			}
 	}
 }
