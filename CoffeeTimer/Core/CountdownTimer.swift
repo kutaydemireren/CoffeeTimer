@@ -39,13 +39,8 @@ final class CountdownTimerImpl {
 
 	func start() throws {
 
-		guard !isRunning else {
-			throw CountdownTimerError.alreadyRunning
-		}
-
-		guard canStart() else {
-			return
-		}
+		guard !isRunning else { throw CountdownTimerError.alreadyRunning }
+		guard canStart() else { return }
 
 		let timer = Timer(timeInterval: 1, target: self, selector: #selector(timerDidFire), userInfo: nil, repeats: true)
 		RunLoop.current.add(timer, forMode: .common)
