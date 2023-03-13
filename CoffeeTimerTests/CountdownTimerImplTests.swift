@@ -15,15 +15,13 @@ final class CountdownTimerImplTests: XCTestCase {
 
 	let defaultInitialTimeLeft = 10.0
 
-	var cancellables: [AnyCancellable] = []
-
 	override func setUpWithError() throws {
 
 		sut = CountdownTimerImpl(timeLeft: defaultInitialTimeLeft)
 	}
 
 	func test_start_shouldStartRunning() {
-		sut.start()
+		try? sut.start()
 
 		XCTAssertTrue(sut.isRunning)
 	}
@@ -31,7 +29,7 @@ final class CountdownTimerImplTests: XCTestCase {
 	func test_start_whenTimeLeftIsZero_shouldNotStartRunning() {
 		sut = CountdownTimerImpl(timeLeft: 0)
 
-		sut.start()
+		try? sut.start()
 
 		XCTAssertFalse(sut.isRunning)
 	}
@@ -39,9 +37,22 @@ final class CountdownTimerImplTests: XCTestCase {
 	func test_start_whenTimeLeftIsNegative_shouldNotStartRunning() {
 		sut = CountdownTimerImpl(timeLeft: -5)
 
-		sut.start()
+		try? sut.start()
 
 		XCTAssertFalse(sut.isRunning)
+	}
+
+	func test_start_whenRunning_shouldNotStartSecondTime() {
+		try? sut.start()
+
+		var thrownError: Error?
+		do {
+			try sut.start()
+		} catch {
+			thrownError = error
+		}
+
+		XCTAssertEqual(thrownError?.localizedDescription, CountdownTimerError.alreadyRunning.localizedDescription)
 	}
 
 	func test_start_shouldCountdownByOne() {
@@ -49,7 +60,7 @@ final class CountdownTimerImplTests: XCTestCase {
 
 		let exp = expectation(description: "time left should be updated 1 second after start")
 
-		sut.start()
+		try? sut.start()
 
 		var resultedTime: Double?
 		let subs = sut.$timeLeft
@@ -71,7 +82,7 @@ final class CountdownTimerImplTests: XCTestCase {
 
 		let exp = expectation(description: "time left should reach to 0 in 3 seconds after start")
 
-		sut.start()
+		try? sut.start()
 
 		let subs = sut.$timeLeft
 			.sink { timeInterval in

@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		CA367D3229A2B0370095B1B8 /* CoffeeTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA367D3129A2B0370095B1B8 /* CoffeeTimerApp.swift */; };
-		CA367D3429A2B0370095B1B8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA367D3329A2B0370095B1B8 /* ContentView.swift */; };
 		CA367D3629A2B0380095B1B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA367D3529A2B0380095B1B8 /* Assets.xcassets */; };
 		CA367D3929A2B0380095B1B8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA367D3829A2B0380095B1B8 /* Preview Assets.xcassets */; };
 		CA7B804529BFA9E7007D3DFC /* CountdownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804429BFA9E6007D3DFC /* CountdownTimer.swift */; };
 		CA7B804729BFAA21007D3DFC /* CountdownTimerImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804629BFAA21007D3DFC /* CountdownTimerImplTests.swift */; };
+		CA7B804B29BFABBB007D3DFC /* SingleStageTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804A29BFABBB007D3DFC /* SingleStageTimerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,13 +35,13 @@
 /* Begin PBXFileReference section */
 		CA367D2E29A2B0370095B1B8 /* CoffeeTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA367D3129A2B0370095B1B8 /* CoffeeTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeTimerApp.swift; sourceTree = "<group>"; };
-		CA367D3329A2B0370095B1B8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CA367D3529A2B0380095B1B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CA367D3829A2B0380095B1B8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CA367D3E29A2B0380095B1B8 /* CoffeeTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoffeeTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA367D4829A2B0380095B1B8 /* CoffeeTimerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoffeeTimerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA7B804429BFA9E6007D3DFC /* CountdownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimer.swift; sourceTree = "<group>"; };
 		CA7B804629BFAA21007D3DFC /* CountdownTimerImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimerImplTests.swift; sourceTree = "<group>"; };
+		CA7B804A29BFABBB007D3DFC /* SingleStageTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleStageTimerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,9 +91,9 @@
 		CA367D3029A2B0370095B1B8 /* CoffeeTimer */ = {
 			isa = PBXGroup;
 			children = (
+				CA7B804929BFABA8007D3DFC /* Scene */,
 				CA7B804329BFA9D3007D3DFC /* Core */,
 				CA367D3129A2B0370095B1B8 /* CoffeeTimerApp.swift */,
-				CA367D3329A2B0370095B1B8 /* ContentView.swift */,
 				CA367D3529A2B0380095B1B8 /* Assets.xcassets */,
 				CA367D3729A2B0380095B1B8 /* Preview Content */,
 			);
@@ -122,6 +122,14 @@
 				CA7B804429BFA9E6007D3DFC /* CountdownTimer.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		CA7B804929BFABA8007D3DFC /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				CA7B804A29BFABBB007D3DFC /* SingleStageTimerView.swift */,
+			);
+			path = Scene;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,9 +262,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA367D3429A2B0370095B1B8 /* ContentView.swift in Sources */,
 				CA7B804529BFA9E7007D3DFC /* CountdownTimer.swift in Sources */,
 				CA367D3229A2B0370095B1B8 /* CoffeeTimerApp.swift in Sources */,
+				CA7B804B29BFABBB007D3DFC /* SingleStageTimerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

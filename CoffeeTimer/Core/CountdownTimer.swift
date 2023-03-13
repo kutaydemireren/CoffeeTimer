@@ -6,19 +6,27 @@
 //
 
 import Foundation
+import Combine
 
-protocol CountdownTimer {
-
+enum CountdownTimerError: Error {
+	case alreadyRunning
 }
 
-final class CountdownTimerImpl: CountdownTimer {
+// TODO: Extract to protocol `CountdownTimer`
+// Skipped extracting to a protocol for speed.
+// Must find out -> how to represent and expose `@Published var timeLeft` in a protocol
+final class CountdownTimerImpl {
 
 	var isRunning: Bool {
 		return timer != nil
 	}
 	private var timer: Timer?
 
-	@Published private(set) var timeLeft: TimeInterval
+	@Published private(set) var timeLeft: TimeInterval {
+		didSet {
+			debugPrint("\(#function) -> time left = \(timeLeft)")
+		}
+	}
 
 	init(timeLeft: TimeInterval) {
 		self.timeLeft = timeLeft
@@ -29,7 +37,12 @@ final class CountdownTimerImpl: CountdownTimer {
 		timer = nil
 	}
 
-	func start() {
+	func start() throws {
+
+		guard !isRunning else {
+			throw CountdownTimerError.alreadyRunning
+		}
+
 		guard canStart() else {
 			return
 		}
