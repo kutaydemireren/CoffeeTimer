@@ -72,12 +72,16 @@ struct BrewQueueView: View {
 			}
 		}
 		.padding(24)
-		.background(Color.black.opacity(0.9))
-    }
+		.background(
+			Rectangle()
+				.fill(Gradient(colors: [.indigo, Color.black.opacity(1.0)]))
+				.ignoresSafeArea()
+		)
+	}
 }
 
 struct BrewQueueView_Previews: PreviewProvider {
-    static var previews: some View {
+	static var previews: some View {
 		BrewQueueView(viewModel: .init())
-    }
+	}
 }
