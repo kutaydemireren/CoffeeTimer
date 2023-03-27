@@ -65,11 +65,10 @@ struct BrewQueueView: View {
 		VStack {
 			SingleStageTimerView(viewModel: viewModel.currentSingleStageTimerViewModel)
 
-			if viewModel.canProceedToNextStep {
-				Text("Next")
-					.foregroundColor(.blue)
-					.onTapGesture { viewModel.nextStage() }
-			}
+			Text("Next")
+				.foregroundColor(.blue)
+				.onTapGesture { viewModel.nextStage() }
+				.opacity(viewModel.canProceedToNextStep ? 1.0 : 0.0)
 		}
 		.padding(24)
 		.background(
