@@ -74,7 +74,7 @@ struct BrewQueueView: View {
 		.padding(24)
 		.background(
 			Rectangle()
-				.fill(Gradient(colors: [.indigo, Color.black.opacity(1.0)]))
+				.fill(Gradient(colors: [.indigo, Color.black]))
 				.ignoresSafeArea()
 		)
 	}
