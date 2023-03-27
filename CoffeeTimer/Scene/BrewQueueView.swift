@@ -63,6 +63,18 @@ struct BrewQueueView: View {
 	var body: some View {
 
 		VStack {
+
+			Group {
+
+				Text("It is time to")
+					.foregroundColor(.blue)
+					.font(.title3)
+				Spacer(minLength: 0).fixedSize(horizontal: false, vertical: true)
+				Text("Brew your coffee")
+					.foregroundColor(.blue)
+					.font(.title)
+			}
+
 			SingleStageTimerView(viewModel: viewModel.currentSingleStageTimerViewModel)
 
 			Text("Next")
