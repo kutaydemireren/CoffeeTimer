@@ -1,5 +1,5 @@
 //
-//  Recipe.swift
+//  Entities.swift
 //  CoffeeTimer
 //
 //  Created by Kutay Demireren on 30/03/2023.
