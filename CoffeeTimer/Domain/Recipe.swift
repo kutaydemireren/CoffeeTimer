@@ -33,5 +33,7 @@ struct BrewQueue {
 
 struct BrewStage {
 	let id: UUID
+	let header: String
 	let title: String
+	let timeIntervalLeft: TimeInterval
 }

@@ -59,9 +59,6 @@ struct SingleStageTimerView: View {
 					.foregroundColor(.blue)
 			}
 			.contentShape(Circle())
-			.onTapGesture {
-				viewModel.startOrStop()
-			}
 	}
 }
 
