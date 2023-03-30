@@ -93,8 +93,9 @@
 		CA367D3029A2B0370095B1B8 /* CoffeeTimer */ = {
 			isa = PBXGroup;
 			children = (
+				CA5E907829D61AA400A78CF2 /* Domain */,
+				CA5E907529D61A5F00A78CF2 /* Application */,
 				CA7B804929BFABA8007D3DFC /* Scene */,
-				CA7B804329BFA9D3007D3DFC /* Core */,
 				CA367D3129A2B0370095B1B8 /* CoffeeTimerApp.swift */,
 				CA367D3529A2B0380095B1B8 /* Assets.xcassets */,
 				CA367D3729A2B0380095B1B8 /* Preview Content */,
@@ -113,17 +114,32 @@
 		CA367D4129A2B0380095B1B8 /* CoffeeTimerTests */ = {
 			isa = PBXGroup;
 			children = (
-				CA7B804629BFAA21007D3DFC /* CountdownTimerImplTests.swift */,
+				CA5E907629D61A6B00A78CF2 /* Application */,
 			);
 			path = CoffeeTimerTests;
 			sourceTree = "<group>";
 		};
-		CA7B804329BFA9D3007D3DFC /* Core */ = {
+		CA5E907529D61A5F00A78CF2 /* Application */ = {
 			isa = PBXGroup;
 			children = (
 				CA7B804429BFA9E6007D3DFC /* CountdownTimer.swift */,
 			);
-			path = Core;
+			path = Application;
+			sourceTree = "<group>";
+		};
+		CA5E907629D61A6B00A78CF2 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				CA7B804629BFAA21007D3DFC /* CountdownTimerImplTests.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		CA5E907829D61AA400A78CF2 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		CA7B804929BFABA8007D3DFC /* Scene */ = {
