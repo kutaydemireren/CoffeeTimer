@@ -62,10 +62,6 @@ final class BrewQueueViewModel: ObservableObject {
 
 	private var cancellables: [AnyCancellable] = []
 
-	// TODO: Temporary for display purposes
-	// Come up with queue implementation replicating the steps of brewing
-	private var temporaryTimeLeft: TimeInterval = 0
-
 	// TODO: Create a real queue data structure for getting the next stage from.
 	// This BrewQueue here is essentially an 'Entity'. But we are still using here anyway.
 	// This must change in any case.
@@ -82,14 +78,13 @@ final class BrewQueueViewModel: ObservableObject {
 		self.currentStage = brewQueue.stages[Int(currentStageIndex)]
 		self.stageHeader = currentStage.header
 		self.stageTitle = currentStage.title
-		self.currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: temporaryTimeLeft)
+		self.currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: currentStage.timeIntervalLeft)
 
 		observeTimeIntervalLeft()
 	}
 
 	func nextStage() {
 
-		temporaryTimeLeft += 2
 		var tempCurrentStageIndex = currentStageIndex + 1
 		if tempCurrentStageIndex >= brewQueue.stages.count {
 			tempCurrentStageIndex = 0
