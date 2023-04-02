@@ -23,42 +23,44 @@ extension View {
 
 extension BrewQueue {
 	static var tempQueue1: BrewQueue {
-		BrewQueue(id: UUID(), stages: [
-			.welcome,
-			.tempStep1,
-			.tempStep2
+		BrewQueue(stages: [
+//			.welcome,
+//			.tempStep1,
+//			.tempStep2
 		])
 	}
 }
-
-extension BrewStage {
-	static var welcome: BrewStage {
-		BrewStage(id: UUID(), header: "Welcome!", title: "You can start brewing", timeIntervalLeft: 0)
-	}
-
-	static var tempStep1: BrewStage {
-		BrewStage(id: UUID(), header: "", title: "Wet the filtering paper", timeIntervalLeft: 2.0)
-	}
-
-	static var tempStep2: BrewStage {
-		BrewStage(id: UUID(), header: "", title: "Pour %20 on coffee", timeIntervalLeft: 3.0)
-	}
-}
+//
+//extension BrewStage {
+//	static var welcome: BrewStage {
+//		BrewStage(id: UUID(), header: "Welcome!", title: "You can start brewing", timeIntervalLeft: 0)
+//	}
+//
+//	static var tempStep1: BrewStage {
+//		BrewStage(id: UUID(), header: "", title: "Wet the filtering paper", timeIntervalLeft: 2.0)
+//	}
+//
+//	static var tempStep2: BrewStage {
+//		BrewStage(id: UUID(), header: "", title: "Pour %20 on coffee", timeIntervalLeft: 3.0)
+//	}
+//}
 
 final class BrewQueueViewModel: ObservableObject {
 
-	@Published var stageHeader: String
-	@Published var stageTitle: String
+	// TODO: Recover header and title
+//	@Published var stageHeader: String
+//	@Published var stageTitle: String
 	@Published var currentSingleStageTimerViewModel: SingleStageTimerViewModel
 	@Published var canProceedToNextStep: Bool = false
 
-	var currentStage: BrewStage {
-		didSet {
-			stageHeader = currentStage.header
-			stageTitle = currentStage.title
-			currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: currentStage.timeIntervalLeft)
-		}
-	}
+//	var currentStage: BrewStage {
+//		didSet {
+//			stageHeader = currentStage.header
+//			stageTitle = currentStage.title
+//			currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: currentStage.timeIntervalLeft)
+//			currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: 2.0)
+//		}
+//	}
 
 	private var cancellables: [AnyCancellable] = []
 
@@ -67,7 +69,7 @@ final class BrewQueueViewModel: ObservableObject {
 	// This must change in any case.
 	private var currentStageIndex: UInt = 0 {
 		didSet {
-			currentStage = brewQueue.stages[Int(currentStageIndex)]
+//			currentStage = brewQueue.stages[Int(currentStageIndex)]
 		}
 	}
 
@@ -75,10 +77,11 @@ final class BrewQueueViewModel: ObservableObject {
 
 	init(brewQueue: BrewQueue) {
 		self.brewQueue = brewQueue
-		self.currentStage = brewQueue.stages[Int(currentStageIndex)]
-		self.stageHeader = currentStage.header
-		self.stageTitle = currentStage.title
-		self.currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: currentStage.timeIntervalLeft)
+//		self.currentStage = brewQueue.stages[Int(currentStageIndex)]
+//		self.stageHeader = currentStage.header
+//		self.stageTitle = currentStage.title
+//		self.currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: currentStage.timeIntervalLeft)
+		currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: 2.0)
 
 		observeTimeIntervalLeft()
 	}
@@ -114,11 +117,13 @@ struct BrewQueueView: View {
 
 			Group {
 
-				Text(viewModel.stageHeader)
+//				Text(viewModel.stageHeader)
+				Text("Header")
 					.foregroundColor(.blue)
 					.font(.title3)
 				Spacer(minLength: 0).fixedSize(horizontal: false, vertical: true)
-				Text(viewModel.stageTitle)
+//				Text(viewModel.stageTitle)
+				Text("title")
 					.foregroundColor(.blue)
 					.font(.title)
 					.minimumScaleFactor(0.5)

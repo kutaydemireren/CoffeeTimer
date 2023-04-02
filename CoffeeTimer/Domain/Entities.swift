@@ -7,33 +7,52 @@
 
 import Foundation
 
-struct Recipe {
-	let id: UUID
+struct Recipe: Equatable {
 	let name: String
 	let ingredients: [Ingredient]
 	let brewQueue: BrewQueue
 }
 
-struct Ingredient {
-	let id: String
-	let name: String
+struct Ingredient: Equatable {
+	let ingredientType: IngredientType
 	let amount: IngredientAmount
 }
 
-struct IngredientAmount {
-	let id: String
-	let type: String
-	let amount: Int
+enum IngredientType {
+	case coffee
+	case water
 }
 
-struct BrewQueue {
-	let id: UUID
+struct IngredientAmount: Equatable {
+	let amount: UInt
+	let type: IngredientAmountType
+}
+
+enum IngredientAmountType {
+	case spoon
+	case gram
+}
+
+struct BrewQueue: Equatable {
 	let stages: [BrewStage]
 }
 
-struct BrewStage {
-	let id: UUID
-	let header: String
-	let title: String
-	let timeIntervalLeft: TimeInterval
+struct BrewStage: Equatable {
+	let action: BrewStageAction
+	let requirement: BrewStageRequirement
+}
+
+enum BrewStageAction: Equatable {
+	case boil(water: IngredientAmount)
+	case put(coffee: IngredientAmount)
+	case pour(water: IngredientAmount)
+	case wet
+	case swirl
+	case pause
+	case finish
+}
+
+enum BrewStageRequirement: Equatable {
+	case none
+	case countdown(UInt)
 }
