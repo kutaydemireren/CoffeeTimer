@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA180AFA29DB67130056D435 /* CreateV60SingleCupRecipeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA180AF929DB67130056D435 /* CreateV60SingleCupRecipeUseCase.swift */; };
 		CA367D3229A2B0370095B1B8 /* CoffeeTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA367D3129A2B0370095B1B8 /* CoffeeTimerApp.swift */; };
 		CA367D3629A2B0380095B1B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA367D3529A2B0380095B1B8 /* Assets.xcassets */; };
 		CA367D3929A2B0380095B1B8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA367D3829A2B0380095B1B8 /* Preview Assets.xcassets */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CA180AF929DB67130056D435 /* CreateV60SingleCupRecipeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateV60SingleCupRecipeUseCase.swift; sourceTree = "<group>"; };
 		CA367D2E29A2B0370095B1B8 /* CoffeeTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA367D3129A2B0370095B1B8 /* CoffeeTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeTimerApp.swift; sourceTree = "<group>"; };
 		CA367D3529A2B0380095B1B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				CA7B804429BFA9E6007D3DFC /* CountdownTimer.swift */,
+				CA180AF929DB67130056D435 /* CreateV60SingleCupRecipeUseCase.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA7B804529BFA9E7007D3DFC /* CountdownTimer.swift in Sources */,
+				CA180AFA29DB67130056D435 /* CreateV60SingleCupRecipeUseCase.swift in Sources */,
 				CA367D3229A2B0370095B1B8 /* CoffeeTimerApp.swift in Sources */,
 				CA7B804D29BFBD8C007D3DFC /* BrewQueueView.swift in Sources */,
 				CA7B804B29BFABBB007D3DFC /* SingleStageTimerView.swift in Sources */,
