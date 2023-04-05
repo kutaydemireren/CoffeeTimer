@@ -8,68 +8,62 @@
 import SwiftUI
 import Combine
 
-extension View {
+extension String {
 
-	@ViewBuilder
-	func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
+	struct BrewQueue {
 
-		if condition {
-			transform(self)
-		} else {
-			self
+		func stageHeader(for action: BrewStageAction) -> String {
+			return "It is time to"
+		}
+
+		func stageTitle(for action: BrewStageAction) -> String {
+			switch action {
+			case .boil(let water):
+				return "Boil at least \(water.amount) \(water.type) of water"
+			case .put(let coffee):
+				return "Put \(coffee.amount) \(coffee.type) of coffee"
+			case .pour(let water):
+				return "Pour \(water.amount) \(water.type) of water"
+			case .wet:
+				return "Wet your filter under hot sink water"
+			case .swirl:
+				return "Gently swirl your brewer"
+			case .pause:
+				return "Wait for a short while"
+			case .finish:
+				return "Let your coffee breathe for a min or two.\nEnjoy!"
+			}
 		}
 	}
-}
 
-extension BrewQueue {
-	static var tempQueue1: BrewQueue {
-		BrewQueue(stages: [
-//			.welcome,
-//			.tempStep1,
-//			.tempStep2
-		])
-	}
+	static let brewQueue = BrewQueue()
 }
-//
-//extension BrewStage {
-//	static var welcome: BrewStage {
-//		BrewStage(id: UUID(), header: "Welcome!", title: "You can start brewing", timeIntervalLeft: 0)
-//	}
-//
-//	static var tempStep1: BrewStage {
-//		BrewStage(id: UUID(), header: "", title: "Wet the filtering paper", timeIntervalLeft: 2.0)
-//	}
-//
-//	static var tempStep2: BrewStage {
-//		BrewStage(id: UUID(), header: "", title: "Pour %20 on coffee", timeIntervalLeft: 3.0)
-//	}
-//}
 
 final class BrewQueueViewModel: ObservableObject {
 
 	// TODO: Recover header and title
-//	@Published var stageHeader: String
-//	@Published var stageTitle: String
-	@Published var currentSingleStageTimerViewModel: SingleStageTimerViewModel
-	@Published var canProceedToNextStep: Bool = false
+	@Published var stageHeader = "Welcome"
+	@Published var stageTitle = "All set to go!"
+	@Published var currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: 0.0)
+	@Published var canProceedToNextStep = false
 
-//	var currentStage: BrewStage {
-//		didSet {
-//			stageHeader = currentStage.header
-//			stageTitle = currentStage.title
-//			currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: currentStage.timeIntervalLeft)
-//			currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: 2.0)
-//		}
-//	}
+	var currentStage: BrewStage {
+		didSet {
+			loadStage()
+		}
+	}
+
+	private(set) var isActive = false
 
 	private var cancellables: [AnyCancellable] = []
 
 	// TODO: Create a real queue data structure for getting the next stage from.
 	// This BrewQueue here is essentially an 'Entity'. But we are still using here anyway.
 	// This must change in any case.
+	// + The 'play' around the stages[] is tedious & dangerous. That better is encapsulated.
 	private var currentStageIndex: UInt = 0 {
 		didSet {
-//			currentStage = brewQueue.stages[Int(currentStageIndex)]
+			currentStage = brewQueue.stages[Int(currentStageIndex)]
 		}
 	}
 
@@ -77,22 +71,8 @@ final class BrewQueueViewModel: ObservableObject {
 
 	init(brewQueue: BrewQueue) {
 		self.brewQueue = brewQueue
-//		self.currentStage = brewQueue.stages[Int(currentStageIndex)]
-//		self.stageHeader = currentStage.header
-//		self.stageTitle = currentStage.title
-//		self.currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: currentStage.timeIntervalLeft)
-		currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: 2.0)
+		self.currentStage = brewQueue.stages[Int(currentStageIndex)]
 
-		observeTimeIntervalLeft()
-	}
-
-	func nextStage() {
-
-		var tempCurrentStageIndex = currentStageIndex + 1
-		if tempCurrentStageIndex >= brewQueue.stages.count {
-			tempCurrentStageIndex = 0
-		}
-		currentStageIndex = tempCurrentStageIndex
 		observeTimeIntervalLeft()
 	}
 
@@ -104,6 +84,33 @@ final class BrewQueueViewModel: ObservableObject {
 
 	private func didSinkNewTimeInterval(_ timeInterval: TimeInterval) {
 		canProceedToNextStep = timeInterval <= 0
+	}
+
+	func nextStage() {
+
+		if isActive {
+			var tempCurrentStageIndex = currentStageIndex + 1
+			if tempCurrentStageIndex >= brewQueue.stages.count {
+				tempCurrentStageIndex = 0
+			}
+			currentStageIndex = tempCurrentStageIndex
+			observeTimeIntervalLeft()
+		} else {
+			loadStage()
+			isActive = true
+		}
+	}
+
+	private func loadStage() {
+		self.stageHeader = .brewQueue.stageHeader(for: currentStage.action)
+		self.stageTitle = .brewQueue.stageTitle(for: currentStage.action)
+
+		switch currentStage.requirement {
+		case .none:
+			self.currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: 0.0)
+		case .countdown(let timeLeft):
+			self.currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: TimeInterval(timeLeft))
+		}
 	}
 }
 
@@ -117,13 +124,11 @@ struct BrewQueueView: View {
 
 			Group {
 
-//				Text(viewModel.stageHeader)
-				Text("Header")
+				Text(viewModel.stageHeader)
 					.foregroundColor(.blue)
 					.font(.title3)
 				Spacer(minLength: 0).fixedSize(horizontal: false, vertical: true)
-//				Text(viewModel.stageTitle)
-				Text("title")
+				Text(viewModel.stageTitle)
 					.foregroundColor(.blue)
 					.font(.title)
 					.minimumScaleFactor(0.5)
@@ -150,6 +155,6 @@ struct BrewQueueView: View {
 
 struct BrewQueueView_Previews: PreviewProvider {
 	static var previews: some View {
-		BrewQueueView(viewModel: .init(brewQueue: .tempQueue1))
+		BrewQueueView(viewModel: .init(brewQueue: .stub))
 	}
 }
