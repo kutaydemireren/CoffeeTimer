@@ -41,7 +41,6 @@ extension String {
 
 final class BrewQueueViewModel: ObservableObject {
 
-	// TODO: Recover header and title
 	@Published var stageHeader = "Welcome"
 	@Published var stageTitle = "All set to go!"
 	@Published var currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: 0.0)
