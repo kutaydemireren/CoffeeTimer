@@ -39,12 +39,20 @@ extension String {
 	static let brewQueue = BrewQueue()
 }
 
-final class BrewQueueViewModel: ObservableObject {
+final class BrewQueueViewModel: ObservableObject, Completable {
 
-	@Published var stageHeader = "Welcome"
-	@Published var stageTitle = "All set to go!"
-	@Published var currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: 0.0)
-	@Published var canProceedToNextStep = false
+	let didComplete = PassthroughSubject<BrewQueueViewModel, Never>()
+
+	var stageHeader = "Welcome"
+	var stageTitle = "All set to go!"
+	var currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: 0.0)
+	@Published private(set) var canProceedToNextStep = false {
+		didSet {
+			if canProceedToNextStep && currentStage.passMethod == .auto {
+				nextStage()
+			}
+		}
+	}
 
 	var currentStage: BrewStage {
 		didSet {
@@ -93,7 +101,6 @@ final class BrewQueueViewModel: ObservableObject {
 				tempCurrentStageIndex = 0
 			}
 			currentStageIndex = tempCurrentStageIndex
-			observeTimeIntervalLeft()
 		} else {
 			loadStage()
 			isActive = true
@@ -109,6 +116,12 @@ final class BrewQueueViewModel: ObservableObject {
 			self.currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: 0.0)
 		case .countdown(let timeLeft):
 			self.currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: TimeInterval(timeLeft))
+		}
+
+		observeTimeIntervalLeft()
+
+		if currentStage.startMethod == .auto {
+			currentSingleStageTimerViewModel.startOrStop()
 		}
 	}
 }
@@ -142,6 +155,18 @@ struct BrewQueueView: View {
 						viewModel.currentSingleStageTimerViewModel.startOrStop()
 					}
 				}
+
+			if !viewModel.isActive {
+				Button {
+					viewModel.didComplete.send(viewModel)
+				} label: {
+					Text("+")
+				}
+				.padding()
+				.foregroundColor(.white)
+				.background(Color.blue)
+				.clipShape(Circle())
+			}
 		}
 		.padding(24)
 		.background(

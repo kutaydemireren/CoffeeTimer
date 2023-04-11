@@ -38,8 +38,23 @@ struct BrewQueue: Equatable {
 }
 
 struct BrewStage: Equatable {
+	// TODO: Remove and properly create each
+	init(action: BrewStageAction, requirement: BrewStageRequirement, startMethod: BrewStageActionMethod? = nil) {
+		self.action = action
+		self.requirement = requirement
+		self.startMethod = startMethod ?? .userInteractive
+		self.passMethod = requirement == .none ? .userInteractive : .auto
+	}
+
 	let action: BrewStageAction
 	let requirement: BrewStageRequirement
+	let startMethod: BrewStageActionMethod
+	let passMethod: BrewStageActionMethod
+}
+
+enum BrewStageActionMethod: Equatable {
+	case auto
+	case userInteractive
 }
 
 enum BrewStageAction: Equatable {

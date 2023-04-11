@@ -44,9 +44,9 @@ struct CreateV60SingleCupRecipeUseCaseImp: CreateV60SingleCupRecipeUseCase {
 			.init(action: .wet, requirement: .none),
 			.init(action: .put(coffee: inputs.coffee), requirement: .none),
 			.init(action: .pour(water: waterPerBlock), requirement: .countdown(5)),
-			.init(action: .pause, requirement: .countdown(5)),
+			.init(action: .pause, requirement: .countdown(5), startMethod: .auto),
 			.init(action: .swirl, requirement: .countdown(5)),
-			.init(action: .pause, requirement: .countdown(45))
+			.init(action: .pause, requirement: .countdown(45), startMethod: .auto)
 		]
 	}
 
@@ -55,7 +55,7 @@ struct CreateV60SingleCupRecipeUseCaseImp: CreateV60SingleCupRecipeUseCase {
 
 		return (1..<stageCount).flatMap { index in
 			let pour = [BrewStage(action: .pour(water: waterPerBlock), requirement: .countdown(index == 1 ? 15 : 10))]
-			let pause = index == stageCount - 1 ? [] : [BrewStage(action: .pause, requirement: .countdown(10))]
+			let pause = index == stageCount - 1 ? [] : [BrewStage(action: .pause, requirement: .countdown(10), startMethod: .auto)]
 			return pour + pause
 		}
 	}
