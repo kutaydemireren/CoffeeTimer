@@ -11,7 +11,7 @@ import SwiftUI
 struct CoffeeTimerApp: App {
     var body: some Scene {
         WindowGroup {
-			FlowView(vm: .init())
+			FlowView(viewModel: .init())
         }
     }
 }

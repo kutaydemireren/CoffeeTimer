@@ -9,6 +9,13 @@ import Foundation
 
 extension BrewQueue {
 	static var stub: BrewQueue {
-		return CreateV60SingleCupRecipeUseCaseImp().create(inputs: .init(name: "My Recipe", coffee: .init(amount: 15, type: .gram), water: .init(amount: 250, type: .gram))).brewQueue
+		return Recipe.stub.brewQueue
+	}
+}
+
+// TODO: Move
+extension Recipe {
+	static var stub: Recipe {
+		return CreateV60SingleCupRecipeUseCaseImp().create(inputs: .init(name: "My Recipe", coffee: .init(amount: 15, type: .gram), water: .init(amount: 250, type: .gram)))
 	}
 }

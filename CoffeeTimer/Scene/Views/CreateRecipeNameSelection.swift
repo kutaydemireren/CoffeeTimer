@@ -9,8 +9,7 @@ import SwiftUI
 
 struct CreateRecipeNameSelection: View {
 
-	@State private var recipeName: String = ""
-	var showNext: () -> Void
+	@Binding var recipeName: String
 
 	var body: some View {
 		VStack {
@@ -24,33 +23,24 @@ struct CreateRecipeNameSelection: View {
 						.foregroundColor(.white.opacity(0.3))
 				}
 				.textFieldStyle(.plain)
+				.multilineTextAlignment(.center)
 				.foregroundColor(.white.opacity(0.8))
 
 				Spacer()
 			}
 
-			Button("Next") {
-				showNext()
-			}
-			.foregroundColor(.white)
-
 			Spacer()
 		}
 		.padding(.horizontal)
-		.background(
-			Rectangle()
-				.fill(Gradient(colors: [.indigo, Color.black]))
-				.ignoresSafeArea()
-		)
 		.onTapGesture {
 			hideKeyboard()
-
 		}
 	}
 }
 
 struct CreateRecipeNameSelection_Previews: PreviewProvider {
     static var previews: some View {
-		CreateRecipeNameSelection { }
+		CreateRecipeNameSelection(recipeName: .constant(""))
+			.backgroundPrimary()
     }
 }

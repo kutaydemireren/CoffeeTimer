@@ -9,8 +9,8 @@ import SwiftUI
 
 struct CreateRecipeCoffeeWaterSelection: View {
 
-	@State private var coffeeAmount = 0.0
-	@State private var waterAmount = 0.0
+	@Binding var coffeeAmount: Double
+	@Binding var waterAmount: Double
 	@State private var ratio = CoffeeToWaterRatio.ratio16
 
 	var body: some View {
@@ -36,11 +36,6 @@ struct CreateRecipeCoffeeWaterSelection: View {
 			Spacer()
 		}
 		.padding(.horizontal)
-		.background(
-			Rectangle()
-				.fill(Gradient(colors: [.indigo, Color.black]))
-				.ignoresSafeArea()
-		)
 		.onTapGesture {
 			hideKeyboard()
 		}
@@ -91,8 +86,10 @@ struct CreateRecipeCoffeeWaterSelection: View {
 		waterAmount = coffeeAmount * ratio.value
 	}
 }
+
 struct CreateRecipeCoffeeWaterSelection_Previews: PreviewProvider {
     static var previews: some View {
-        CreateRecipeCoffeeWaterSelection()
+		CreateRecipeCoffeeWaterSelection(coffeeAmount: .constant(2.0), waterAmount: .constant(4.0))
+			.backgroundPrimary()
     }
 }

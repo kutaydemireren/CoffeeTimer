@@ -173,17 +173,11 @@ struct BrewQueueView: View {
 					Text("Skip")
 				}
 				.padding()
-				.foregroundColor(.white)
-				.background(Color.blue)
-				.clipShape(Rectangle())
+				.foregroundColor(.white.opacity(0.8))
 			}
 		}
 		.padding(24)
-		.background(
-			Rectangle()
-				.fill(Gradient(colors: [.indigo, Color.black]))
-				.ignoresSafeArea()
-		)
+		.backgroundPrimary()
 	}
 }
 
