@@ -79,10 +79,53 @@ struct NumericTextField: View {
 	}
 }
 
+enum CoffeeToWaterRatio: String, CaseIterable, Identifiable {
+	case ratio15 = "1:15"
+	case ratio16 = "1:16"
+	case ratio17 = "1:17"
+	case ratio18 = "1:18"
+	case ratio19 = "1:19"
+	case ratio20 = "1:20"
+	case ratio21 = "1:21"
+	case ratio22 = "1:22"
+
+	var id: Self { self }
+
+	var value: Double {
+		switch self {
+		case .ratio15:
+			return 15
+		case .ratio16:
+			return 16
+		case .ratio17:
+			return 17
+		case .ratio18:
+			return 18
+		case .ratio19:
+			return 19
+		case .ratio20:
+			return 20
+		case .ratio21:
+			return 21
+		case .ratio22:
+			return 22
+		}
+	}
+}
+
 struct CreateRecipeView: View {
 
 	@State private var coffeeAmount = 0.0
 	@State private var waterAmount = 0.0
+	@State private var ratio = CoffeeToWaterRatio.ratio16
+
+	var customLabel: some View {
+		Text(ratio.rawValue)
+			.foregroundColor(.white.opacity(0.8))
+		.padding()
+		.background(Color.white.opacity(0.1))
+		.clipShape(Circle())
+	}
 
 	var body: some View {
 		VStack {
@@ -90,7 +133,7 @@ struct CreateRecipeView: View {
 				placeholder: "Coffee amount",
 				input: $coffeeAmount,
 				didUpdate: { coffeeAmount in
-					self.waterAmount = coffeeAmount * 10
+					self.waterAmount = coffeeAmount * ratio.value
 				}
 			)
 
@@ -99,9 +142,16 @@ struct CreateRecipeView: View {
 					.fill(Color.white.opacity(0.3))
 					.frame(height: 1)
 
-				Text("and")
-					.foregroundColor(.white.opacity(0.8))
-					.padding()
+				Menu {
+					Picker(ratio.rawValue, selection: $ratio) {
+						ForEach(CoffeeToWaterRatio.allCases) { ratio in
+							Text(ratio.rawValue)
+						}
+					}
+					.onChange(of: ratio, perform: didUpdate(ratio:))
+				} label: {
+					customLabel
+				}
 
 				Rectangle()
 					.fill(Color.white.opacity(0.3))
@@ -113,7 +163,7 @@ struct CreateRecipeView: View {
 				placeholder: "Water amount",
 				input: $waterAmount,
 				didUpdate: { waterAmount in
-					self.coffeeAmount = waterAmount / 10
+					self.coffeeAmount = waterAmount / ratio.value
 				}
 			)
 
@@ -128,6 +178,10 @@ struct CreateRecipeView: View {
 		.onTapGesture {
 			self.hideKeyboard()
 		}
+	}
+
+	private func didUpdate(ratio: CoffeeToWaterRatio) {
+		waterAmount = coffeeAmount * ratio.value
 	}
 }
 
