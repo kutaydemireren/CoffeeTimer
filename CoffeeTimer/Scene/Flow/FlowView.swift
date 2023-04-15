@@ -50,7 +50,7 @@ final class FlowVM: ObservableObject {
 	}
 
 	private func didRequestCreate(vm: BrewQueueViewModel) {
-		navigationPath.append(.brewQueue)
+		navigationPath.append(.createRecipe)
 //		showingSheet = true
 	}
 }
