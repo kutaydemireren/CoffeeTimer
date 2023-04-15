@@ -11,7 +11,7 @@ import Combine
 import SwiftUI
 
 protocol Completable {
-	var didComplete: PassthroughSubject<Self, Never> { get }
+	var didRequestCreate: PassthroughSubject<Self, Never> { get }
 }
 
 protocol Navigable: AnyObject, Identifiable, Hashable {}
@@ -31,7 +31,7 @@ enum Screen: Hashable {
 	case createRecipe
 }
 
-class FlowVM: ObservableObject {
+final class FlowVM: ObservableObject {
 
 	var subscription = Set<AnyCancellable>()
 
@@ -43,13 +43,13 @@ class FlowVM: ObservableObject {
 
 	func make1() -> BrewQueueViewModel {
 		let vm = BrewQueueViewModel(brewQueue: .stub)
-		vm.didComplete
-			.sink(receiveValue: didComplete1)
+		vm.didRequestCreate
+			.sink(receiveValue: didRequestCreate)
 			.store(in: &subscription)
 		return vm
 	}
 
-	func didComplete1(vm: BrewQueueViewModel) {
+	private func didRequestCreate(vm: BrewQueueViewModel) {
 		navigationPath.append(.brewQueue)
 //		showingSheet = true
 	}

@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct CreateRecipeView: View {
-    var body: some View {
+
+	var body: some View {
         Text("Let's create a new recipe!")
     }
 }

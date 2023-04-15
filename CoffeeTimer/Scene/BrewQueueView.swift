@@ -41,7 +41,7 @@ extension String {
 
 final class BrewQueueViewModel: ObservableObject, Completable {
 
-	let didComplete = PassthroughSubject<BrewQueueViewModel, Never>()
+	let didRequestCreate = PassthroughSubject<BrewQueueViewModel, Never>()
 
 	var stageHeader = "Welcome"
 	var stageTitle = "All set to go!"
@@ -158,7 +158,7 @@ struct BrewQueueView: View {
 
 			if !viewModel.isActive {
 				Button {
-					viewModel.didComplete.send(viewModel)
+					viewModel.didRequestCreate.send(viewModel)
 				} label: {
 					Text("+")
 				}
@@ -166,6 +166,16 @@ struct BrewQueueView: View {
 				.foregroundColor(.white)
 				.background(Color.blue)
 				.clipShape(Circle())
+			} else {
+				Button {
+					viewModel.nextStage()
+				} label: {
+					Text("Skip")
+				}
+				.padding()
+				.foregroundColor(.white)
+				.background(Color.blue)
+				.clipShape(Rectangle())
 			}
 		}
 		.padding(24)
