@@ -59,7 +59,9 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 	@Published private(set) var canProceedToNextStep = true {
 		didSet {
 			if canProceedToNextStep && currentStage.passMethod == .auto {
-				nextStage()
+				DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+					self.nextStage()
+				}
 			}
 		}
 	}

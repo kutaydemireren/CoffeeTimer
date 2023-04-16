@@ -11,7 +11,8 @@ import Combine
 extension TimeInterval {
 
 	var toRepresentableString: String {
-		return "\(self)" // TODO: improve
+		String(format: "%d", Int(self))
+//		return "" // TODO: improve
 	}
 }
 
