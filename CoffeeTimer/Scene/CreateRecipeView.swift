@@ -7,16 +7,25 @@
 
 import SwiftUI
 
+final class CreateRecipeViewModel: ObservableObject {
+
+	@Published var recipeName: String = ""
+	@Published var coffeeAmount = 0.0
+	@Published var waterAmount = 0.0
+
+	func canCreate() -> Bool {
+		!recipeName.isEmpty && coffeeAmount > 0 && waterAmount > 0
+	}
+}
+
 struct CreateRecipeView: View {
 
-	var closeRequest: () -> Void
-
-	@State var recipeName: String = ""
-	@State var coffeeAmount = 0.0
-	@State var waterAmount = 0.0
-
 	@State private var selectedPage = 1
-	@State private var done = false
+	@State private var canCreate = false
+
+	@ObservedObject var viewModel: CreateRecipeViewModel
+
+	var closeRequest: () -> Void
 
 	var body: some View {
 
@@ -37,56 +46,56 @@ struct CreateRecipeView: View {
 					Button("Done") {
 						// TODO: Temp
 						let inputs = CreateV60SingleCupRecipeInputs(
-							name: recipeName,
-							coffee: .init(amount: UInt(coffeeAmount), type: .gram),
-							water: .init(amount: UInt(waterAmount), type: .gram)
+							name: viewModel.recipeName,
+							coffee: .init(amount: UInt(viewModel.coffeeAmount), type: .gram),
+							water: .init(amount: UInt(viewModel.waterAmount), type: .gram)
 						)
 						BrewQueueRepositoryImp.selectedRecipe = CreateV60SingleCupRecipeUseCaseImp().create(inputs: inputs)
 
 						closeRequest()
 					}
-					.disabled(!done)
+					.disabled(!canCreate)
 					.foregroundColor(.white)
 				}
 			}
 			.padding()
 
 			TabView(selection: $selectedPage) {
-				CreateRecipeNameSelection(recipeName: $recipeName)
+				CreateRecipeNameSelection(recipeName: $viewModel.recipeName)
 					.tag(1)
 
-				CreateRecipeCoffeeWaterSelection(coffeeAmount: $coffeeAmount, waterAmount: $waterAmount)
+				CreateRecipeCoffeeWaterSelection(coffeeAmount: $viewModel.coffeeAmount, waterAmount: $viewModel.waterAmount)
 					.tag(2)
 			}
 			.tabViewStyle(.page(indexDisplayMode: .never))
 			.ignoresSafeArea()
 		}
-		.onChange(of: recipeName, perform: didUpdate(recipe:))
-		.onChange(of: coffeeAmount, perform: didUpdate(coffeeAmount:))
-		.onChange(of: waterAmount, perform: didUpdate(waterAmount:))
+		.onChange(of: viewModel.recipeName, perform: didUpdate(recipe:))
+		.onChange(of: viewModel.coffeeAmount, perform: didUpdate(coffeeAmount:))
+		.onChange(of: viewModel.waterAmount, perform: didUpdate(waterAmount:))
 		.backgroundPrimary()
 	}
 
 	private func didUpdate(recipe: String) {
-		check()
+		checkIfCanCreate()
 	}
 
 	private func didUpdate(coffeeAmount: Double) {
-		check()
+		checkIfCanCreate()
 	}
 
 	private func didUpdate(waterAmount: Double) {
-		check()
+		checkIfCanCreate()
 	}
 
 	// TODO: Rename
-	private func check() {
-		done = !recipeName.isEmpty && coffeeAmount > 0 && waterAmount > 0
+	private func checkIfCanCreate() {
+		canCreate = viewModel.canCreate()
 	}
 }
 
 struct CreateRecipeView_Previews: PreviewProvider {
 	static var previews: some View {
-		CreateRecipeView(closeRequest: { })
+		CreateRecipeView(viewModel: .init(), closeRequest: { })
 	}
 }

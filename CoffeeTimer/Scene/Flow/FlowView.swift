@@ -94,7 +94,7 @@ struct FlowView: View {
 	}
 
 	func createRecipe() -> some View {
-		CreateRecipeView {
+		CreateRecipeView(viewModel: CreateRecipeViewModel()) {
 			viewModel.isCreateRecipePresented = false
 		}
 	}

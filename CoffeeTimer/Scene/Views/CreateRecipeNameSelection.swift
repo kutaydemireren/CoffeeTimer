@@ -32,6 +32,7 @@ struct CreateRecipeNameSelection: View {
 			Spacer()
 		}
 		.padding(.horizontal)
+		.contentShape(Rectangle())
 		.onTapGesture {
 			hideKeyboard()
 		}

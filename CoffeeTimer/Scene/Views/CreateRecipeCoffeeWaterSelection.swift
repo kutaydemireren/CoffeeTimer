@@ -36,6 +36,7 @@ struct CreateRecipeCoffeeWaterSelection: View {
 			Spacer()
 		}
 		.padding(.horizontal)
+		.contentShape(Rectangle())
 		.onTapGesture {
 			hideKeyboard()
 		}
