@@ -107,6 +107,11 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 		nextStage()
 	}
 
+	func endAction() {
+		isActive = false
+		currentStageIndex = 0
+	}
+
 	private func nextStage() {
 
 		if isActive {
@@ -126,6 +131,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 		stageHeader = "Welcome"
 		stageTitle = "All set to go!"
 		currentStageViewModel = BrewStageConstantViewModel(text: "Begin")
+		canProceedToNextStep = true
 	}
 
 	private func loadStage() {
@@ -253,13 +259,29 @@ struct BrewQueueView: View {
 		.foregroundColor(.white.opacity(0.8))
 	}
 
+	private var endButton: some View {
+		Button {
+			viewModel.endAction()
+		} label: {
+			Text("End")
+		}
+		.padding()
+		.foregroundColor(.white.opacity(0.8))
+	}
+
 	@ViewBuilder
 	private func actionButton() -> some View {
 
 		if !viewModel.isActive {
 			createButton
 		} else {
-			skipButton
+			HStack {
+				endButton
+				Spacer()
+				skipButton
+				Spacer()
+				Spacer()
+			}
 		}
 	}
 
