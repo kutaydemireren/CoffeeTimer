@@ -45,8 +45,18 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
 	var stageHeader = "Welcome"
 	var stageTitle = "All set to go!"
-	var currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: 0.0)
-	@Published private(set) var canProceedToNextStep = false {
+
+	@Published var currentStageViewModel: any BrewStageViewModel = BrewStageConstantViewModel(text: "")
+
+	var currentStageTimerViewModel: BrewStageTimerViewModel? {
+		currentStageViewModel as? BrewStageTimerViewModel
+	}
+
+	var currentStageConstantViewModel: BrewStageConstantViewModel? {
+		currentStageViewModel as? BrewStageConstantViewModel
+	}
+
+	@Published private(set) var canProceedToNextStep = true {
 		didSet {
 			if canProceedToNextStep && currentStage.passMethod == .auto {
 				nextStage()
@@ -80,20 +90,22 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 		self.brewQueue = brewQueue
 		self.currentStage = brewQueue.stages[Int(currentStageIndex)]
 
-		observeTimeIntervalLeft()
+		loadInitialStage()
 	}
 
-	private func observeTimeIntervalLeft() {
-		currentSingleStageTimerViewModel.$timeIntervalLeft
-			.sink(receiveValue: didSinkNewTimeInterval(_:))
-			.store(in: &cancellables)
+	func primaryAction() {
+		if canProceedToNextStep {
+			nextStage()
+		} else {
+			currentStageTimerViewModel?.startOrStop()
+		}
 	}
 
-	private func didSinkNewTimeInterval(_ timeInterval: TimeInterval) {
-		canProceedToNextStep = timeInterval <= 0
+	func skipAction() {
+		nextStage()
 	}
 
-	func nextStage() {
+	private func nextStage() {
 
 		if isActive {
 			var tempCurrentStageIndex = currentStageIndex + 1
@@ -111,34 +123,44 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 	private func loadInitialStage() {
 		stageHeader = "Welcome"
 		stageTitle = "All set to go!"
-		currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: 0.0)
-		observeTimeIntervalLeft()
+		currentStageViewModel = BrewStageConstantViewModel(text: "Begin")
 	}
 
 	private func loadStage() {
 
-		currentSingleStageTimerViewModel.stop()
+		currentStageTimerViewModel?.stop()
 
 		guard isActive else {
 			loadInitialStage()
 			return
 		}
 
-		self.stageHeader = .brewQueue.stageHeader(for: currentStage.action)
-		self.stageTitle = .brewQueue.stageTitle(for: currentStage.action)
+		stageHeader = .brewQueue.stageHeader(for: currentStage.action)
+		stageTitle = .brewQueue.stageTitle(for: currentStage.action)
 
 		switch currentStage.requirement {
 		case .none:
-			self.currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: 0.0)
+			currentStageViewModel = BrewStageConstantViewModel(text: "Done")
+			canProceedToNextStep = true
 		case .countdown(let timeLeft):
-			self.currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: TimeInterval(timeLeft))
+			currentStageViewModel = BrewStageTimerViewModel(timeIntervalLeft: TimeInterval(timeLeft))
 		}
 
 		observeTimeIntervalLeft()
 
 		if currentStage.startMethod == .auto {
-			currentSingleStageTimerViewModel.startOrStop()
+			currentStageTimerViewModel?.startOrStop()
 		}
+	}
+
+	private func observeTimeIntervalLeft() {
+		currentStageTimerViewModel?.$timeIntervalLeft
+			.sink(receiveValue: didSinkNewTimeInterval(_:))
+			.store(in: &cancellables)
+	}
+
+	private func didSinkNewTimeInterval(_ timeInterval: TimeInterval) {
+		canProceedToNextStep = timeInterval <= 0
 	}
 }
 
@@ -163,13 +185,9 @@ struct BrewQueueView: View {
 			}
 			.multilineTextAlignment(.center)
 
-			SingleStageTimerView(viewModel: viewModel.currentSingleStageTimerViewModel)
+			brewStageTimer()
 				.onTapGesture {
-					if viewModel.canProceedToNextStep {
-						viewModel.nextStage()
-					} else {
-						viewModel.currentSingleStageTimerViewModel.startOrStop()
-					}
+					viewModel.primaryAction()
 				}
 
 			if !viewModel.isActive {
@@ -184,7 +202,7 @@ struct BrewQueueView: View {
 				.clipShape(Circle())
 			} else {
 				Button {
-					viewModel.nextStage()
+					viewModel.skipAction()
 				} label: {
 					Text("Skip")
 				}
@@ -194,6 +212,18 @@ struct BrewQueueView: View {
 		}
 		.padding(24)
 		.backgroundPrimary()
+	}
+
+	@ViewBuilder
+	private func brewStageTimer() -> some View {
+
+		if let currentStageTimerViewModel = viewModel.currentStageTimerViewModel {
+			BrewStageView(viewModel: currentStageTimerViewModel)
+		} else if let currentStageConstantViewModel = viewModel.currentStageConstantViewModel {
+			BrewStageView(viewModel: currentStageConstantViewModel)
+		} else {
+			EmptyView()
+		}
 	}
 }
 

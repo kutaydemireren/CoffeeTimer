@@ -15,9 +15,27 @@ extension TimeInterval {
 	}
 }
 
-final class SingleStageTimerViewModel: ObservableObject {
+protocol BrewStageViewModel: ObservableObject {
+	var text: String { get }
+}
 
-	@Published private(set) var timeIntervalLeft: TimeInterval
+final class BrewStageConstantViewModel: BrewStageViewModel {
+
+	@Published var text: String
+
+	init(text: String) {
+		self.text = text
+	}
+}
+
+final class BrewStageTimerViewModel: BrewStageViewModel {
+
+	@Published var text: String = ""
+	@Published private(set) var timeIntervalLeft: TimeInterval {
+		didSet {
+			text = timeIntervalLeft.toRepresentableString
+		}
+	}
 
 	private var cancellables: [AnyCancellable] = []
 
@@ -49,16 +67,16 @@ final class SingleStageTimerViewModel: ObservableObject {
 	}
 }
 
-struct SingleStageTimerView: View {
+struct BrewStageView<ViewModel>: View where ViewModel: BrewStageViewModel {
 
-	@ObservedObject var viewModel: SingleStageTimerViewModel
+	@ObservedObject var viewModel: ViewModel
 
 	var body: some View {
 
 		Circle()
 			.strokeBorder(Color.blue.opacity(0.6), lineWidth: 4)
 			.overlay {
-				Text(viewModel.timeIntervalLeft.toRepresentableString)
+				Text(viewModel.text)
 					.font(.largeTitle)
 					.foregroundColor(.blue)
 			}
@@ -66,9 +84,9 @@ struct SingleStageTimerView: View {
 	}
 }
 
-struct SingleStageTimerView_Previews: PreviewProvider {
+struct BrewStageView_Previews: PreviewProvider {
 	static var previews: some View {
-		SingleStageTimerView(viewModel: .init(timeIntervalLeft: 10))
+		BrewStageView(viewModel: BrewStageTimerViewModel(timeIntervalLeft: 10))
 			.background(Color.black)
 	}
 }

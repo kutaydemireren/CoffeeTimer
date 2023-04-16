@@ -11,6 +11,7 @@ extension BrewQueue {
 	static var stubMini: BrewQueue {
 		BrewQueue(stages: [
 			.init(action: .wet, requirement: .none),
+			.init(action: .boil(water: .init(amount: 10, type: .gram)), requirement: .countdown(3)),
 			.init(action: .finish, requirement: .none)
 		])
 	}
