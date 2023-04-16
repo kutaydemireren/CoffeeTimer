@@ -8,6 +8,13 @@
 import Foundation
 
 extension BrewQueue {
+	static var stubMini: BrewQueue {
+		BrewQueue(stages: [
+			.init(action: .wet, requirement: .none),
+			.init(action: .finish, requirement: .none)
+		])
+	}
+
 	static var stub: BrewQueue {
 		return Recipe.stub.brewQueue
 	}

@@ -98,16 +98,30 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 		if isActive {
 			var tempCurrentStageIndex = currentStageIndex + 1
 			if tempCurrentStageIndex >= brewQueue.stages.count {
+				isActive = false
 				tempCurrentStageIndex = 0
 			}
 			currentStageIndex = tempCurrentStageIndex
 		} else {
-			loadStage()
 			isActive = true
+			loadStage()
 		}
 	}
 
+	private func loadInitialStage() {
+		stageHeader = "Welcome"
+		stageTitle = "All set to go!"
+		currentSingleStageTimerViewModel = SingleStageTimerViewModel(timeIntervalLeft: 0.0)
+		observeTimeIntervalLeft()
+	}
+
 	private func loadStage() {
+
+		guard isActive else {
+			loadInitialStage()
+			return
+		}
+
 		self.stageHeader = .brewQueue.stageHeader(for: currentStage.action)
 		self.stageTitle = .brewQueue.stageTitle(for: currentStage.action)
 
@@ -183,6 +197,6 @@ struct BrewQueueView: View {
 
 struct BrewQueueView_Previews: PreviewProvider {
 	static var previews: some View {
-		BrewQueueView(viewModel: .init(brewQueue: .stub))
+		BrewQueueView(viewModel: .init(brewQueue: .stubMini))
 	}
 }
