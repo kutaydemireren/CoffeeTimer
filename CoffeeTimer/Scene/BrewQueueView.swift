@@ -117,6 +117,8 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
 	private func loadStage() {
 
+		currentSingleStageTimerViewModel.stop()
+
 		guard isActive else {
 			loadInitialStage()
 			return

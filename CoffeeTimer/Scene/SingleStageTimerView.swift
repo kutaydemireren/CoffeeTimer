@@ -43,6 +43,10 @@ final class SingleStageTimerViewModel: ObservableObject {
 			try? countdownTimer.start()
 		}
 	}
+
+	func stop() {
+		countdownTimer.stop()
+	}
 }
 
 struct SingleStageTimerView: View {
