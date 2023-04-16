@@ -34,6 +34,7 @@
 		CAF42CED29EC98A1004D7788 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CEC29EC98A1004D7788 /* Screen.swift */; };
 		CAF42CF129EC98E4004D7788 /* BrewQueueRepositoryImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CF029EC98E4004D7788 /* BrewQueueRepositoryImp.swift */; };
 		CAF42CF329EC9906004D7788 /* BrewQueueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CF229EC9906004D7788 /* BrewQueueRepository.swift */; };
+		CAF42CF529EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CF429EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		CAF42CEC29EC98A1004D7788 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		CAF42CF029EC98E4004D7788 /* BrewQueueRepositoryImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewQueueRepositoryImp.swift; sourceTree = "<group>"; };
 		CAF42CF229EC9906004D7788 /* BrewQueueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewQueueRepository.swift; sourceTree = "<group>"; };
+		CAF42CF429EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeBrewMethodSelection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +264,7 @@
 				CA17289C29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift */,
 				CA17289E29EB58F1000F867B /* CreateRecipeNameSelection.swift */,
 				CAE3944129DE13C0007611F1 /* CreateRecipeView.swift */,
+				CAF42CF429EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift */,
 			);
 			path = CreateRecipe;
 			sourceTree = "<group>";
@@ -440,6 +443,7 @@
 				CAF42CE529EC9548004D7788 /* Navigable.swift in Sources */,
 				CA5E907D29D61AED00A78CF2 /* Entities.swift in Sources */,
 				CAF42CF329EC9906004D7788 /* BrewQueueRepository.swift in Sources */,
+				CAF42CF529EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift in Sources */,
 				CAF42CF129EC98E4004D7788 /* BrewQueueRepositoryImp.swift in Sources */,
 				CAF42CE129EC90CA004D7788 /* AlphanumericTextField.swift in Sources */,
 				CAF42CE329EC9524004D7788 /* CreateRecipeFlowView.swift in Sources */,

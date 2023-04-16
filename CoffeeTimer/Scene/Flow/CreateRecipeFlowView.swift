@@ -7,15 +7,33 @@
 
 import SwiftUI
 
+final class CreateRecipeFlowViewModel: ObservableObject {
+
+	@Published var navigationPath: [Screen] = []
+}
+
 struct CreateRecipeFlowView: View {
 
-	@StateObject var viewModel: FlowViewModel
+	@StateObject var viewModel: CreateRecipeFlowViewModel
 
 	let closeRequest: () -> Void
 
 	var body: some View {
-		ZStack {
-			createRecipe()
+		NavigationStack(path: $viewModel.navigationPath) {
+			VStack() {
+				CreateRecipeBrewMethodSelection { _ in
+					viewModel.navigationPath.append(.createRecipe)
+				}
+			}
+			.navigationDestination(for: Screen.self) { screen in
+				switch screen {
+				case .brewQueue:
+					EmptyView()
+				case .createRecipe:
+					createRecipe()
+						.navigationBarBackButtonHidden()
+				}
+			}
 		}
 	}
 
@@ -26,6 +44,6 @@ struct CreateRecipeFlowView: View {
 
 struct CreateRecipeFlowView_Previews: PreviewProvider {
     static var previews: some View {
-		CreateRecipeFlowView(viewModel: .init()) { }
+		return CreateRecipeFlowView(viewModel: CreateRecipeFlowViewModel()) { }
     }
 }
