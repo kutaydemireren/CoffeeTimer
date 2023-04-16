@@ -17,11 +17,13 @@ extension TimeInterval {
 
 protocol BrewStageViewModel: ObservableObject {
 	var text: String { get }
+	var progress: Double { get }
 }
 
 final class BrewStageConstantViewModel: BrewStageViewModel {
 
 	@Published var text: String
+	let progress = 1.0
 
 	init(text: String) {
 		self.text = text
@@ -31,11 +33,14 @@ final class BrewStageConstantViewModel: BrewStageViewModel {
 final class BrewStageTimerViewModel: BrewStageViewModel {
 
 	@Published var text: String = ""
+	@Published var progress: Double = 0.0
 	@Published private(set) var timeIntervalLeft: TimeInterval {
 		didSet {
+			withAnimation(.linear(duration: 1.0)) { progress = (duration - timeIntervalLeft) / duration }
 			text = timeIntervalLeft.toRepresentableString
 		}
 	}
+	private let duration: TimeInterval
 
 	private var cancellables: [AnyCancellable] = []
 
@@ -44,6 +49,7 @@ final class BrewStageTimerViewModel: BrewStageViewModel {
 	init(
 		timeIntervalLeft: TimeInterval
 	) {
+		self.duration = timeIntervalLeft
 		self.timeIntervalLeft = timeIntervalLeft
 		self.countdownTimer = CountdownTimerImpl(timeLeft: timeIntervalLeft)
 
@@ -73,14 +79,23 @@ struct BrewStageView<ViewModel>: View where ViewModel: BrewStageViewModel {
 
 	var body: some View {
 
-		Circle()
-			.strokeBorder(Color.blue.opacity(0.6), lineWidth: 4)
-			.overlay {
-				Text(viewModel.text)
-					.font(.largeTitle)
-					.foregroundColor(.blue)
-			}
+		ZStack {
+			Circle()
+				.trim(from: 0, to: viewModel.progress)
+				.stroke(.white.opacity(0.8), style: .init(lineWidth: 4))
+				.contentShape(Circle())
+
+			Circle()
+				.trim(from: viewModel.progress, to: 1.0)
+				.stroke(.white.opacity(0.3), style: .init(lineWidth: 4))
 			.contentShape(Circle())
+		}
+		.rotationEffect(.degrees(-90))
+		.overlay {
+			Text(viewModel.text)
+				.font(.largeTitle)
+				.foregroundColor(.white.opacity(0.8))
+		}
 	}
 }
 

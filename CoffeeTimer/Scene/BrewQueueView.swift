@@ -31,7 +31,7 @@ extension String {
 			case .pause:
 				return "Wait for a short while"
 			case .finish:
-				return "Let your coffee breathe for a min or two.\nEnjoy!"
+				return "Let your coffee breathe for a minute or two\nEnjoy!"
 			}
 		}
 	}
@@ -170,53 +170,93 @@ struct BrewQueueView: View {
 
 	var body: some View {
 
-		VStack {
+		GeometryReader { proxy in
+			ZStack {
 
-			Group {
+				backgroundView
+					.padding(24)
 
-				Text(viewModel.stageHeader)
-					.foregroundColor(.blue)
-					.font(.title3)
-				Spacer(minLength: 0).fixedSize(horizontal: false, vertical: true)
-				Text(viewModel.stageTitle)
-					.foregroundColor(.blue)
-					.font(.title)
-					.minimumScaleFactor(0.5)
+				Group {
+					brewStageView()
+						.onTapGesture {
+							viewModel.primaryAction()
+						}
+						.position(x: (proxy.size.width / 2) - 24, y: (proxy.size.height / 2) - 24)
+				}
+				.padding(24)
 			}
-			.multilineTextAlignment(.center)
-
-			brewStageTimer()
-				.onTapGesture {
-					viewModel.primaryAction()
-				}
-
-			if !viewModel.isActive {
-				Button {
-					viewModel.didRequestCreate.send(viewModel)
-				} label: {
-					Text("+")
-				}
-				.padding()
-				.foregroundColor(.white)
-				.background(Color.blue)
-				.clipShape(Circle())
-			} else {
-				Button {
-					viewModel.skipAction()
-				} label: {
-					Text("Skip")
-				}
-				.padding()
-				.foregroundColor(.white.opacity(0.8))
-			}
+			.backgroundPrimary()
 		}
-		.padding(24)
-		.backgroundPrimary()
+	}
+
+	private var backgroundView: some View {
+
+		HStack {
+			Spacer()
+
+			VStack {
+
+				headerGroup
+
+				Spacer()
+
+				actionButton()
+			}
+
+			Spacer()
+		}
+	}
+
+	private var headerGroup: some View {
+		Group {
+			Text(viewModel.stageHeader)
+				.foregroundColor(.blue)
+				.font(.title3)
+
+			Spacer(minLength: 0).fixedSize(horizontal: false, vertical: true)
+
+			Text(viewModel.stageTitle)
+				.foregroundColor(.blue)
+				.font(.title)
+				.minimumScaleFactor(0.5)
+		}
+		.multilineTextAlignment(.center)
+	}
+
+	private var createButton: some View {
+		Button {
+			viewModel.didRequestCreate.send(viewModel)
+		} label: {
+			Text("+")
+		}
+		.padding()
+		.foregroundColor(.white)
+		.background(Color.blue)
+		.clipShape(Circle())
+	}
+
+	private var skipButton: some View {
+		Button {
+			viewModel.skipAction()
+		} label: {
+			Text("Skip")
+		}
+		.padding()
+		.foregroundColor(.white.opacity(0.8))
 	}
 
 	@ViewBuilder
-	private func brewStageTimer() -> some View {
+	private func actionButton() -> some View {
 
+		if !viewModel.isActive {
+			createButton
+		} else {
+			skipButton
+		}
+	}
+
+	@ViewBuilder
+	private func brewStageView() -> some View {
 		if let currentStageTimerViewModel = viewModel.currentStageTimerViewModel {
 			BrewStageView(viewModel: currentStageTimerViewModel)
 		} else if let currentStageConstantViewModel = viewModel.currentStageConstantViewModel {
