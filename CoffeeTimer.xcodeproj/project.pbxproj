@@ -31,6 +31,9 @@
 		CAF42CE329EC9524004D7788 /* CreateRecipeFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CE229EC9524004D7788 /* CreateRecipeFlowView.swift */; };
 		CAF42CE529EC9548004D7788 /* Navigable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CE429EC9548004D7788 /* Navigable.swift */; };
 		CAF42CE729EC9561004D7788 /* Completable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CE629EC9561004D7788 /* Completable.swift */; };
+		CAF42CED29EC98A1004D7788 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CEC29EC98A1004D7788 /* Screen.swift */; };
+		CAF42CF129EC98E4004D7788 /* BrewQueueRepositoryImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CF029EC98E4004D7788 /* BrewQueueRepositoryImp.swift */; };
+		CAF42CF329EC9906004D7788 /* BrewQueueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CF229EC9906004D7788 /* BrewQueueRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +81,9 @@
 		CAF42CE229EC9524004D7788 /* CreateRecipeFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeFlowView.swift; sourceTree = "<group>"; };
 		CAF42CE429EC9548004D7788 /* Navigable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigable.swift; sourceTree = "<group>"; };
 		CAF42CE629EC9561004D7788 /* Completable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completable.swift; sourceTree = "<group>"; };
+		CAF42CEC29EC98A1004D7788 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
+		CAF42CF029EC98E4004D7788 /* BrewQueueRepositoryImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewQueueRepositoryImp.swift; sourceTree = "<group>"; };
+		CAF42CF229EC9906004D7788 /* BrewQueueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewQueueRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,9 +115,6 @@
 			isa = PBXGroup;
 			children = (
 				CA17289329EB4B9F000F867B /* NumericTextField.swift */,
-				CA17289C29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift */,
-				CA17289E29EB58F1000F867B /* CreateRecipeNameSelection.swift */,
-				CAF42CDE29EC907F004D7788 /* View+ClearButton.swift */,
 				CAF42CE029EC90CA004D7788 /* AlphanumericTextField.swift */,
 			);
 			path = Views;
@@ -149,6 +152,7 @@
 		CA367D3029A2B0370095B1B8 /* CoffeeTimer */ = {
 			isa = PBXGroup;
 			children = (
+				CAF42CEE29EC98BF004D7788 /* Repository */,
 				CA5E907829D61AA400A78CF2 /* Domain */,
 				CA5E907529D61A5F00A78CF2 /* Application */,
 				CA7B804929BFABA8007D3DFC /* Scene */,
@@ -197,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				CA5E907C29D61AED00A78CF2 /* Entities.swift */,
+				CAF42CF229EC9906004D7788 /* BrewQueueRepository.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -204,13 +209,10 @@
 		CA7B804929BFABA8007D3DFC /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				CA17289729EB4CC9000F867B /* Models */,
-				CA17289229EB4B90000F867B /* Views */,
 				CA91CEF429E5FA7D00E9F5D1 /* Flow */,
-				CAD071E329DCCAD60010E561 /* Extensions */,
-				CA7B804A29BFABBB007D3DFC /* StageTimerView.swift */,
-				CA7B804C29BFBD8C007D3DFC /* BrewQueueView.swift */,
-				CAE3944129DE13C0007611F1 /* CreateRecipeView.swift */,
+				CAF42CEA29EC9842004D7788 /* CreateRecipe */,
+				CAF42CE929EC9821004D7788 /* BrewQueue */,
+				CAF42CE829EC980F004D7788 /* Common */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -220,6 +222,7 @@
 			children = (
 				CA91CEF629E5FA9100E9F5D1 /* AppFlowView.swift */,
 				CAF42CE229EC9524004D7788 /* CreateRecipeFlowView.swift */,
+				CAF42CEC29EC98A1004D7788 /* Screen.swift */,
 			);
 			path = Flow;
 			sourceTree = "<group>";
@@ -229,9 +232,63 @@
 			children = (
 				CAD071E629DCCB000010E561 /* BrewQueue+Stub.swift */,
 				CA17289529EB4CA8000F867B /* View+Responder.swift */,
-				CA5CA81829EB662F001E384D /* View+Background.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CAF42CE829EC980F004D7788 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CAF42CEB29EC9867004D7788 /* ViewModifiers */,
+				CA17289729EB4CC9000F867B /* Models */,
+				CA17289229EB4B90000F867B /* Views */,
+				CAD071E329DCCAD60010E561 /* Extensions */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		CAF42CE929EC9821004D7788 /* BrewQueue */ = {
+			isa = PBXGroup;
+			children = (
+				CA7B804A29BFABBB007D3DFC /* StageTimerView.swift */,
+				CA7B804C29BFBD8C007D3DFC /* BrewQueueView.swift */,
+			);
+			path = BrewQueue;
+			sourceTree = "<group>";
+		};
+		CAF42CEA29EC9842004D7788 /* CreateRecipe */ = {
+			isa = PBXGroup;
+			children = (
+				CA17289C29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift */,
+				CA17289E29EB58F1000F867B /* CreateRecipeNameSelection.swift */,
+				CAE3944129DE13C0007611F1 /* CreateRecipeView.swift */,
+			);
+			path = CreateRecipe;
+			sourceTree = "<group>";
+		};
+		CAF42CEB29EC9867004D7788 /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				CAF42CDE29EC907F004D7788 /* View+ClearButton.swift */,
+				CA5CA81829EB662F001E384D /* View+Background.swift */,
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
+		CAF42CEE29EC98BF004D7788 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				CAF42CEF29EC98D8004D7788 /* BrewQueue */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		CAF42CEF29EC98D8004D7788 /* BrewQueue */ = {
+			isa = PBXGroup;
+			children = (
+				CAF42CF029EC98E4004D7788 /* BrewQueueRepositoryImp.swift */,
+			);
+			path = BrewQueue;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -378,9 +435,12 @@
 				CAF42CDF29EC907F004D7788 /* View+ClearButton.swift in Sources */,
 				CA17289429EB4B9F000F867B /* NumericTextField.swift in Sources */,
 				CA7B804B29BFABBB007D3DFC /* StageTimerView.swift in Sources */,
+				CAF42CED29EC98A1004D7788 /* Screen.swift in Sources */,
 				CA17289D29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift in Sources */,
 				CAF42CE529EC9548004D7788 /* Navigable.swift in Sources */,
 				CA5E907D29D61AED00A78CF2 /* Entities.swift in Sources */,
+				CAF42CF329EC9906004D7788 /* BrewQueueRepository.swift in Sources */,
+				CAF42CF129EC98E4004D7788 /* BrewQueueRepositoryImp.swift in Sources */,
 				CAF42CE129EC90CA004D7788 /* AlphanumericTextField.swift in Sources */,
 				CAF42CE329EC9524004D7788 /* CreateRecipeFlowView.swift in Sources */,
 				CA17289F29EB58F1000F867B /* CreateRecipeNameSelection.swift in Sources */,

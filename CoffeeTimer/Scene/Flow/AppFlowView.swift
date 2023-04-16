@@ -5,28 +5,9 @@
 //  Created by Kutay Demireren on 11/04/2023.
 //
 
-
 import Foundation
 import Combine
 import SwiftUI
-
-// TODO: Move, obviously
-// Keep in mind Clean!
-protocol BrewQueueRepository: AnyObject {
-	static var selectedRecipe: Recipe { get set }
-}
-
-final class BrewQueueRepositoryImp: BrewQueueRepository {
-	// TODO: Temp
-	// Think of persistence ways!
-	static var selectedRecipe: Recipe = .stub
-}
-
-enum Screen: Hashable {
-
-	case brewQueue
-	case createRecipe
-}
 
 final class FlowViewModel: ObservableObject {
 
