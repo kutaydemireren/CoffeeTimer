@@ -29,13 +29,12 @@ struct CreateRecipeCoffeeWaterSelection: View {
 					.fill(Color.white.opacity(0.3))
 					.frame(height: 1)
 			}
-			.padding(.horizontal)
 
 			waterTextField
 
 			Spacer()
 		}
-		.padding(.horizontal)
+		.padding(.horizontal, 32)
 		.contentShape(Rectangle())
 		.onTapGesture {
 			hideKeyboard()

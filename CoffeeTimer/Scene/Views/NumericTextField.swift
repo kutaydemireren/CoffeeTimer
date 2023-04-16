@@ -19,7 +19,6 @@ struct NumericTextField: View {
 	var didUpdate: (Double) -> Void
 
 	var body: some View {
-
 		TextField(text: $displayText) {
 			Text(placeholder)
 				.foregroundColor(.white.opacity(0.5))
@@ -37,7 +36,6 @@ struct NumericTextField: View {
 					LinearGradient(colors: [.white.opacity(0.1), .white.opacity(0.2)], startPoint: .leading, endPoint: .trailing)
 				)
 		)
-		.padding()
 	}
 
 	private func filterNumerics(_ newValue: String) {
@@ -72,6 +70,7 @@ struct NumericTextField_Previews: PreviewProvider {
 		VStack {
 			Spacer()
 			NumericTextField(placeholder: "placeholder", input: .constant(2.0)) { _ in }
+				.padding()
 			Spacer()
 		}
 		.background(Color.black)

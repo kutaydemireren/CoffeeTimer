@@ -180,6 +180,7 @@ struct BrewQueueView: View {
 
 				Group {
 					brewStageView()
+						.shadow(color: .black.opacity(0.6), radius: 8, x: -2, y: -2)
 						.onTapGesture {
 							viewModel.primaryAction()
 						}
@@ -212,16 +213,17 @@ struct BrewQueueView: View {
 	private var headerGroup: some View {
 		Group {
 			Text(viewModel.stageHeader)
-				.foregroundColor(.blue)
+				.foregroundColor(.white.opacity(0.6))
 				.font(.title3)
 
 			Spacer(minLength: 0).fixedSize(horizontal: false, vertical: true)
 
 			Text(viewModel.stageTitle)
-				.foregroundColor(.blue)
+				.foregroundColor(.white.opacity(0.8))
 				.font(.title)
 				.minimumScaleFactor(0.5)
 		}
+		.shadow(color: .black.opacity(0.6), radius: 8, x: -2, y: -2)
 		.multilineTextAlignment(.center)
 	}
 
@@ -233,8 +235,12 @@ struct BrewQueueView: View {
 		}
 		.padding()
 		.foregroundColor(.white)
-		.background(Color.blue)
+		.background(Gradient(stops:[
+			.init(color: .indigo.opacity(0.4), location: 0.2),
+			.init(color: .indigo, location: 0.8)
+		]))
 		.clipShape(Circle())
+		.shadow(color: .indigo.opacity(0.4), radius: 8, x: -2, y: -2)
 	}
 
 	private var skipButton: some View {

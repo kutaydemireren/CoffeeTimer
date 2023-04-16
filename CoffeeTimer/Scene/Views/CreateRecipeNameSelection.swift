@@ -18,13 +18,9 @@ struct CreateRecipeNameSelection: View {
 			HStack {
 				Spacer()
 
-				TextField(text: $recipeName) {
-					Text("Name your recipe: (V60 Magic)")
-						.foregroundColor(.white.opacity(0.3))
-				}
-				.textFieldStyle(.plain)
-				.multilineTextAlignment(.center)
-				.foregroundColor(.white.opacity(0.8))
+				AlphanumericTextField(placeholder: "Name your recipe: (V60 Magic)", text: $recipeName)
+					.multilineTextAlignment(.center)
+					.clearButton(text: $recipeName)
 
 				Spacer()
 			}
