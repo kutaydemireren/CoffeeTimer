@@ -26,6 +26,6 @@ struct CreateRecipeFlowView: View {
 
 struct CreateRecipeFlowView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateRecipeFlowView()
+		CreateRecipeFlowView(viewModel: .init()) { }
     }
 }
