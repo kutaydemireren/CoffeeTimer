@@ -13,21 +13,18 @@ struct CreateRecipeNameSelection: View {
 
 	var body: some View {
 		VStack {
-			Spacer()
 
 			HStack {
-				Spacer()
 
 				AlphanumericTextField(placeholder: "Name your recipe: (V60 Magic)", text: $recipeName)
 					.multilineTextAlignment(.center)
 					.clearButton(text: $recipeName)
 
-				Spacer()
 			}
 
 			Spacer()
 		}
-		.padding(.horizontal)
+		.padding(.horizontal, 32)
 		.contentShape(Rectangle())
 		.onTapGesture {
 			hideKeyboard()
