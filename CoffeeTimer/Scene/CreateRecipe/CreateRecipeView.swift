@@ -55,7 +55,7 @@ struct CreateRecipeView: View {
 
 			TabView(selection: $selectedPage) {
 
-				CreateRecipeBrewMethodSelection()
+				CreateRecipeBrewMethodSelection(selectedBrewMethod: $context.selectedBrewMethod)
 					.tag(1)
 
 				CreateRecipeNameSelection(recipeName: $context.recipeName)

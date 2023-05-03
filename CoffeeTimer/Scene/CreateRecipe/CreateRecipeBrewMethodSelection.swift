@@ -8,20 +8,24 @@
 import SwiftUI
 
 struct BrewMethodView: View {
-	let title: String
+	let brewMethod: BrewMethod
+
+	var isSelected = false
+
 	var body: some View {
 		VStack {
 			RoundedRectangle(cornerRadius: 12)
-				.fill(Color.white.opacity(0.3))
+				.fill(isSelected ? .white.opacity(0.8) : .white.opacity(0.2))
 				.overlay {
-					Text(title)
+					Text(brewMethod.title)
+						.foregroundColor(isSelected ? .black.opacity(0.8) : .white.opacity(0.8))
 						.font(.title2)
 				}
 		}
 	}
 }
 
-struct BrewMethod: Identifiable {
+struct BrewMethod: Identifiable, Equatable {
 	let id = UUID()
 	let title: String
 }
@@ -46,13 +50,20 @@ struct CreateRecipeBrewMethodSelection: View {
 	let height: CGFloat = 150
 	let brewMethods: [BrewMethod] = MockStore.brewMethods
 
+	@Binding var selectedBrewMethod: BrewMethod?
+
 	var body: some View {
 		ScrollView {
-			// 4. Populate into grid
 			LazyVGrid(columns: columns, spacing: 16) {
 				ForEach(brewMethods) { brewMethod in
-					BrewMethodView(title: brewMethod.title)
-						.frame(height: height)
+					BrewMethodView(
+						brewMethod: brewMethod,
+						isSelected: selectedBrewMethod == brewMethod
+					)
+					.frame(height: height)
+					.onTapGesture {
+						selectedBrewMethod = brewMethod
+					}
 				}
 			}
 			.padding()
@@ -61,8 +72,8 @@ struct CreateRecipeBrewMethodSelection: View {
 }
 
 struct CreateRecipeBrewMethodSelection_Previews: PreviewProvider {
-    static var previews: some View {
-		CreateRecipeBrewMethodSelection()
+	static var previews: some View {
+		CreateRecipeBrewMethodSelection(selectedBrewMethod: .constant(.init(title: "V60")))
 			.backgroundPrimary()
-    }
+	}
 }
