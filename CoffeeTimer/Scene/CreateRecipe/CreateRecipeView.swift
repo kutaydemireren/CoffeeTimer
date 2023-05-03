@@ -8,24 +8,18 @@
 import SwiftUI
 
 final class CreateRecipeViewModel: ObservableObject {
-
-	@Published var recipeName: String = ""
-	@Published var coffeeAmount = 0.0
-	@Published var waterAmount = 0.0
-
-	func canCreate() -> Bool {
-		!recipeName.isEmpty && coffeeAmount > 0 && waterAmount > 0
+	func canCreate(from context: CreateRecipeContext) -> Bool {
+		!context.recipeName.isEmpty && context.coffeeAmount > 0 && context.waterAmount > 0
 	}
 }
 
 struct CreateRecipeView: View {
+	@ObservedObject var viewModel: CreateRecipeViewModel
+	@EnvironmentObject var context: CreateRecipeContext
+	var closeRequest: () -> Void
 
 	@State private var selectedPage = 1
 	@State private var canCreate = false
-
-	@ObservedObject var viewModel: CreateRecipeViewModel
-
-	var closeRequest: () -> Void
 
 	var body: some View {
 
@@ -37,7 +31,7 @@ struct CreateRecipeView: View {
 
 				Spacer()
 
-				if selectedPage < 2 {
+				if !canCreate {
 					Button("Next") {
 						withAnimation { selectedPage = 2 }
 					}
@@ -46,33 +40,32 @@ struct CreateRecipeView: View {
 					Button("Done") {
 						// TODO: Temp
 						let inputs = CreateV60SingleCupRecipeInputs(
-							name: viewModel.recipeName,
-							coffee: .init(amount: UInt(viewModel.coffeeAmount), type: .gram),
-							water: .init(amount: UInt(viewModel.waterAmount), type: .gram)
+							name: context.recipeName,
+							coffee: .init(amount: UInt(context.coffeeAmount), type: .gram),
+							water: .init(amount: UInt(context.waterAmount), type: .gram)
 						)
 						BrewQueueRepositoryImp.selectedRecipe = CreateV60SingleCupRecipeUseCaseImp().create(inputs: inputs)
 
 						closeRequest()
 					}
-					.disabled(!canCreate)
 					.foregroundColor(.white)
 				}
 			}
 			.padding()
 
 			TabView(selection: $selectedPage) {
-				CreateRecipeNameSelection(recipeName: $viewModel.recipeName)
+				CreateRecipeNameSelection(recipeName: $context.recipeName)
 					.tag(1)
 
-				CreateRecipeCoffeeWaterSelection(coffeeAmount: $viewModel.coffeeAmount, waterAmount: $viewModel.waterAmount)
+				CreateRecipeCoffeeWaterSelection(coffeeAmount: $context.coffeeAmount, waterAmount: $context.waterAmount)
 					.tag(2)
 			}
 			.tabViewStyle(.page(indexDisplayMode: .never))
 			.ignoresSafeArea()
 		}
-		.onChange(of: viewModel.recipeName, perform: didUpdate(recipe:))
-		.onChange(of: viewModel.coffeeAmount, perform: didUpdate(coffeeAmount:))
-		.onChange(of: viewModel.waterAmount, perform: didUpdate(waterAmount:))
+		.onChange(of: context.recipeName, perform: didUpdate(recipe:))
+		.onChange(of: context.coffeeAmount, perform: didUpdate(coffeeAmount:))
+		.onChange(of: context.waterAmount, perform: didUpdate(waterAmount:))
 		.backgroundPrimary()
 	}
 
@@ -88,14 +81,14 @@ struct CreateRecipeView: View {
 		checkIfCanCreate()
 	}
 
-	// TODO: Rename
 	private func checkIfCanCreate() {
-		canCreate = viewModel.canCreate()
+		canCreate = viewModel.canCreate(from: context)
 	}
 }
 
 struct CreateRecipeView_Previews: PreviewProvider {
 	static var previews: some View {
 		CreateRecipeView(viewModel: .init(), closeRequest: { })
+			.environmentObject(CreateRecipeContext())
 	}
 }

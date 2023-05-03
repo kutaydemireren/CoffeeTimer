@@ -9,6 +9,8 @@ import SwiftUI
 
 final class CreateRecipeFlowViewModel: ObservableObject {
 
+	@Published var context: CreateRecipeContext = CreateRecipeContext()
+
 	@Published var navigationPath: [Screen] = []
 }
 
@@ -20,30 +22,29 @@ struct CreateRecipeFlowView: View {
 
 	var body: some View {
 		NavigationStack(path: $viewModel.navigationPath) {
-			VStack() {
-				CreateRecipeBrewMethodSelection { _ in
-					viewModel.navigationPath.append(.createRecipe)
+			createRecipe
+				.navigationBarBackButtonHidden()
+				.navigationDestination(for: Screen.self) { screen in
+					switch screen {
+					case .brewQueue:
+						EmptyView()
+					case .createRecipe:
+						EmptyView()
+					}
 				}
-			}
-			.navigationDestination(for: Screen.self) { screen in
-				switch screen {
-				case .brewQueue:
-					EmptyView()
-				case .createRecipe:
-					createRecipe()
-						.navigationBarBackButtonHidden()
-				}
-			}
 		}
 	}
 
-	func createRecipe() -> some View {
-		CreateRecipeView(viewModel: CreateRecipeViewModel(), closeRequest: closeRequest)
+	var createRecipe: some View {
+		CreateRecipeView(
+			viewModel: CreateRecipeViewModel(),
+			closeRequest: closeRequest)
+		.environmentObject(viewModel.context)
 	}
 }
 
 struct CreateRecipeFlowView_Previews: PreviewProvider {
-    static var previews: some View {
+	static var previews: some View {
 		return CreateRecipeFlowView(viewModel: CreateRecipeFlowViewModel()) { }
-    }
+	}
 }

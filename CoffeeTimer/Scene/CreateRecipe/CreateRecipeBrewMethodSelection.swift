@@ -46,18 +46,13 @@ struct CreateRecipeBrewMethodSelection: View {
 	let height: CGFloat = 150
 	let brewMethods: [BrewMethod] = MockStore.brewMethods
 
-	var onSelect: (BrewMethod) -> Void
-
 	var body: some View {
 		ScrollView {
 			// 4. Populate into grid
 			LazyVGrid(columns: columns, spacing: 16) {
-				ForEach(brewMethods) { card in
-					BrewMethodView(title: card.title)
+				ForEach(brewMethods) { brewMethod in
+					BrewMethodView(title: brewMethod.title)
 						.frame(height: height)
-						.onTapGesture {
-							onSelect(brewMethods.first!)
-						}
 				}
 			}
 			.padding()
@@ -68,6 +63,6 @@ struct CreateRecipeBrewMethodSelection: View {
 
 struct CreateRecipeBrewMethodSelection_Previews: PreviewProvider {
     static var previews: some View {
-		CreateRecipeBrewMethodSelection { _ in }
+		CreateRecipeBrewMethodSelection()
     }
 }
