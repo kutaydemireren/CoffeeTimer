@@ -57,12 +57,12 @@ struct CreateRecipeBrewMethodSelection: View {
 			}
 			.padding()
 		}
-		.backgroundPrimary()
 	}
 }
 
 struct CreateRecipeBrewMethodSelection_Previews: PreviewProvider {
     static var previews: some View {
 		CreateRecipeBrewMethodSelection()
+			.backgroundPrimary()
     }
 }

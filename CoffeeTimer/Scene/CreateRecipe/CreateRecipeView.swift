@@ -33,7 +33,7 @@ struct CreateRecipeView: View {
 
 				if !canCreate {
 					Button("Next") {
-						withAnimation { selectedPage = 2 }
+						withAnimation { selectedPage += 1 }
 					}
 					.foregroundColor(.white)
 				} else {
@@ -54,11 +54,15 @@ struct CreateRecipeView: View {
 			.padding()
 
 			TabView(selection: $selectedPage) {
-				CreateRecipeNameSelection(recipeName: $context.recipeName)
+
+				CreateRecipeBrewMethodSelection()
 					.tag(1)
 
-				CreateRecipeCoffeeWaterSelection(coffeeAmount: $context.coffeeAmount, waterAmount: $context.waterAmount)
+				CreateRecipeNameSelection(recipeName: $context.recipeName)
 					.tag(2)
+
+				CreateRecipeCoffeeWaterSelection(coffeeAmount: $context.coffeeAmount, waterAmount: $context.waterAmount)
+					.tag(3)
 			}
 			.tabViewStyle(.page(indexDisplayMode: .never))
 			.ignoresSafeArea()
