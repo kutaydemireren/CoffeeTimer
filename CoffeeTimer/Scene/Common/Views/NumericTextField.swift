@@ -7,6 +7,21 @@
 
 import SwiftUI
 
+extension String {
+	func filteringNonNumerics() -> String {
+		var newValue = ""
+
+		if Double(self) != nil {
+			newValue = self
+		} else {
+			let trimmed = trimmingCharacters(in: CharacterSet(charactersIn: "."))
+			newValue = trimmed.filter { "0123456789.".contains($0) }
+		}
+
+		return newValue
+	}
+}
+
 struct NumericTextField: View {
 
 	var placeholder: String
@@ -27,7 +42,7 @@ struct NumericTextField: View {
 		.keyboardType(.decimalPad)
 		.focused($isFocused)
 		.foregroundColor(.white)
-		.onChange(of: displayText, perform: filterNumerics(_:))
+		.onChange(of: displayText, perform: filterNonNumerics(_:))
 		.onChange(of: input, perform: setDisplayText(_:))
 		.padding()
 		.background(
@@ -38,20 +53,12 @@ struct NumericTextField: View {
 		)
 	}
 
-	private func filterNumerics(_ newValue: String) {
+	private func filterNonNumerics(_ newValue: String) {
 		guard isFocused else {
 			return
 		}
 
-		var str = ""
-		if Double(newValue) != nil {
-			str = newValue
-		} else {
-			let trimmed = newValue.trimmingCharacters(in: CharacterSet(charactersIn: "."))
-			str = trimmed.filter { "0123456789.".contains($0) }
-		}
-
-		let input = Double(str) ?? 0.0
+		let input = Double(newValue.filteringNonNumerics()) ?? 0.0
 		self.input = input
 		didUpdate(input)
 	}
