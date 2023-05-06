@@ -8,17 +8,37 @@
 import SwiftUI
 
 final class CreateRecipeViewModel: ObservableObject {
+	private let pageCount = 3
+
+	@Published var selectedPage = 1
+
+	func nextPage() {
+		selectedPage = (selectedPage % pageCount) + 1
+	}
+
 	func canCreate(from context: CreateRecipeContext) -> Bool {
-		!context.recipeName.isEmpty && context.coffeeAmount > 0 && context.waterAmount > 0
+		context.selectedBrewMethod != nil &&
+		!context.recipeName.isEmpty &&
+		context.coffeeAmount > 0 &&
+		context.waterAmount > 0
+	}
+
+	func create(from context: CreateRecipeContext) {
+		let inputs = CreateV60SingleCupRecipeInputs(
+			name: context.recipeName,
+			coffee: .init(amount: UInt(context.coffeeAmount), type: .gram),
+			water: .init(amount: UInt(context.waterAmount), type: .gram)
+		)
+		BrewQueueRepositoryImp.selectedRecipe = CreateV60SingleCupRecipeUseCaseImp().create(inputs: inputs)
 	}
 }
 
 struct CreateRecipeView: View {
+
 	@ObservedObject var viewModel: CreateRecipeViewModel
 	@EnvironmentObject var context: CreateRecipeContext
 	var closeRequest: () -> Void
 
-	@State private var selectedPage = 1
 	@State private var canCreate = false
 
 	var body: some View {
@@ -33,19 +53,12 @@ struct CreateRecipeView: View {
 
 				if !canCreate {
 					Button("Next") {
-						withAnimation { selectedPage += 1 }
+						withAnimation { viewModel.nextPage() }
 					}
 					.foregroundColor(.white)
 				} else {
 					Button("Done") {
-						// TODO: Temp
-						let inputs = CreateV60SingleCupRecipeInputs(
-							name: context.recipeName,
-							coffee: .init(amount: UInt(context.coffeeAmount), type: .gram),
-							water: .init(amount: UInt(context.waterAmount), type: .gram)
-						)
-						BrewQueueRepositoryImp.selectedRecipe = CreateV60SingleCupRecipeUseCaseImp().create(inputs: inputs)
-
+						viewModel.create(from: context)
 						closeRequest()
 					}
 					.foregroundColor(.white)
@@ -53,7 +66,7 @@ struct CreateRecipeView: View {
 			}
 			.padding()
 
-			TabView(selection: $selectedPage) {
+			TabView(selection: $viewModel.selectedPage) {
 
 				CreateRecipeBrewMethodSelection(selectedBrewMethod: $context.selectedBrewMethod)
 					.tag(1)
