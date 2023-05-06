@@ -50,17 +50,15 @@ struct NumericTextField: View {
 			let trimmed = newValue.trimmingCharacters(in: CharacterSet(charactersIn: "."))
 			str = trimmed.filter { "0123456789.".contains($0) }
 		}
-		displayText = str
 
-		if let input = Double(displayText) {
-			self.input = input
-			didUpdate(input)
-		}
+		let input = Double(str) ?? 0.0
+		self.input = input
+		didUpdate(input)
 	}
 
 	private func setDisplayText(_ newValue: Double) {
 		if Double(displayText) != newValue {
-			displayText = "\(newValue)"
+			displayText = newValue == 0 ? "" : "\(newValue)"
 		}
 	}
 }
