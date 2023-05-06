@@ -8,21 +8,16 @@
 import Foundation
 
 enum CoffeeToWaterRatio: String, CaseIterable, Identifiable {
-	case ratio15 = "1:15"
 	case ratio16 = "1:16"
 	case ratio17 = "1:17"
 	case ratio18 = "1:18"
 	case ratio19 = "1:19"
 	case ratio20 = "1:20"
-	case ratio21 = "1:21"
-	case ratio22 = "1:22"
 
 	var id: Self { self }
 
 	var value: Double {
 		switch self {
-		case .ratio15:
-			return 15
 		case .ratio16:
 			return 16
 		case .ratio17:
@@ -33,10 +28,28 @@ enum CoffeeToWaterRatio: String, CaseIterable, Identifiable {
 			return 19
 		case .ratio20:
 			return 20
-		case .ratio21:
-			return 21
-		case .ratio22:
-			return 22
+		}
+	}
+
+	var toRepresentableString: String {
+		switch self {
+		case .ratio16:
+			return "1:16 - Strong"
+		case .ratio17:
+			return "1:17 - Robust"
+		case .ratio18:
+			return "1:18 - Medium"
+		case .ratio19:
+			return "1:19 - Mild"
+		case .ratio20:
+			return "1:20 - Delicate"
 		}
 	}
 }
+/*
+ "1:20 - Delicate"
+ "1:19 - Mild"
+ "1:18 - Medium"
+ "1:17 - Robust"
+ "1:16 - Strong"
+ */

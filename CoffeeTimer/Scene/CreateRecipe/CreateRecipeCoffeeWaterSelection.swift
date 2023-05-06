@@ -55,7 +55,7 @@ struct CreateRecipeCoffeeWaterSelection: View {
 		Menu {
 			Picker(selection: $ratio, label: EmptyView()) {
 				ForEach(CoffeeToWaterRatio.allCases) { ratio in
-					Text(ratio.rawValue)
+					Text(ratio.toRepresentableString)
 				}
 			}
 			.onChange(of: ratio, perform: didUpdate(ratio:))
@@ -88,8 +88,8 @@ struct CreateRecipeCoffeeWaterSelection: View {
 }
 
 struct CreateRecipeCoffeeWaterSelection_Previews: PreviewProvider {
-    static var previews: some View {
+	static var previews: some View {
 		CreateRecipeCoffeeWaterSelection(coffeeAmount: .constant(2.0), waterAmount: .constant(4.0))
 			.backgroundPrimary()
-    }
+	}
 }
