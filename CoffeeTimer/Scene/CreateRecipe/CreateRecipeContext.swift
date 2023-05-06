@@ -10,6 +10,6 @@ import Foundation
 final class CreateRecipeContext: ObservableObject {
 	@Published var selectedBrewMethod: BrewMethod?
 	@Published var recipeName: String = ""
-	@Published var coffeeAmount = 0.0
-	@Published var waterAmount = 0.0
+	@Published var cupsCountAmount = 0.0
+	@Published var ratio: CoffeeToWaterRatio = .ratio16
 }

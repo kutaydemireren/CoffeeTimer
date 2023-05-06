@@ -9,6 +9,7 @@ import SwiftUI
 
 final class CreateRecipeViewModel: ObservableObject {
 	private let pageCount = 3
+	private let waterAmountPerCup = IngredientAmount(amount: 250, type: .millilitre)
 
 	@Published var selectedPage = 1
 
@@ -19,17 +20,31 @@ final class CreateRecipeViewModel: ObservableObject {
 	func canCreate(from context: CreateRecipeContext) -> Bool {
 		context.selectedBrewMethod != nil &&
 		!context.recipeName.isEmpty &&
-		context.coffeeAmount > 0 &&
-		context.waterAmount > 0
+		context.cupsCountAmount > 0
 	}
 
 	func create(from context: CreateRecipeContext) {
+		let waterAmount = calculateWaterAmount(forCupsCount: Int(context.cupsCountAmount))
 		let inputs = CreateV60SingleCupRecipeInputs(
 			name: context.recipeName,
-			coffee: .init(amount: UInt(context.coffeeAmount), type: .gram),
-			water: .init(amount: UInt(context.waterAmount), type: .gram)
+			coffee: calculateCoffeeAmount(forWaterAmount: waterAmount, withRatio: context.ratio),
+			water: waterAmount
 		)
 		BrewQueueRepositoryImp.selectedRecipe = CreateV60SingleCupRecipeUseCaseImp().create(inputs: inputs)
+	}
+
+	private func calculateWaterAmount(forCupsCount cupsCount: Int) -> IngredientAmount {
+		return IngredientAmount(
+			amount: waterAmountPerCup.amount * UInt(cupsCount),
+			type: waterAmountPerCup.type
+		)
+	}
+
+	private func calculateCoffeeAmount(forWaterAmount waterAmount: IngredientAmount, withRatio ratio: CoffeeToWaterRatio) -> IngredientAmount {
+		return IngredientAmount(
+			amount: waterAmount.amount / UInt(ratio.value),
+			type: .gram
+		)
 	}
 }
 
@@ -74,15 +89,14 @@ struct CreateRecipeView: View {
 				CreateRecipeNameSelection(recipeName: $context.recipeName)
 					.tag(2)
 
-				CreateRecipeCoffeeWaterSelection(cupsCountAmount: $context.coffeeAmount, waterAmount: $context.waterAmount)
+				CreateRecipeCoffeeWaterSelection(cupsCountAmount: $context.cupsCountAmount, ratio: $context.ratio)
 					.tag(3)
 			}
 			.tabViewStyle(.page(indexDisplayMode: .never))
 			.ignoresSafeArea()
 		}
 		.onChange(of: context.recipeName, perform: didUpdate(recipe:))
-		.onChange(of: context.coffeeAmount, perform: didUpdate(coffeeAmount:))
-		.onChange(of: context.waterAmount, perform: didUpdate(waterAmount:))
+		.onChange(of: context.cupsCountAmount, perform: didUpdate(cupsCount:))
 		.backgroundPrimary()
 	}
 
@@ -90,7 +104,7 @@ struct CreateRecipeView: View {
 		checkIfCanCreate()
 	}
 
-	private func didUpdate(coffeeAmount: Double) {
+	private func didUpdate(cupsCount: Double) {
 		checkIfCanCreate()
 	}
 

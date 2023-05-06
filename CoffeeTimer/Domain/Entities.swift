@@ -31,6 +31,7 @@ struct IngredientAmount: Equatable {
 enum IngredientAmountType {
 	case spoon
 	case gram
+	case millilitre
 }
 
 struct BrewQueue: Equatable {

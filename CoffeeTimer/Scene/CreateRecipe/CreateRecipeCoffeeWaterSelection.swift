@@ -10,8 +10,7 @@ import SwiftUI
 struct CreateRecipeCoffeeWaterSelection: View {
 
 	@Binding var cupsCountAmount: Double
-	@Binding var waterAmount: Double
-	@State private var ratio = CoffeeToWaterRatio.ratio16
+	@Binding var ratio: CoffeeToWaterRatio
 
 	var body: some View {
 		VStack {
@@ -60,7 +59,6 @@ struct CreateRecipeCoffeeWaterSelection: View {
 						Text(ratio.toRepresentableString)
 					}
 				}
-				.onChange(of: ratio, perform: didUpdate(ratio:))
 			} label: {
 				pickerLabel
 			}
@@ -73,17 +71,13 @@ struct CreateRecipeCoffeeWaterSelection: View {
 			.padding()
 			.backgroundSecondary()
 	}
-
-	private func didUpdate(ratio: CoffeeToWaterRatio) {
-		waterAmount = cupsCountAmount * ratio.value
-	}
 }
 
 struct CreateRecipeCoffeeWaterSelection_Previews: PreviewProvider {
 	static var previews: some View {
 		CreateRecipeCoffeeWaterSelection(
 			cupsCountAmount: .constant(2.0),
-			waterAmount: .constant(4.0)
+			ratio: .constant(.ratio18)
 		)
 		.backgroundPrimary()
 	}
