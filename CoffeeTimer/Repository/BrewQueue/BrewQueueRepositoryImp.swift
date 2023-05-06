@@ -10,5 +10,5 @@ import Foundation
 final class BrewQueueRepositoryImp: BrewQueueRepository {
 	// TODO: Temp
 	// Think of persistence ways!
-	static var selectedRecipe: Recipe = .stub
+	static var selectedRecipe: Recipe = .stubSingleV60
 }

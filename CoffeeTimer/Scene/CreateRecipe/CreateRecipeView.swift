@@ -9,7 +9,6 @@ import SwiftUI
 
 final class CreateRecipeViewModel: ObservableObject {
 	private let pageCount = 3
-	private let waterAmountPerCup = IngredientAmount(amount: 250, type: .millilitre)
 
 	@Published var selectedPage = 1
 
@@ -24,27 +23,7 @@ final class CreateRecipeViewModel: ObservableObject {
 	}
 
 	func create(from context: CreateRecipeContext) {
-		let waterAmount = calculateWaterAmount(forCupsCount: Int(context.cupsCountAmount))
-		let inputs = CreateV60SingleCupRecipeInputs(
-			name: context.recipeName,
-			coffee: calculateCoffeeAmount(forWaterAmount: waterAmount, withRatio: context.ratio),
-			water: waterAmount
-		)
-		BrewQueueRepositoryImp.selectedRecipe = CreateV60SingleCupRecipeUseCaseImp().create(inputs: inputs)
-	}
-
-	private func calculateWaterAmount(forCupsCount cupsCount: Int) -> IngredientAmount {
-		return IngredientAmount(
-			amount: waterAmountPerCup.amount * UInt(cupsCount),
-			type: waterAmountPerCup.type
-		)
-	}
-
-	private func calculateCoffeeAmount(forWaterAmount waterAmount: IngredientAmount, withRatio ratio: CoffeeToWaterRatio) -> IngredientAmount {
-		return IngredientAmount(
-			amount: waterAmount.amount / UInt(ratio.value),
-			type: .gram
-		)
+//		BrewQueueRepositoryImp.selectedRecipe = CreateV60SingleCupRecipeUseCaseImp().create(inputs: inputs)
 	}
 }
 

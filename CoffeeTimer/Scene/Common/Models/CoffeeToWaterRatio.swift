@@ -46,10 +46,3 @@ enum CoffeeToWaterRatio: String, CaseIterable, Identifiable {
 		}
 	}
 }
-/*
- "1:20 - Delicate"
- "1:19 - Mild"
- "1:18 - Medium"
- "1:17 - Robust"
- "1:16 - Strong"
- */
