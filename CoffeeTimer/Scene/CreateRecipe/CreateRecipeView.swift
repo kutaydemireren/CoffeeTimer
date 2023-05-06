@@ -74,7 +74,7 @@ struct CreateRecipeView: View {
 				CreateRecipeNameSelection(recipeName: $context.recipeName)
 					.tag(2)
 
-				CreateRecipeCoffeeWaterSelection(coffeeAmount: $context.coffeeAmount, waterAmount: $context.waterAmount)
+				CreateRecipeCoffeeWaterSelection(cupsCountAmount: $context.coffeeAmount, waterAmount: $context.waterAmount)
 					.tag(3)
 			}
 			.tabViewStyle(.page(indexDisplayMode: .never))

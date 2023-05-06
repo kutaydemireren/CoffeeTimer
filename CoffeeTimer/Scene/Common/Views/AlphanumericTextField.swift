@@ -20,12 +20,7 @@ struct AlphanumericTextField: View {
 		.textFieldStyle(.plain)
 		.foregroundColor(.white)
 		.padding()
-		.background(
-			RoundedRectangle(cornerRadius: 24)
-				.fill(
-					LinearGradient(colors: [.white.opacity(0.1), .white.opacity(0.2)], startPoint: .leading, endPoint: .trailing)
-				)
-		)
+		.backgroundSecondary()
 	}
 }
 
