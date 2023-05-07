@@ -13,15 +13,19 @@ struct RecipeProfileView: View {
 	var isSelected = false
 
 	var body: some View {
-		VStack {
-			RoundedRectangle(cornerRadius: 12)
-				.fill(isSelected ? .white.opacity(0.8) : .white.opacity(0.2))
-				.overlay {
-					if let image = recipeProfile.image {
-						Image(uiImage: image)
-							.foregroundColor(isSelected ? .black.opacity(0.8) : .white.opacity(0.8))
-					}
-				}
+		if let image = recipeProfile.image {
+			VStack {
+				Image(uiImage: image)
+					.resizable()
+					.aspectRatio(contentMode: .fit)
+					.frame(width: 35)
+			}
+			.padding()
+			.foregroundColor(.white.opacity(0.8))
+			.background {
+				Circle()
+					.fill(Color(recipeProfile.color.withAlphaComponent(isSelected ? 0.8 : 0.4)))
+			}
 		}
 	}
 }
@@ -42,10 +46,10 @@ struct RecipeProfile: Identifiable, Equatable {
 // TODO: Obviously, temp
 extension MockStore {
 	static var recipeProfiles = [
-		RecipeProfile(title: "planet", color: .green),
-		RecipeProfile(title: "moon",color: .blue),
-		RecipeProfile(title: "nuclear",color: .yellow),
-		RecipeProfile(title: "rocket",color: .purple)
+		RecipeProfile(title: "planet", color: .magenta),
+		RecipeProfile(title: "moon", color: .brown),
+		RecipeProfile(title: "nuclear", color: .orange),
+		RecipeProfile(title: "rocket", color: .purple)
 	]
 }
 
@@ -57,8 +61,8 @@ struct CreateRecipeProfileSelection: View {
 	let columns: [GridItem] = [
 		GridItem(.flexible()),
 		GridItem(.flexible()),
+		GridItem(.flexible()),
 	]
-	let height: CGFloat = 150
 	let recipeProfiles: [RecipeProfile] = MockStore.recipeProfiles
 
 	var body: some View {
@@ -71,7 +75,6 @@ struct CreateRecipeProfileSelection: View {
 							recipeProfile: recipeProfile,
 							isSelected: selectedRecipeProfile == recipeProfile
 						)
-						.frame(height: height)
 						.onTapGesture {
 							selectedRecipeProfile = recipeProfile
 						}
@@ -97,7 +100,7 @@ struct CreateRecipeProfileSelection: View {
 
 struct CreateRecipeProfileSelection_Previews: PreviewProvider {
 	static var previews: some View {
-		CreateRecipeProfileSelection(recipeName: .constant(""), selectedRecipeProfile: .constant(MockStore.recipeProfiles.first!))
+		CreateRecipeProfileSelection(recipeName: .constant(""), selectedRecipeProfile: .constant(MockStore.recipeProfiles[0]))
 			.backgroundPrimary()
 	}
 }
