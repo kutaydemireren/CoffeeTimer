@@ -66,7 +66,7 @@ struct CreateRecipeView: View {
 				CreateRecipeBrewMethodSelection(selectedBrewMethod: $context.selectedBrewMethod)
 					.tag(1)
 
-				CreateRecipeProfileSelection(recipeName: $context.recipeName, selectedRecipeProfile: $context.selectedRecipeProfile)
+				CreateRecipeProfileSelection(recipeName: $context.recipeName, selectedRecipeProfile: $context.selectedRecipeProfile, gridCache: <#GridCache#>)
 					.tag(2)
 
 				CreateRecipeCoffeeWaterSelection(cupsCountAmount: $context.cupsCountAmount, ratio: $context.ratio)
