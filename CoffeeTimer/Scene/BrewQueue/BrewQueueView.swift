@@ -237,15 +237,23 @@ struct BrewQueueView: View {
 		Button {
 			viewModel.didRequestCreate.send(viewModel)
 		} label: {
-			Text("+")
+			if let selectedRecipe = BrewQueueRepositoryImp.selectedRecipe {
+				Text(selectedRecipe.name)
+			} else {
+				Text("+")
+			}
 		}
 		.padding()
 		.foregroundColor(.white)
-		.background(Gradient(stops:[
-			.init(color: .indigo.opacity(0.4), location: 0.2),
-			.init(color: .indigo, location: 0.8)
-		]))
-		.clipShape(Circle())
+		.background {
+			RoundedRectangle(cornerRadius: 16)
+				.fill(
+					Gradient(stops: [
+						.init(color: .indigo.opacity(0.4), location: 0.2),
+						.init(color: .indigo, location: 0.8)
+					])
+				)
+		}
 		.shadow(color: .indigo.opacity(0.4), radius: 8, x: -2, y: -2)
 	}
 
