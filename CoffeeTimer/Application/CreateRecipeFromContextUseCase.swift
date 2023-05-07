@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CreateRecipeFromContextUseCase {
-	func create(from context: CreateRecipeContext) -> Recipe
+	func create(from context: CreateRecipeContext) -> Recipe?
 }
 
 struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
@@ -24,8 +24,11 @@ struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
 		self.createV60SingleCupContextToInputsMapper = createV60SingleCupContextToInputsMapper
 	}
 
-	func create(from context: CreateRecipeContext) -> Recipe {
-		let inputs = createV60SingleCupContextToInputsMapper.map(context: context)
+	func create(from context: CreateRecipeContext) -> Recipe? {
+		guard let inputs = try? createV60SingleCupContextToInputsMapper.map(context: context) else {
+			return nil
+		}
+
 		return createV60SingleCupRecipeUseCase.create(inputs: inputs)
 	}
 }

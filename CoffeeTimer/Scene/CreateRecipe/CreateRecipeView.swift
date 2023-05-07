@@ -30,8 +30,11 @@ final class CreateRecipeViewModel: ObservableObject {
 	}
 
 	func create(from context: CreateRecipeContext) {
-		let recipe = createRecipeFromContextUseCase.create(from: context)
-		BrewQueueRepositoryImp.selectedRecipe = recipe
+		if let recipe = createRecipeFromContextUseCase.create(from: context) {
+			BrewQueueRepositoryImp.selectedRecipe = recipe
+		} else {
+			// TODO
+		}
 	}
 }
 

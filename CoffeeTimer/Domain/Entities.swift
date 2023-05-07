@@ -9,6 +9,7 @@ import Foundation
 
 struct Recipe: Equatable {
 	let name: String
+	let recipeProfile: RecipeProfile
 	let ingredients: [Ingredient]
 	let brewQueue: BrewQueue
 }

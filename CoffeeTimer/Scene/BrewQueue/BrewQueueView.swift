@@ -238,15 +238,19 @@ struct BrewQueueView: View {
 			viewModel.didRequestCreate.send(viewModel)
 		} label: {
 			if let selectedRecipe = BrewQueueRepositoryImp.selectedRecipe {
-				Text(selectedRecipe.name)
+				HStack {
+					RecipeProfileView(recipeProfile: selectedRecipe.recipeProfile, isSelected: true)
+					Text(selectedRecipe.name)
+				}
+				.frame(maxHeight: 55)
 			} else {
 				Text("+")
 			}
 		}
-		.padding()
+		.padding(12)
 		.foregroundColor(.white)
 		.background {
-			RoundedRectangle(cornerRadius: 16)
+			RoundedRectangle(cornerRadius: 48)
 				.fill(
 					Gradient(stops: [
 						.init(color: .indigo.opacity(0.4), location: 0.2),

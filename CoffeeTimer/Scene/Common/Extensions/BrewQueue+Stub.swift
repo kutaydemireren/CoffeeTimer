@@ -24,12 +24,18 @@ extension BrewQueue {
 // TODO: Move
 extension Recipe {
 	static var stubSingleV60: Recipe {
-		return CreateV60SingleCupRecipeUseCaseImp().create(inputs: .init(name: "My Recipe", coffee: .init(amount: 15, type: .gram), water: .init(amount: 250, type: .gram)))
+		return CreateV60SingleCupRecipeUseCaseImp().create(inputs: .init(name: "My Recipe", recipeProfile: .stub, coffee: .init(amount: 15, type: .gram), water: .init(amount: 250, type: .gram)))
 	}
 }
 
 extension CreateV60SingleCupRecipeInputs {
 	static var stub: CreateV60SingleCupRecipeInputs{
-		return CreateV60SingleCupRecipeInputs(name: "name", coffee: .init(amount: 3, type: .gram), water: .init(amount: 10, type: .millilitre))
+		return CreateV60SingleCupRecipeInputs(name: "name", recipeProfile: .stub, coffee: .init(amount: 3, type: .gram), water: .init(amount: 10, type: .millilitre))
+	}
+}
+
+extension RecipeProfile {
+	static var stub: RecipeProfile {
+		return RecipeProfile(title: "rocket", color: .purple)
 	}
 }

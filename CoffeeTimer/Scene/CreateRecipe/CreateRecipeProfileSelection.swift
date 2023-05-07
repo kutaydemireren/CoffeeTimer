@@ -13,17 +13,14 @@ struct RecipeProfileView: View {
 
 	var body: some View {
 		if let image = recipeProfile.image {
-			VStack {
-				Image(uiImage: image)
-					.resizable()
-					.aspectRatio(contentMode: .fill)
-			}
-			.padding(12)
-			.foregroundColor(.white.opacity(0.8))
-			.background {
-				Circle()
-					.fill(Color(recipeProfile.color.withAlphaComponent(isSelected ? 0.8 : 0.4)))
-			}
+			Image(uiImage: image)
+				.resizable()
+				.aspectRatio(contentMode: .fit)
+				.padding(12)
+				.background {
+					Circle()
+						.fill(Color(recipeProfile.color.withAlphaComponent(isSelected ? 0.8 : 0.4)))
+				}
 		}
 	}
 }

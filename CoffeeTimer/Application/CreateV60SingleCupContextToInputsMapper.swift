@@ -7,17 +7,26 @@
 
 import Foundation
 
+enum CreateRecipeMapperError: Error {
+	case missingRecipeProfile
+}
+
 protocol CreateV60SingleCupContextToInputsMapper {
-	func map(context: CreateRecipeContext) -> CreateV60SingleCupRecipeInputs
+	func map(context: CreateRecipeContext) throws -> CreateV60SingleCupRecipeInputs
 }
 
 struct CreateV60SingleCupContextToInputsMapperImp: CreateV60SingleCupContextToInputsMapper {
 	private let waterAmountPerCup = IngredientAmount(amount: 250, type: .millilitre)
 
-	func map(context: CreateRecipeContext) -> CreateV60SingleCupRecipeInputs {
+	func map(context: CreateRecipeContext) throws -> CreateV60SingleCupRecipeInputs {
+		guard let selectedRecipeProfile = context.selectedRecipeProfile else {
+			throw CreateRecipeMapperError.missingRecipeProfile
+		}
+
 		let waterAmount = calculateWaterAmount(forCupsCount: Int(context.cupsCountAmount))
 		return CreateV60SingleCupRecipeInputs(
 			name: context.recipeName,
+			recipeProfile: selectedRecipeProfile,
 			coffee: calculateCoffeeAmount(forWaterAmount: waterAmount, withRatio: context.ratio),
 			water: waterAmount
 		)
