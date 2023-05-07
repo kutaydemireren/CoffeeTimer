@@ -10,7 +10,13 @@ import SwiftUI
 final class CreateRecipeViewModel: ObservableObject {
 	private let pageCount = 3
 
-	@Published var selectedPage = 2
+	@Published var selectedPage = 1
+
+	var createRecipeFromContextUseCase: CreateRecipeFromContextUseCase
+
+	init(createRecipeFromContextUseCase: CreateRecipeFromContextUseCase = CreateRecipeFromContextUseCaseImp(createV60SingleCupRecipeUseCase: CreateV60SingleCupRecipeUseCaseImp(), createV60SingleCupContextToInputsMapper: CreateV60SingleCupContextToInputsMapperImp())) {
+		self.createRecipeFromContextUseCase = createRecipeFromContextUseCase
+	}
 
 	func nextPage() {
 		selectedPage = (selectedPage % pageCount) + 1
@@ -24,7 +30,8 @@ final class CreateRecipeViewModel: ObservableObject {
 	}
 
 	func create(from context: CreateRecipeContext) {
-//		BrewQueueRepositoryImp.selectedRecipe = CreateV60SingleCupRecipeUseCaseImp().create(inputs: inputs)
+		let recipe = createRecipeFromContextUseCase.create(from: context)
+		BrewQueueRepositoryImp.selectedRecipe = recipe
 	}
 }
 

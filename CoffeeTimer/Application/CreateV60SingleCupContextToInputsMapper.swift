@@ -11,7 +11,7 @@ protocol CreateV60SingleCupContextToInputsMapper {
 	func map(context: CreateRecipeContext) -> CreateV60SingleCupRecipeInputs
 }
 
-struct CreateV60SingleCupContextToInputsMapperImp {
+struct CreateV60SingleCupContextToInputsMapperImp: CreateV60SingleCupContextToInputsMapper {
 	private let waterAmountPerCup = IngredientAmount(amount: 250, type: .millilitre)
 
 	func map(context: CreateRecipeContext) -> CreateV60SingleCupRecipeInputs {
