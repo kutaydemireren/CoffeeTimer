@@ -84,20 +84,31 @@ struct CreateRecipeView: View {
 			.tabViewStyle(.page(indexDisplayMode: .never))
 			.ignoresSafeArea()
 		}
-		.onChange(of: context.recipeName, perform: didUpdate(recipe:))
-		.onChange(of: context.cupsCountAmount, perform: didUpdate(cupsCount:))
+		.onChange(of: context.selectedBrewMethod, perform: didUpdate(_:))
+		.onChange(of: context.recipeName, perform: didUpdate(_:))
+		.onChange(of: context.selectedRecipeProfile, perform: didUpdate(_:))
+		.onChange(of: context.cupsCountAmount, perform: didUpdate(_:))
+		.onChange(of: context.ratio, perform: didUpdate(_:))
 		.backgroundPrimary()
 	}
 
-	private func didUpdate(recipe: String) {
+	private func didUpdate(_ selectedBrewMethod: BrewMethod?) {
 		checkIfCanCreate()
 	}
 
-	private func didUpdate(cupsCount: Double) {
+	private func didUpdate(_ recipeName: String) {
 		checkIfCanCreate()
 	}
 
-	private func didUpdate(waterAmount: Double) {
+	private func didUpdate(_ selectedRecipeProfile: RecipeProfile?) {
+		checkIfCanCreate()
+	}
+
+	private func didUpdate(_ cupsCountAmount: Double) {
+		checkIfCanCreate()
+	}
+
+	private func didUpdate(_ ratio: CoffeeToWaterRatio) {
 		checkIfCanCreate()
 	}
 
