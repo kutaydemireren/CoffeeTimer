@@ -9,8 +9,7 @@ import SwiftUI
 
 struct RecipeProfileView: View {
 	let recipeProfile: RecipeProfile
-//	var isSelected = false
-	@Binding var isSelected = false
+	var isSelected = false
 
 	var body: some View {
 		if let image = recipeProfile.image {
@@ -44,7 +43,7 @@ struct RecipeProfile: Identifiable, Equatable {
 
 // TODO: Obviously, temp
 extension MockStore {
-	static let recipeProfiles = {
+	static var recipeProfiles: [RecipeProfile] {
 		[
 			RecipeProfile(title: "planet", color: .magenta),
 			RecipeProfile(title: "moon", color: .brown),
@@ -60,10 +59,10 @@ extension MockStore {
 			RecipeProfile(title: "nuclear", color: .orange),
 			RecipeProfile(title: "nuclear", color: .orange),
 			RecipeProfile(title: "rocket", color: .purple),
-//			RecipeProfile(title: "rocket", color: .purple),
+			RecipeProfile(title: "rocket", color: .purple),
 			RecipeProfile(title: "rocket", color: .purple)
 		].shuffled()
-	}()
+	}
 }
 
 // TODO: Obviously, temp
@@ -117,13 +116,14 @@ extension CGFloat {
 	}
 
 	static var randomSize: Self {
-		return CGFloat((45..<65).randomElement() ?? 0)
+		return CGFloat((50..<60).randomElement() ?? 0)
 	}
 }
 
 class GridCache {
 	let title: String
-	let count: Int
+	let recipeProfiles: [RecipeProfile]
+
 	var widths: [CGFloat] = []
 	var heights: [CGFloat] = []
 	var alignments: [Alignment] = []
@@ -131,13 +131,16 @@ class GridCache {
 	var offset2: [CGFloat] = []
 	var rotations: [Angle] = []
 
-	init(title: String, count: Int) {
+
+	init(title: String, recipeProfiles: [RecipeProfile]) {
 		self.title = title
-		self.count = count
+		self.recipeProfiles = recipeProfiles
+
+		setup()
 	}
 
-	func setup() {
-		(0..<count).forEach { index in
+	private func setup() {
+		(0..<recipeProfiles.count).forEach { index in
 			widths.append(.randomSize)
 			heights.append(.randomSize)
 			alignments.append(.random)
@@ -169,10 +172,9 @@ struct CreateRecipeProfileSelection: View {
 		GridItem(.flexible(), spacing: 0),
 		GridItem(.flexible(), spacing: 0),
 	]
-	let recipeProfiles: [RecipeProfile] = MockStore.recipeProfiles
 
 	var count: Int {
-		recipeProfiles.count
+		gridCache.recipeProfiles.count
 	}
 
 	let gridCache: GridCache
@@ -188,14 +190,15 @@ struct CreateRecipeProfileSelection: View {
 						ForEach(0..<count, id: \.self) { index in
 
 							RecipeProfileView(
-								recipeProfile: recipeProfiles[index],
-								isSelected: selectedRecipeProfile == recipeProfiles[index]
+								recipeProfile: gridCache.recipeProfiles[index],
+								isSelected: selectedRecipeProfile == gridCache.recipeProfiles[index]
 							)
+							.padding(2)
 							.frame(width: gridCache.widths[index], height: gridCache.heights[index], alignment: gridCache.alignments[index])
 							.rotationEffect(gridCache.rotations[index])
 							.offset(x: gridCache.offset1[index], y: gridCache.offset2[index])
 							.onTapGesture {
-								selectedRecipeProfile = recipeProfiles[index]
+								selectedRecipeProfile = gridCache.recipeProfiles[index]
 							}
 						}
 					}
@@ -224,9 +227,5 @@ struct CreateRecipeProfileSelection_Previews: PreviewProvider {
 			.backgroundPrimary()
 	}
 
-	static let gridCache: GridCache = {
-		let gridCache = GridCache(title: MockTitleStorage.randomTitle, count: MockStore.recipeProfiles.count)
-		gridCache.setup()
-		return gridCache
-	}()
+	static let gridCache = GridCache(title: MockTitleStorage.randomTitle, recipeProfiles: MockStore.recipeProfiles)
 }

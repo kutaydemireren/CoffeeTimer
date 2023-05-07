@@ -10,7 +10,7 @@ import SwiftUI
 final class CreateRecipeViewModel: ObservableObject {
 	private let pageCount = 3
 
-	@Published var selectedPage = 1
+	@Published var selectedPage = 2
 
 	func nextPage() {
 		selectedPage = (selectedPage % pageCount) + 1
@@ -33,6 +33,8 @@ struct CreateRecipeView: View {
 	@ObservedObject var viewModel: CreateRecipeViewModel
 	@EnvironmentObject var context: CreateRecipeContext
 	var closeRequest: () -> Void
+
+	let gridCache = GridCache(title: MockTitleStorage.randomTitle, recipeProfiles: MockStore.recipeProfiles)
 
 	@State private var canCreate = false
 
@@ -66,7 +68,7 @@ struct CreateRecipeView: View {
 				CreateRecipeBrewMethodSelection(selectedBrewMethod: $context.selectedBrewMethod)
 					.tag(1)
 
-				CreateRecipeProfileSelection(recipeName: $context.recipeName, selectedRecipeProfile: $context.selectedRecipeProfile, gridCache: <#GridCache#>)
+				CreateRecipeProfileSelection(recipeName: $context.recipeName, selectedRecipeProfile: $context.selectedRecipeProfile, gridCache: gridCache)
 					.tag(2)
 
 				CreateRecipeCoffeeWaterSelection(cupsCountAmount: $context.cupsCountAmount, ratio: $context.ratio)
