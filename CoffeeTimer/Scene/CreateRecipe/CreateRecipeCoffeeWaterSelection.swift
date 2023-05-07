@@ -7,6 +7,15 @@
 
 import SwiftUI
 
+struct Separator: View {
+	var body: some View {
+		Rectangle()
+			.fill(Color.white.opacity(0.3))
+			.frame(height: 1)
+			.padding(.vertical)
+	}
+}
+
 struct CreateRecipeCoffeeWaterSelection: View {
 
 	@Binding var cupsCountAmount: Double
@@ -17,7 +26,7 @@ struct CreateRecipeCoffeeWaterSelection: View {
 
 			cupsCountField
 
-			separator
+			Separator()
 
 			picker
 
@@ -37,17 +46,6 @@ struct CreateRecipeCoffeeWaterSelection: View {
 			keyboardType: .number,
 			input: $cupsCountAmount
 		)
-	}
-
-	private var separator: some View {
-		HStack {
-			Spacer()
-			Rectangle()
-				.fill(Color.white.opacity(0.3))
-				.frame(height: 1)
-			Spacer()
-		}
-		.padding(.vertical)
 	}
 
 	private var picker: some View {

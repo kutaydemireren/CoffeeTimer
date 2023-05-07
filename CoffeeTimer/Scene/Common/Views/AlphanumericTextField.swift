@@ -9,18 +9,21 @@ import SwiftUI
 
 struct AlphanumericTextField: View {
 
+	let title: String
 	var placeholder: String
 	@Binding var text: String
 
 	var body: some View {
-		TextField(text: $text) {
-			Text(placeholder)
-				.foregroundColor(.white.opacity(0.3))
+		TitledContent(title: title) {
+			TextField(text: $text) {
+				Text(placeholder)
+					.foregroundColor(.white.opacity(0.3))
+			}
+			.textFieldStyle(.plain)
+			.foregroundColor(.white)
+			.padding()
+			.backgroundSecondary()
 		}
-		.textFieldStyle(.plain)
-		.foregroundColor(.white)
-		.padding()
-		.backgroundSecondary()
 	}
 }
 
@@ -28,7 +31,7 @@ struct AlphanumericTextField_Previews: PreviewProvider {
     static var previews: some View {
 		VStack {
 			Spacer()
-			AlphanumericTextField(placeholder: "placeholder", text: .constant(""))
+			AlphanumericTextField(title: "How u doin?", placeholder: "placeholder", text: .constant(""))
 				.padding()
 			Spacer()
 		}

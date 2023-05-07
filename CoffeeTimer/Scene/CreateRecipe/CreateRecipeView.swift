@@ -18,6 +18,7 @@ final class CreateRecipeViewModel: ObservableObject {
 
 	func canCreate(from context: CreateRecipeContext) -> Bool {
 		context.selectedBrewMethod != nil &&
+		context.selectedRecipeProfile != nil &&
 		!context.recipeName.isEmpty &&
 		context.cupsCountAmount > 0
 	}
@@ -65,7 +66,7 @@ struct CreateRecipeView: View {
 				CreateRecipeBrewMethodSelection(selectedBrewMethod: $context.selectedBrewMethod)
 					.tag(1)
 
-				CreateRecipeNameSelection(recipeName: $context.recipeName)
+				CreateRecipeProfileSelection(recipeName: $context.recipeName, selectedRecipeProfile: $context.selectedRecipeProfile)
 					.tag(2)
 
 				CreateRecipeCoffeeWaterSelection(cupsCountAmount: $context.cupsCountAmount, ratio: $context.ratio)
