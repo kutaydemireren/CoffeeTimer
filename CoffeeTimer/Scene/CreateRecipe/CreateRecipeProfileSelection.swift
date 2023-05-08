@@ -7,25 +7,60 @@
 
 import SwiftUI
 
-struct RecipeProfileView: View {
-	let recipeProfile: RecipeProfile
+struct RecipeProfileIconView: View {
+	let recipeProfileIcon: RecipeProfileIcon
 	var isSelected = false
 
 	var body: some View {
-		if let image = recipeProfile.image {
+		if let image = recipeProfileIcon.image {
 			Image(uiImage: image)
 				.resizable()
 				.aspectRatio(contentMode: .fit)
 				.padding(12)
 				.background {
 					Circle()
-						.fill(Color(recipeProfile.color.withAlphaComponent(isSelected ? 0.8 : 0.4)))
+						.fill(Color(recipeProfileIcon.color.withAlphaComponent(isSelected ? 0.8 : 0.4)))
 				}
 		}
 	}
 }
 
+
+struct RecipeProfileView: View {
+	let recipeProfile: RecipeProfile
+
+	var body: some View {
+		HStack {
+			RecipeProfileIconView(recipeProfileIcon: recipeProfile.icon, isSelected: true)
+			Text(recipeProfile.name)
+		}
+		.frame(maxHeight: 55)
+	}
+}
+
 struct RecipeProfile: Identifiable, Equatable {
+	let id = UUID()
+	let name: String
+	let icon: RecipeProfileIcon
+}
+
+extension RecipeProfile {
+	func updating(name: String) -> RecipeProfile {
+		return RecipeProfile(
+			name: name,
+			icon: icon
+		)
+	}
+
+	func updating(icon: RecipeProfileIcon) -> RecipeProfile {
+		return RecipeProfile(
+			name: name,
+			icon: icon
+		)
+	}
+}
+
+struct RecipeProfileIcon: Identifiable, Equatable {
 	let id = UUID()
 	let title: String
 	let color: UIColor
@@ -40,25 +75,32 @@ struct RecipeProfile: Identifiable, Equatable {
 
 // TODO: Obviously, temp
 extension MockStore {
-	static var recipeProfiles: [RecipeProfile] {
+	static var recipeProfileIcons: [RecipeProfileIcon] {
 		[
-			RecipeProfile(title: "planet", color: .magenta),
-			RecipeProfile(title: "moon", color: .brown),
-			RecipeProfile(title: "nuclear", color: .orange),
-			RecipeProfile(title: "planet", color: .magenta),
-			RecipeProfile(title: "moon", color: .brown),
-			RecipeProfile(title: "nuclear", color: .orange),
-			RecipeProfile(title: "planet", color: .magenta),
-			RecipeProfile(title: "moon", color: .brown),
-			RecipeProfile(title: "nuclear", color: .orange),
-			RecipeProfile(title: "planet", color: .magenta),
-			RecipeProfile(title: "moon", color: .brown),
-			RecipeProfile(title: "nuclear", color: .orange),
-			RecipeProfile(title: "nuclear", color: .orange),
-			RecipeProfile(title: "rocket", color: .purple),
-			RecipeProfile(title: "rocket", color: .purple),
-			RecipeProfile(title: "rocket", color: .purple)
+			RecipeProfileIcon(title: "planet", color: .magenta),
+			RecipeProfileIcon(title: "moon", color: .brown),
+			RecipeProfileIcon(title: "nuclear", color: .orange),
+			RecipeProfileIcon(title: "planet", color: .magenta),
+			RecipeProfileIcon(title: "moon", color: .brown),
+			RecipeProfileIcon(title: "nuclear", color: .orange),
+			RecipeProfileIcon(title: "planet", color: .magenta),
+			RecipeProfileIcon(title: "moon", color: .brown),
+			RecipeProfileIcon(title: "nuclear", color: .orange),
+			RecipeProfileIcon(title: "planet", color: .magenta),
+			RecipeProfileIcon(title: "moon", color: .brown),
+			RecipeProfileIcon(title: "nuclear", color: .orange),
+			RecipeProfileIcon(title: "nuclear", color: .orange),
+			RecipeProfileIcon(title: "rocket", color: .purple),
+			RecipeProfileIcon(title: "rocket", color: .purple),
+			RecipeProfileIcon(title: "rocket", color: .purple)
 		].shuffled()
+	}
+
+	static var savedRecipes: [Recipe] {
+		let recipeProfileIcons = recipeProfileIcons
+		return (0..<5).map { index in
+			return Recipe(recipeProfile: .init(name: "My V60", icon: recipeProfileIcons[index]), ingredients: [], brewQueue: .stubSingleV60)
+		}
 	}
 }
 
@@ -119,30 +161,30 @@ extension CGFloat {
 
 class GridCache {
 	let title: String
-	let recipeProfiles: [RecipeProfile]
+	let recipeProfileIcons: [RecipeProfileIcon]
 
 	var widths: [CGFloat] = []
 	var heights: [CGFloat] = []
 	var alignments: [Alignment] = []
-	var offset1: [CGFloat] = []
-	var offset2: [CGFloat] = []
+	var offsetX: [CGFloat] = []
+	var offsetY: [CGFloat] = []
 	var rotations: [Angle] = []
 
 
-	init(title: String, recipeProfiles: [RecipeProfile]) {
+	init(title: String, recipeProfileIcons: [RecipeProfileIcon]) {
 		self.title = title
-		self.recipeProfiles = recipeProfiles
+		self.recipeProfileIcons = recipeProfileIcons
 
 		setup()
 	}
 
 	private func setup() {
-		(0..<recipeProfiles.count).forEach { index in
+		(0..<recipeProfileIcons.count).forEach { index in
 			widths.append(.randomSize)
 			heights.append(.randomSize)
 			alignments.append(.random)
-			offset1.append(randomOffset())
-			offset2.append(randomOffset())
+			offsetX.append(randomOffset())
+			offsetY.append(randomOffset())
 			rotations.append(randomRotation())
 		}
 	}
@@ -160,8 +202,7 @@ class GridCache {
 
 struct CreateRecipeProfileSelection: View {
 
-	@Binding var recipeName: String
-	@Binding var selectedRecipeProfile: RecipeProfile?
+	@Binding var recipeProfile: RecipeProfile
 
 	let columns: [GridItem] = [
 		GridItem(.flexible(), spacing: 0),
@@ -171,10 +212,18 @@ struct CreateRecipeProfileSelection: View {
 	]
 
 	var count: Int {
-		gridCache.recipeProfiles.count
+		gridCache.recipeProfileIcons.count
 	}
 
 	let gridCache: GridCache
+
+	private var nameWrapper: Binding<String> {
+		.init(get: {
+			self.recipeProfile.name
+		}, set: { newValue in
+			self.recipeProfile = recipeProfile.updating(name: newValue)
+		})
+	}
 
 	var body: some View {
 
@@ -186,16 +235,16 @@ struct CreateRecipeProfileSelection: View {
 					LazyVGrid(columns: columns, spacing: 16) {
 						ForEach(0..<count, id: \.self) { index in
 
-							RecipeProfileView(
-								recipeProfile: gridCache.recipeProfiles[index],
-								isSelected: selectedRecipeProfile == gridCache.recipeProfiles[index]
+							RecipeProfileIconView(
+								recipeProfileIcon: gridCache.recipeProfileIcons[index],
+								isSelected: recipeProfile.icon == gridCache.recipeProfileIcons[index]
 							)
 							.padding(2)
 							.frame(width: gridCache.widths[index], height: gridCache.heights[index], alignment: gridCache.alignments[index])
 							.rotationEffect(gridCache.rotations[index])
-							.offset(x: gridCache.offset1[index], y: gridCache.offset2[index])
+							.offset(x: gridCache.offsetX[index], y: gridCache.offsetY[index])
 							.onTapGesture {
-								selectedRecipeProfile = gridCache.recipeProfiles[index]
+								recipeProfile = recipeProfile.updating(icon: gridCache.recipeProfileIcons[index])
 							}
 						}
 					}
@@ -203,9 +252,9 @@ struct CreateRecipeProfileSelection: View {
 
 				Separator()
 
-				AlphanumericTextField(title: "Name your recipe", placeholder: "V60 Magic", text: $recipeName)
+				AlphanumericTextField(title: "Name your recipe", placeholder: "V60 Magic", text: nameWrapper)
 					.multilineTextAlignment(.center)
-					.clearButton(text: $recipeName)
+					.clearButton(text: nameWrapper)
 			}
 
 			Spacer()
@@ -220,9 +269,9 @@ struct CreateRecipeProfileSelection: View {
 
 struct CreateRecipeProfileSelection_Previews: PreviewProvider {
 	static var previews: some View {
-		CreateRecipeProfileSelection(recipeName: .constant(""), selectedRecipeProfile: .constant(MockStore.recipeProfiles[0]), gridCache: gridCache)
+		CreateRecipeProfileSelection(recipeProfile: .constant(.empty), gridCache: gridCache)
 			.backgroundPrimary()
 	}
 
-	static let gridCache = GridCache(title: MockTitleStorage.randomTitle, recipeProfiles: MockStore.recipeProfiles)
+	static let gridCache = GridCache(title: MockTitleStorage.randomTitle, recipeProfileIcons: MockStore.recipeProfileIcons)
 }

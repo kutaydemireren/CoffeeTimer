@@ -8,7 +8,6 @@
 import Foundation
 
 struct CreateV60SingleCupRecipeInputs {
-	let name: String
 	let recipeProfile: RecipeProfile
 	let coffee: IngredientAmount
 	let water: IngredientAmount
@@ -29,7 +28,6 @@ struct CreateV60SingleCupRecipeUseCaseImp: CreateV60SingleCupRecipeUseCase {
 		let stagesAll = stagesBloom + stagesBrew + stageFinish
 
 		return Recipe(
-			name: inputs.name,
 			recipeProfile: inputs.recipeProfile,
 			ingredients: [
 				.init(ingredientType: .coffee, amount: inputs.coffee),

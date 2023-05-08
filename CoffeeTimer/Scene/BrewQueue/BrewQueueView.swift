@@ -238,11 +238,7 @@ struct BrewQueueView: View {
 			viewModel.didRequestCreate.send(viewModel)
 		} label: {
 			if let selectedRecipe = BrewQueueRepositoryImp.selectedRecipe {
-				HStack {
-					RecipeProfileView(recipeProfile: selectedRecipe.recipeProfile, isSelected: true)
-					Text(selectedRecipe.name)
-				}
-				.frame(maxHeight: 55)
+				RecipeProfileView(recipeProfile: selectedRecipe.recipeProfile)
 			} else {
 				Text("+")
 			}

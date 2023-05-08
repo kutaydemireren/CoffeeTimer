@@ -19,14 +19,13 @@ struct CreateV60SingleCupContextToInputsMapperImp: CreateV60SingleCupContextToIn
 	private let waterAmountPerCup = IngredientAmount(amount: 250, type: .millilitre)
 
 	func map(context: CreateRecipeContext) throws -> CreateV60SingleCupRecipeInputs {
-		guard let selectedRecipeProfile = context.selectedRecipeProfile else {
+		guard !context.recipeProfile.isEmpty else {
 			throw CreateRecipeMapperError.missingRecipeProfile
 		}
 
 		let waterAmount = calculateWaterAmount(forCupsCount: Int(context.cupsCountAmount))
 		return CreateV60SingleCupRecipeInputs(
-			name: context.recipeName,
-			recipeProfile: selectedRecipeProfile,
+			recipeProfile: context.recipeProfile,
 			coffee: calculateCoffeeAmount(forWaterAmount: waterAmount, withRatio: context.ratio),
 			water: waterAmount
 		)

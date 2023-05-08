@@ -24,8 +24,8 @@ final class CreateRecipeViewModel: ObservableObject {
 
 	func canCreate(from context: CreateRecipeContext) -> Bool {
 		context.selectedBrewMethod != nil &&
-		context.selectedRecipeProfile != nil &&
-		!context.recipeName.isEmpty &&
+		!context.recipeProfile.isEmpty &&
+		!context.recipeProfile.name.isEmpty &&
 		context.cupsCountAmount > 0
 	}
 
@@ -44,7 +44,7 @@ struct CreateRecipeView: View {
 	@EnvironmentObject var context: CreateRecipeContext
 	var closeRequest: () -> Void
 
-	let gridCache = GridCache(title: MockTitleStorage.randomTitle, recipeProfiles: MockStore.recipeProfiles)
+	let gridCache = GridCache(title: MockTitleStorage.randomTitle, recipeProfileIcons: MockStore.recipeProfileIcons)
 
 	@State private var canCreate = false
 
@@ -78,7 +78,7 @@ struct CreateRecipeView: View {
 				CreateRecipeBrewMethodSelection(selectedBrewMethod: $context.selectedBrewMethod)
 					.tag(1)
 
-				CreateRecipeProfileSelection(recipeName: $context.recipeName, selectedRecipeProfile: $context.selectedRecipeProfile, gridCache: gridCache)
+				CreateRecipeProfileSelection(recipeProfile: $context.recipeProfile, gridCache: gridCache)
 					.tag(2)
 
 				CreateRecipeCoffeeWaterSelection(cupsCountAmount: $context.cupsCountAmount, ratio: $context.ratio)
@@ -88,8 +88,7 @@ struct CreateRecipeView: View {
 			.ignoresSafeArea()
 		}
 		.onChange(of: context.selectedBrewMethod, perform: didUpdate(_:))
-		.onChange(of: context.recipeName, perform: didUpdate(_:))
-		.onChange(of: context.selectedRecipeProfile, perform: didUpdate(_:))
+		.onChange(of: context.recipeProfile, perform: didUpdate(_:))
 		.onChange(of: context.cupsCountAmount, perform: didUpdate(_:))
 		.onChange(of: context.ratio, perform: didUpdate(_:))
 		.backgroundPrimary()
@@ -99,11 +98,7 @@ struct CreateRecipeView: View {
 		checkIfCanCreate()
 	}
 
-	private func didUpdate(_ recipeName: String) {
-		checkIfCanCreate()
-	}
-
-	private func didUpdate(_ selectedRecipeProfile: RecipeProfile?) {
+	private func didUpdate(_ recipeProfile: RecipeProfile?) {
 		checkIfCanCreate()
 	}
 
