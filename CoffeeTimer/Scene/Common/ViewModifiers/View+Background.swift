@@ -7,35 +7,43 @@
 
 import SwiftUI
 
-struct BackgroundPrimary: ViewModifier {
+struct BackgroundPrimaryViewModifier: ViewModifier {
 	func body(content: Content) -> some View {
 		content
-			.background(
-				Rectangle()
-					.fill(Gradient(colors: [.indigo, Color.black]))
-					.ignoresSafeArea()
-			)
+			.background(BackgroundPrimary())
 	}
 }
 
-struct BackgroundSecondary: ViewModifier {
+struct BackgroundPrimary: View {
+	var body: some View {
+		Rectangle()
+			.fill(Gradient(colors: [.indigo, Color.black]))
+			.ignoresSafeArea()
+	}
+}
+
+struct BackgroundSecondaryViewModifier: ViewModifier {
 	func body(content: Content) -> some View {
 		content
-			.background(
-				RoundedRectangle(cornerRadius: 24)
-					.fill(
-						LinearGradient(colors: [.white.opacity(0.1), .white.opacity(0.2)], startPoint: .leading, endPoint: .trailing)
-					)
+			.background(BackgroundSecondary())
+	}
+}
+
+struct BackgroundSecondary: View {
+	var body: some View {
+		RoundedRectangle(cornerRadius: 24)
+			.fill(
+				LinearGradient(colors: [.white.opacity(0.1), .white.opacity(0.2)], startPoint: .leading, endPoint: .trailing)
 			)
 	}
 }
 
 extension View {
 	func backgroundPrimary() -> some View {
-		modifier(BackgroundPrimary())
+		modifier(BackgroundPrimaryViewModifier())
 	}
 
 	func backgroundSecondary() -> some View {
-		modifier(BackgroundSecondary())
+		modifier(BackgroundSecondaryViewModifier())
 	}
 }
