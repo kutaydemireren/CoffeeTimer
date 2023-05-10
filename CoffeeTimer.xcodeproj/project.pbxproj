@@ -17,6 +17,7 @@
 		CA367D3229A2B0370095B1B8 /* CoffeeTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA367D3129A2B0370095B1B8 /* CoffeeTimerApp.swift */; };
 		CA367D3629A2B0380095B1B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA367D3529A2B0380095B1B8 /* Assets.xcassets */; };
 		CA367D3929A2B0380095B1B8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA367D3829A2B0380095B1B8 /* Preview Assets.xcassets */; };
+		CA4758DF2A0C2D440022BC7D /* RecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4758DE2A0C2D440022BC7D /* RecipesView.swift */; };
 		CA5CA81929EB662F001E384D /* View+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5CA81829EB662F001E384D /* View+Background.swift */; };
 		CA5E907D29D61AED00A78CF2 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E907C29D61AED00A78CF2 /* Entities.swift */; };
 		CA77908D2A06A39900BEA142 /* String+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77908C2A06A39900BEA142 /* String+Filter.swift */; };
@@ -79,6 +80,7 @@
 		CA367D3829A2B0380095B1B8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CA367D3E29A2B0380095B1B8 /* CoffeeTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoffeeTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA367D4829A2B0380095B1B8 /* CoffeeTimerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoffeeTimerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA4758DE2A0C2D440022BC7D /* RecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesView.swift; sourceTree = "<group>"; };
 		CA5CA81829EB662F001E384D /* View+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Background.swift"; sourceTree = "<group>"; };
 		CA5E907C29D61AED00A78CF2 /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		CA77908C2A06A39900BEA142 /* String+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Filter.swift"; sourceTree = "<group>"; };
@@ -207,6 +209,14 @@
 			path = CoffeeTimerTests;
 			sourceTree = "<group>";
 		};
+		CA4758DB2A0C2CF20022BC7D /* Recipes */ = {
+			isa = PBXGroup;
+			children = (
+				CA4758DE2A0C2D440022BC7D /* RecipesView.swift */,
+			);
+			path = Recipes;
+			sourceTree = "<group>";
+		};
 		CA5E907529D61A5F00A78CF2 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,9 +293,10 @@
 			isa = PBXGroup;
 			children = (
 				CA91CEF429E5FA7D00E9F5D1 /* Flow */,
-				CAF42CEA29EC9842004D7788 /* CreateRecipe */,
-				CAF42CE929EC9821004D7788 /* BrewQueue */,
 				CAF42CE829EC980F004D7788 /* Common */,
+				CAF42CE929EC9821004D7788 /* BrewQueue */,
+				CAF42CEA29EC9842004D7788 /* CreateRecipe */,
+				CA4758DB2A0C2CF20022BC7D /* Recipes */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -498,6 +509,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAF42CE729EC9561004D7788 /* Completable.swift in Sources */,
+				CA4758DF2A0C2D440022BC7D /* RecipesView.swift in Sources */,
 				CAE3944229DE13C0007611F1 /* CreateRecipeView.swift in Sources */,
 				CAD071E729DCCB000010E561 /* BrewQueue+Stub.swift in Sources */,
 				CA17289629EB4CA8000F867B /* View+Responder.swift in Sources */,
