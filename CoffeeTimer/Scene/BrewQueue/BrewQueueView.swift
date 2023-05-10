@@ -41,7 +41,7 @@ extension String {
 
 final class BrewQueueViewModel: ObservableObject, Completable {
 
-	let didRequestCreate = PassthroughSubject<BrewQueueViewModel, Never>()
+	let didComplete = PassthroughSubject<BrewQueueViewModel, Never>()
 
 	var stageHeader = "Welcome"
 	var stageTitle = "All set to go!"
@@ -235,7 +235,7 @@ struct BrewQueueView: View {
 
 	private var createButton: some View {
 		Button {
-			viewModel.didRequestCreate.send(viewModel)
+			viewModel.didComplete.send(viewModel)
 		} label: {
 			if let selectedRecipe = BrewQueueRepositoryImp.selectedRecipe {
 				RecipeProfileView(recipeProfile: selectedRecipe.recipeProfile)

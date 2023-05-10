@@ -11,4 +11,5 @@ enum Screen: Hashable {
 
 	case brewQueue
 	case createRecipe
+	case recipesFlowView
 }

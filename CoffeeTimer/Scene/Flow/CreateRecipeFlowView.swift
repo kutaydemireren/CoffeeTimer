@@ -6,17 +6,21 @@
 //
 
 import SwiftUI
+import Combine
 
-final class CreateRecipeFlowViewModel: ObservableObject {
+final class CreateRecipeFlowViewModel: ObservableObject, Completable {
+	var didComplete = PassthroughSubject<CreateRecipeFlowViewModel, Never>()
 
 	@Published var context: CreateRecipeContext = CreateRecipeContext()
+
+	func close() {
+		didComplete.send(self)
+	}
 }
 
 struct CreateRecipeFlowView: View {
 
 	@StateObject var viewModel: CreateRecipeFlowViewModel
-
-	let closeRequest: () -> Void
 
 	var body: some View {
 		createRecipe
@@ -25,13 +29,13 @@ struct CreateRecipeFlowView: View {
 	var createRecipe: some View {
 		CreateRecipeView(
 			viewModel: CreateRecipeViewModel(),
-			closeRequest: closeRequest)
+			closeRequest: viewModel.close)
 		.environmentObject(viewModel.context)
 	}
 }
 
 struct CreateRecipeFlowView_Previews: PreviewProvider {
 	static var previews: some View {
-		return CreateRecipeFlowView(viewModel: CreateRecipeFlowViewModel()) { }
+		return CreateRecipeFlowView(viewModel: CreateRecipeFlowViewModel())
 	}
 }

@@ -12,20 +12,44 @@ import SwiftUI
 final class FlowViewModel: ObservableObject {
 
 	@Published var navigationPath: [Screen] = []
-	@Published var isCreateRecipePresented = false
+	@Published var isRecipesPresented = false
 
 	private var cancellables: [AnyCancellable] = []
 
 	func make1() -> BrewQueueViewModel {
 		let viewModel = BrewQueueViewModel(brewQueue: BrewQueueRepositoryImp.selectedRecipe.brewQueue)
-		viewModel.didRequestCreate
-			.sink(receiveValue: didRequestCreate)
+		viewModel.didComplete
+			.sink(receiveValue: didComplete)
 			.store(in: &cancellables)
 		return viewModel
 	}
 
-	private func didRequestCreate(viewModel: BrewQueueViewModel) {
-		isCreateRecipePresented = true
+	func make2() -> CreateRecipeFlowViewModel {
+		let viewModel = CreateRecipeFlowViewModel()
+		viewModel.didComplete
+			.sink(receiveValue: didComplete)
+			.store(in: &cancellables)
+		return viewModel
+	}
+
+	func make3() -> RecipesFlowViewModel {
+		let viewModel = RecipesFlowViewModel()
+		viewModel.didComplete
+			.sink(receiveValue: didComplete)
+			.store(in: &cancellables)
+		return viewModel
+	}
+
+	private func didComplete(viewModel: BrewQueueViewModel) {
+		isRecipesPresented = true
+	}
+
+	private func didComplete(viewModel: CreateRecipeFlowViewModel) {
+		isRecipesPresented = false
+	}
+
+	private func didComplete(viewModel: RecipesFlowViewModel) {
+		isRecipesPresented = false
 	}
 }
 
@@ -44,12 +68,14 @@ struct AppFlowView: View {
 					brewQueue()
 				case .createRecipe:
 					createRecipe()
+				case .recipesFlowView:
+					recipes()
 				}
 			}
 		}
 		.textFieldStyle(RoundedBorderTextFieldStyle())
-		.fullScreenCover(isPresented: $viewModel.isCreateRecipePresented) {
-			createRecipe()
+		.fullScreenCover(isPresented: $viewModel.isRecipesPresented) {
+			recipes()
 		}
 	}
 
@@ -58,9 +84,11 @@ struct AppFlowView: View {
 	}
 
 	func createRecipe() -> some View {
-		CreateRecipeFlowView(viewModel: CreateRecipeFlowViewModel()) {
-			viewModel.isCreateRecipePresented = false
-		}
+		CreateRecipeFlowView(viewModel: viewModel.make2())
+	}
+
+	func recipes() -> some View {
+		RecipesFlowView(viewModel: viewModel.make3())
 	}
 }
 

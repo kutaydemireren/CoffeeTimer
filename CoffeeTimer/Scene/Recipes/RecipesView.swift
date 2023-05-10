@@ -6,9 +6,27 @@
 //
 
 import SwiftUI
+import Combine
 
-final class RecipesViewModel: ObservableObject {
+final class RecipesViewModel: ObservableObject, Completable {
+	var didComplete = PassthroughSubject<RecipesViewModel, Never>()
+	var didCreate = PassthroughSubject<RecipesViewModel, Never>()
+
 	@Published var recipes: [Recipe] = []
+
+	private let repository: BrewQueueRepository
+
+	init(repository: BrewQueueRepository = BrewQueueRepositoryImp()) {
+		self.repository = repository
+	}
+
+	func create() {
+		didCreate.send(self)
+	}
+
+	func close() {
+		didComplete.send(self)
+	}
 }
 
 struct RecipesView: View {
@@ -16,12 +34,28 @@ struct RecipesView: View {
 	@ObservedObject var viewModel: RecipesViewModel
 
 	var body: some View {
-		List(viewModel.recipes) { recipe in
-			RecipeProfileRowView(recipeProfile: recipe.recipeProfile)
+		ZStack(alignment: .top) {
+			List(viewModel.recipes) { recipe in
+				RecipeProfileRowView(recipeProfile: recipe.recipeProfile)
+			}
+			.backgroundPrimary()
+			.scrollIndicators(.hidden)
+			.scrollContentBackground(.hidden)
+
+			HStack {
+				Button("Close") {
+					viewModel.close()
+				}
+				.padding(.horizontal)
+				Spacer()
+				Button() {
+					viewModel.create()
+				} label: {
+					Image(uiImage: .add)
+				}
+				.padding(.horizontal)
+			}
 		}
-		.backgroundPrimary()
-		.scrollIndicators(.hidden)
-		.scrollContentBackground(.hidden)
 	}
 }
 
