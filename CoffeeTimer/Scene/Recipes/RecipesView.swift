@@ -17,20 +17,7 @@ struct RecipesView: View {
 
 	var body: some View {
 		List(viewModel.recipes) { recipe in
-
-			VStack {
-				Spacer(minLength: 4)
-
-				RecipeProfileView(recipeProfile: recipe.recipeProfile)
-					.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-					.padding(.horizontal)
-					.padding(.vertical, 12)
-					.backgroundSecondary()
-
-				Spacer(minLength: 4)
-			}
-			.listRowSeparator(.hidden)
-			.listRowBackground(Color.clear)
+			RecipeProfileRowView(recipeProfile: recipe.recipeProfile)
 		}
 		.backgroundPrimary()
 		.scrollIndicators(.hidden)
