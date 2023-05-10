@@ -10,8 +10,6 @@ import SwiftUI
 final class CreateRecipeFlowViewModel: ObservableObject {
 
 	@Published var context: CreateRecipeContext = CreateRecipeContext()
-
-	@Published var navigationPath: [Screen] = []
 }
 
 struct CreateRecipeFlowView: View {
@@ -21,18 +19,7 @@ struct CreateRecipeFlowView: View {
 	let closeRequest: () -> Void
 
 	var body: some View {
-		NavigationStack(path: $viewModel.navigationPath) {
-			createRecipe
-				.navigationBarBackButtonHidden()
-				.navigationDestination(for: Screen.self) { screen in
-					switch screen {
-					case .brewQueue:
-						EmptyView()
-					case .createRecipe:
-						EmptyView()
-					}
-				}
-		}
+		createRecipe
 	}
 
 	var createRecipe: some View {
