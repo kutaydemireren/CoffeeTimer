@@ -31,7 +31,7 @@ final class CreateRecipeViewModel: ObservableObject {
 
 	func create(from context: CreateRecipeContext) {
 		if let recipe = createRecipeFromContextUseCase.create(from: context) {
-			BrewQueueRepositoryImp.selectedRecipe = recipe
+			RecipeRepositoryImp.selectedRecipe = recipe
 		} else {
 			// TODO
 		}

@@ -12,6 +12,12 @@ extension CreateV60SingleCupRecipeInputs: Equatable {
 	public static func == (lhs: CreateV60SingleCupRecipeInputs, rhs: CreateV60SingleCupRecipeInputs) -> Bool {
 		lhs.water == rhs.water &&
 		lhs.coffee == rhs.coffee &&
-		lhs.name == rhs.name
+		lhs.recipeProfile == rhs.recipeProfile
+	}
+}
+
+extension CreateRecipeContext: Equatable {
+	public static func == (lhs: CreateRecipeContext, rhs: CreateRecipeContext) -> Bool {
+		lhs.recipeProfile == rhs.recipeProfile
 	}
 }

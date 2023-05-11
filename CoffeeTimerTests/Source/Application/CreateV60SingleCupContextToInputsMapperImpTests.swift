@@ -16,22 +16,36 @@ final class CreateV60SingleCupContextToInputsMapperImpTests: XCTestCase {
 		sut = CreateV60SingleCupContextToInputsMapperImp()
 	}
 
-	func test_map_shouldReturn1CupTo250MLWaterRatio() {
+	func test_map_whenEmptyRecipeProfile_shouldThrowErrorMissing() throws {
 		let context = CreateRecipeContext()
+
+		XCTAssertThrowsError(try sut.map(context: context)) { error in
+			XCTAssertEqual(error as? CreateRecipeMapperError, CreateRecipeMapperError.missingRecipeProfile)
+		}
+	}
+
+	func test_map_shouldReturn1CupTo250MLWaterRatio() throws {
+		let context = createNonEmptyProfileContext()
 		context.cupsCountAmount = 1
 
-		let resultedInputs = sut.map(context: context)
+		let resultedInputs = try sut.map(context: context)
 
 		XCTAssertEqual(resultedInputs.water, .init(amount: 250, type: .millilitre))
 	}
 
-	func test_map_shouldReturnExpectedCoffeeAmount() {
-		let context = CreateRecipeContext()
+	func test_map_shouldReturnExpectedCoffeeAmount() throws {
+		let context = createNonEmptyProfileContext()
 		context.cupsCountAmount = 16
 		context.ratio = .ratio16
 
-		let resultedInputs = sut.map(context: context)
+		let resultedInputs = try sut.map(context: context)
 
 		XCTAssertEqual(resultedInputs.coffee, .init(amount: 250, type: .gram))
+	}
+
+	private func createNonEmptyProfileContext() -> CreateRecipeContext {
+		let context = CreateRecipeContext()
+		context.recipeProfile = .stub
+		return context
 	}
 }

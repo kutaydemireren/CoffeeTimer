@@ -38,8 +38,7 @@ struct RecipeProfileView: View {
 	}
 }
 
-struct RecipeProfile: Identifiable, Equatable {
-	let id = UUID()
+struct RecipeProfile: Equatable {
 	let name: String
 	let icon: RecipeProfileIcon
 }
@@ -60,8 +59,7 @@ extension RecipeProfile {
 	}
 }
 
-struct RecipeProfileIcon: Identifiable, Equatable {
-	let id = UUID()
+struct RecipeProfileIcon: Equatable {
 	let title: String
 	let color: UIColor
 	let image: UIImage?

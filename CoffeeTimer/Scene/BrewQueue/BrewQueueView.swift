@@ -237,7 +237,7 @@ struct BrewQueueView: View {
 		Button {
 			viewModel.didComplete.send(viewModel)
 		} label: {
-			if let selectedRecipe = BrewQueueRepositoryImp.selectedRecipe {
+			if let selectedRecipe = RecipeRepositoryImp.selectedRecipe {
 				RecipeProfileView(recipeProfile: selectedRecipe.recipeProfile)
 			} else {
 				Text("+")

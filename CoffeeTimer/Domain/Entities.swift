@@ -7,8 +7,7 @@
 
 import Foundation
 
-struct Recipe: Identifiable, Equatable {
-	let id = UUID()
+struct Recipe: Equatable {
 	let recipeProfile: RecipeProfile
 	let ingredients: [Ingredient]
 	let brewQueue: BrewQueue

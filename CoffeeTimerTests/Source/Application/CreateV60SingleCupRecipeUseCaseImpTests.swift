@@ -10,6 +10,10 @@ import XCTest
 
 final class CreateV60SingleCupRecipeUseCaseImpTests: XCTestCase {
 
+	let coffeeAmount = IngredientAmount(amount: 15, type: .gram)
+	let waterAmount = IngredientAmount(amount: 250, type: .gram)
+	let waterPerBlock = IngredientAmount(amount: 50, type: .gram)
+
 	var sut: CreateV60SingleCupRecipeUseCaseImp!
 
 	override func setUpWithError() throws {
@@ -17,12 +21,28 @@ final class CreateV60SingleCupRecipeUseCaseImpTests: XCTestCase {
 		sut = CreateV60SingleCupRecipeUseCaseImp()
 	}
 
-	func test_create_shouldCreateExpectedRecipe() {
+	func test_create_shouldReturnWithExpectedRecipeProfile() {
+		let resultedRecipe = sut.create(inputs: .init(recipeProfile: .init(name: name, icon: .stub), coffee: coffeeAmount, water: waterAmount))
 
-		let coffeeAmount = IngredientAmount(amount: 15, type: .gram)
-		let waterAmount = IngredientAmount(amount: 250, type: .gram)
-		let waterPerBlock = IngredientAmount(amount: 50, type: .gram)
-		let expectedStages: [BrewStage] = [
+		XCTAssertEqual(resultedRecipe.recipeProfile, expectedRecipe(name: name).recipeProfile)
+	}
+
+	func test_create_shouldReturnWithExpectedBrewQueue() {
+		let resultedRecipe = sut.create(inputs: .init(recipeProfile: .init(name: name, icon: .stub), coffee: coffeeAmount, water: waterAmount))
+
+		XCTAssertEqual(resultedRecipe.brewQueue, expectedRecipe(name: name).brewQueue)
+	}
+
+	func test_create_shouldReturnWithExpectedIngredients() {
+		let resultedRecipe = sut.create(inputs: .init(recipeProfile: .init(name: name, icon: .stub), coffee: coffeeAmount, water: waterAmount))
+
+		XCTAssertEqual(resultedRecipe.ingredients, expectedRecipe(name: name).ingredients)
+	}
+}
+
+extension CreateV60SingleCupRecipeUseCaseImpTests {
+	var expectedStages: [BrewStage] {
+		[
 			.init(action: .wet, requirement: .none),
 			.init(action: .put(coffee: coffeeAmount), requirement: .none),
 			.init(action: .pour(water: waterPerBlock), requirement: .countdown(5)),
@@ -38,12 +58,15 @@ final class CreateV60SingleCupRecipeUseCaseImpTests: XCTestCase {
 			.init(action: .pour(water: waterPerBlock), requirement: .countdown(10)),
 			.init(action: .finish, requirement: .none)
 		]
-		let expectedName = "name"
-		let expectedIngredients = [Ingredient(ingredientType: .coffee, amount: coffeeAmount), Ingredient(ingredientType: .water, amount: waterAmount)]
-		let expectedRecipe = Recipe(name: expectedName, ingredients: expectedIngredients, brewQueue: .init(stages: expectedStages))
+	}
+	var expectedIngredients: [Ingredient] {
+		[
+			Ingredient(ingredientType: .coffee, amount: coffeeAmount),
+			Ingredient(ingredientType: .water, amount: waterAmount)
+		]
+	}
 
-		let resultedRecipe = sut.create(inputs: .init(name: expectedName, coffee: coffeeAmount, water: waterAmount))
-
-		XCTAssertEqual(resultedRecipe, expectedRecipe)
+	func expectedRecipe(name: String) -> Recipe {
+		Recipe(recipeProfile: .init(name: name, icon: .stub), ingredients: expectedIngredients, brewQueue: .init(stages: expectedStages))
 	}
 }

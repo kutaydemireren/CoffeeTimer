@@ -8,15 +8,33 @@
 import SwiftUI
 import Combine
 
+extension Recipe: Identifiable{
+	var id: String {
+		recipeProfile.id
+	}
+}
+
+extension RecipeProfile: Identifiable {
+	var id: String {
+		name + "_" + icon.id
+	}
+}
+
+extension RecipeProfileIcon: Identifiable {
+	var id: String {
+		title
+	}
+}
+
 final class RecipesViewModel: ObservableObject, Completable {
 	var didComplete = PassthroughSubject<RecipesViewModel, Never>()
 	var didCreate = PassthroughSubject<RecipesViewModel, Never>()
 
 	@Published var recipes: [Recipe] = []
 
-	private let repository: BrewQueueRepository
+	private let repository: RecipeRepository
 
-	init(repository: BrewQueueRepository = BrewQueueRepositoryImp()) {
+	init(repository: RecipeRepository = RecipeRepositoryImp()) {
 		self.repository = repository
 	}
 
