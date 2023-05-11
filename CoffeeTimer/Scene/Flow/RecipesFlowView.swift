@@ -64,6 +64,7 @@ struct RecipesFlowView: View {
 						EmptyView()
 					case .createRecipe:
 						createRecipe()
+							.navigationBarBackButtonHidden(true)
 					case .recipesFlowView:
 						EmptyView()
 					}
