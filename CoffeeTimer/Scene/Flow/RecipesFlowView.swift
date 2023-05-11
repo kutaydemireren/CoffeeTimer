@@ -23,7 +23,6 @@ final class RecipesFlowViewModel: ObservableObject, Completable {
 		viewModel.didCreate
 			.sink(receiveValue: didCreate(_:))
 			.store(in: &cancellables)
-		viewModel.recipes = MockStore.savedRecipes
 		return viewModel
 	}
 

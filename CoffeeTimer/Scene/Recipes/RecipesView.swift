@@ -36,6 +36,8 @@ final class RecipesViewModel: ObservableObject, Completable {
 
 	init(repository: RecipeRepository = RecipeRepositoryImp()) {
 		self.repository = repository
+
+		recipes = repository.getSavedRecipes()
 	}
 
 	func create() {
@@ -80,7 +82,6 @@ struct RecipesView: View {
 struct RecipesView_Previews: PreviewProvider {
 	static var previews: some View {
 		let recipeVM = RecipesViewModel()
-		recipeVM.recipes = MockStore.savedRecipes
 		return RecipesView(viewModel: recipeVM)
 	}
 }
