@@ -12,4 +12,5 @@ protocol RecipeRepository: AnyObject {
 	static var savedRecipes: [Recipe] { get set }
 
 	func getSavedRecipes() -> [Recipe]
+	func save(_ recipe: Recipe)
 }

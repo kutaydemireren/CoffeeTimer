@@ -15,4 +15,8 @@ final class RecipeRepositoryImp: RecipeRepository {
 	func getSavedRecipes() -> [Recipe] {
 		return Self.savedRecipes
 	}
+
+	func save(_ recipe: Recipe) {
+		Self.savedRecipes.append(recipe)
+	}
 }
