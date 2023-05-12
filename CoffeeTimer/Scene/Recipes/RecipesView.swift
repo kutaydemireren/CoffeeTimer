@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-extension Recipe: Identifiable{
+extension Recipe: Identifiable {
 	var id: String {
 		recipeProfile.id
 	}

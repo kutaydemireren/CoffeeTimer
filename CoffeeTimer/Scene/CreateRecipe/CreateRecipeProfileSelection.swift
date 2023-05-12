@@ -12,8 +12,8 @@ struct RecipeProfileIconView: View {
 	var isSelected = false
 
 	var body: some View {
-		if let image = recipeProfileIcon.image {
-			Image(uiImage: image)
+		if !recipeProfileIcon.imageName.isEmpty {
+			Image(recipeProfileIcon.imageName)
 				.resizable()
 				.aspectRatio(contentMode: .fit)
 				.padding(12)
@@ -24,7 +24,6 @@ struct RecipeProfileIconView: View {
 		}
 	}
 }
-
 
 struct RecipeProfileView: View {
 	let recipeProfile: RecipeProfile
@@ -62,12 +61,12 @@ extension RecipeProfile {
 struct RecipeProfileIcon: Equatable {
 	let title: String
 	let color: UIColor
-	let image: UIImage?
+	let imageName: String
 
 	init(title: String, color: UIColor) {
 		self.title = title
 		self.color = color
-		self.image = UIImage(named: "recipe-profile-\(title)")
+		self.imageName = "recipe-profile-\(title.split(separator: " ").first ?? "")"
 	}
 }
 
@@ -78,19 +77,19 @@ extension MockStore {
 			RecipeProfileIcon(title: "planet", color: .magenta),
 			RecipeProfileIcon(title: "moon", color: .brown),
 			RecipeProfileIcon(title: "nuclear", color: .orange),
-			RecipeProfileIcon(title: "planet", color: .magenta),
-			RecipeProfileIcon(title: "moon", color: .brown),
-			RecipeProfileIcon(title: "nuclear", color: .orange),
-			RecipeProfileIcon(title: "planet", color: .magenta),
-			RecipeProfileIcon(title: "moon", color: .brown),
-			RecipeProfileIcon(title: "nuclear", color: .orange),
-			RecipeProfileIcon(title: "planet", color: .magenta),
-			RecipeProfileIcon(title: "moon", color: .brown),
-			RecipeProfileIcon(title: "nuclear", color: .orange),
-			RecipeProfileIcon(title: "nuclear", color: .orange),
+			RecipeProfileIcon(title: "planet 2", color: .magenta),
+			RecipeProfileIcon(title: "moon 2", color: .brown),
+			RecipeProfileIcon(title: "nuclear 2", color: .orange),
+			RecipeProfileIcon(title: "planet 3", color: .magenta),
+			RecipeProfileIcon(title: "moon 3", color: .brown),
+			RecipeProfileIcon(title: "nuclear 3", color: .orange),
+			RecipeProfileIcon(title: "planet 4", color: .magenta),
+			RecipeProfileIcon(title: "moon 4", color: .brown),
+			RecipeProfileIcon(title: "nuclear 4", color: .orange),
+			RecipeProfileIcon(title: "nuclear 5 ", color: .orange),
 			RecipeProfileIcon(title: "rocket", color: .purple),
-			RecipeProfileIcon(title: "rocket", color: .purple),
-			RecipeProfileIcon(title: "rocket", color: .purple)
+			RecipeProfileIcon(title: "rocket 2", color: .purple),
+			RecipeProfileIcon(title: "rocket 3", color: .purple)
 		].shuffled()
 	}
 
