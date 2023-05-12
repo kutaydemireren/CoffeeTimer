@@ -10,7 +10,7 @@ import Foundation
 // TODO: Move
 extension RecipeProfile {
 	static var empty: RecipeProfile {
-		RecipeProfile(name: "", icon: .init(title: "", color: .clear))
+		RecipeProfile(name: "", icon: .init(title: "", color: ""))
 	}
 
 	var isEmpty: Bool {

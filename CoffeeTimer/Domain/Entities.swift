@@ -12,6 +12,23 @@ struct Recipe: Equatable {
 	let ingredients: [Ingredient]
 	let brewQueue: BrewQueue
 }
+struct RecipeProfile: Equatable {
+	let name: String
+	let icon: RecipeProfileIcon
+}
+
+struct RecipeProfileIcon: Equatable {
+	let title: String
+	let color: String
+	let imageName: String
+
+	init(title: String, color: String) {
+		self.title = title
+		self.color = color
+		// TODO: Temp
+		self.imageName = "recipe-profile-\(title.split(separator: " ").first ?? "")"
+	}
+}
 
 struct Ingredient: Equatable {
 	let ingredientType: IngredientType

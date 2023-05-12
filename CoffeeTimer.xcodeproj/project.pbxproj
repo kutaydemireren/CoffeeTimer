@@ -20,6 +20,7 @@
 		CA4758DF2A0C2D440022BC7D /* RecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4758DE2A0C2D440022BC7D /* RecipesView.swift */; };
 		CA4758E12A0C3A200022BC7D /* RecipeProfileRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4758E02A0C3A200022BC7D /* RecipeProfileRowView.swift */; };
 		CA4758E42A0C3C5C0022BC7D /* RecipesFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4758E32A0C3C5C0022BC7D /* RecipesFlowView.swift */; };
+		CA5A7D0F2A0EBA7400C7EC04 /* DTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5A7D0E2A0EBA7400C7EC04 /* DTOs.swift */; };
 		CA5CA81929EB662F001E384D /* View+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5CA81829EB662F001E384D /* View+Background.swift */; };
 		CA5E907D29D61AED00A78CF2 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E907C29D61AED00A78CF2 /* Entities.swift */; };
 		CA77908D2A06A39900BEA142 /* String+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77908C2A06A39900BEA142 /* String+Filter.swift */; };
@@ -86,6 +87,7 @@
 		CA4758DE2A0C2D440022BC7D /* RecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesView.swift; sourceTree = "<group>"; };
 		CA4758E02A0C3A200022BC7D /* RecipeProfileRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeProfileRowView.swift; sourceTree = "<group>"; };
 		CA4758E32A0C3C5C0022BC7D /* RecipesFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesFlowView.swift; sourceTree = "<group>"; };
+		CA5A7D0E2A0EBA7400C7EC04 /* DTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOs.swift; sourceTree = "<group>"; };
 		CA5CA81829EB662F001E384D /* View+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Background.swift"; sourceTree = "<group>"; };
 		CA5E907C29D61AED00A78CF2 /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		CA77908C2A06A39900BEA142 /* String+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Filter.swift"; sourceTree = "<group>"; };
@@ -222,6 +224,14 @@
 				CA4758E02A0C3A200022BC7D /* RecipeProfileRowView.swift */,
 			);
 			path = Recipes;
+			sourceTree = "<group>";
+		};
+		CA5A7D0D2A0EBA6900C7EC04 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				CA5A7D0E2A0EBA7400C7EC04 /* DTOs.swift */,
+			);
+			path = DTO;
 			sourceTree = "<group>";
 		};
 		CA5E907529D61A5F00A78CF2 /* Application */ = {
@@ -382,6 +392,7 @@
 		CAF42CEE29EC98BF004D7788 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				CA5A7D0D2A0EBA6900C7EC04 /* DTO */,
 				CAF42CEF29EC98D8004D7788 /* Recipe */,
 			);
 			path = Repository;
@@ -534,6 +545,7 @@
 				CA77909D2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift in Sources */,
 				CA91CEF729E5FA9100E9F5D1 /* AppFlowView.swift in Sources */,
 				CA7B804529BFA9E7007D3DFC /* CountdownTimer.swift in Sources */,
+				CA5A7D0F2A0EBA7400C7EC04 /* DTOs.swift in Sources */,
 				CA180AFA29DB67130056D435 /* CreateV60SingleCupRecipeUseCase.swift in Sources */,
 				CA5CA81929EB662F001E384D /* View+Background.swift in Sources */,
 				CA367D3229A2B0370095B1B8 /* CoffeeTimerApp.swift in Sources */,

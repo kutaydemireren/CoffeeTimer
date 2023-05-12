@@ -42,6 +42,6 @@ extension RecipeProfile {
 
 extension RecipeProfileIcon {
 	static var stub: RecipeProfileIcon {
-		return RecipeProfileIcon(title: "rocket", color: .purple)
+		return RecipeProfileIcon(title: "rocket", color: "#800080")
 	}
 }
