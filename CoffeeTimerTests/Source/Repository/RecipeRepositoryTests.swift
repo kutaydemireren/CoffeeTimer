@@ -16,6 +16,15 @@ final class RecipeRepositoryTests: XCTestCase {
 		sut = RecipeRepositoryImp()
 	}
 
+	func test_getSelectedRecipe_shouldReturnExpectedRecipe() {
+		let expectedRecipe = Recipe.stubSingleV60
+		RecipeRepositoryImp.selectedRecipe = expectedRecipe
+
+		let resultedRecipe = sut.getSelectedRecipe()
+
+		XCTAssertEqual(resultedRecipe, expectedRecipe)
+	}
+
 	func test_getSavedRecipes_shouldReturnExpectedRecipes() {
 		let expectedRecipes = MockStore.savedRecipes
 		RecipeRepositoryImp.savedRecipes = expectedRecipes
@@ -26,10 +35,13 @@ final class RecipeRepositoryTests: XCTestCase {
 	}
 
 	func test_save_shouldAppendToSavedRecipes() {
-		let expectedRecipe = MockStore.savedRecipes.first!
+		let alreadySavedRecipes = MockStore.savedRecipes
+		let saveRecipe = Recipe.stubSingleV60
+		let expectedRecipes = alreadySavedRecipes + [saveRecipe]
+		RecipeRepositoryImp.savedRecipes = alreadySavedRecipes
 
-		sut.save(expectedRecipe)
+		sut.save(saveRecipe)
 		
-		XCTAssertEqual(RecipeRepositoryImp.savedRecipes.last, expectedRecipe)
+		XCTAssertEqual(RecipeRepositoryImp.savedRecipes, expectedRecipes)
 	}
 }

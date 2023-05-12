@@ -12,6 +12,10 @@ final class RecipeRepositoryImp: RecipeRepository {
 	static var selectedRecipe: Recipe = MockStore.savedRecipes.first!
 	static var savedRecipes: [Recipe] = MockStore.savedRecipes
 
+	func getSelectedRecipe() -> Recipe {
+		return Self.selectedRecipe
+	}
+
 	func getSavedRecipes() -> [Recipe] {
 		return Self.savedRecipes
 	}
