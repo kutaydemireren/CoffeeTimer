@@ -17,8 +17,8 @@ struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
 	private let createV60SingleCupContextToInputsMapper: CreateV60SingleCupContextToInputsMapper
 
 	init(
-		createV60SingleCupRecipeUseCase: CreateV60SingleCupRecipeUseCase,
-		createV60SingleCupContextToInputsMapper: CreateV60SingleCupContextToInputsMapper
+		createV60SingleCupRecipeUseCase: CreateV60SingleCupRecipeUseCase = CreateV60SingleCupRecipeUseCaseImp(),
+		createV60SingleCupContextToInputsMapper: CreateV60SingleCupContextToInputsMapper = CreateV60SingleCupContextToInputsMapperImp()
 	) {
 		self.createV60SingleCupRecipeUseCase = createV60SingleCupRecipeUseCase
 		self.createV60SingleCupContextToInputsMapper = createV60SingleCupContextToInputsMapper

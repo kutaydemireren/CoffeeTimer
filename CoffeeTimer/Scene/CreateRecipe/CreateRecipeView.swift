@@ -12,10 +12,15 @@ final class CreateRecipeViewModel: ObservableObject {
 
 	@Published var selectedPage = 1
 
-	var createRecipeFromContextUseCase: CreateRecipeFromContextUseCase
+	private var createRecipeFromContextUseCase: CreateRecipeFromContextUseCase
+	private var recipeRepository: RecipeRepository
 
-	init(createRecipeFromContextUseCase: CreateRecipeFromContextUseCase = CreateRecipeFromContextUseCaseImp(createV60SingleCupRecipeUseCase: CreateV60SingleCupRecipeUseCaseImp(), createV60SingleCupContextToInputsMapper: CreateV60SingleCupContextToInputsMapperImp())) {
+	init(
+		createRecipeFromContextUseCase: CreateRecipeFromContextUseCase = CreateRecipeFromContextUseCaseImp(),
+		recipeRepository: RecipeRepository = RecipeRepositoryImp()
+	) {
 		self.createRecipeFromContextUseCase = createRecipeFromContextUseCase
+		self.recipeRepository = recipeRepository
 	}
 
 	func nextPage() {
@@ -31,7 +36,7 @@ final class CreateRecipeViewModel: ObservableObject {
 
 	func create(from context: CreateRecipeContext) {
 		if let recipe = createRecipeFromContextUseCase.create(from: context) {
-			RecipeRepositoryImp.selectedRecipe = recipe
+			recipeRepository.update(selectedRecipe: recipe)
 		} else {
 			// TODO
 		}

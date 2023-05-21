@@ -39,6 +39,12 @@ extension String {
 	static let brewQueue = BrewQueue()
 }
 
+extension BrewQueue {
+	static var noneSelected: BrewQueue {
+		return BrewQueue(stages: [])
+	}
+}
+
 final class BrewQueueViewModel: ObservableObject, Completable {
 
 	let didComplete = PassthroughSubject<BrewQueueViewModel, Never>()
@@ -58,7 +64,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
 	@Published private(set) var canProceedToNextStep = true {
 		didSet {
-			if canProceedToNextStep && currentStage.passMethod == .auto {
+			if canProceedToNextStep && currentStage?.passMethod == .auto {
 				DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
 					self.nextStage()
 				}
@@ -66,7 +72,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 		}
 	}
 
-	var currentStage: BrewStage {
+	private var currentStage: BrewStage? {
 		didSet {
 			loadStage()
 		}
@@ -86,11 +92,18 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 		}
 	}
 
-	private let brewQueue: BrewQueue
+	var brewQueue: BrewQueue {
+		selectedRecipe?.brewQueue ?? .noneSelected
+	}
 
-	init(brewQueue: BrewQueue) {
-		self.brewQueue = brewQueue
-		self.currentStage = brewQueue.stages[Int(currentStageIndex)]
+	var selectedRecipe: Recipe? {
+		recipeRepository.getSelectedRecipe()
+	}
+
+	private var recipeRepository: RecipeRepository
+
+	init(recipeRepository: RecipeRepository = RecipeRepositoryImp()) { // TODO: Convert to use case
+		self.recipeRepository = recipeRepository
 
 		loadInitialStage()
 	}
@@ -135,6 +148,10 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 	}
 
 	private func loadStage() {
+
+		guard let currentStage = currentStage else {
+			return
+		}
 
 		currentStageTimerViewModel?.stop()
 
@@ -233,28 +250,41 @@ struct BrewQueueView: View {
 		.multilineTextAlignment(.center)
 	}
 
-	private var createButton: some View {
-		Button {
-			viewModel.didComplete.send(viewModel)
-		} label: {
-			if let selectedRecipe = RecipeRepositoryImp.selectedRecipe {
+	@ViewBuilder
+	private var recipesButton: some View {
+		if let selectedRecipe = viewModel.selectedRecipe {
+			Button {
+				viewModel.didComplete.send(viewModel) // TODO: Extract to view model
+			} label: {
 				RecipeProfileView(recipeProfile: selectedRecipe.recipeProfile)
-			} else {
+			}
+			.padding(12)
+			.foregroundColor(.white)
+			.background {
+				RoundedRectangle(cornerRadius: 48)
+					.fill(
+						Gradient(stops: [
+							.init(color: .indigo.opacity(0.4), location: 0.2),
+							.init(color: .indigo, location: 0.8)
+						])
+					)
+			}
+			.shadow(color: .indigo.opacity(0.4), radius: 8, x: -2, y: -2)
+		} else {
+			Button {
+				viewModel.didComplete.send(viewModel)
+			} label: {
 				Text("+")
 			}
+			.padding()
+			.foregroundColor(.white)
+			.background(Gradient(stops:[
+				.init(color: .indigo.opacity(0.4), location: 0.2),
+				.init(color: .indigo, location: 0.8)
+			]))
+			.clipShape(Circle())
+			.shadow(color: .indigo.opacity(0.4), radius: 8, x: -2, y: -2)
 		}
-		.padding(12)
-		.foregroundColor(.white)
-		.background {
-			RoundedRectangle(cornerRadius: 48)
-				.fill(
-					Gradient(stops: [
-						.init(color: .indigo.opacity(0.4), location: 0.2),
-						.init(color: .indigo, location: 0.8)
-					])
-				)
-		}
-		.shadow(color: .indigo.opacity(0.4), radius: 8, x: -2, y: -2)
 	}
 
 	private var skipButton: some View {
@@ -281,7 +311,7 @@ struct BrewQueueView: View {
 	private func actionButton() -> some View {
 
 		if !viewModel.isActive {
-			createButton
+			recipesButton
 		} else {
 			HStack {
 				endButton
@@ -307,6 +337,6 @@ struct BrewQueueView: View {
 
 struct BrewQueueView_Previews: PreviewProvider {
 	static var previews: some View {
-		BrewQueueView(viewModel: .init(brewQueue: .stubMini))
+		BrewQueueView(viewModel: .init())
 	}
 }

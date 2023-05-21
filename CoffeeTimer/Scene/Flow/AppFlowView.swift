@@ -17,7 +17,7 @@ final class FlowViewModel: ObservableObject {
 	private var cancellables: [AnyCancellable] = []
 
 	func make1() -> BrewQueueViewModel {
-		let viewModel = BrewQueueViewModel(brewQueue: RecipeRepositoryImp.selectedRecipe.brewQueue)
+		let viewModel = BrewQueueViewModel()
 		viewModel.didComplete
 			.sink(receiveValue: didComplete)
 			.store(in: &cancellables)
