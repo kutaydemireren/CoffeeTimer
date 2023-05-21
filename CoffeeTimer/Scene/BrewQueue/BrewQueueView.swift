@@ -8,6 +8,15 @@
 import SwiftUI
 import Combine
 
+extension Array {
+	subscript(safe index: Int) -> Element? {
+		guard index >= 0 && index < count else {
+			return nil
+		}
+		return self[index]
+	}
+}
+
 extension String {
 
 	struct BrewQueue {
@@ -88,7 +97,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 	// + The 'play' around the stages[] is tedious & dangerous. That better is encapsulated.
 	private var currentStageIndex: UInt = 0 {
 		didSet {
-			currentStage = brewQueue.stages[Int(currentStageIndex)]
+			currentStage = brewQueue.stages[safe: Int(currentStageIndex)]
 		}
 	}
 
