@@ -100,27 +100,60 @@ struct RecipesView: View {
 
 	var body: some View {
 		ZStack(alignment: .top) {
-			List(viewModel.recipes) { recipe in
-				RecipeProfileRowView(recipeProfile: recipe.recipeProfile)
-			}
-			.backgroundPrimary()
-			.scrollIndicators(.hidden)
-			.scrollContentBackground(.hidden)
+			content
+				.padding(.top, 20)
 
 			HStack {
 				Button("Close") {
 					viewModel.close()
 				}
 				.padding(.horizontal)
+
 				Spacer()
+
 				Button() {
 					viewModel.create()
 				} label: {
 					Image(uiImage: .add)
+						.renderingMode(.template)
 				}
 				.padding(.horizontal)
 			}
+			.foregroundColor(.white)
 		}
+		.backgroundPrimary()
+	}
+
+	@ViewBuilder
+	var content: some View {
+		if viewModel.recipes.isEmpty {
+			noRecipes
+		} else {
+			recipesList
+		}
+	}
+
+	var noRecipes: some View {
+		ZStack {
+			VStack {
+				Spacer()
+
+				Text("Please add a new recipe to get started")
+					.multilineTextAlignment(.center)
+					.foregroundColor(.white)
+					.font(.title)
+
+				Spacer()
+			}
+		}
+	}
+
+	var recipesList: some View {
+		List(viewModel.recipes) { recipe in
+			RecipeProfileRowView(recipeProfile: recipe.recipeProfile)
+		}
+		.scrollIndicators(.hidden)
+		.scrollContentBackground(.hidden)
 	}
 }
 
