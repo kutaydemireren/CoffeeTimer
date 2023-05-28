@@ -19,23 +19,6 @@ protocol Storage {
 
 // TODO: Move
 
-protocol RecipeMapperProtocol {
-	func mapToRecipe(recipeDTO: RecipeDTO) -> Recipe
-	func mapToRecipeDTO(recipe: Recipe) -> RecipeDTO
-}
-
-struct RecipeMapper: RecipeMapperProtocol {
-	func mapToRecipe(recipeDTO: RecipeDTO) -> Recipe {
-		// Perform mapping from RecipeDTO to Recipe
-		// Return the mapped Recipe object
-	}
-
-	func mapToRecipeDTO(recipe: Recipe) -> RecipeDTO {
-		// Perform mapping from Recipe to RecipeDTO
-		// Return the mapped RecipeDTO object
-	}
-}
-
 struct StorageImp: Storage {
 
 	var userDefaults: UserDefaults
@@ -44,12 +27,31 @@ struct StorageImp: Storage {
 		self.userDefaults = userDefaults
 	}
 
-	func save<T>(_ value: T?, forKey key: String) {
-		userDefaults.set(value, forKey: key)
+	func save<T: Codable>(_ value: T?, forKey key: String) {
+		if let value = value {
+			do {
+				let data = try JSONEncoder().encode(value)
+				userDefaults.set(data, forKey: key)
+			} catch {
+				print("Error saving data for key \(key): \(error)")
+			}
+		} else {
+			userDefaults.set(nil, forKey: key)
+		}
 	}
 
-	func load<T>(forKey key: String) -> T? {
-		return userDefaults.object(forKey: key) as? T
+	func load<T: Codable>(forKey key: String) -> T? {
+		guard let data = userDefaults.data(forKey: key) else {
+			return nil
+		}
+
+		do {
+			let value = try JSONDecoder().decode(T.self, from: data)
+			return value
+		} catch {
+			print("Error loading data for key \(key): \(error)")
+			return nil
+		}
 	}
 }
 
