@@ -23,7 +23,6 @@ protocol RecipeMapper {
 	func mapToRecipeDTO(recipe: Recipe) -> RecipeDTO
 }
 
-// TODO: throw error
 struct RecipeMapperImp: RecipeMapper { }
 
 // MARK: Recipe to RecipeDTO
