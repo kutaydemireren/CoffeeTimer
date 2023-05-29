@@ -13,7 +13,7 @@ enum CountdownTimerError: Error {
 }
 
 // TODO: Extract to protocol `CountdownTimer`
-// Skipped extracting to a protocol for speed.
+// Skipped extracting to a protocol for speeding up.
 // Must find out -> how to represent and expose `@Published var timeLeft` in a protocol
 final class CountdownTimerImpl {
 
