@@ -12,21 +12,26 @@ enum CountdownTimerError: Error {
 	case alreadyRunning
 }
 
-// TODO: Extract to protocol `CountdownTimer`
-// Skipped extracting to a protocol for speeding up.
-// Must find out -> how to represent and expose `@Published var timeLeft` in a protocol
-final class CountdownTimerImpl {
+protocol CountdownTimer {
+	var isRunning: Bool { get }
+	var timeLeft: TimeInterval { get }
+	var timeLeftPublisher: Published<TimeInterval>.Publisher { get }
+
+	func start() throws
+	func stop()
+}
+
+final class CountdownTimerImp: CountdownTimer {
 
 	var isRunning: Bool {
 		return timer != nil
 	}
 	private var timer: Timer?
 
-	@Published private(set) var timeLeft: TimeInterval {
-		didSet {
-			debugPrint("\(#function) -> \(timeLeft)")
-		}
+	var timeLeftPublisher: Published<TimeInterval>.Publisher {
+		$timeLeft
 	}
+	@Published private(set) var timeLeft: TimeInterval
 
 	init(timeLeft: TimeInterval) {
 		self.timeLeft = timeLeft

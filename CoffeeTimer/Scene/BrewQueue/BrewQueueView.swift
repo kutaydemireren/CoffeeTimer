@@ -177,7 +177,10 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 			currentStageViewModel = BrewStageConstantViewModel(text: "Done")
 			canProceedToNextStep = true
 		case .countdown(let timeLeft):
-			currentStageViewModel = BrewStageTimerViewModel(timeIntervalLeft: TimeInterval(timeLeft))
+			currentStageViewModel = BrewStageTimerViewModel(
+				timeIntervalLeft: TimeInterval(timeLeft),
+				countdownTimer: CountdownTimerImp(timeLeft: TimeInterval(timeLeft))
+			)
 		}
 
 		observeTimeIntervalLeft()

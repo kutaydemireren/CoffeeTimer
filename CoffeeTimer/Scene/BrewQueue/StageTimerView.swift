@@ -43,16 +43,17 @@ final class BrewStageTimerViewModel: BrewStageViewModel {
 
 	private var cancellables: [AnyCancellable] = []
 
-	private var countdownTimer: CountdownTimerImpl
+	private var countdownTimer: CountdownTimer
 
 	init(
-		timeIntervalLeft: TimeInterval
+		timeIntervalLeft: TimeInterval,
+		countdownTimer: CountdownTimer
 	) {
 		self.duration = timeIntervalLeft
 		self.timeIntervalLeft = timeIntervalLeft
-		self.countdownTimer = CountdownTimerImpl(timeLeft: timeIntervalLeft)
+		self.countdownTimer = countdownTimer
 
-		countdownTimer.$timeLeft
+		countdownTimer.timeLeftPublisher
 			.sink { timeIntervalLeft in
 				self.timeIntervalLeft = timeIntervalLeft
 			}
@@ -100,7 +101,7 @@ struct BrewStageView<ViewModel>: View where ViewModel: BrewStageViewModel {
 
 struct BrewStageView_Previews: PreviewProvider {
 	static var previews: some View {
-		BrewStageView(viewModel: BrewStageTimerViewModel(timeIntervalLeft: 10))
+		BrewStageView(viewModel: BrewStageTimerViewModel(timeIntervalLeft: 10, countdownTimer: CountdownTimerImp(timeLeft: 10)))
 			.background(Color.black)
 	}
 }

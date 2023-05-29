@@ -47,7 +47,7 @@
 		CA7790A62A06F3FA00BEA142 /* MockCreateV60SingleCupRecipeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790A52A06F3FA00BEA142 /* MockCreateV60SingleCupRecipeUseCase.swift */; };
 		CA7790A82A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790A72A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputsMapper.swift */; };
 		CA7B804529BFA9E7007D3DFC /* CountdownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804429BFA9E6007D3DFC /* CountdownTimer.swift */; };
-		CA7B804729BFAA21007D3DFC /* CountdownTimerImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804629BFAA21007D3DFC /* CountdownTimerImplTests.swift */; };
+		CA7B804729BFAA21007D3DFC /* CountdownTimerImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804629BFAA21007D3DFC /* CountdownTimerImpTests.swift */; };
 		CA7B804B29BFABBB007D3DFC /* StageTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804A29BFABBB007D3DFC /* StageTimerView.swift */; };
 		CA7B804D29BFBD8C007D3DFC /* BrewQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804C29BFBD8C007D3DFC /* BrewQueueView.swift */; };
 		CA91CEF729E5FA9100E9F5D1 /* AppFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CEF629E5FA9100E9F5D1 /* AppFlowView.swift */; };
@@ -125,7 +125,7 @@
 		CA7790A52A06F3FA00BEA142 /* MockCreateV60SingleCupRecipeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCreateV60SingleCupRecipeUseCase.swift; sourceTree = "<group>"; };
 		CA7790A72A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCreateV60SingleCupContextToInputsMapper.swift; sourceTree = "<group>"; };
 		CA7B804429BFA9E6007D3DFC /* CountdownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimer.swift; sourceTree = "<group>"; };
-		CA7B804629BFAA21007D3DFC /* CountdownTimerImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimerImplTests.swift; sourceTree = "<group>"; };
+		CA7B804629BFAA21007D3DFC /* CountdownTimerImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimerImpTests.swift; sourceTree = "<group>"; };
 		CA7B804A29BFABBB007D3DFC /* StageTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageTimerView.swift; sourceTree = "<group>"; };
 		CA7B804C29BFBD8C007D3DFC /* BrewQueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewQueueView.swift; sourceTree = "<group>"; };
 		CA91CEF629E5FA9100E9F5D1 /* AppFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowView.swift; sourceTree = "<group>"; };
@@ -282,7 +282,7 @@
 		CA5E907629D61A6B00A78CF2 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				CA7B804629BFAA21007D3DFC /* CountdownTimerImplTests.swift */,
+				CA7B804629BFAA21007D3DFC /* CountdownTimerImpTests.swift */,
 				CA9C7FCD29D9E4A200F2DE30 /* CreateV60SingleCupRecipeUseCaseImpTests.swift */,
 				CA7790942A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift */,
 				CA7790982A06F34100BEA142 /* CreateV60SingleCupContextToInputsMapperImpTests.swift */,
@@ -653,7 +653,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA7B804729BFAA21007D3DFC /* CountdownTimerImplTests.swift in Sources */,
+				CA7B804729BFAA21007D3DFC /* CountdownTimerImpTests.swift in Sources */,
 				CA6263BB2A25492D003E167D /* DTOs+Stub.swift in Sources */,
 				CAB1925F2A0D6B6500043837 /* RecipeRepositoryImpTests.swift in Sources */,
 				CA7790952A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift in Sources */,

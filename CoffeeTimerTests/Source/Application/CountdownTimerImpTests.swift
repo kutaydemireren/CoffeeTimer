@@ -1,5 +1,5 @@
 //
-//  CountdownTimerImplTests.swift
+//  CountdownTimerImpTests.swift
 //  CoffeeTimerTests
 //
 //  Created by Kutay Demireren on 13/03/2023.
@@ -9,15 +9,15 @@ import XCTest
 import Combine
 @testable import CoffeeTimer
 
-final class CountdownTimerImplTests: XCTestCase {
+final class CountdownTimerImpTests: XCTestCase {
 
-	var sut: CountdownTimerImpl!
+	var sut: CountdownTimerImp!
 
 	let defaultInitialTimeLeft = 10.0
 
 	override func setUpWithError() throws {
 
-		sut = CountdownTimerImpl(timeLeft: defaultInitialTimeLeft)
+		sut = CountdownTimerImp(timeLeft: defaultInitialTimeLeft)
 	}
 
 	func test_start_shouldStartRunning() {
@@ -27,7 +27,7 @@ final class CountdownTimerImplTests: XCTestCase {
 	}
 
 	func test_start_whenTimeLeftIsZero_shouldNotStartRunning() {
-		sut = CountdownTimerImpl(timeLeft: 0)
+		sut = CountdownTimerImp(timeLeft: 0)
 
 		try? sut.start()
 
@@ -35,7 +35,7 @@ final class CountdownTimerImplTests: XCTestCase {
 	}
 
 	func test_start_whenTimeLeftIsNegative_shouldNotStartRunning() {
-		sut = CountdownTimerImpl(timeLeft: -5)
+		sut = CountdownTimerImp(timeLeft: -5)
 
 		try? sut.start()
 
@@ -63,7 +63,7 @@ final class CountdownTimerImplTests: XCTestCase {
 		try? sut.start()
 
 		var resultedTime: Double?
-		let subs = sut.$timeLeft
+		let subs = sut.timeLeftPublisher
 			.dropFirst() // skip receiving initial value
 			.sink { timeInterval in
 				resultedTime = timeInterval
@@ -78,13 +78,13 @@ final class CountdownTimerImplTests: XCTestCase {
 
 	func test_start_whenTimeLeftReachEnd_shouldStop() {
 		let expectedTime = 3.0
-		sut = CountdownTimerImpl(timeLeft: expectedTime)
+		sut = CountdownTimerImp(timeLeft: expectedTime)
 
 		let exp = expectation(description: "time left should reach to 0 in 3 seconds after start")
 
 		try? sut.start()
 
-		let subs = sut.$timeLeft
+		let subs = sut.timeLeftPublisher
 			.sink { timeInterval in
 				if timeInterval == 0 {
 					exp.fulfill()
