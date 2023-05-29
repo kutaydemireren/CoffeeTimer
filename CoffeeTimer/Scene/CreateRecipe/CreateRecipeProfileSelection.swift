@@ -19,8 +19,7 @@ struct RecipeProfileIconView: View {
 				.padding(12)
 				.background {
 					Group {
-						if let colorHex = recipeProfileIcon.color,
-						   let color = Color(hexString: colorHex) {
+						if let color = Color(hexString: recipeProfileIcon.color) {
 							Circle()
 								.fill(color)
 								.opacity(isSelected ? 0.8 : 0.4)

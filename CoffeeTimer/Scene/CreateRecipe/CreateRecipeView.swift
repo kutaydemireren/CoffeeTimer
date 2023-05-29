@@ -13,7 +13,7 @@ final class CreateRecipeViewModel: ObservableObject {
 	@Published var selectedPage = 1
 
 	private var createRecipeFromContextUseCase: CreateRecipeFromContextUseCase
-	private var recipeRepository: RecipeRepository
+	private var recipeRepository: RecipeRepository // TODO: use case - no repo in vm!
 
 	init(
 		createRecipeFromContextUseCase: CreateRecipeFromContextUseCase = CreateRecipeFromContextUseCaseImp(),
@@ -36,6 +36,7 @@ final class CreateRecipeViewModel: ObservableObject {
 
 	func create(from context: CreateRecipeContext) {
 		if let recipe = createRecipeFromContextUseCase.create(from: context) {
+			recipeRepository.save(recipe)
 			recipeRepository.update(selectedRecipe: recipe)
 		} else {
 			// TODO
