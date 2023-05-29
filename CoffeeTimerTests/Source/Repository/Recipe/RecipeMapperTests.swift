@@ -92,3 +92,15 @@ extension RecipeMapperTests {
 		}
 	}
 }
+
+// MARK: RecipeDTO to Recipe
+extension RecipeMapperTests {
+	func test_mapToRecipeDTO_shouldMapAsExpected() {
+		let recipe = Recipe.stubMini
+		let expectedRecipeDTO = RecipeDTO.stubMini
+
+		let resultedRecipeDTO = sut.mapToRecipeDTO(recipe: recipe)
+
+		XCTAssertEqual(resultedRecipeDTO, expectedRecipeDTO)
+	}
+}

@@ -11,7 +11,7 @@ extension BrewQueue {
 	static var stubMini: BrewQueue {
 		BrewQueue(stages: [
 			.init(action: .wet, requirement: .none),
-			.init(action: .boil(water: .init(amount: 10, type: .gram)), requirement: .countdown(3)),
+			.init(action: .boil(water: .init(amount: 10, type: .gram)), requirement: .countdown(3), startMethod: .auto),
 			.init(action: .finish, requirement: .none)
 		])
 	}
@@ -76,9 +76,9 @@ extension Array where Element == Ingredient {
 extension BrewQueueDTO {
 	static var stubMini: BrewQueueDTO {
 		BrewQueueDTO(stages: [
-			.init(action: .wet, requirement: BrewStageRequirementDTO.none, startMethod: .userInteractive, passMethod: .none),
-			.init(action: .boil(water: .init(amount: 10, type: .gram)), requirement: .countdown(3), startMethod: .userInteractive, passMethod: .none),
-			.init(action: .finish, requirement: BrewStageRequirementDTO.none, startMethod: .none, passMethod: .userInteractive)
+			.init(action: .wet, requirement: BrewStageRequirementDTO.none, startMethod: .userInteractive, passMethod: .userInteractive),
+			.init(action: .boil(water: .init(amount: 10, type: .gram)), requirement: .countdown(3), startMethod: .auto, passMethod: .auto),
+			.init(action: .finish, requirement: BrewStageRequirementDTO.none, startMethod: .userInteractive, passMethod: .userInteractive)
 		])
 	}
 }
@@ -179,7 +179,7 @@ extension RecipeProfileDTO {
 
 extension RecipeProfileIconDTO {
 	static var stubMini: RecipeProfileIconDTO {
-		return RecipeProfileIconDTO(title: "rocket-mini", colorHex: "#200020", imageName: nil)
+		return RecipeProfileIconDTO(title: "rocket-mini", colorHex: "#200020", imageName: "recipe-profile-rocket-mini")
 	}
 }
 
