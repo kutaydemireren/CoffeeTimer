@@ -1,77 +1,11 @@
 //
-//  BrewQueue+Stub.swift
-//  CoffeeTimer
+//  DTOs+Stub.swift
+//  CoffeeTimerTests
 //
-//  Created by Kutay Demireren on 04/04/2023.
+//  Created by Kutay Demireren on 29/05/2023.
 //
 
-import Foundation
-
-extension BrewQueue {
-	static var stubMini: BrewQueue {
-		BrewQueue(stages: [
-			.init(action: .wet, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
-			.init(action: .boil(water: .init(amount: 10, type: .gram)), requirement: .countdown(3), startMethod: .auto, passMethod: .userInteractive),
-			.init(action: .finish, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive)
-		])
-	}
-
-	static var stubSingleV60: BrewQueue {
-		return Recipe.stubSingleV60.brewQueue
-	}
-}
-
-// TODO: Move
-extension Recipe {
-	static var stubMini: Recipe {
-		return Recipe(
-			recipeProfile: .stubMini,
-			ingredients: .stubMini,
-			brewQueue: .stubMini
-		)
-	}
-
-	static var stubSingleV60: Recipe {
-		return CreateV60SingleCupRecipeUseCaseImp().create(inputs: .stubSingleV60)
-	}
-}
-
-extension CreateV60SingleCupRecipeInputs {
-	static var stubSingleV60: CreateV60SingleCupRecipeInputs{
-		return CreateV60SingleCupRecipeInputs(recipeProfile: .stubSingleV60, coffee: .init(amount: 15, type: .gram), water: .init(amount: 250, type: .millilitre))
-	}
-}
-
-extension RecipeProfile {
-	static var stubMini: RecipeProfile {
-		return RecipeProfile(name: "My Recipe Mini", icon: .stubMini)
-	}
-
-	static var stubSingleV60: RecipeProfile {
-		return RecipeProfile(name: "Single V60 Recipe", icon: .stubSingleV60)
-	}
-}
-
-extension RecipeProfileIcon {
-	static var stubMini: RecipeProfileIcon {
-		return RecipeProfileIcon(title: "rocket-mini", color: "#200020")
-	}
-
-	static var stubSingleV60: RecipeProfileIcon {
-		return RecipeProfileIcon(title: "rocket", color: "#800080")
-	}
-}
-
-extension Array where Element == Ingredient {
-	static var stubMini: [Ingredient] {
-		return [
-			Ingredient(ingredientType: .coffee, amount: .init(amount: 10, type: .gram)),
-			Ingredient(ingredientType: .water, amount: .init(amount: 200, type: .millilitre))
-		]
-	}
-}
-
-//
+@testable import CoffeeTimer
 
 extension BrewQueueDTO {
 	static var stubMini: BrewQueueDTO {
@@ -83,7 +17,6 @@ extension BrewQueueDTO {
 	}
 }
 
-// TODO: Move
 extension RecipeDTO {
 	static var stubMini: RecipeDTO {
 		return RecipeDTO(
@@ -94,7 +27,6 @@ extension RecipeDTO {
 	}
 }
 
-// TODO: Move
 extension RecipeDTO {
 	var excludingProfile: Self {
 		return RecipeDTO(

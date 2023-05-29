@@ -26,6 +26,9 @@
 		CA5CA81929EB662F001E384D /* View+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5CA81829EB662F001E384D /* View+Background.swift */; };
 		CA5E907D29D61AED00A78CF2 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E907C29D61AED00A78CF2 /* Entities.swift */; };
 		CA6263B82A250F00003E167D /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263B72A250F00003E167D /* Storage.swift */; };
+		CA6263BB2A25492D003E167D /* DTOs+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263BA2A25492D003E167D /* DTOs+Stub.swift */; };
+		CA6263BC2A254955003E167D /* Entities+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD071E629DCCB000010E561 /* Entities+Stub.swift */; };
+		CA6263BF2A25499A003E167D /* Entities+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263BE2A25499A003E167D /* Entities+Stub.swift */; };
 		CA77908D2A06A39900BEA142 /* String+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77908C2A06A39900BEA142 /* String+Filter.swift */; };
 		CA77908F2A06DB3C00BEA142 /* LeadingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77908E2A06DB3C00BEA142 /* LeadingText.swift */; };
 		CA7790932A06DB5300BEA142 /* TitledContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790922A06DB5300BEA142 /* TitledContent.swift */; };
@@ -43,7 +46,6 @@
 		CA91CEF729E5FA9100E9F5D1 /* AppFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CEF629E5FA9100E9F5D1 /* AppFlowView.swift */; };
 		CA9C7FCE29D9E4A200F2DE30 /* CreateV60SingleCupRecipeUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9C7FCD29D9E4A200F2DE30 /* CreateV60SingleCupRecipeUseCaseImpTests.swift */; };
 		CAB1925F2A0D6B6500043837 /* RecipeRepositoryImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB1925E2A0D6B6500043837 /* RecipeRepositoryImpTests.swift */; };
-		CAD071E729DCCB000010E561 /* BrewQueue+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD071E629DCCB000010E561 /* BrewQueue+Stub.swift */; };
 		CAE3944229DE13C0007611F1 /* CreateRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3944129DE13C0007611F1 /* CreateRecipeView.swift */; };
 		CAF42CDF29EC907F004D7788 /* View+ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CDE29EC907F004D7788 /* View+ClearButton.swift */; };
 		CAF42CE129EC90CA004D7788 /* AlphanumericTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CE029EC90CA004D7788 /* AlphanumericTextField.swift */; };
@@ -96,6 +98,8 @@
 		CA5CA81829EB662F001E384D /* View+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Background.swift"; sourceTree = "<group>"; };
 		CA5E907C29D61AED00A78CF2 /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		CA6263B72A250F00003E167D /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		CA6263BA2A25492D003E167D /* DTOs+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTOs+Stub.swift"; sourceTree = "<group>"; };
+		CA6263BE2A25499A003E167D /* Entities+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entities+Stub.swift"; sourceTree = "<group>"; };
 		CA77908C2A06A39900BEA142 /* String+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Filter.swift"; sourceTree = "<group>"; };
 		CA77908E2A06DB3C00BEA142 /* LeadingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingText.swift; sourceTree = "<group>"; };
 		CA7790922A06DB5300BEA142 /* TitledContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledContent.swift; sourceTree = "<group>"; };
@@ -113,7 +117,7 @@
 		CA91CEF629E5FA9100E9F5D1 /* AppFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowView.swift; sourceTree = "<group>"; };
 		CA9C7FCD29D9E4A200F2DE30 /* CreateV60SingleCupRecipeUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateV60SingleCupRecipeUseCaseImpTests.swift; sourceTree = "<group>"; };
 		CAB1925E2A0D6B6500043837 /* RecipeRepositoryImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRepositoryImpTests.swift; sourceTree = "<group>"; };
-		CAD071E629DCCB000010E561 /* BrewQueue+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BrewQueue+Stub.swift"; sourceTree = "<group>"; };
+		CAD071E629DCCB000010E561 /* Entities+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entities+Stub.swift"; sourceTree = "<group>"; };
 		CAE3944129DE13C0007611F1 /* CreateRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeView.swift; sourceTree = "<group>"; };
 		CAF42CDE29EC907F004D7788 /* View+ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ClearButton.swift"; sourceTree = "<group>"; };
 		CAF42CE029EC90CA004D7788 /* AlphanumericTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphanumericTextField.swift; sourceTree = "<group>"; };
@@ -208,6 +212,7 @@
 		CA367D3729A2B0380095B1B8 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				CA6263BD2A254988003E167D /* Entities+Stub */,
 				CA367D3829A2B0380095B1B8 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -288,6 +293,23 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
+		CA6263B92A2548F9003E167D /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				CAD071E629DCCB000010E561 /* Entities+Stub.swift */,
+				CA6263BA2A25492D003E167D /* DTOs+Stub.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		CA6263BD2A254988003E167D /* Entities+Stub */ = {
+			isa = PBXGroup;
+			children = (
+				CA6263BE2A25499A003E167D /* Entities+Stub.swift */,
+			);
+			path = "Entities+Stub";
+			sourceTree = "<group>";
+		};
 		CA77909E2A06F3A400BEA142 /* Test Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -316,6 +338,7 @@
 		CA7790A32A06F3DD00BEA142 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
+				CA6263B92A2548F9003E167D /* Extension */,
 				CA7790A42A06F3F100BEA142 /* Application */,
 			);
 			path = Mock;
@@ -364,7 +387,6 @@
 		CAD071E329DCCAD60010E561 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				CAD071E629DCCB000010E561 /* BrewQueue+Stub.swift */,
 				CA17289529EB4CA8000F867B /* View+Responder.swift */,
 				CA77908C2A06A39900BEA142 /* String+Filter.swift */,
 			);
@@ -566,7 +588,6 @@
 				CA4758DF2A0C2D440022BC7D /* RecipesView.swift in Sources */,
 				CA4758E42A0C3C5C0022BC7D /* RecipesFlowView.swift in Sources */,
 				CAE3944229DE13C0007611F1 /* CreateRecipeView.swift in Sources */,
-				CAD071E729DCCB000010E561 /* BrewQueue+Stub.swift in Sources */,
 				CA17289629EB4CA8000F867B /* View+Responder.swift in Sources */,
 				CA77909D2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift in Sources */,
 				CA91CEF729E5FA9100E9F5D1 /* AppFlowView.swift in Sources */,
@@ -582,6 +603,7 @@
 				CA7B804B29BFABBB007D3DFC /* StageTimerView.swift in Sources */,
 				CAF42CED29EC98A1004D7788 /* Screen.swift in Sources */,
 				CA6263B82A250F00003E167D /* Storage.swift in Sources */,
+				CA6263BF2A25499A003E167D /* Entities+Stub.swift in Sources */,
 				CA4758E12A0C3A200022BC7D /* RecipeProfileRowView.swift in Sources */,
 				CA17289D29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift in Sources */,
 				CAF42CE529EC9548004D7788 /* Navigable.swift in Sources */,
@@ -605,6 +627,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA7B804729BFAA21007D3DFC /* CountdownTimerImplTests.swift in Sources */,
+				CA6263BB2A25492D003E167D /* DTOs+Stub.swift in Sources */,
 				CAB1925F2A0D6B6500043837 /* RecipeRepositoryImpTests.swift in Sources */,
 				CA7790952A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift in Sources */,
 				CA9C7FCE29D9E4A200F2DE30 /* CreateV60SingleCupRecipeUseCaseImpTests.swift in Sources */,
@@ -612,6 +635,7 @@
 				CA7790A62A06F3FA00BEA142 /* MockCreateV60SingleCupRecipeUseCase.swift in Sources */,
 				CA7790A12A06F3BB00BEA142 /* Equatable.swift in Sources */,
 				CA7790A82A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputsMapper.swift in Sources */,
+				CA6263BC2A254955003E167D /* Entities+Stub.swift in Sources */,
 				CA7790992A06F34100BEA142 /* CreateV60SingleCupContextToInputsMapperImpTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
