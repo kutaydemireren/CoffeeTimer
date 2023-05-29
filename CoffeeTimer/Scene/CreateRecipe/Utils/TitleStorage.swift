@@ -1,5 +1,5 @@
 //
-//  MockTitleStorage.swift
+//  TitleStorage.swift
 //  CoffeeTimer
 //
 //  Created by Kutay Demireren on 29/05/2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MockTitleStorage {
+struct TitleStorage {
 	static let funTitles = [
 		"Icons are the new socks - impossible to match.",
 		"Icons are the ultimate indecision enablers.",

@@ -232,5 +232,5 @@ struct CreateRecipeProfileSelection_Previews: PreviewProvider {
 			.backgroundPrimary()
 	}
 
-	static let gridCache = GridCache(title: MockTitleStorage.randomTitle, recipeProfileIcons: MockStore.recipeProfileIcons)
+	static let gridCache = GridCache(title: TitleStorage.randomTitle, recipeProfileIcons: MockStore.recipeProfileIcons)
 }

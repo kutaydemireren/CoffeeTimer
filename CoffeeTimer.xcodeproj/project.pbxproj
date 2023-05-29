@@ -29,7 +29,7 @@
 		CA6263BB2A25492D003E167D /* DTOs+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263BA2A25492D003E167D /* DTOs+Stub.swift */; };
 		CA6263BC2A254955003E167D /* Entities+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD071E629DCCB000010E561 /* Entities+Stub.swift */; };
 		CA6263BF2A25499A003E167D /* Entities+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263BE2A25499A003E167D /* Entities+Stub.swift */; };
-		CA6263C12A254C78003E167D /* MockTitleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263C02A254C78003E167D /* MockTitleStorage.swift */; };
+		CA6263C12A254C78003E167D /* TitleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263C02A254C78003E167D /* TitleStorage.swift */; };
 		CA77908D2A06A39900BEA142 /* String+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77908C2A06A39900BEA142 /* String+Filter.swift */; };
 		CA77908F2A06DB3C00BEA142 /* LeadingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77908E2A06DB3C00BEA142 /* LeadingText.swift */; };
 		CA7790932A06DB5300BEA142 /* TitledContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790922A06DB5300BEA142 /* TitledContent.swift */; };
@@ -101,7 +101,7 @@
 		CA6263B72A250F00003E167D /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		CA6263BA2A25492D003E167D /* DTOs+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTOs+Stub.swift"; sourceTree = "<group>"; };
 		CA6263BE2A25499A003E167D /* Entities+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entities+Stub.swift"; sourceTree = "<group>"; };
-		CA6263C02A254C78003E167D /* MockTitleStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTitleStorage.swift; sourceTree = "<group>"; };
+		CA6263C02A254C78003E167D /* TitleStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleStorage.swift; sourceTree = "<group>"; };
 		CA77908C2A06A39900BEA142 /* String+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Filter.swift"; sourceTree = "<group>"; };
 		CA77908E2A06DB3C00BEA142 /* LeadingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingText.swift; sourceTree = "<group>"; };
 		CA7790922A06DB5300BEA142 /* TitledContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledContent.swift; sourceTree = "<group>"; };
@@ -214,7 +214,6 @@
 		CA367D3729A2B0380095B1B8 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				CA6263C02A254C78003E167D /* MockTitleStorage.swift */,
 				CA6263BE2A25499A003E167D /* Entities+Stub.swift */,
 				CA367D3829A2B0380095B1B8 /* Preview Assets.xcassets */,
 			);
@@ -303,6 +302,14 @@
 				CA6263BA2A25492D003E167D /* DTOs+Stub.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		CA6263C32A254D22003E167D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CA6263C02A254C78003E167D /* TitleStorage.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		CA77909E2A06F3A400BEA142 /* Test Utils */ = {
@@ -411,6 +418,7 @@
 		CAF42CEA29EC9842004D7788 /* CreateRecipe */ = {
 			isa = PBXGroup;
 			children = (
+				CA6263C32A254D22003E167D /* Utils */,
 				CA17289C29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift */,
 				CA17289E29EB58F1000F867B /* CreateRecipeProfileSelection.swift */,
 				CAE3944129DE13C0007611F1 /* CreateRecipeView.swift */,
@@ -606,7 +614,7 @@
 				CA77908F2A06DB3C00BEA142 /* LeadingText.swift in Sources */,
 				CAF42CF329EC9906004D7788 /* RecipeRepository.swift in Sources */,
 				CA77908D2A06A39900BEA142 /* String+Filter.swift in Sources */,
-				CA6263C12A254C78003E167D /* MockTitleStorage.swift in Sources */,
+				CA6263C12A254C78003E167D /* TitleStorage.swift in Sources */,
 				CAF42CF529EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift in Sources */,
 				CAF42CF129EC98E4004D7788 /* RecipeRepositoryImp.swift in Sources */,
 				CA7790932A06DB5300BEA142 /* TitledContent.swift in Sources */,
