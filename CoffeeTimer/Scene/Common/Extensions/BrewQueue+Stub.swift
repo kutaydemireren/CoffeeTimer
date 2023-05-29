@@ -94,6 +94,83 @@ extension RecipeDTO {
 	}
 }
 
+// TODO: Move
+extension RecipeDTO {
+	var excludingProfile: Self {
+		return RecipeDTO(
+			recipeProfile: nil,
+			ingredients: ingredients,
+			brewQueue: brewQueue
+		)
+	}
+
+	var excludingProfileIcon: Self {
+		return RecipeDTO(
+			recipeProfile: .init(name: nil, icon: nil),
+			ingredients: ingredients,
+			brewQueue: brewQueue
+		)
+	}
+
+	var excludingIngredientType: Self {
+		return RecipeDTO(
+			recipeProfile: recipeProfile,
+			ingredients: [
+				.init(ingredientType: nil, amount: ingredients?.first!.amount)
+			],
+			brewQueue: brewQueue
+		)
+	}
+
+	var excludingIngredientAmount: Self {
+		return RecipeDTO(
+			recipeProfile: recipeProfile,
+			ingredients: [
+				.init(ingredientType: ingredients?.first!.ingredientType, amount: nil)
+			],
+			brewQueue: brewQueue
+		)
+	}
+
+	var excludingIngredientAmountType: Self {
+		return RecipeDTO(
+			recipeProfile: recipeProfile,
+			ingredients: [
+				.init(ingredientType: ingredients?.first!.ingredientType, amount: .init(amount: nil, type: nil))
+			],
+			brewQueue: brewQueue
+		)
+	}
+
+	var excludingBrewQueue: Self {
+		return RecipeDTO(
+			recipeProfile: recipeProfile,
+			ingredients: ingredients,
+			brewQueue: nil
+		)
+	}
+
+	var excludingBrewStageAction: Self {
+		return RecipeDTO(
+			recipeProfile: recipeProfile,
+			ingredients: ingredients,
+			brewQueue: .init(stages: [
+				.init(action: nil, requirement: nil, startMethod: nil, passMethod: nil)
+			])
+		)
+	}
+
+	var excludingBrewStageRequirement: Self {
+		return RecipeDTO(
+			recipeProfile: recipeProfile,
+			ingredients: ingredients,
+			brewQueue: .init(stages: [
+				.init(action: .pause, requirement: nil, startMethod: nil, passMethod: nil)
+			])
+		)
+	}
+}
+
 extension RecipeProfileDTO {
 	static var stubMini: RecipeProfileDTO {
 		return RecipeProfileDTO(name: "My Recipe Mini", icon: .stubMini)

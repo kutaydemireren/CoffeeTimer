@@ -7,8 +7,19 @@
 
 import Foundation
 
+enum RecipeMapperError: Error {
+	case missingRecipeProfile
+	case missingRecipeProfileIcon
+	case missingIngredientType
+	case missingIngredientAmount
+	case missingIngredientAmountType
+	case missingBrewQueue
+	case missingBrewStageAction
+	case missingBrewStageRequirement
+}
+
 protocol RecipeMapper {
-	func mapToRecipe(recipeDTO: RecipeDTO) -> Recipe
+	func mapToRecipe(recipeDTO: RecipeDTO) throws -> Recipe
 	func mapToRecipeDTO(recipe: Recipe) -> RecipeDTO
 }
 
@@ -17,30 +28,28 @@ struct RecipeMapperImp: RecipeMapper { }
 
 // MARK: Recipe to RecipeDTO
 extension RecipeMapperImp {
-	func mapToRecipe(recipeDTO: RecipeDTO) -> Recipe {
-		let recipeProfile = mapToRecipeProfile(recipeProfileDTO: recipeDTO.recipeProfile)
-		let ingredients = mapToIngredients(ingredientDTOs: recipeDTO.ingredients)
-		let brewQueue = mapToBrewQueue(brewQueueDTO: recipeDTO.brewQueue)
+	func mapToRecipe(recipeDTO: RecipeDTO) throws -> Recipe {
+		let recipeProfile = try mapToRecipeProfile(recipeProfileDTO: recipeDTO.recipeProfile)
+		let ingredients = try mapToIngredients(ingredientDTOs: recipeDTO.ingredients)
+		let brewQueue = try mapToBrewQueue(brewQueueDTO: recipeDTO.brewQueue)
 
 		return Recipe(recipeProfile: recipeProfile, ingredients: ingredients, brewQueue: brewQueue)
 	}
 
-	private func mapToRecipeProfile(recipeProfileDTO: RecipeProfileDTO?) -> RecipeProfile {
+	private func mapToRecipeProfile(recipeProfileDTO: RecipeProfileDTO?) throws -> RecipeProfile {
 		guard let dto = recipeProfileDTO else {
-			// throw ?
-			return RecipeProfile(name: "", icon: RecipeProfileIcon(title: "", color: ""))
+			throw RecipeMapperError.missingRecipeProfile
 		}
 
 		let name = dto.name ?? ""
-		let icon = mapToRecipeProfileIcon(recipeProfileIconDTO: dto.icon)
+		let icon = try mapToRecipeProfileIcon(recipeProfileIconDTO: dto.icon)
 
 		return RecipeProfile(name: name, icon: icon)
 	}
 
-	private func mapToRecipeProfileIcon(recipeProfileIconDTO: RecipeProfileIconDTO?) -> RecipeProfileIcon {
+	private func mapToRecipeProfileIcon(recipeProfileIconDTO: RecipeProfileIconDTO?) throws -> RecipeProfileIcon {
 		guard let dto = recipeProfileIconDTO else {
-			// throw ?
-			return RecipeProfileIcon(title: "", color: "")
+			throw RecipeMapperError.missingRecipeProfileIcon
 		}
 
 		let title = dto.title ?? ""
@@ -49,25 +58,24 @@ extension RecipeMapperImp {
 		return RecipeProfileIcon(title: title, color: color)
 	}
 
-	private func mapToIngredients(ingredientDTOs: [IngredientDTO]?) -> [Ingredient] {
+	private func mapToIngredients(ingredientDTOs: [IngredientDTO]?) throws -> [Ingredient] {
 		guard let dtos = ingredientDTOs else {
 			return []
 		}
 
-		return dtos.compactMap { mapToIngredient(ingredientDTO: $0) }
+		return try dtos.compactMap { try mapToIngredient(ingredientDTO: $0) }
 	}
 
-	private func mapToIngredient(ingredientDTO: IngredientDTO) -> Ingredient {
-		let ingredientType = mapToIngredientType(ingredientTypeDTO: ingredientDTO.ingredientType)
-		let amount = mapToIngredientAmount(ingredientAmountDTO: ingredientDTO.amount)
+	private func mapToIngredient(ingredientDTO: IngredientDTO) throws -> Ingredient {
+		let ingredientType = try mapToIngredientType(ingredientTypeDTO: ingredientDTO.ingredientType)
+		let amount = try mapToIngredientAmount(ingredientAmountDTO: ingredientDTO.amount)
 
 		return Ingredient(ingredientType: ingredientType, amount: amount)
 	}
 
-	private func mapToIngredientType(ingredientTypeDTO: IngredientTypeDTO?) -> IngredientType {
+	private func mapToIngredientType(ingredientTypeDTO: IngredientTypeDTO?) throws -> IngredientType {
 		guard let dto = ingredientTypeDTO else {
-			// throw ?
-			return .coffee
+			throw RecipeMapperError.missingIngredientType
 		}
 
 		switch dto {
@@ -78,22 +86,20 @@ extension RecipeMapperImp {
 		}
 	}
 
-	private func mapToIngredientAmount(ingredientAmountDTO: IngredientAmountDTO?) -> IngredientAmount {
+	private func mapToIngredientAmount(ingredientAmountDTO: IngredientAmountDTO?) throws -> IngredientAmount {
 		guard let dto = ingredientAmountDTO else {
-			// throw ?
-			return IngredientAmount(amount: 0, type: .gram)
+			throw RecipeMapperError.missingIngredientAmount
 		}
 
 		let amount = dto.amount ?? 0
-		let type = mapToIngredientAmountType(ingredientAmountTypeDTO: dto.type)
+		let type = try mapToIngredientAmountType(ingredientAmountTypeDTO: dto.type)
 
 		return IngredientAmount(amount: amount, type: type)
 	}
 
-	private func mapToIngredientAmountType(ingredientAmountTypeDTO: IngredientAmountTypeDTO?) -> IngredientAmountType {
+	private func mapToIngredientAmountType(ingredientAmountTypeDTO: IngredientAmountTypeDTO?) throws -> IngredientAmountType {
 		guard let dto = ingredientAmountTypeDTO else {
-			// throw ?
-			return .gram
+			throw RecipeMapperError.missingIngredientAmountType
 		}
 
 		switch dto {
@@ -106,46 +112,44 @@ extension RecipeMapperImp {
 		}
 	}
 
-	private func mapToBrewQueue(brewQueueDTO: BrewQueueDTO?) -> BrewQueue {
+	private func mapToBrewQueue(brewQueueDTO: BrewQueueDTO?) throws-> BrewQueue {
 		guard let dto = brewQueueDTO else {
-			// throw ?
-			return BrewQueue(stages: [])
+			throw RecipeMapperError.missingBrewQueue
 		}
 
-		let stages = mapToBrewStages(brewStageDTOs: dto.stages)
+		let stages = try mapToBrewStages(brewStageDTOs: dto.stages)
 
 		return BrewQueue(stages: stages)
 	}
 
-	private func mapToBrewStages(brewStageDTOs: [BrewStageDTO]?) -> [BrewStage] {
+	private func mapToBrewStages(brewStageDTOs: [BrewStageDTO]?) throws -> [BrewStage] {
 		guard let dtos = brewStageDTOs else {
 			return []
 		}
 
-		return dtos.compactMap { mapToBrewStage(brewStageDTO: $0) }
+		return try dtos.compactMap { try mapToBrewStage(brewStageDTO: $0) }
 	}
 
-	private func mapToBrewStage(brewStageDTO: BrewStageDTO) -> BrewStage {
-		let action = mapToBrewStageAction(brewStageActionDTO: brewStageDTO.action)
-		let requirement = mapToBrewStageRequirement(brewStageRequirementDTO: brewStageDTO.requirement)
+	private func mapToBrewStage(brewStageDTO: BrewStageDTO) throws -> BrewStage {
+		let action = try mapToBrewStageAction(brewStageActionDTO: brewStageDTO.action)
+		let requirement = try mapToBrewStageRequirement(brewStageRequirementDTO: brewStageDTO.requirement)
 		let startMethod = brewStageDTO.startMethod ?? .userInteractive
 
 		return BrewStage(action: action, requirement: requirement, startMethod: mapToMethod(brewStageActionMethodDTO: startMethod))
 	}
 
-	private func mapToBrewStageAction(brewStageActionDTO: BrewStageActionDTO?) -> BrewStageAction {
+	private func mapToBrewStageAction(brewStageActionDTO: BrewStageActionDTO?) throws -> BrewStageAction {
 		guard let dto = brewStageActionDTO else {
-			// throw ?
-			return .wet
+			throw RecipeMapperError.missingBrewStageAction
 		}
 
 		switch dto {
 		case .boil(let water):
-			return .boil(water: mapToIngredientAmount(ingredientAmountDTO: water))
+			return .boil(water: try mapToIngredientAmount(ingredientAmountDTO: water))
 		case .put(let coffee):
-			return .put(coffee: mapToIngredientAmount(ingredientAmountDTO: coffee))
+			return .put(coffee: try mapToIngredientAmount(ingredientAmountDTO: coffee))
 		case .pour(let water):
-			return .pour(water: mapToIngredientAmount(ingredientAmountDTO: water))
+			return .pour(water: try mapToIngredientAmount(ingredientAmountDTO: water))
 		case .wet:
 			return .wet
 		case .swirl:
@@ -157,10 +161,9 @@ extension RecipeMapperImp {
 		}
 	}
 
-	private func mapToBrewStageRequirement(brewStageRequirementDTO: BrewStageRequirementDTO?) -> BrewStageRequirement {
+	private func mapToBrewStageRequirement(brewStageRequirementDTO: BrewStageRequirementDTO?) throws -> BrewStageRequirement {
 		guard let dto = brewStageRequirementDTO else {
-			// throw ?
-			return .none
+			throw RecipeMapperError.missingBrewStageRequirement
 		}
 
 		switch dto {

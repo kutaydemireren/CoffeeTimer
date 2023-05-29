@@ -34,7 +34,7 @@ extension RecipeRepositoryImp {
 			return nil
 		}
 
-		return mapper.mapToRecipe(recipeDTO: recipeDTO)
+		return try? mapper.mapToRecipe(recipeDTO: recipeDTO)
 	}
 
 	func update(selectedRecipe: Recipe) {
@@ -46,7 +46,7 @@ extension RecipeRepositoryImp {
 extension RecipeRepositoryImp {
 	func getSavedRecipes() -> [Recipe] {
 		let recipeDTOs = getSavedRecipeDTOs()
-		return recipeDTOs.map { mapper.mapToRecipe(recipeDTO: $0) }
+		return recipeDTOs.compactMap { try? mapper.mapToRecipe(recipeDTO: $0) }
 	}
 
 	func save(_ recipe: Recipe) {
