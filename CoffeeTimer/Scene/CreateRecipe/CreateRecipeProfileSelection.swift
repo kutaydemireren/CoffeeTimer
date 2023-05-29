@@ -82,25 +82,6 @@ extension MockStore {
 	}
 }
 
-// TODO: Temp
-struct MockTitleStorage {
-	static let funTitles = [
-		"Icons are the new socks - impossible to match.",
-		"Icons are the ultimate indecision enablers.",
-		"Icons: so many choices, so little time.",
-		"Icons: small graphics, big headaches.",
-		"Choosing an icon: the struggle is real.",
-		"Choosing an icon: where art and indecision collide.",
-		"Tiny pictures, big decisions.",
-		"Simple yet so complicated.",
-		"Small but mighty frustrating."
-	]
-
-	static var randomTitle: String {
-		funTitles.randomElement() ?? ""
-	}
-}
-
 extension Alignment: CaseIterable {
 	public static var allCases: [Alignment] {
 		return [
