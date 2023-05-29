@@ -59,7 +59,6 @@ extension RecipeProfile {
 	}
 }
 
-// TODO: Obviously, temp
 extension MockStore {
 	static var recipeProfileIcons: [RecipeProfileIcon] {
 		[
@@ -81,16 +80,9 @@ extension MockStore {
 			RecipeProfileIcon(title: "rocket 3", color: UIColor.purple.hexString ?? "")
 		].shuffled()
 	}
-
-	static var savedRecipes: [Recipe] {
-		let recipeProfileIcons = recipeProfileIcons
-		return (0..<5).map { index in
-			return Recipe(recipeProfile: .init(name: "My V60", icon: recipeProfileIcons[index]), ingredients: [], brewQueue: .stubSingleV60)
-		}
-	}
 }
 
-// TODO: Obviously, temp
+// TODO: Temp
 struct MockTitleStorage {
 	static let funTitles = [
 		"Icons are the new socks - impossible to match.",

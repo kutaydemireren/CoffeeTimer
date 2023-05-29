@@ -45,7 +45,7 @@ final class CreateV60SingleCupContextToInputsMapperImpTests: XCTestCase {
 
 	private func createNonEmptyProfileContext() -> CreateRecipeContext {
 		let context = CreateRecipeContext()
-		context.recipeProfile = .stub
+		context.recipeProfile = .stubSingleV60
 		return context
 	}
 }

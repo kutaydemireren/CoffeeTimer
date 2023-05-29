@@ -7,56 +7,56 @@
 
 import Foundation
 
-struct RecipeDTO: Codable {
+struct RecipeDTO: Codable, Equatable {
 	let recipeProfile: RecipeProfileDTO?
 	let ingredients: [IngredientDTO]?
 	let brewQueue: BrewQueueDTO?
 }
 
-struct RecipeProfileDTO: Codable {
+struct RecipeProfileDTO: Codable, Equatable {
 	let name: String?
 	let icon: RecipeProfileIconDTO?
 }
 
-struct RecipeProfileIconDTO: Codable {
+struct RecipeProfileIconDTO: Codable, Equatable {
 	let title: String?
 	let colorHex: String?
 	let imageName: String?
 }
 
-struct IngredientDTO: Codable {
+struct IngredientDTO: Codable, Equatable {
 	let ingredientType: IngredientTypeDTO?
 	let amount: IngredientAmountDTO?
 }
 
-enum IngredientTypeDTO: Codable {
+enum IngredientTypeDTO: Codable, Equatable {
 	case coffee
 	case water
 }
 
-struct IngredientAmountDTO: Codable {
+struct IngredientAmountDTO: Codable, Equatable {
 	let amount: UInt?
 	let type: IngredientAmountTypeDTO?
 }
 
-enum IngredientAmountTypeDTO: Codable {
+enum IngredientAmountTypeDTO: Codable, Equatable {
 	case spoon
 	case gram
 	case millilitre
 }
 
-struct BrewQueueDTO: Codable {
+struct BrewQueueDTO: Codable, Equatable {
 	let stages: [BrewStageDTO]?
 }
 
-struct BrewStageDTO: Codable {
+struct BrewStageDTO: Codable, Equatable {
 	let action: BrewStageActionDTO?
 	let requirement: BrewStageRequirementDTO?
 	let startMethod: BrewStageActionMethodDTO?
 	let passMethod: BrewStageActionMethodDTO?
 }
 
-enum BrewStageActionDTO: Codable {
+enum BrewStageActionDTO: Codable, Equatable {
 	case boil(water: IngredientAmountDTO)
 	case put(coffee: IngredientAmountDTO)
 	case pour(water: IngredientAmountDTO)
@@ -66,12 +66,12 @@ enum BrewStageActionDTO: Codable {
 	case finish
 }
 
-enum BrewStageActionMethodDTO: Codable {
+enum BrewStageActionMethodDTO: Codable, Equatable {
 	case auto
 	case userInteractive
 }
 
-enum BrewStageRequirementDTO: Codable {
+enum BrewStageRequirementDTO: Codable, Equatable {
 	case none
 	case countdown(UInt)
 }

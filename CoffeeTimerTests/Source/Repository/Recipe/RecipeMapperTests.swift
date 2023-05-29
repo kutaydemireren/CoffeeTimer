@@ -26,20 +26,19 @@ extension RecipeDTO {
 	}
 }
 
-
 final class RecipeMapperTests: XCTestCase {
-	var sut: RecipeMapper
+	var sut: RecipeMapperImp!
 
     override func setUpWithError() throws {
-		sut = RecipeMapper()
+		sut = RecipeMapperImp()
     }
 
     func test_mapToRecipe_shouldMapAsExpected() throws {
-		let expectedRecipe = 
+		let expectedRecipe = Recipe.stubMini
 
-		let recipe = sut.mapToRecipe(recipeDTO: .stub)
+		let resultedRecipe = sut.mapToRecipe(recipeDTO: .stubMini)
 
-		XCTAssert(recipe, )
+		XCTAssertEqual(resultedRecipe, expectedRecipe)
     }
 }
 

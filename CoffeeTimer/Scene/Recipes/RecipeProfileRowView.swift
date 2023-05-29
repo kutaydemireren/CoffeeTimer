@@ -30,6 +30,6 @@ struct RecipeProfileRowView: View {
 
 struct RecipeProfileRowView_Previews: PreviewProvider {
 	static var previews: some View {
-		RecipeProfileRowView(recipeProfile: .stub)
+		RecipeProfileRowView(recipeProfile: .stubSingleV60)
 	}
 }

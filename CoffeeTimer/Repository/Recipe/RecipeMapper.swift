@@ -7,12 +7,13 @@
 
 import Foundation
 
-protocol RecipeMapperProtocol {
+protocol RecipeMapper {
 	func mapToRecipe(recipeDTO: RecipeDTO) -> Recipe
 	func mapToRecipeDTO(recipe: Recipe) -> RecipeDTO
 }
 
-struct RecipeMapper: RecipeMapperProtocol {
+// TODO: throw error
+struct RecipeMapperImp: RecipeMapper {
 	func mapToRecipe(recipeDTO: RecipeDTO) -> Recipe {
 		let recipeProfile = mapToRecipeProfile(recipeProfileDTO: recipeDTO.recipeProfile)
 		let ingredients = mapToIngredients(ingredientDTOs: recipeDTO.ingredients)
@@ -31,7 +32,7 @@ struct RecipeMapper: RecipeMapperProtocol {
 
 	private func mapToRecipeProfile(recipeProfileDTO: RecipeProfileDTO?) -> RecipeProfile {
 		guard let dto = recipeProfileDTO else {
-			// Return a default or empty RecipeProfile if needed
+			// throw ?
 			return RecipeProfile(name: "", icon: RecipeProfileIcon(title: "", color: ""))
 		}
 
@@ -43,7 +44,7 @@ struct RecipeMapper: RecipeMapperProtocol {
 
 	private func mapToRecipeProfileIcon(recipeProfileIconDTO: RecipeProfileIconDTO?) -> RecipeProfileIcon {
 		guard let dto = recipeProfileIconDTO else {
-			// Return a default or empty RecipeProfileIcon if needed
+			// throw ?
 			return RecipeProfileIcon(title: "", color: "")
 		}
 
@@ -71,7 +72,7 @@ struct RecipeMapper: RecipeMapperProtocol {
 
 	private func mapToIngredientType(ingredientTypeDTO: IngredientTypeDTO?) -> IngredientType {
 		guard let dto = ingredientTypeDTO else {
-			// Return a default or empty IngredientType if needed
+			// throw ?
 			return .coffee
 		}
 
@@ -85,7 +86,7 @@ struct RecipeMapper: RecipeMapperProtocol {
 
 	private func mapToIngredientAmount(ingredientAmountDTO: IngredientAmountDTO?) -> IngredientAmount {
 		guard let dto = ingredientAmountDTO else {
-			// Return a default or empty IngredientAmount if needed
+			// throw ?
 			return IngredientAmount(amount: 0, type: .gram)
 		}
 
@@ -97,7 +98,7 @@ struct RecipeMapper: RecipeMapperProtocol {
 
 	private func mapToIngredientAmountType(ingredientAmountTypeDTO: IngredientAmountTypeDTO?) -> IngredientAmountType {
 		guard let dto = ingredientAmountTypeDTO else {
-			// Return a default or empty IngredientAmountType if needed
+			// throw ?
 			return .gram
 		}
 
@@ -113,7 +114,7 @@ struct RecipeMapper: RecipeMapperProtocol {
 
 	private func mapToBrewQueue(brewQueueDTO: BrewQueueDTO?) -> BrewQueue {
 		guard let dto = brewQueueDTO else {
-			// Return a default or empty BrewQueue if needed
+			// throw ?
 			return BrewQueue(stages: [])
 		}
 
@@ -141,7 +142,7 @@ struct RecipeMapper: RecipeMapperProtocol {
 
 	private func mapToBrewStageAction(brewStageActionDTO: BrewStageActionDTO?) -> BrewStageAction {
 		guard let dto = brewStageActionDTO else {
-			// Return a default or empty BrewStageAction if needed
+			// throw ?
 			return .wet
 		}
 
@@ -165,7 +166,7 @@ struct RecipeMapper: RecipeMapperProtocol {
 
 	private func mapToBrewStageRequirement(brewStageRequirementDTO: BrewStageRequirementDTO?) -> BrewStageRequirement {
 		guard let dto = brewStageRequirementDTO else {
-			// Return a default or empty BrewStageRequirement if needed
+			// throw ?
 			return .none
 		}
 

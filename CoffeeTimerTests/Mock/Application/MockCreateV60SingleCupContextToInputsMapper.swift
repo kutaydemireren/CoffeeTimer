@@ -9,7 +9,7 @@ import Foundation
 @testable import CoffeeTimer
 
 class MockCreateV60SingleCupContextToInputsMapper: CreateV60SingleCupContextToInputsMapper {
-	var _inputs: CreateV60SingleCupRecipeInputs = .stub
+	var _inputs: CreateV60SingleCupRecipeInputs = .stubSingleV60
 	var _context: CreateRecipeContext?
 
 	func map(context: CreateRecipeContext) -> CreateV60SingleCupRecipeInputs {

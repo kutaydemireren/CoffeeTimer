@@ -34,7 +34,7 @@ final class CreateRecipeFromContextUseCaseImpTests: XCTestCase {
 
 	func test_create_shouldCreateWithExpectedInputs() {
 		let expectedContext = CreateRecipeContext()
-		let expectedInputs = CreateV60SingleCupRecipeInputs.stub
+		let expectedInputs = CreateV60SingleCupRecipeInputs.stubSingleV60
 		mockCreateV60SingleCupContextToInputsMapper._inputs = expectedInputs
 
 		let _ = sut.create(from: expectedContext)

@@ -60,11 +60,11 @@ final class RecipeRepositoryImp: RecipeRepository {
 	private let savedRecipesKey = RecipeConstants.savedRecipesKey
 
 	private var storage: Storage
-	private var mapper: RecipeMapperProtocol
+	private var mapper: RecipeMapper
 
 	init(
 		storage: Storage = StorageImp(userDefaults: .standard),
-		mapper: RecipeMapperProtocol = RecipeMapper()
+		mapper: RecipeMapper = RecipeMapperImp()
 	) {
 		self.storage = storage
 		self.mapper = mapper
@@ -73,10 +73,11 @@ final class RecipeRepositoryImp: RecipeRepository {
 
 extension RecipeRepositoryImp {
 	func getSelectedRecipe() -> Recipe? {
-		if let recipeDTO = storage.load(forKey: selectedRecipeKey) as RecipeDTO? {
-			return mapper.mapToRecipe(recipeDTO: recipeDTO)
+		guard let recipeDTO = storage.load(forKey: selectedRecipeKey) as RecipeDTO? else {
+			return nil
 		}
-		return nil
+
+		return mapper.mapToRecipe(recipeDTO: recipeDTO)
 	}
 
 	func update(selectedRecipe: Recipe) {
