@@ -43,20 +43,20 @@ final class CreateV60SingleCupRecipeUseCaseImpTests: XCTestCase {
 extension CreateV60SingleCupRecipeUseCaseImpTests {
 	var expectedStages: [BrewStage] {
 		[
-			.init(action: .wet, requirement: .none),
-			.init(action: .put(coffee: coffeeAmount), requirement: .none),
-			.init(action: .pour(water: waterPerBlock), requirement: .countdown(5)),
-			.init(action: .pause, requirement: .countdown(5), startMethod: .auto),
-			.init(action: .swirl, requirement: .countdown(5)),
-			.init(action: .pause, requirement: .countdown(45), startMethod: .auto),
-			.init(action: .pour(water: waterPerBlock), requirement: .countdown(15)),
-			.init(action: .pause, requirement: .countdown(10), startMethod: .auto),
-			.init(action: .pour(water: waterPerBlock), requirement: .countdown(10)),
-			.init(action: .pause, requirement: .countdown(10), startMethod: .auto),
-			.init(action: .pour(water: waterPerBlock), requirement: .countdown(10)),
-			.init(action: .pause, requirement: .countdown(10), startMethod: .auto),
-			.init(action: .pour(water: waterPerBlock), requirement: .countdown(10)),
-			.init(action: .finish, requirement: .none)
+			.init(action: .wet, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
+			.init(action: .put(coffee: coffeeAmount), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
+			.init(action: .pour(water: waterPerBlock), requirement: .countdown(5), startMethod: .userInteractive, passMethod: .auto),
+			.init(action: .pause, requirement: .countdown(5), startMethod: .auto, passMethod: .auto),
+			.init(action: .swirl, requirement: .countdown(5), startMethod: .userInteractive, passMethod: .auto),
+			.init(action: .pause, requirement: .countdown(45), startMethod: .auto, passMethod: .auto),
+			.init(action: .pour(water: waterPerBlock), requirement: .countdown(15), startMethod: .userInteractive, passMethod: .auto),
+			.init(action: .pause, requirement: .countdown(10), startMethod: .auto, passMethod: .auto),
+			.init(action: .pour(water: waterPerBlock), requirement: .countdown(10), startMethod: .userInteractive, passMethod: .auto),
+			.init(action: .pause, requirement: .countdown(10), startMethod: .auto, passMethod: .auto),
+			.init(action: .pour(water: waterPerBlock), requirement: .countdown(10), startMethod: .userInteractive, passMethod: .auto),
+			.init(action: .pause, requirement: .countdown(10), startMethod: .auto, passMethod: .auto),
+			.init(action: .pour(water: waterPerBlock), requirement: .countdown(10), startMethod: .userInteractive, passMethod: .auto),
+			.init(action: .finish, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive)
 		]
 	}
 	var expectedIngredients: [Ingredient] {

@@ -10,9 +10,9 @@ import Foundation
 extension BrewQueue {
 	static var stubMini: BrewQueue {
 		BrewQueue(stages: [
-			.init(action: .wet, requirement: .none),
-			.init(action: .boil(water: .init(amount: 10, type: .gram)), requirement: .countdown(3), startMethod: .auto),
-			.init(action: .finish, requirement: .none)
+			.init(action: .wet, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
+			.init(action: .boil(water: .init(amount: 10, type: .gram)), requirement: .countdown(3), startMethod: .auto, passMethod: .userInteractive),
+			.init(action: .finish, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive)
 		])
 	}
 
@@ -77,7 +77,7 @@ extension BrewQueueDTO {
 	static var stubMini: BrewQueueDTO {
 		BrewQueueDTO(stages: [
 			.init(action: .wet, requirement: BrewStageRequirementDTO.none, startMethod: .userInteractive, passMethod: .userInteractive),
-			.init(action: .boil(water: .init(amount: 10, type: .gram)), requirement: .countdown(3), startMethod: .auto, passMethod: .auto),
+			.init(action: .boil(water: .init(amount: 10, type: .gram)), requirement: .countdown(3), startMethod: .auto, passMethod: .userInteractive),
 			.init(action: .finish, requirement: BrewStageRequirementDTO.none, startMethod: .userInteractive, passMethod: .userInteractive)
 		])
 	}
