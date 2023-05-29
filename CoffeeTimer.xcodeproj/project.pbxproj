@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA02D0D82A255A440012EE87 /* MockRecipeMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA02D0D72A255A440012EE87 /* MockRecipeMapper.swift */; };
+		CA02D0DC2A255A6D0012EE87 /* MockStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA02D0DB2A255A6D0012EE87 /* MockStorage.swift */; };
 		CA17289429EB4B9F000F867B /* NumericTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289329EB4B9F000F867B /* NumericTextField.swift */; };
 		CA17289629EB4CA8000F867B /* View+Responder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289529EB4CA8000F867B /* View+Responder.swift */; };
 		CA17289929EB4CD1000F867B /* CoffeeToWaterRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289829EB4CD1000F867B /* CoffeeToWaterRatio.swift */; };
@@ -83,6 +85,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CA02D0D72A255A440012EE87 /* MockRecipeMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecipeMapper.swift; sourceTree = "<group>"; };
+		CA02D0DB2A255A6D0012EE87 /* MockStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStorage.swift; sourceTree = "<group>"; };
 		CA17289329EB4B9F000F867B /* NumericTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericTextField.swift; sourceTree = "<group>"; };
 		CA17289529EB4CA8000F867B /* View+Responder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Responder.swift"; sourceTree = "<group>"; };
 		CA17289829EB4CD1000F867B /* CoffeeToWaterRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeToWaterRatio.swift; sourceTree = "<group>"; };
@@ -169,6 +173,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CA02D0D62A255A360012EE87 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				CA02D0DA2A255A650012EE87 /* Storage */,
+				CA02D0D92A255A530012EE87 /* Recipe */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		CA02D0D92A255A530012EE87 /* Recipe */ = {
+			isa = PBXGroup;
+			children = (
+				CA02D0D72A255A440012EE87 /* MockRecipeMapper.swift */,
+			);
+			path = Recipe;
+			sourceTree = "<group>";
+		};
+		CA02D0DA2A255A650012EE87 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				CA02D0DB2A255A6D0012EE87 /* MockStorage.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		CA17289229EB4B90000F867B /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -355,6 +384,7 @@
 		CA7790A32A06F3DD00BEA142 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
+				CA02D0D62A255A360012EE87 /* Repository */,
 				CA6263B92A2548F9003E167D /* Extension */,
 				CA7790A42A06F3F100BEA142 /* Application */,
 			);
@@ -654,6 +684,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA7B804729BFAA21007D3DFC /* CountdownTimerImpTests.swift in Sources */,
+				CA02D0DC2A255A6D0012EE87 /* MockStorage.swift in Sources */,
 				CA6263BB2A25492D003E167D /* DTOs+Stub.swift in Sources */,
 				CAB1925F2A0D6B6500043837 /* RecipeRepositoryImpTests.swift in Sources */,
 				CA7790952A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift in Sources */,
@@ -665,6 +696,7 @@
 				CA7790A82A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputsMapper.swift in Sources */,
 				CA6263BC2A254955003E167D /* Entities+Stub.swift in Sources */,
 				CA7790992A06F34100BEA142 /* CreateV60SingleCupContextToInputsMapperImpTests.swift in Sources */,
+				CA02D0D82A255A440012EE87 /* MockRecipeMapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

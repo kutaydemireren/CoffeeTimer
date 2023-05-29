@@ -8,60 +8,6 @@
 import XCTest
 @testable import CoffeeTimer
 
-final class MockStorage: Storage {
-	var storageDictionary: [String: Any] = [:]
-
-	var saveCalledWithKey: String?
-	var saveCalledWithValue: Any?
-
-	var loadCalledWithKey: String?
-
-	func save<T>(_ value: T?, forKey key: String) {
-		saveCalledWithKey = key
-		saveCalledWithValue = value
-		storageDictionary[key] = value
-	}
-
-	func load<T>(forKey key: String) -> T? {
-		loadCalledWithKey = key
-		return storageDictionary[key] as? T
-	}
-}
-
-final class MockRecipeMapper: RecipeMapper {
-	var mapToRecipeCalled = false
-	var mapToRecipeReceivedRecipeDTO: RecipeDTO?
-
-	var recipesDict: [Int: Recipe] = [:]
-	var recipeDTOsDict: [Int: RecipeDTO] = [:]
-
-	var mapToRecipeDTOCalled = false
-	var mapToRecipeDTOReceivedRecipe: Recipe?
-
-	func mapToRecipe(recipeDTO: RecipeDTO) -> Recipe {
-		mapToRecipeCalled = true
-		mapToRecipeReceivedRecipeDTO = recipeDTO
-
-		let firstMatchingIndex = recipeDTOsDict.filter { (_, value) in
-			return value == recipeDTO
-		}.keys.first!
-
-		return recipesDict[firstMatchingIndex] ?? .stubSingleV60
-	}
-
-	func mapToRecipeDTO(recipe: Recipe) -> RecipeDTO {
-		mapToRecipeDTOCalled = true
-		mapToRecipeDTOReceivedRecipe = recipe
-
-		let firstMatchingIndex = recipesDict.filter { (_, value) in
-			return value == recipe
-
-		}.keys.first!
-
-		return recipeDTOsDict[firstMatchingIndex] ?? .stub
-	}
-}
-
 final class RecipeRepositoryTests: XCTestCase {
 
 	let expectedSelectedRecipeKey = RecipeConstants.selectedRecipeKey
