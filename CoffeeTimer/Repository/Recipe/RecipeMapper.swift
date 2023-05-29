@@ -13,21 +13,16 @@ protocol RecipeMapper {
 }
 
 // TODO: throw error
-struct RecipeMapperImp: RecipeMapper {
+struct RecipeMapperImp: RecipeMapper { }
+
+// MARK: Recipe to RecipeDTO
+extension RecipeMapperImp {
 	func mapToRecipe(recipeDTO: RecipeDTO) -> Recipe {
 		let recipeProfile = mapToRecipeProfile(recipeProfileDTO: recipeDTO.recipeProfile)
 		let ingredients = mapToIngredients(ingredientDTOs: recipeDTO.ingredients)
 		let brewQueue = mapToBrewQueue(brewQueueDTO: recipeDTO.brewQueue)
 
 		return Recipe(recipeProfile: recipeProfile, ingredients: ingredients, brewQueue: brewQueue)
-	}
-
-	func mapToRecipeDTO(recipe: Recipe) -> RecipeDTO {
-		let recipeProfileDTO = mapToRecipeProfileDTO(recipeProfile: recipe.recipeProfile)
-		let ingredientDTOs = mapToIngredientDTOs(ingredients: recipe.ingredients)
-		let brewQueueDTO = mapToBrewQueueDTO(brewQueue: recipe.brewQueue)
-
-		return RecipeDTO(recipeProfile: recipeProfileDTO, ingredients: ingredientDTOs, brewQueue: brewQueueDTO)
 	}
 
 	private func mapToRecipeProfile(recipeProfileDTO: RecipeProfileDTO?) -> RecipeProfile {
@@ -50,7 +45,6 @@ struct RecipeMapperImp: RecipeMapper {
 
 		let title = dto.title ?? ""
 		let color = dto.colorHex ?? ""
-		let imageName = dto.imageName ?? ""
 
 		return RecipeProfileIcon(title: title, color: color)
 	}
@@ -135,7 +129,6 @@ struct RecipeMapperImp: RecipeMapper {
 		let action = mapToBrewStageAction(brewStageActionDTO: brewStageDTO.action)
 		let requirement = mapToBrewStageRequirement(brewStageRequirementDTO: brewStageDTO.requirement)
 		let startMethod = brewStageDTO.startMethod ?? .userInteractive
-		let passMethod = brewStageDTO.passMethod ?? (requirement == .none ? .userInteractive : .auto)
 
 		return BrewStage(action: action, requirement: requirement, startMethod: mapToMethod(brewStageActionMethodDTO: startMethod))
 	}
@@ -185,6 +178,17 @@ struct RecipeMapperImp: RecipeMapper {
 		case .userInteractive:
 			return .userInteractive
 		}
+	}
+}
+
+// MARK: RecipeDTO to Recipe
+extension RecipeMapperImp {
+	func mapToRecipeDTO(recipe: Recipe) -> RecipeDTO {
+		let recipeProfileDTO = mapToRecipeProfileDTO(recipeProfile: recipe.recipeProfile)
+		let ingredientDTOs = mapToIngredientDTOs(ingredients: recipe.ingredients)
+		let brewQueueDTO = mapToBrewQueueDTO(brewQueue: recipe.brewQueue)
+
+		return RecipeDTO(recipeProfile: recipeProfileDTO, ingredients: ingredientDTOs, brewQueue: brewQueueDTO)
 	}
 
 	private func mapToRecipeProfileDTO(recipeProfile: RecipeProfile) -> RecipeProfileDTO {

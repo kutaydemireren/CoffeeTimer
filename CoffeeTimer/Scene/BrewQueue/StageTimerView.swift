@@ -9,10 +9,8 @@ import SwiftUI
 import Combine
 
 extension TimeInterval {
-
 	var toRepresentableString: String {
 		String(format: "%d", Int(self))
-//		return "" // TODO: improve
 	}
 }
 

@@ -30,6 +30,7 @@ extension Recipe {
 			brewQueue: .stubMini
 		)
 	}
+
 	static var stubSingleV60: Recipe {
 		return CreateV60SingleCupRecipeUseCaseImp().create(inputs: .stubSingleV60)
 	}

@@ -25,7 +25,6 @@ struct RecipeProfileIcon: Equatable {
 	init(title: String, color: String) {
 		self.title = title
 		self.color = color
-		// TODO: Temp
 		self.imageName = "recipe-profile-\(title.split(separator: " ").first ?? "")"
 	}
 }
