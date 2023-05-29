@@ -32,7 +32,10 @@ final class RecipeMapperTests: XCTestCase {
 	override func setUpWithError() throws {
 		sut = RecipeMapperImp()
 	}
+}
 
+// MARK: Recipe to RecipeDTO
+extension RecipeMapperTests {
 	func test_mapToRecipe_shouldMapAsExpected() throws {
 		let expectedRecipe = Recipe.stubMini
 
