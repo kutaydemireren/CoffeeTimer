@@ -196,6 +196,10 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 	private func didSinkNewTimeInterval(_ timeInterval: TimeInterval) {
 		canProceedToNextStep = timeInterval <= 0
 	}
+
+	func showRecipes() {
+		didComplete.send(self)
+	}
 }
 
 struct BrewQueueView: View {
@@ -263,7 +267,7 @@ struct BrewQueueView: View {
 	private var recipesButton: some View {
 		if let selectedRecipe = viewModel.selectedRecipe {
 			Button {
-				viewModel.didComplete.send(viewModel) // TODO: Extract to view model
+				viewModel.showRecipes()
 			} label: {
 				RecipeProfileView(recipeProfile: selectedRecipe.recipeProfile)
 			}
