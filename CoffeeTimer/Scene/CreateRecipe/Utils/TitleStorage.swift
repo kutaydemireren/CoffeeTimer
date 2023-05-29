@@ -20,7 +20,7 @@ struct TitleStorage {
 		"Small but mighty frustrating."
 	]
 
-	static var randomTitle: String {
+	static var randomFunTitle: String {
 		funTitles.randomElement() ?? ""
 	}
 }

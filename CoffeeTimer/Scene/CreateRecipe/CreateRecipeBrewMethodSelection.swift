@@ -25,22 +25,6 @@ struct BrewMethodView: View {
 	}
 }
 
-struct BrewMethod: Identifiable, Equatable {
-	let id = UUID()
-	let title: String
-}
-
-// TODO: Obviously, temp
-struct MockStore {
-	static var brewMethods = [
-		BrewMethod(title: "V60 For 1 Cup"),
-		BrewMethod(title: "V60"),
-		BrewMethod(title: "Chemex"),
-		BrewMethod(title: "Melitta"),
-		BrewMethod(title: "French Press")
-	]
-}
-
 struct CreateRecipeBrewMethodSelection: View {
 
 	let columns: [GridItem] = [
@@ -48,7 +32,7 @@ struct CreateRecipeBrewMethodSelection: View {
 		GridItem(.flexible()),
 	]
 	let height: CGFloat = 150
-	let brewMethods: [BrewMethod] = MockStore.brewMethods
+	let brewMethods: [BrewMethod] = BrewMethodStorage.brewMethods
 
 	@Binding var selectedBrewMethod: BrewMethod?
 
@@ -73,7 +57,7 @@ struct CreateRecipeBrewMethodSelection: View {
 
 struct CreateRecipeBrewMethodSelection_Previews: PreviewProvider {
 	static var previews: some View {
-		CreateRecipeBrewMethodSelection(selectedBrewMethod: .constant(.init(title: "V60")))
+		CreateRecipeBrewMethodSelection(selectedBrewMethod: .constant(.v60))
 			.backgroundPrimary()
 	}
 }

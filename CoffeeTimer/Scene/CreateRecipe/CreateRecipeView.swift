@@ -49,7 +49,7 @@ struct CreateRecipeView: View {
 	@EnvironmentObject var context: CreateRecipeContext
 	var closeRequest: () -> Void
 
-	let gridCache = GridCache(title: TitleStorage.randomTitle, recipeProfileIcons: MockStore.recipeProfileIcons)
+	let gridCache = GridCache(title: TitleStorage.randomFunTitle, recipeProfileIcons: ProfileIconStorage.recipeProfileIcons)
 
 	@State private var canCreate = false
 

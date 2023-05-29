@@ -59,29 +59,6 @@ extension RecipeProfile {
 	}
 }
 
-extension MockStore {
-	static var recipeProfileIcons: [RecipeProfileIcon] {
-		[
-			RecipeProfileIcon(title: "planet", color: UIColor.magenta.hexString ?? ""),
-			RecipeProfileIcon(title: "moon", color: UIColor.brown.hexString ?? ""),
-			RecipeProfileIcon(title: "nuclear", color: UIColor.orange.hexString ?? ""),
-			RecipeProfileIcon(title: "planet 2", color: UIColor.magenta.hexString ?? ""),
-			RecipeProfileIcon(title: "moon 2", color: UIColor.brown.hexString ?? ""),
-			RecipeProfileIcon(title: "nuclear 2", color: UIColor.orange.hexString ?? ""),
-			RecipeProfileIcon(title: "planet 3", color: UIColor.magenta.hexString ?? ""),
-			RecipeProfileIcon(title: "moon 3", color: UIColor.brown.hexString ?? ""),
-			RecipeProfileIcon(title: "nuclear 3", color: UIColor.orange.hexString ?? ""),
-			RecipeProfileIcon(title: "planet 4", color: UIColor.magenta.hexString ?? ""),
-			RecipeProfileIcon(title: "moon 4", color: UIColor.brown.hexString ?? ""),
-			RecipeProfileIcon(title: "nuclear 4", color: UIColor.orange.hexString ?? ""),
-			RecipeProfileIcon(title: "nuclear 5 ", color: UIColor.orange.hexString ?? ""),
-			RecipeProfileIcon(title: "rocket", color: UIColor.purple.hexString ?? ""),
-			RecipeProfileIcon(title: "rocket 2", color: UIColor.purple.hexString ?? ""),
-			RecipeProfileIcon(title: "rocket 3", color: UIColor.purple.hexString ?? "")
-		].shuffled()
-	}
-}
-
 extension Alignment: CaseIterable {
 	public static var allCases: [Alignment] {
 		return [
@@ -232,5 +209,5 @@ struct CreateRecipeProfileSelection_Previews: PreviewProvider {
 			.backgroundPrimary()
 	}
 
-	static let gridCache = GridCache(title: TitleStorage.randomTitle, recipeProfileIcons: MockStore.recipeProfileIcons)
+	static let gridCache = GridCache(title: TitleStorage.randomFunTitle, recipeProfileIcons: ProfileIconStorage.recipeProfileIcons)
 }

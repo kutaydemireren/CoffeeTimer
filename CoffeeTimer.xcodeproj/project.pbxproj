@@ -30,6 +30,11 @@
 		CA6263BC2A254955003E167D /* Entities+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD071E629DCCB000010E561 /* Entities+Stub.swift */; };
 		CA6263BF2A25499A003E167D /* Entities+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263BE2A25499A003E167D /* Entities+Stub.swift */; };
 		CA6263C12A254C78003E167D /* TitleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263C02A254C78003E167D /* TitleStorage.swift */; };
+		CA6263C52A254E97003E167D /* Entities+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263C42A254E97003E167D /* Entities+Identifiable.swift */; };
+		CA6263C72A254EB3003E167D /* Color+HexString.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263C62A254EB3003E167D /* Color+HexString.swift */; };
+		CA6263C92A254F67003E167D /* ProfileIconStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263C82A254F67003E167D /* ProfileIconStorage.swift */; };
+		CA6263CD2A25502C003E167D /* BrewMethodStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263CC2A25502C003E167D /* BrewMethodStorage.swift */; };
+		CA6263CF2A2551B5003E167D /* MockStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263CE2A2551B5003E167D /* MockStore.swift */; };
 		CA77908D2A06A39900BEA142 /* String+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77908C2A06A39900BEA142 /* String+Filter.swift */; };
 		CA77908F2A06DB3C00BEA142 /* LeadingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77908E2A06DB3C00BEA142 /* LeadingText.swift */; };
 		CA7790932A06DB5300BEA142 /* TitledContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790922A06DB5300BEA142 /* TitledContent.swift */; };
@@ -102,6 +107,11 @@
 		CA6263BA2A25492D003E167D /* DTOs+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTOs+Stub.swift"; sourceTree = "<group>"; };
 		CA6263BE2A25499A003E167D /* Entities+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entities+Stub.swift"; sourceTree = "<group>"; };
 		CA6263C02A254C78003E167D /* TitleStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleStorage.swift; sourceTree = "<group>"; };
+		CA6263C42A254E97003E167D /* Entities+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entities+Identifiable.swift"; sourceTree = "<group>"; };
+		CA6263C62A254EB3003E167D /* Color+HexString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+HexString.swift"; sourceTree = "<group>"; };
+		CA6263C82A254F67003E167D /* ProfileIconStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileIconStorage.swift; sourceTree = "<group>"; };
+		CA6263CC2A25502C003E167D /* BrewMethodStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewMethodStorage.swift; sourceTree = "<group>"; };
+		CA6263CE2A2551B5003E167D /* MockStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStore.swift; sourceTree = "<group>"; };
 		CA77908C2A06A39900BEA142 /* String+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Filter.swift"; sourceTree = "<group>"; };
 		CA77908E2A06DB3C00BEA142 /* LeadingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingText.swift; sourceTree = "<group>"; };
 		CA7790922A06DB5300BEA142 /* TitledContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledContent.swift; sourceTree = "<group>"; };
@@ -308,6 +318,8 @@
 			isa = PBXGroup;
 			children = (
 				CA6263C02A254C78003E167D /* TitleStorage.swift */,
+				CA6263C82A254F67003E167D /* ProfileIconStorage.swift */,
+				CA6263CC2A25502C003E167D /* BrewMethodStorage.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -316,6 +328,7 @@
 			isa = PBXGroup;
 			children = (
 				CA77909F2A06F3AB00BEA142 /* Extensions */,
+				CA6263CE2A2551B5003E167D /* MockStore.swift */,
 			);
 			path = "Test Utils";
 			sourceTree = "<group>";
@@ -391,6 +404,8 @@
 			children = (
 				CA17289529EB4CA8000F867B /* View+Responder.swift */,
 				CA77908C2A06A39900BEA142 /* String+Filter.swift */,
+				CA6263C42A254E97003E167D /* Entities+Identifiable.swift */,
+				CA6263C62A254EB3003E167D /* Color+HexString.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -587,6 +602,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAF42CE729EC9561004D7788 /* Completable.swift in Sources */,
+				CA6263CD2A25502C003E167D /* BrewMethodStorage.swift in Sources */,
 				CA3CA4AF2A1AA20B00C76E28 /* RecipeMapper.swift in Sources */,
 				CA4758DF2A0C2D440022BC7D /* RecipesView.swift in Sources */,
 				CA4758E42A0C3C5C0022BC7D /* RecipesFlowView.swift in Sources */,
@@ -596,6 +612,7 @@
 				CA91CEF729E5FA9100E9F5D1 /* AppFlowView.swift in Sources */,
 				CA7B804529BFA9E7007D3DFC /* CountdownTimer.swift in Sources */,
 				CA5A7D0F2A0EBA7400C7EC04 /* DTOs.swift in Sources */,
+				CA6263C92A254F67003E167D /* ProfileIconStorage.swift in Sources */,
 				CA180AFA29DB67130056D435 /* CreateV60SingleCupRecipeUseCase.swift in Sources */,
 				CA5CA81929EB662F001E384D /* View+Background.swift in Sources */,
 				CA367D3229A2B0370095B1B8 /* CoffeeTimerApp.swift in Sources */,
@@ -606,6 +623,8 @@
 				CA7B804B29BFABBB007D3DFC /* StageTimerView.swift in Sources */,
 				CAF42CED29EC98A1004D7788 /* Screen.swift in Sources */,
 				CA6263B82A250F00003E167D /* Storage.swift in Sources */,
+				CA6263C52A254E97003E167D /* Entities+Identifiable.swift in Sources */,
+				CA6263C72A254EB3003E167D /* Color+HexString.swift in Sources */,
 				CA6263BF2A25499A003E167D /* Entities+Stub.swift in Sources */,
 				CA4758E12A0C3A200022BC7D /* RecipeProfileRowView.swift in Sources */,
 				CA17289D29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift in Sources */,
@@ -635,6 +654,7 @@
 				CAB1925F2A0D6B6500043837 /* RecipeRepositoryImpTests.swift in Sources */,
 				CA7790952A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift in Sources */,
 				CA9C7FCE29D9E4A200F2DE30 /* CreateV60SingleCupRecipeUseCaseImpTests.swift in Sources */,
+				CA6263CF2A2551B5003E167D /* MockStore.swift in Sources */,
 				CA3CA4B12A1AA22600C76E28 /* RecipeMapperTests.swift in Sources */,
 				CA7790A62A06F3FA00BEA142 /* MockCreateV60SingleCupRecipeUseCase.swift in Sources */,
 				CA7790A12A06F3BB00BEA142 /* Equatable.swift in Sources */,

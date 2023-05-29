@@ -7,6 +7,26 @@
 
 import Foundation
 
+enum BrewMethod: String, Equatable {
+	case v60
+	case chemex
+	case melitta
+	case frenchPress
+
+	var title: String {
+		switch self {
+		case .v60:
+			return "V60"
+		case .chemex:
+			return "Chemex"
+		case .melitta:
+			return "Melitta"
+		case .frenchPress:
+			return "French Press"
+		}
+	}
+}
+
 struct Recipe: Equatable {
 	let recipeProfile: RecipeProfile
 	let ingredients: [Ingredient]
