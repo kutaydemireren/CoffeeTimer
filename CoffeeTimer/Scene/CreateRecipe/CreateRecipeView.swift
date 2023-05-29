@@ -37,7 +37,6 @@ final class CreateRecipeViewModel: ObservableObject {
 	func create(from context: CreateRecipeContext) {
 		if let recipe = createRecipeFromContextUseCase.create(from: context) {
 			recipeRepository.save(recipe)
-			recipeRepository.update(selectedRecipe: recipe)
 		} else {
 			// TODO
 		}

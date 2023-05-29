@@ -77,12 +77,17 @@ final class RecipesViewModel: ObservableObject, Completable {
 
 	@Published var recipes: [Recipe] = []
 
-	private let repository: RecipeRepository
+	private let recipeRepository: RecipeRepository // TODO: use case - no repo in vm!
 
 	init(repository: RecipeRepository = RecipeRepositoryImp()) {
-		self.repository = repository
+		self.recipeRepository = repository
 
 		recipes = repository.getSavedRecipes()
+	}
+
+	func select(recipe: Recipe) {
+		recipeRepository.update(selectedRecipe: recipe)
+		close()
 	}
 
 	func create() {
@@ -151,6 +156,9 @@ struct RecipesView: View {
 	var recipesList: some View {
 		List(viewModel.recipes) { recipe in
 			RecipeProfileRowView(recipeProfile: recipe.recipeProfile)
+				.onTapGesture {
+					viewModel.select(recipe: recipe)
+				}
 		}
 		.scrollIndicators(.hidden)
 		.scrollContentBackground(.hidden)
