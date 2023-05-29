@@ -7,17 +7,6 @@
 
 import Foundation
 
-// TODO: Move
-extension RecipeProfile {
-	static var empty: RecipeProfile {
-		RecipeProfile(name: "", icon: .init(title: "", color: ""))
-	}
-
-	var isEmpty: Bool {
-		return self == .empty
-	}
-}
-
 final class CreateRecipeContext: ObservableObject {
 	@Published var selectedBrewMethod: BrewMethod?
 	@Published var recipeProfile: RecipeProfile = .empty
