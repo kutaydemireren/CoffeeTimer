@@ -25,6 +25,8 @@
 		CA5A7D0F2A0EBA7400C7EC04 /* DTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5A7D0E2A0EBA7400C7EC04 /* DTOs.swift */; };
 		CA5CA81929EB662F001E384D /* View+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5CA81829EB662F001E384D /* View+Background.swift */; };
 		CA5E907D29D61AED00A78CF2 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5E907C29D61AED00A78CF2 /* Entities.swift */; };
+		CA6263B52A250EB0003E167D /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263B42A250EB0003E167D /* Storage.swift */; };
+		CA6263B82A250F00003E167D /* StorageImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263B72A250F00003E167D /* StorageImp.swift */; };
 		CA77908D2A06A39900BEA142 /* String+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77908C2A06A39900BEA142 /* String+Filter.swift */; };
 		CA77908F2A06DB3C00BEA142 /* LeadingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77908E2A06DB3C00BEA142 /* LeadingText.swift */; };
 		CA7790932A06DB5300BEA142 /* TitledContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790922A06DB5300BEA142 /* TitledContent.swift */; };
@@ -94,6 +96,8 @@
 		CA5A7D0E2A0EBA7400C7EC04 /* DTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOs.swift; sourceTree = "<group>"; };
 		CA5CA81829EB662F001E384D /* View+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Background.swift"; sourceTree = "<group>"; };
 		CA5E907C29D61AED00A78CF2 /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
+		CA6263B42A250EB0003E167D /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		CA6263B72A250F00003E167D /* StorageImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageImp.swift; sourceTree = "<group>"; };
 		CA77908C2A06A39900BEA142 /* String+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Filter.swift"; sourceTree = "<group>"; };
 		CA77908E2A06DB3C00BEA142 /* LeadingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingText.swift; sourceTree = "<group>"; };
 		CA7790922A06DB5300BEA142 /* TitledContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledContent.swift; sourceTree = "<group>"; };
@@ -274,8 +278,17 @@
 			children = (
 				CA5E907C29D61AED00A78CF2 /* Entities.swift */,
 				CAF42CF229EC9906004D7788 /* RecipeRepository.swift */,
+				CA6263B42A250EB0003E167D /* Storage.swift */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		CA6263B62A250EDD003E167D /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				CA6263B72A250F00003E167D /* StorageImp.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		CA77909E2A06F3A400BEA142 /* Test Utils */ = {
@@ -405,6 +418,7 @@
 		CAF42CEE29EC98BF004D7788 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				CA6263B62A250EDD003E167D /* Storage */,
 				CA5A7D0D2A0EBA6900C7EC04 /* DTO */,
 				CAF42CEF29EC98D8004D7788 /* Recipe */,
 			);
@@ -555,6 +569,7 @@
 				CA4758DF2A0C2D440022BC7D /* RecipesView.swift in Sources */,
 				CA4758E42A0C3C5C0022BC7D /* RecipesFlowView.swift in Sources */,
 				CAE3944229DE13C0007611F1 /* CreateRecipeView.swift in Sources */,
+				CA6263B52A250EB0003E167D /* Storage.swift in Sources */,
 				CAD071E729DCCB000010E561 /* BrewQueue+Stub.swift in Sources */,
 				CA17289629EB4CA8000F867B /* View+Responder.swift in Sources */,
 				CA77909D2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift in Sources */,
@@ -570,6 +585,7 @@
 				CA17289429EB4B9F000F867B /* NumericTextField.swift in Sources */,
 				CA7B804B29BFABBB007D3DFC /* StageTimerView.swift in Sources */,
 				CAF42CED29EC98A1004D7788 /* Screen.swift in Sources */,
+				CA6263B82A250F00003E167D /* StorageImp.swift in Sources */,
 				CA4758E12A0C3A200022BC7D /* RecipeProfileRowView.swift in Sources */,
 				CA17289D29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift in Sources */,
 				CAF42CE529EC9548004D7788 /* Navigable.swift in Sources */,
