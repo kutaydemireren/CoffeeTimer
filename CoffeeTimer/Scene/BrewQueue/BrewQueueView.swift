@@ -92,9 +92,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 	private var cancellables: [AnyCancellable] = []
 
 	// TODO: Create a real queue data structure for getting the next stage from.
-	// This BrewQueue here is essentially an 'Entity'. But we are still using here anyway.
-	// This must change in any case.
-	// + The 'play' around the stages[] is tedious & dangerous. That better is encapsulated.
+	// The 'play' around the stages[] is tedious & dangerous. That better is encapsulated.
 	private var currentStageIndex: UInt = 0 {
 		didSet {
 			currentStage = brewQueue.stages[safe: Int(currentStageIndex)]
@@ -111,7 +109,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
 	private var recipeRepository: RecipeRepository
 
-	init(recipeRepository: RecipeRepository = RecipeRepositoryImp()) { // TODO: Convert to use case
+	init(recipeRepository: RecipeRepository = RecipeRepositoryImp()) { // TODO: use case - no repo in vm!
 		self.recipeRepository = recipeRepository
 
 		loadInitialStage()
