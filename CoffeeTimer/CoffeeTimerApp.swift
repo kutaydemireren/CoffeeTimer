@@ -12,6 +12,7 @@ struct CoffeeTimerApp: App {
     var body: some Scene {
         WindowGroup {
 			AppFlowView(viewModel: .init())
-        }
+				.preferredColorScheme(.dark)
+		}
     }
 }

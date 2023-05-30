@@ -15,10 +15,10 @@ struct BrewMethodView: View {
 	var body: some View {
 		VStack {
 			RoundedRectangle(cornerRadius: 12)
-				.fill(isSelected ? .white.opacity(0.8) : .white.opacity(0.2))
+				.fill(isSelected ? Color("backgroundSecondary").opacity(0.8) : Color("backgroundSecondary").opacity(0.4))
 				.overlay {
 					Text(brewMethod.title)
-						.foregroundColor(isSelected ? .black.opacity(0.8) : .white.opacity(0.8))
+						.foregroundColor(isSelected ? Color("foregroundPrimary") : Color("foregroundPrimary").opacity(0.8))
 						.font(.title2)
 				}
 		}

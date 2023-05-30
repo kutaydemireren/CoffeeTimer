@@ -52,6 +52,7 @@
 		CA7B804729BFAA21007D3DFC /* CountdownTimerImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804629BFAA21007D3DFC /* CountdownTimerImpTests.swift */; };
 		CA7B804B29BFABBB007D3DFC /* StageTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804A29BFABBB007D3DFC /* StageTimerView.swift */; };
 		CA7B804D29BFBD8C007D3DFC /* BrewQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804C29BFBD8C007D3DFC /* BrewQueueView.swift */; };
+		CA8B44432A2563780003EE57 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA8B44422A2563780003EE57 /* Colors.xcassets */; };
 		CA91CEF729E5FA9100E9F5D1 /* AppFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CEF629E5FA9100E9F5D1 /* AppFlowView.swift */; };
 		CA9C7FCE29D9E4A200F2DE30 /* CreateV60SingleCupRecipeUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9C7FCD29D9E4A200F2DE30 /* CreateV60SingleCupRecipeUseCaseImpTests.swift */; };
 		CAB1925F2A0D6B6500043837 /* RecipeRepositoryImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB1925E2A0D6B6500043837 /* RecipeRepositoryImpTests.swift */; };
@@ -132,6 +133,7 @@
 		CA7B804629BFAA21007D3DFC /* CountdownTimerImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimerImpTests.swift; sourceTree = "<group>"; };
 		CA7B804A29BFABBB007D3DFC /* StageTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageTimerView.swift; sourceTree = "<group>"; };
 		CA7B804C29BFBD8C007D3DFC /* BrewQueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewQueueView.swift; sourceTree = "<group>"; };
+		CA8B44422A2563780003EE57 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		CA91CEF629E5FA9100E9F5D1 /* AppFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowView.swift; sourceTree = "<group>"; };
 		CA9C7FCD29D9E4A200F2DE30 /* CreateV60SingleCupRecipeUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateV60SingleCupRecipeUseCaseImpTests.swift; sourceTree = "<group>"; };
 		CAB1925E2A0D6B6500043837 /* RecipeRepositoryImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRepositoryImpTests.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				CA367D3129A2B0370095B1B8 /* CoffeeTimerApp.swift */,
 				CA367D3529A2B0380095B1B8 /* Assets.xcassets */,
 				CA367D3729A2B0380095B1B8 /* Preview Content */,
+				CA8B44422A2563780003EE57 /* Colors.xcassets */,
 			);
 			path = CoffeeTimer;
 			sourceTree = "<group>";
@@ -608,6 +611,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA8B44432A2563780003EE57 /* Colors.xcassets in Resources */,
 				CA367D3929A2B0380095B1B8 /* Preview Assets.xcassets in Resources */,
 				CA367D3629A2B0380095B1B8 /* Assets.xcassets in Resources */,
 			);

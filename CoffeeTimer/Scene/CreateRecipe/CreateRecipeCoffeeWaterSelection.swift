@@ -10,7 +10,7 @@ import SwiftUI
 struct Separator: View {
 	var body: some View {
 		Rectangle()
-			.fill(Color.white.opacity(0.3))
+			.fill(Color("foregroundPrimary").opacity(0.3))
 			.frame(height: 1)
 			.padding(.vertical)
 	}
@@ -65,7 +65,7 @@ struct CreateRecipeCoffeeWaterSelection: View {
 
 	private var pickerLabel: some View {
 		Text(ratio.toRepresentableString)
-			.foregroundColor(.white.opacity(0.8))
+			.foregroundColor(Color("foregroundPrimary").opacity(0.8))
 			.padding()
 			.backgroundSecondary()
 	}

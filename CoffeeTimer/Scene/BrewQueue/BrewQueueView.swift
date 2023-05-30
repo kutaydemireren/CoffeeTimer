@@ -217,7 +217,7 @@ struct BrewQueueView: View {
 
 				Group {
 					brewStageView()
-						.shadow(color: .black.opacity(0.6), radius: 8, x: -2, y: -2)
+						.shadow(color: .black.opacity(0.2), radius: 16)
 						.onTapGesture {
 							viewModel.primaryAction()
 						}
@@ -250,17 +250,17 @@ struct BrewQueueView: View {
 	private var headerGroup: some View {
 		Group {
 			Text(viewModel.stageHeader)
-				.foregroundColor(.white.opacity(0.6))
+				.foregroundColor(Color("foregroundPrimary").opacity(0.8))
 				.font(.title3)
 
 			Spacer(minLength: 0).fixedSize(horizontal: false, vertical: true)
 
 			Text(viewModel.stageTitle)
-				.foregroundColor(.white.opacity(0.8))
+				.foregroundColor(Color("foregroundPrimary"))
 				.font(.title)
 				.minimumScaleFactor(0.5)
 		}
-		.shadow(color: .black.opacity(0.6), radius: 8, x: -2, y: -2)
+		.shadow(color: .black.opacity(0.2), radius: 16)
 		.multilineTextAlignment(.center)
 	}
 
@@ -273,17 +273,9 @@ struct BrewQueueView: View {
 				RecipeProfileView(recipeProfile: selectedRecipe.recipeProfile)
 			}
 			.padding(12)
-			.foregroundColor(.white)
-			.background {
-				RoundedRectangle(cornerRadius: 48)
-					.fill(
-						Gradient(stops: [
-							.init(color: .indigo.opacity(0.4), location: 0.2),
-							.init(color: .indigo, location: 0.8)
-						])
-					)
-			}
-			.shadow(color: .indigo.opacity(0.4), radius: 8, x: -2, y: -2)
+			.foregroundColor(Color("foregroundPrimary"))
+			.backgroundSecondary()
+			.shadow(color: .blue.opacity(0.2), radius: 8, x: -2, y: -2)
 		} else {
 			Button {
 				viewModel.didComplete.send(viewModel)
@@ -291,13 +283,10 @@ struct BrewQueueView: View {
 				Text("+")
 			}
 			.padding()
-			.foregroundColor(.white)
-			.background(Gradient(stops:[
-				.init(color: .indigo.opacity(0.4), location: 0.2),
-				.init(color: .indigo, location: 0.8)
-			]))
+			.foregroundColor(Color("foregroundPrimary"))
+			.backgroundSecondary()
 			.clipShape(Circle())
-			.shadow(color: .indigo.opacity(0.4), radius: 8, x: -2, y: -2)
+			.shadow(color: .black.opacity(0.2), radius: 8, x: -2, y: -2)
 		}
 	}
 
@@ -308,7 +297,7 @@ struct BrewQueueView: View {
 			Text("Skip")
 		}
 		.padding()
-		.foregroundColor(.white.opacity(0.8))
+		.foregroundColor(Color("foregroundPrimary").opacity(0.8))
 	}
 
 	private var endButton: some View {
@@ -318,7 +307,7 @@ struct BrewQueueView: View {
 			Text("End")
 		}
 		.padding()
-		.foregroundColor(.white.opacity(0.8))
+		.foregroundColor(Color("foregroundPrimary").opacity(0.8))
 	}
 
 	@ViewBuilder

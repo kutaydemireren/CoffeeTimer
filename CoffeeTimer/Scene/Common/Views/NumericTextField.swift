@@ -39,12 +39,12 @@ struct NumericTextField: View {
 		TitledContent(title: title) {
 			TextField(text: $displayText) {
 				Text(placeholder)
-					.foregroundColor(.white.opacity(0.5))
+					.foregroundColor(Color("foregroundPrimary").opacity(0.5))
 			}
 			.textFieldStyle(.plain)
 			.keyboardType(keyboardType.uiKeyboardType)
 			.focused($isFocused)
-			.foregroundColor(.white)
+			.foregroundColor(Color("foregroundPrimary"))
 			.onChange(of: displayText, perform: filterNonNumerics(_:))
 			.onChange(of: input, perform: setDisplayText(_:))
 			.padding()

@@ -82,26 +82,30 @@ struct BrewStageView<ViewModel>: View where ViewModel: BrewStageViewModel {
 		ZStack {
 			Circle()
 				.trim(from: 0, to: viewModel.progress)
-				.stroke(.white.opacity(0.8), style: .init(lineWidth: 4))
+				.stroke(Color("backgroundSecondary"), style: .init(lineWidth: 4))
 				.contentShape(Circle())
 
 			Circle()
 				.trim(from: viewModel.progress, to: 1.0)
-				.stroke(.white.opacity(0.3), style: .init(lineWidth: 4))
+				.stroke(Color("backgroundSecondary").opacity(0.3), style: .init(lineWidth: 4))
 			.contentShape(Circle())
 		}
 		.rotationEffect(.degrees(-90))
 		.overlay {
 			Text(viewModel.text)
 				.font(.largeTitle)
-				.foregroundColor(.white.opacity(0.8))
+				.foregroundColor(.init("backgroundSecondary"))
 		}
 	}
 }
 
 struct BrewStageView_Previews: PreviewProvider {
 	static var previews: some View {
-		BrewStageView(viewModel: BrewStageTimerViewModel(timeIntervalLeft: 10, countdownTimer: CountdownTimerImp(timeLeft: 10)))
-			.background(Color.black)
+		VStack {
+			Spacer()
+			BrewStageView(viewModel: BrewStageTimerViewModel(timeIntervalLeft: 10, countdownTimer: CountdownTimerImp(timeLeft: 5)))
+			Spacer()
+		}
+		.backgroundPrimary()
 	}
 }

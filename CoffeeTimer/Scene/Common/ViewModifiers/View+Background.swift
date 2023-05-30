@@ -17,7 +17,9 @@ struct BackgroundPrimaryViewModifier: ViewModifier {
 struct BackgroundPrimary: View {
 	var body: some View {
 		Rectangle()
-			.fill(Gradient(colors: [.indigo, Color.black]))
+			.fill(
+				Color("backgroundPrimary")
+			)
 			.ignoresSafeArea()
 	}
 }
@@ -32,9 +34,13 @@ struct BackgroundSecondaryViewModifier: ViewModifier {
 struct BackgroundSecondary: View {
 	var body: some View {
 		RoundedRectangle(cornerRadius: 24)
-			.fill(
-				LinearGradient(colors: [.white.opacity(0.1), .white.opacity(0.2)], startPoint: .leading, endPoint: .trailing)
-			)
+			.fill(LinearGradient(
+				colors: [
+					Color("backgroundSecondary").opacity(0.6)
+				],
+				startPoint: .leading,
+				endPoint: .trailing
+			))
 	}
 }
 

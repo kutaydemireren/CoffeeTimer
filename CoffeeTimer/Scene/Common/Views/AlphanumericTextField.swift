@@ -17,10 +17,10 @@ struct AlphanumericTextField: View {
 		TitledContent(title: title) {
 			TextField(text: $text) {
 				Text(placeholder)
-					.foregroundColor(.white.opacity(0.3))
+					.foregroundColor(Color("foregroundPrimary").opacity(0.3))
 			}
 			.textFieldStyle(.plain)
-			.foregroundColor(.white)
+			.foregroundColor(Color("foregroundPrimary"))
 			.padding()
 			.backgroundSecondary()
 		}

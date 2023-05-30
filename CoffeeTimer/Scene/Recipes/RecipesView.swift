@@ -61,7 +61,7 @@ struct RecipesView: View {
 				}
 				.padding(.horizontal)
 			}
-			.foregroundColor(.white)
+			.foregroundColor(Color("foregroundPrimary"))
 		}
 		.backgroundPrimary()
 	}
@@ -82,7 +82,7 @@ struct RecipesView: View {
 
 				Text("Please add a new recipe to get started")
 					.multilineTextAlignment(.center)
-					.foregroundColor(.white)
+					.foregroundColor(Color("foregroundPrimary"))
 					.font(.title)
 
 				Spacer()

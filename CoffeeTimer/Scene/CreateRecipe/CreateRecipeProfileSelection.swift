@@ -37,7 +37,7 @@ struct RecipeProfileView: View {
 		HStack {
 			RecipeProfileIconView(recipeProfileIcon: recipeProfile.icon, isSelected: true)
 			Text(recipeProfile.name)
-				.foregroundColor(.white)
+				.foregroundColor(Color("foregroundPrimary"))
 		}
 		.frame(maxHeight: 55)
 	}
