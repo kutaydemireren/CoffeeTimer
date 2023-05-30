@@ -243,14 +243,11 @@
 		CA367D3029A2B0370095B1B8 /* CoffeeTimer */ = {
 			isa = PBXGroup;
 			children = (
-				CAF42CEE29EC98BF004D7788 /* Repository */,
-				CA5E907829D61AA400A78CF2 /* Domain */,
 				CA5E907529D61A5F00A78CF2 /* Application */,
-				CA7B804929BFABA8007D3DFC /* Scene */,
-				CA367D3129A2B0370095B1B8 /* CoffeeTimerApp.swift */,
-				CA367D3529A2B0380095B1B8 /* Assets.xcassets */,
+				CA5E907829D61AA400A78CF2 /* Domain */,
+				CA981F822A2695D8000254CD /* iOS */,
 				CA367D3729A2B0380095B1B8 /* Preview Content */,
-				CA8B44422A2563780003EE57 /* Colors.xcassets */,
+				CAF42CEE29EC98BF004D7788 /* Repository */,
 			);
 			path = CoffeeTimer;
 			sourceTree = "<group>";
@@ -424,6 +421,25 @@
 				CA4758E32A0C3C5C0022BC7D /* RecipesFlowView.swift */,
 			);
 			path = Flow;
+			sourceTree = "<group>";
+		};
+		CA981F822A2695D8000254CD /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CA981F832A2695E6000254CD /* Main */,
+				CA7B804929BFABA8007D3DFC /* Scene */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		CA981F832A2695E6000254CD /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				CA8B44422A2563780003EE57 /* Colors.xcassets */,
+				CA367D3129A2B0370095B1B8 /* CoffeeTimerApp.swift */,
+				CA367D3529A2B0380095B1B8 /* Assets.xcassets */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		CAB1925B2A0D6B4400043837 /* Repository */ = {
