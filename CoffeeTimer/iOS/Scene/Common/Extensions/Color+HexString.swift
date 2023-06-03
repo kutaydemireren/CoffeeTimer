@@ -11,6 +11,15 @@ extension UIColor {
 	var hexString: String? {
 		return Color(uiColor: self).hexString
 	}
+
+	convenience init?(hexString: String) {
+
+		guard let color = Color(hexString: hexString) else {
+			return nil
+		}
+
+		self.init(color)
+	}
 }
 
 extension Color {

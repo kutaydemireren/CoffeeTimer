@@ -36,7 +36,7 @@ struct BackgroundSecondary: View {
 		RoundedRectangle(cornerRadius: 24)
 			.fill(LinearGradient(
 				colors: [
-					Color("backgroundSecondary").opacity(0.6)
+					Color("backgroundSecondary").opacity(0.8)
 				],
 				startPoint: .leading,
 				endPoint: .trailing

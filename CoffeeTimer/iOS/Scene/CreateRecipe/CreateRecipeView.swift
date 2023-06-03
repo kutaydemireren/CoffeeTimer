@@ -59,7 +59,6 @@ struct CreateRecipeView: View {
 			HStack {
 				Button("Close", action: closeRequest)
 					.frame(alignment: .topLeading)
-					.foregroundColor(Color("foregroundPrimary"))
 
 				Spacer()
 
@@ -67,16 +66,15 @@ struct CreateRecipeView: View {
 					Button("Next") {
 						withAnimation { viewModel.nextPage() }
 					}
-					.foregroundColor(Color("foregroundPrimary"))
 				} else {
 					Button("Done") {
 						viewModel.create(from: context)
 						closeRequest()
 					}
-					.foregroundColor(Color("foregroundPrimary"))
 				}
 			}
 			.padding()
+			.foregroundColor(Color("backgroundSecondary"))
 
 			TabView(selection: $viewModel.selectedPage) {
 

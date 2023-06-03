@@ -26,6 +26,7 @@ struct RecipeProfileIconView: View {
 						}
 					}
 				}
+				.foregroundColor(Color("foregroundPrimary"))
 		}
 	}
 }
@@ -38,6 +39,7 @@ struct RecipeProfileView: View {
 			RecipeProfileIconView(recipeProfileIcon: recipeProfile.icon, isSelected: true)
 			Text(recipeProfile.name)
 				.foregroundColor(Color("foregroundPrimary"))
+				.bold()
 		}
 		.frame(maxHeight: 55)
 	}

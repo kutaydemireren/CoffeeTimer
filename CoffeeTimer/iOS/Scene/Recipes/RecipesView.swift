@@ -62,7 +62,7 @@ struct RecipesView: View {
 				}
 				.padding(.horizontal)
 			}
-			.foregroundColor(Color("foregroundPrimary"))
+			.foregroundColor(Color("backgroundSecondary"))
 		}
 		.backgroundPrimary()
 	}
