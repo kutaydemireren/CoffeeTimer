@@ -11,7 +11,7 @@ extension BrewQueueDTO {
 	static var stubMini: BrewQueueDTO {
 		BrewQueueDTO(stages: [
 			.init(action: .wet, requirement: BrewStageRequirementDTO.none, startMethod: .userInteractive, passMethod: .userInteractive),
-			.init(action: .boil(water: .init(amount: 10, type: .gram)), requirement: .countdown(3), startMethod: .auto, passMethod: .userInteractive),
+			.init(action: .boilWater(.init(amount: 10, type: .gram)), requirement: .countdown(3), startMethod: .auto, passMethod: .userInteractive),
 			.init(action: .finish, requirement: BrewStageRequirementDTO.none, startMethod: .userInteractive, passMethod: .userInteractive)
 		])
 	}

@@ -33,7 +33,7 @@ struct CreateV60IcedRecipeUseCaseImp: CreateV60IcedRecipeUseCase {
 			BrewStage(action: .wet, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			BrewStage(action: .putIce(iceAmount(input: input)), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			BrewStage(action: .putCoffee(input.coffee), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
-			BrewStage(action: .pour(water: hotWaterAmountForBloom(input: input)), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
+			BrewStage(action: .pourWater(hotWaterAmountForBloom(input: input)), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			BrewStage(action: .swirl, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			BrewStage(action: .pause, requirement: .countdown(40), startMethod: .auto, passMethod: .auto),
 		]
@@ -51,7 +51,7 @@ struct CreateV60IcedRecipeUseCaseImp: CreateV60IcedRecipeUseCase {
 		let remainingHotWaterAmount = hotWaterAmount(input: input).amount - hotWaterAmountForBloom(input: input).amount
 
 		return [
-			BrewStage(action: .pour(water: IngredientAmount(amount: remainingHotWaterAmount, type: .gram)), requirement: .countdown(60), startMethod: .userInteractive, passMethod: .userInteractive),
+			BrewStage(action: .pourWater(IngredientAmount(amount: remainingHotWaterAmount, type: .gram)), requirement: .countdown(60), startMethod: .userInteractive, passMethod: .userInteractive),
 			BrewStage(action: .pause, requirement: .countdown(10), startMethod: .auto, passMethod: .auto),
 			BrewStage(action: .swirlThoroughly, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive)
 		]

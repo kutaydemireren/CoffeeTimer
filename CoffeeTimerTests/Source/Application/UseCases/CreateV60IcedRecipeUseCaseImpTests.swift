@@ -56,11 +56,11 @@ extension CreateV60IcedRecipeUseCaseImpTests {
 			.init(action: .wet, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .putIce(iceAmount), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .putCoffee(coffeeAmount), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
-			.init(action: .pour(water: IngredientAmount(amount: bloomAmount, type: .gram)), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
+			.init(action: .pourWater(IngredientAmount(amount: bloomAmount, type: .gram)), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .swirl, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .pause, requirement: .countdown(40), startMethod: .auto, passMethod: .auto),
 			// TODO: Differentiate remainingHotWaterAmount requirement countdown duration: remaining hot water < 200 gr of water : 60 sec : 120 sec
-			.init(action: .pour(water: IngredientAmount(amount: remainingHotWaterAmount, type: .gram)), requirement: .countdown(60), startMethod: .userInteractive, passMethod: .userInteractive),
+			.init(action: .pourWater(IngredientAmount(amount: remainingHotWaterAmount, type: .gram)), requirement: .countdown(60), startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .pause, requirement: .countdown(10), startMethod: .auto, passMethod: .auto),
 			.init(action: .swirlThoroughly, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .finishIced, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),

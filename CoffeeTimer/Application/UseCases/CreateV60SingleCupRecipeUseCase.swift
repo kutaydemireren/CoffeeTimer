@@ -36,7 +36,7 @@ struct CreateV60SingleCupRecipeUseCaseImp: CreateV60SingleCupRecipeUseCase {
 		return [
 			.init(action: .wet, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .putCoffee(input.coffee), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
-			.init(action: .pour(water: waterPerBlock), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
+			.init(action: .pourWater(waterPerBlock), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .swirl, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .pause, requirement: .countdown(40), startMethod: .auto, passMethod: .auto)
 		]
@@ -46,7 +46,7 @@ struct CreateV60SingleCupRecipeUseCaseImp: CreateV60SingleCupRecipeUseCase {
 		let waterPerBlock = IngredientAmount(amount: input.water.amount / stageCount, type: .gram)
 
 		return (1..<stageCount).flatMap { index in
-			let pour = [BrewStage(action: .pour(water: waterPerBlock), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive)]
+			let pour = [BrewStage(action: .pourWater(waterPerBlock), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive)]
 			let pause = index == stageCount - 1 ? [] : [BrewStage(action: .pause, requirement: .countdown(10), startMethod: .auto, passMethod: .auto)]
 			return pour + pause
 		}

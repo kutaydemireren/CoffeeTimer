@@ -149,12 +149,12 @@ extension RecipeMapperImp {
 		}
 
 		switch dto {
-		case .boil(let water):
-			return .boil(water: try mapToIngredientAmount(ingredientAmountDTO: water))
-		case .put(let coffee):
+		case .boilWater(let water):
+			return .boilWater(try mapToIngredientAmount(ingredientAmountDTO: water))
+		case .putCoffee(let coffee):
 			return .putCoffee(try mapToIngredientAmount(ingredientAmountDTO: coffee))
-		case .pour(let water):
-			return .pour(water: try mapToIngredientAmount(ingredientAmountDTO: water))
+		case .pourWater(let water):
+			return .pourWater(try mapToIngredientAmount(ingredientAmountDTO: water))
 		case .wet:
 			return .wet
 		case .swirl:
@@ -278,14 +278,14 @@ extension RecipeMapperImp {
 
 	private func mapToBrewStageActionDTO(brewStageAction: BrewStageAction) -> BrewStageActionDTO {
 		switch brewStageAction {
-		case .boil(let water):
-			return .boil(water: mapToIngredientAmountDTO(ingredientAmount: water))
+		case .boilWater(let water):
+			return .boilWater(mapToIngredientAmountDTO(ingredientAmount: water))
 		case .putCoffee(let coffee):
-			return .put(coffee: mapToIngredientAmountDTO(ingredientAmount: coffee))
+			return .putCoffee(mapToIngredientAmountDTO(ingredientAmount: coffee))
 		case .putIce(let ice):
-			return .put(coffee: mapToIngredientAmountDTO(ingredientAmount: ice)) // TODO: return .put(ice: mapToIngredientAmountDTO(ingredientAmount: ice))
-		case .pour(let water):
-			return .pour(water: mapToIngredientAmountDTO(ingredientAmount: water))
+			return .putCoffee(mapToIngredientAmountDTO(ingredientAmount: ice)) // TODO: return .put(ice: mapToIngredientAmountDTO(ingredientAmount: ice))
+		case .pourWater(let water):
+			return .pourWater(mapToIngredientAmountDTO(ingredientAmount: water))
 		case .wet:
 			return .wet
 		case .swirl:

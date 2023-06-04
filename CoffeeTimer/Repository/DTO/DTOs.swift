@@ -57,9 +57,9 @@ struct BrewStageDTO: Codable, Equatable {
 }
 
 enum BrewStageActionDTO: Codable, Equatable {
-	case boil(water: IngredientAmountDTO)
-	case put(coffee: IngredientAmountDTO)
-	case pour(water: IngredientAmountDTO)
+	case boilWater(IngredientAmountDTO)
+	case putCoffee(IngredientAmountDTO)
+	case pourWater(IngredientAmountDTO)
 	case wet
 	case swirl
 	case pause

@@ -27,13 +27,13 @@ extension String {
 
 		func stageTitle(for action: BrewStageAction) -> String {
 			switch action {
-			case .boil(let water):
+			case .boilWater(let water):
 				return "Boil at least \(water.amount) \(water.type) of water"
 			case .putCoffee(let coffee):
 				return "Put \(coffee.amount) \(coffee.type) of coffee"
 			case .putIce(let ice):
 				return "Put \(ice.amount) \(ice.type) of coffee"
-			case .pour(let water):
+			case .pourWater(let water):
 				return "Pour \(water.amount) \(water.type) of water"
 			case .wet:
 				return "Wet your filter under hot sink water"

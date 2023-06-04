@@ -51,16 +51,16 @@ extension CreateV60SingleCupRecipeUseCaseImpTests {
 		[
 			.init(action: .wet, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .putCoffee(coffeeAmount), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
-			.init(action: .pour(water: waterPerBlock), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
+			.init(action: .pourWater(waterPerBlock), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .swirl, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .pause, requirement: .countdown(40), startMethod: .auto, passMethod: .auto),
-			.init(action: .pour(water: waterPerBlock), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
+			.init(action: .pourWater(waterPerBlock), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .pause, requirement: .countdown(10), startMethod: .auto, passMethod: .auto),
-			.init(action: .pour(water: waterPerBlock), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
+			.init(action: .pourWater(waterPerBlock), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .pause, requirement: .countdown(10), startMethod: .auto, passMethod: .auto),
-			.init(action: .pour(water: waterPerBlock), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
+			.init(action: .pourWater(waterPerBlock), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .pause, requirement: .countdown(10), startMethod: .auto, passMethod: .auto),
-			.init(action: .pour(water: waterPerBlock), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
+			.init(action: .pourWater(waterPerBlock), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .finish, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive)
 		]
 	}
