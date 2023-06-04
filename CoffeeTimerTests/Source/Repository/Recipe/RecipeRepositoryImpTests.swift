@@ -9,7 +9,6 @@ import XCTest
 @testable import CoffeeTimer
 
 final class RecipeRepositoryTests: XCTestCase {
-
 	let expectedSelectedRecipeKey = RecipeConstants.selectedRecipeKey
 	let expectedSavedRecipesKey = RecipeConstants.savedRecipesKey
 
@@ -22,7 +21,10 @@ final class RecipeRepositoryTests: XCTestCase {
 		mockMapper = MockRecipeMapper()
 		sut = RecipeRepositoryImp(storage: mockStorage, mapper: mockMapper)
 	}
+}
 
+// MARK: Selected Recipe
+extension RecipeRepositoryTests {
 	func test_getSelectedRecipe_whenNotExists_shouldReturnNil() {
 		setupMapperReturn(expectedRecipeDTOs: [], expectedRecipes: [])
 
@@ -72,7 +74,10 @@ final class RecipeRepositoryTests: XCTestCase {
 		XCTAssertEqual(mockStorage.saveCalledWithKey, expectedSelectedRecipeKey)
 		XCTAssertEqual(mockStorage.saveCalledWithValue as? RecipeDTO, expectedRecipeDTO)
 	}
+}
 
+// MARK: Save(d) Recipe(s)
+extension RecipeRepositoryTests {
 	func test_getSavedRecipes_shouldReturnExpectedRecipes() {
 		let expectedRecipeDTOs = MockStore.savedRecipeDTOs
 		mockStorage.storageDictionary = [expectedSavedRecipesKey: expectedRecipeDTOs]
@@ -118,6 +123,11 @@ final class RecipeRepositoryTests: XCTestCase {
 		XCTAssertEqual(mockStorage.saveCalledWithKey, expectedSavedRecipesKey)
 		XCTAssertEqual(mockStorage.saveCalledWithValue as? [RecipeDTO], expectedRecipeDTOs)
 	}
+}
+
+// MARK: Remove
+extension RecipeRepositoryTests {
+
 }
 
 extension RecipeRepositoryTests {
