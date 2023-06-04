@@ -11,6 +11,7 @@ struct BrewMethodStorage {
 	static var brewMethods: [BrewMethod] {
 		[
 			.v60,
+			.v60Iced,
 			.chemex,
 			.frenchPress,
 			.melitta
