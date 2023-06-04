@@ -28,6 +28,7 @@ final class RecipeRepositoryImp: RecipeRepository {
 	}
 }
 
+// MARK: Selected Recipe
 extension RecipeRepositoryImp {
 	func getSelectedRecipe() -> Recipe? {
 		guard let recipeDTO = storage.load(forKey: selectedRecipeKey) as RecipeDTO? else {
@@ -43,6 +44,7 @@ extension RecipeRepositoryImp {
 	}
 }
 
+// MARK: Save(d) Recipe(s)
 extension RecipeRepositoryImp {
 	func getSavedRecipes() -> [Recipe] {
 		let recipeDTOs = getSavedRecipeDTOs()
@@ -60,5 +62,16 @@ extension RecipeRepositoryImp {
 			return recipeDTO
 		}
 		return []
+	}
+}
+
+// MARK: Remove
+extension RecipeRepositoryImp {
+	func remove(recipe: Recipe) {
+		var savedRecipeDTOs = getSavedRecipeDTOs()
+		if let index = savedRecipeDTOs.firstIndex(of: mapper.mapToRecipeDTO(recipe: recipe)) {
+			savedRecipeDTOs.remove(at: index)
+			storage.save(savedRecipeDTOs, forKey: savedRecipesKey)
+		}
 	}
 }

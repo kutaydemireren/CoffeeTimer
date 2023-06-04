@@ -8,28 +8,28 @@
 @testable import CoffeeTimer
 
 final class MockRecipeMapper: RecipeMapper {
-	var mapToRecipeCalled = false
 	var mapToRecipeReceivedRecipeDTO: RecipeDTO?
 
 	var recipesDict: [Int: Recipe] = [:]
 	var recipeDTOsDict: [Int: RecipeDTO] = [:]
 
-	var mapToRecipeDTOCalled = false
 	var mapToRecipeDTOReceivedRecipe: Recipe?
 
-	func mapToRecipe(recipeDTO: RecipeDTO) -> Recipe {
-		mapToRecipeCalled = true
+	func mapToRecipe(recipeDTO: RecipeDTO) throws -> Recipe {
 		mapToRecipeReceivedRecipeDTO = recipeDTO
 
 		let firstMatchingIndex = recipeDTOsDict.filter { (_, value) in
 			return value == recipeDTO
-		}.keys.first!
+		}.keys.first
 
-		return recipesDict[firstMatchingIndex] ?? .stubSingleV60
+		guard let firstMatchingIndex = firstMatchingIndex else {
+			throw RecipeMapperError.missingBrewQueue
+		}
+
+		return recipesDict[firstMatchingIndex]!
 	}
 
 	func mapToRecipeDTO(recipe: Recipe) -> RecipeDTO {
-		mapToRecipeDTOCalled = true
 		mapToRecipeDTOReceivedRecipe = recipe
 
 		let firstMatchingIndex = recipesDict.filter { (_, value) in
@@ -37,6 +37,6 @@ final class MockRecipeMapper: RecipeMapper {
 
 		}.keys.first!
 
-		return recipeDTOsDict[firstMatchingIndex] ?? .stub
+		return recipeDTOsDict[firstMatchingIndex]!
 	}
 }
