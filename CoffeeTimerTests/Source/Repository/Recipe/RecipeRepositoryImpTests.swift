@@ -23,6 +23,29 @@ final class RecipeRepositoryTests: XCTestCase {
 		sut = RecipeRepositoryImp(storage: mockStorage, mapper: mockMapper)
 	}
 
+	func test_getSelectedRecipe_whenNotExists_shouldReturnNil() {
+		setupMapperReturn(expectedRecipeDTOs: [], expectedRecipes: [])
+
+		let resultedRecipe = sut.getSelectedRecipe()
+
+		XCTAssertNil(resultedRecipe)
+		XCTAssertEqual(mockStorage.loadCalledWithKey, expectedSelectedRecipeKey)
+		XCTAssertNil(mockMapper.mapToRecipeReceivedRecipeDTO)
+	}
+
+	func test_getSelectedRecipe_whenMapperFails_shouldReturnNil() {
+		let expectedRecipeDTO = RecipeDTO.stubMini
+		mockStorage.storageDictionary = [expectedSelectedRecipeKey: expectedRecipeDTO]
+
+		setupMapperReturn(expectedRecipeDTOs: [], expectedRecipes: [])
+
+		let resultedRecipe = sut.getSelectedRecipe()
+
+		XCTAssertNil(resultedRecipe)
+		XCTAssertEqual(mockStorage.loadCalledWithKey, expectedSelectedRecipeKey)
+		XCTAssertEqual(mockMapper.mapToRecipeReceivedRecipeDTO, expectedRecipeDTO)
+	}
+
 	func test_getSelectedRecipe_shouldReturnExpectedRecipe() {
 		let expectedRecipeDTO = RecipeDTO.stubMini
 		mockStorage.storageDictionary = [expectedSelectedRecipeKey: expectedRecipeDTO]
@@ -33,8 +56,21 @@ final class RecipeRepositoryTests: XCTestCase {
 		let resultedRecipe = sut.getSelectedRecipe()
 
 		XCTAssertEqual(resultedRecipe, expectedRecipe)
-		XCTAssertTrue(mockMapper.mapToRecipeCalled)
 		XCTAssertEqual(mockMapper.mapToRecipeReceivedRecipeDTO, expectedRecipeDTO)
+	}
+
+	func test_updateSelectedRecipe_shouldUpdateSelectedRecipe() {
+		let expectedRecipeDTO = RecipeDTO.stubMini
+		mockStorage.storageDictionary = [expectedSelectedRecipeKey: expectedRecipeDTO]
+
+		let expectedRecipe = Recipe.stubMini
+		setupMapperReturn(expectedRecipeDTOs: [expectedRecipeDTO], expectedRecipes: [expectedRecipe])
+
+		sut.update(selectedRecipe: expectedRecipe)
+
+		XCTAssertEqual(mockMapper.mapToRecipeDTOReceivedRecipe, expectedRecipe)
+		XCTAssertEqual(mockStorage.saveCalledWithKey, expectedSelectedRecipeKey)
+		XCTAssertEqual(mockStorage.saveCalledWithValue as? RecipeDTO, expectedRecipeDTO)
 	}
 
 	func test_getSavedRecipes_shouldReturnExpectedRecipes() {
@@ -47,7 +83,20 @@ final class RecipeRepositoryTests: XCTestCase {
 		let resultedRecipes = sut.getSavedRecipes()
 
 		XCTAssertEqual(resultedRecipes, expectedRecipes)
-		XCTAssertTrue(mockMapper.mapToRecipeCalled)
+		XCTAssertEqual(mockStorage.loadCalledWithKey, expectedSavedRecipesKey)
+	}
+
+	func test_getSavedRecipes_whenOneMappingFails_shouldReturnExpectedRecipesWithoutFailedOne() {
+		let expectedRecipeDTOs = MockStore.savedRecipeDTOs
+		mockStorage.storageDictionary = [expectedSavedRecipesKey: expectedRecipeDTOs]
+
+		var expectedRecipes = MockStore.savedRecipes
+		expectedRecipes.removeLast()
+		setupMapperReturn(expectedRecipeDTOs: expectedRecipeDTOs, expectedRecipes: expectedRecipes)
+
+		let resultedRecipes = sut.getSavedRecipes()
+
+		XCTAssertEqual(resultedRecipes, expectedRecipes)
 		XCTAssertEqual(mockStorage.loadCalledWithKey, expectedSavedRecipesKey)
 	}
 
@@ -65,8 +114,6 @@ final class RecipeRepositoryTests: XCTestCase {
 		sut.save(saveRecipe)
 
 		XCTAssertEqual(mockStorage.loadCalledWithKey, expectedSavedRecipesKey)
-		XCTAssertEqual(mockStorage.load(forKey: expectedSavedRecipesKey), expectedRecipeDTOs)
-		XCTAssertTrue(mockMapper.mapToRecipeDTOCalled)
 		XCTAssertEqual(mockMapper.mapToRecipeDTOReceivedRecipe, saveRecipe)
 		XCTAssertEqual(mockStorage.saveCalledWithKey, expectedSavedRecipesKey)
 		XCTAssertEqual(mockStorage.saveCalledWithValue as? [RecipeDTO], expectedRecipeDTOs)
