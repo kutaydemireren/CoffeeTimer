@@ -152,7 +152,7 @@ extension RecipeMapperImp {
 		case .boil(let water):
 			return .boil(water: try mapToIngredientAmount(ingredientAmountDTO: water))
 		case .put(let coffee):
-			return .put(coffee: try mapToIngredientAmount(ingredientAmountDTO: coffee))
+			return .putCoffee(try mapToIngredientAmount(ingredientAmountDTO: coffee))
 		case .pour(let water):
 			return .pour(water: try mapToIngredientAmount(ingredientAmountDTO: water))
 		case .wet:
@@ -280,18 +280,24 @@ extension RecipeMapperImp {
 		switch brewStageAction {
 		case .boil(let water):
 			return .boil(water: mapToIngredientAmountDTO(ingredientAmount: water))
-		case .put(let coffee):
+		case .putCoffee(let coffee):
 			return .put(coffee: mapToIngredientAmountDTO(ingredientAmount: coffee))
+		case .putIce(let ice):
+			return .put(coffee: mapToIngredientAmountDTO(ingredientAmount: ice)) // TODO: return .put(ice: mapToIngredientAmountDTO(ingredientAmount: ice))
 		case .pour(let water):
 			return .pour(water: mapToIngredientAmountDTO(ingredientAmount: water))
 		case .wet:
 			return .wet
 		case .swirl:
 			return .swirl
+		case .swirlThroughly:
+			return .swirl // TODO: return .swirlThroughly
 		case .pause:
 			return .pause
 		case .finish:
 			return .finish
+		case .finishIced:
+			return .finish // TODO: return .finishIced
 		}
 	}
 

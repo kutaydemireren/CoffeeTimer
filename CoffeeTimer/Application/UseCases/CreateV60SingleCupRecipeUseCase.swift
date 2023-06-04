@@ -41,9 +41,8 @@ struct CreateV60SingleCupRecipeUseCaseImp: CreateV60SingleCupRecipeUseCase {
 
 		return [
 			.init(action: .wet, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
-			.init(action: .put(coffee: inputs.coffee), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
+			.init(action: .putCoffee(inputs.coffee), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .pour(water: waterPerBlock), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
-			.init(action: .pause, requirement: .countdown(5), startMethod: .auto, passMethod: .auto),
 			.init(action: .swirl, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .pause, requirement: .countdown(40), startMethod: .auto, passMethod: .auto)
 		]

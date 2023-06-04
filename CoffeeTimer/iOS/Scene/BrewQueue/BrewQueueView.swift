@@ -29,18 +29,24 @@ extension String {
 			switch action {
 			case .boil(let water):
 				return "Boil at least \(water.amount) \(water.type) of water"
-			case .put(let coffee):
+			case .putCoffee(let coffee):
 				return "Put \(coffee.amount) \(coffee.type) of coffee"
+			case .putIce(let ice):
+				return "Put \(ice.amount) \(ice.type) of coffee"
 			case .pour(let water):
 				return "Pour \(water.amount) \(water.type) of water"
 			case .wet:
 				return "Wet your filter under hot sink water"
 			case .swirl:
 				return "Gently swirl your brewer"
+			case .swirlThroughly:
+				return "Throughly swirl your brewer"
 			case .pause:
 				return "Wait for a short while"
 			case .finish:
 				return "Let your coffee breathe for a minute or two\nEnjoy!"
+			case .finishIced:
+				return "Pour your coffee onto fresh ice cubes in a cup\nEnjoy!"
 			}
 		}
 	}

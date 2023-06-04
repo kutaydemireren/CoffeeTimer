@@ -19,5 +19,6 @@ protocol CreateV60IcedRecipeUseCase {
 
 struct CreateV60IcedRecipeUseCaseImp: CreateV60IcedRecipeUseCase {
 	func create(input: CreateV60IcedRecipeInput) -> Recipe {
+		return Recipe.stubSingleV60
 	}
 }

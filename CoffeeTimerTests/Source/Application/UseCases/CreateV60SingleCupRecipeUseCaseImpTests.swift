@@ -50,9 +50,8 @@ extension CreateV60SingleCupRecipeUseCaseImpTests {
 	var expectedStages: [BrewStage] {
 		[
 			.init(action: .wet, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
-			.init(action: .put(coffee: coffeeAmount), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
+			.init(action: .putCoffee(coffeeAmount), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .pour(water: waterPerBlock), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
-			.init(action: .pause, requirement: .countdown(5), startMethod: .auto, passMethod: .auto),
 			.init(action: .swirl, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .pause, requirement: .countdown(40), startMethod: .auto, passMethod: .auto),
 			.init(action: .pour(water: waterPerBlock), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),

@@ -99,13 +99,16 @@ enum BrewStageActionMethod: Equatable {
 }
 
 enum BrewStageAction: Equatable {
-	case boil(water: IngredientAmount)
-	case put(coffee: IngredientAmount)
-	case pour(water: IngredientAmount)
+	case boil(water: IngredientAmount) // TODO: rename to boilWater
+	case putCoffee(IngredientAmount)
+	case putIce(IngredientAmount)
+	case pour(water: IngredientAmount)  // TODO: rename to pourWater
 	case wet
 	case swirl
+	case swirlThroughly
 	case pause
 	case finish
+	case finishIced
 }
 
 enum BrewStageRequirement: Equatable {
