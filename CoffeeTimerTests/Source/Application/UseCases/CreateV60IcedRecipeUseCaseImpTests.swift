@@ -12,8 +12,8 @@ final class CreateV60IcedRecipeUseCaseImpTests: XCTestCase {
 
 	let coffeeAmount = IngredientAmount(amount: 17, type: .gram)
 	let waterAmount = IngredientAmount(amount: 250, type: .gram)
-	let iceAmount = IngredientAmount(amount: UInt(250 * 0.4), type: .gram)
-	let hotWaterAmount = IngredientAmount(amount: 250 - UInt(250 * 0.4), type: .gram)
+	let iceAmount = IngredientAmount(amount: UInt(Double(250) * 0.4), type: .gram)
+	let hotWaterAmount = IngredientAmount(amount: 250 - UInt(Double(250) * 0.4), type: .gram)
 
 	var sut: CreateV60IcedRecipeUseCaseImp!
 
@@ -62,7 +62,7 @@ extension CreateV60IcedRecipeUseCaseImpTests {
 			// TODO: Differentiate remainingHotWaterAmount requirement countdown duration: remaining hot water < 200 gr of water : 60 sec : 120 sec
 			.init(action: .pour(water: IngredientAmount(amount: remainingHotWaterAmount, type: .gram)), requirement: .countdown(60), startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .pause, requirement: .countdown(10), startMethod: .auto, passMethod: .auto),
-			.init(action: .swirlThroughly, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
+			.init(action: .swirlThoroughly, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .finishIced, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 		]
 	}

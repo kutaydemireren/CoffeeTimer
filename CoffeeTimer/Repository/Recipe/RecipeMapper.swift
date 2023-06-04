@@ -290,7 +290,7 @@ extension RecipeMapperImp {
 			return .wet
 		case .swirl:
 			return .swirl
-		case .swirlThroughly:
+		case .swirlThoroughly:
 			return .swirl // TODO: return .swirlThroughly
 		case .pause:
 			return .pause

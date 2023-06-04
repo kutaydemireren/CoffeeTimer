@@ -39,7 +39,7 @@ extension String {
 				return "Wet your filter under hot sink water"
 			case .swirl:
 				return "Gently swirl your brewer"
-			case .swirlThroughly:
+			case .swirlThoroughly:
 				return "Throughly swirl your brewer"
 			case .pause:
 				return "Wait for a short while"
