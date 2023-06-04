@@ -26,7 +26,7 @@ final class MockRecipeMapper: RecipeMapper {
 			throw RecipeMapperError.missingBrewQueue
 		}
 
-		return recipesDict[firstMatchingIndex] ?? .stubSingleV60
+		return recipesDict[firstMatchingIndex]!
 	}
 
 	func mapToRecipeDTO(recipe: Recipe) -> RecipeDTO {
@@ -37,6 +37,6 @@ final class MockRecipeMapper: RecipeMapper {
 
 		}.keys.first!
 
-		return recipeDTOsDict[firstMatchingIndex] ?? .stub
+		return recipeDTOsDict[firstMatchingIndex]!
 	}
 }

@@ -127,7 +127,39 @@ extension RecipeRepositoryTests {
 
 // MARK: Remove
 extension RecipeRepositoryTests {
+	func test_removeRecipe_whenRecipeNotExistsInSaved_shouldNotSave() {
+		let removeRecipe = Recipe.stubMini
+		let removeRecipeDTO = RecipeDTO.stubMini
 
+		let alreadySavedRecipeDTOs = MockStore.savedRecipeDTOs
+		mockStorage.storageDictionary = [expectedSavedRecipesKey: alreadySavedRecipeDTOs]
+
+		setupMapperReturn(expectedRecipeDTOs: [removeRecipeDTO], expectedRecipes: [removeRecipe])
+
+		sut.remove(recipe: removeRecipe)
+
+		XCTAssertEqual(mockStorage.loadCalledWithKey, expectedSavedRecipesKey)
+		XCTAssertEqual(mockMapper.mapToRecipeDTOReceivedRecipe, removeRecipe)
+		XCTAssertNil(mockStorage.saveCalledWithKey)
+		XCTAssertNil(mockStorage.saveCalledWithValue)
+	}
+
+	func test_removeRecipe_shouldRemoveFromSavedRecipes() {
+		let removeRecipe = Recipe.stubMini
+		let removeRecipeDTO = RecipeDTO.stubMini
+
+		let expectedRecipeDTOs = MockStore.savedRecipeDTOs
+		let alreadySavedRecipeDTOs = expectedRecipeDTOs + [removeRecipeDTO]
+		mockStorage.storageDictionary = [expectedSavedRecipesKey: alreadySavedRecipeDTOs]
+		setupMapperReturn(expectedRecipeDTOs: [removeRecipeDTO], expectedRecipes: [removeRecipe])
+
+		sut.remove(recipe: removeRecipe)
+
+		XCTAssertEqual(mockStorage.loadCalledWithKey, expectedSavedRecipesKey)
+		XCTAssertEqual(mockMapper.mapToRecipeDTOReceivedRecipe, removeRecipe)
+		XCTAssertEqual(mockStorage.saveCalledWithKey, expectedSavedRecipesKey)
+		XCTAssertEqual(mockStorage.saveCalledWithValue as? [RecipeDTO], expectedRecipeDTOs)
+	}
 }
 
 extension RecipeRepositoryTests {
