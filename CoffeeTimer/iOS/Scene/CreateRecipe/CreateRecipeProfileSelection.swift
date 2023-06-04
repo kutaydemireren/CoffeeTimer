@@ -17,16 +17,8 @@ struct RecipeProfileIconView: View {
 				.resizable()
 				.aspectRatio(contentMode: .fit)
 				.padding(12)
-				.background {
-					Group {
-						if let color = Color(hexString: recipeProfileIcon.color) {
-							Circle()
-								.fill(color)
-								.opacity(isSelected ? 0.8 : 0.4)
-						}
-					}
-				}
 				.foregroundColor(Color("foregroundPrimary"))
+				.opacity(isSelected ? 1.0 : 0.4)
 		}
 	}
 }

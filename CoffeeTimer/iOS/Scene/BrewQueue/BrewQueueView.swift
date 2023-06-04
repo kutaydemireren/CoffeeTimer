@@ -266,30 +266,22 @@ struct BrewQueueView: View {
 
 	@ViewBuilder
 	private var recipesButton: some View {
-		if let selectedRecipe = viewModel.selectedRecipe {
-			Button {
-				viewModel.showRecipes()
-			} label: {
+		Button {
+			viewModel.showRecipes()
+		} label: {
+			if let selectedRecipe = viewModel.selectedRecipe {
 				RecipeProfileView(recipeProfile: selectedRecipe.recipeProfile)
+			} else {
+				Text("Create Recipe")
+					.font(.title3)
 			}
-			.padding(12)
-			.foregroundColor(Color("foregroundPrimary"))
-			.backgroundSecondary()
-			.shadow(color: .blue.opacity(0.2), radius: 8, x: -2, y: -2)
-		} else {
-			Button {
-				viewModel.didComplete.send(viewModel)
-			} label: {
-				Text("+")
-			}
-			.padding()
-			.foregroundColor(Color("foregroundPrimary"))
-			.backgroundSecondary()
-			.clipShape(Circle())
-			.shadow(color: .black.opacity(0.2), radius: 8, x: -2, y: -2)
 		}
+		.padding(12)
+		.foregroundColor(Color("foregroundPrimary"))
+		.backgroundSecondary()
+		.shadow(color: .blue.opacity(0.2), radius: 8, x: -2, y: -2)
 	}
-
+	
 	private var skipButton: some View {
 		Button {
 			viewModel.skipAction()
