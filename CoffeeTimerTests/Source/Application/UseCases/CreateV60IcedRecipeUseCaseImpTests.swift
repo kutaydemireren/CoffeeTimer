@@ -9,11 +9,14 @@ import XCTest
 @testable import CoffeeTimer
 
 final class CreateV60IcedRecipeUseCaseImpTests: XCTestCase {
-
-	let coffeeAmount = IngredientAmount(amount: 17, type: .gram)
-	let waterAmount = IngredientAmount(amount: 250, type: .gram)
-	let iceAmount = IngredientAmount(amount: UInt(Double(250) * 0.4), type: .gram)
-	let hotWaterAmount = IngredientAmount(amount: 250 - UInt(Double(250) * 0.4), type: .gram)
+	var coffeeAmount = IngredientAmount(amount: 17, type: .gram)
+	var waterAmount = IngredientAmount(amount: 250, type: .gram)
+	var iceAmount: IngredientAmount {
+		IngredientAmount(amount: UInt(Double(waterAmount.amount) * 0.4), type: .gram)
+	}
+	var hotWaterAmount: IngredientAmount {
+		IngredientAmount(amount: waterAmount.amount - iceAmount.amount, type: .gram)
+	}
 
 	var sut: CreateV60IcedRecipeUseCaseImp!
 
@@ -27,7 +30,15 @@ final class CreateV60IcedRecipeUseCaseImpTests: XCTestCase {
 		XCTAssertEqual(resultedRecipe.recipeProfile, expectedRecipe(name: name).recipeProfile)
 	}
 
-	func test_create_shouldReturnWithExpectedBrewQueue() {
+	func test_create_whenRemainingHotWaterLessThan200Gr_shouldReturnWithBrewQueueWithPourWaterRequirement60Sec() {
+		let resultedRecipe = sut.create(input: input)
+
+		XCTAssertEqual(resultedRecipe.brewQueue, expectedRecipe(name: name).brewQueue)
+	}
+
+	func test_create_whenRemainingHotWaterMoreThan200Gr_shouldReturnWithBrewQueueWithPourWaterRequirement120Sec() {
+		waterAmount = IngredientAmount(amount: 500, type: .gram)
+
 		let resultedRecipe = sut.create(input: input)
 
 		XCTAssertEqual(resultedRecipe.brewQueue, expectedRecipe(name: name).brewQueue)
@@ -51,6 +62,7 @@ extension CreateV60IcedRecipeUseCaseImpTests {
 	var expectedStages: [BrewStage] {
 		let bloomAmount = coffeeAmount.amount * 3
 		let remainingHotWaterAmount = hotWaterAmount.amount - bloomAmount
+		let pourRemainingHotWaterRequirement = BrewStageRequirement.countdown(remainingHotWaterAmount < 200 ? 60 : 120)
 
 		return [
 			.init(action: .wet, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
@@ -59,8 +71,7 @@ extension CreateV60IcedRecipeUseCaseImpTests {
 			.init(action: .pourWater(IngredientAmount(amount: bloomAmount, type: .gram)), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .swirl, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .pause, requirement: .countdown(40), startMethod: .auto, passMethod: .auto),
-			// TODO: Differentiate remainingHotWaterAmount requirement countdown duration: remaining hot water < 200 gr of water : 60 sec : 120 sec
-			.init(action: .pourWater(IngredientAmount(amount: remainingHotWaterAmount, type: .gram)), requirement: .countdown(60), startMethod: .userInteractive, passMethod: .userInteractive),
+			.init(action: .pourWater(IngredientAmount(amount: remainingHotWaterAmount, type: .gram)), requirement: pourRemainingHotWaterRequirement, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .pause, requirement: .countdown(10), startMethod: .auto, passMethod: .auto),
 			.init(action: .swirlThoroughly, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			.init(action: .finishIced, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),

@@ -49,9 +49,10 @@ struct CreateV60IcedRecipeUseCaseImp: CreateV60IcedRecipeUseCase {
 
 	private func createBrew(input: CreateV60RecipeInput) -> [BrewStage] {
 		let remainingHotWaterAmount = hotWaterAmount(input: input).amount - hotWaterAmountForBloom(input: input).amount
+		let pourRemainingHotWaterRequirement = BrewStageRequirement.countdown(remainingHotWaterAmount < 200 ? 60 : 120)
 
 		return [
-			BrewStage(action: .pourWater(IngredientAmount(amount: remainingHotWaterAmount, type: .gram)), requirement: .countdown(60), startMethod: .userInteractive, passMethod: .userInteractive),
+			BrewStage(action: .pourWater(IngredientAmount(amount: remainingHotWaterAmount, type: .gram)), requirement: pourRemainingHotWaterRequirement, startMethod: .userInteractive, passMethod: .userInteractive),
 			BrewStage(action: .pause, requirement: .countdown(10), startMethod: .auto, passMethod: .auto),
 			BrewStage(action: .swirlThoroughly, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive)
 		]
