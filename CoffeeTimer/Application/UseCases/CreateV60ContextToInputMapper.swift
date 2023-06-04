@@ -1,5 +1,5 @@
 //
-//  CreateV60SingleCupContextToInputsMapper.swift
+//  CreateV60ContextToInputMapper.swift
 //  CoffeeTimer
 //
 //  Created by Kutay Demireren on 06/05/2023.
@@ -11,20 +11,20 @@ enum CreateRecipeMapperError: Error {
 	case missingRecipeProfile
 }
 
-protocol CreateV60SingleCupContextToInputsMapper {
-	func map(context: CreateRecipeContext) throws -> CreateV60SingleCupRecipeInputs
+protocol CreateV60ContextToInputMapper {
+	func map(context: CreateRecipeContext) throws -> CreateV60RecipeInput
 }
 
-struct CreateV60SingleCupContextToInputsMapperImp: CreateV60SingleCupContextToInputsMapper {
+struct CreateV60ContextToInputMapperImp: CreateV60ContextToInputMapper {
 	private let waterAmountPerCup = IngredientAmount(amount: 250, type: .millilitre)
 
-	func map(context: CreateRecipeContext) throws -> CreateV60SingleCupRecipeInputs {
+	func map(context: CreateRecipeContext) throws -> CreateV60RecipeInput {
 		guard !context.recipeProfile.isEmpty else {
 			throw CreateRecipeMapperError.missingRecipeProfile
 		}
 
 		let waterAmount = calculateWaterAmount(forCupsCount: Int(context.cupsCountAmount))
-		return CreateV60SingleCupRecipeInputs(
+		return CreateV60RecipeInput(
 			recipeProfile: context.recipeProfile,
 			coffee: calculateCoffeeAmount(forWaterAmount: waterAmount, withRatio: context.ratio),
 			water: waterAmount

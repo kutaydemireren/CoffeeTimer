@@ -8,8 +8,8 @@
 import Foundation
 @testable import CoffeeTimer
 
-extension CreateV60SingleCupRecipeInputs: Equatable {
-	public static func == (lhs: CreateV60SingleCupRecipeInputs, rhs: CreateV60SingleCupRecipeInputs) -> Bool {
+extension CreateV60RecipeInput: Equatable {
+	public static func == (lhs: CreateV60RecipeInput, rhs: CreateV60RecipeInput) -> Bool {
 		lhs.water == rhs.water &&
 		lhs.coffee == rhs.coffee &&
 		lhs.recipeProfile == rhs.recipeProfile

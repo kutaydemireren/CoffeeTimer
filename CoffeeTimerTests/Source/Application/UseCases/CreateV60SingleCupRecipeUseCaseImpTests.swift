@@ -21,27 +21,27 @@ final class CreateV60SingleCupRecipeUseCaseImpTests: XCTestCase {
 	}
 
 	func test_create_shouldReturnWithExpectedRecipeProfile() {
-		let resultedRecipe = sut.create(inputs: input)
+		let resultedRecipe = sut.create(input: input)
 
 		XCTAssertEqual(resultedRecipe.recipeProfile, expectedRecipe(name: name).recipeProfile)
 	}
 
 	func test_create_shouldReturnWithExpectedBrewQueue() {
-		let resultedRecipe = sut.create(inputs: input)
+		let resultedRecipe = sut.create(input: input)
 
 		XCTAssertEqual(resultedRecipe.brewQueue, expectedRecipe(name: name).brewQueue)
 	}
 
 	func test_create_shouldReturnWithExpectedIngredients() {
-		let resultedRecipe = sut.create(inputs: input)
+		let resultedRecipe = sut.create(input: input)
 
 		XCTAssertEqual(resultedRecipe.ingredients, expectedRecipe(name: name).ingredients)
 	}
 }
 
 extension CreateV60SingleCupRecipeUseCaseImpTests {
-	var input: CreateV60SingleCupRecipeInputs {
-		return CreateV60SingleCupRecipeInputs(
+	var input: CreateV60RecipeInput {
+		return CreateV60RecipeInput(
 			recipeProfile: RecipeProfile(name: name, icon: .stubSingleV60),
 			coffee: coffeeAmount,
 			water: waterAmount

@@ -1,5 +1,5 @@
 //
-//  CreateV60SingleCupContextToInputsMapperImpTests.swift
+//  CreateV60ContextToInputMapperImpTests.swift
 //  CoffeeTimerTests
 //
 //  Created by Kutay Demireren on 06/05/2023.
@@ -8,12 +8,12 @@
 import XCTest
 @testable import CoffeeTimer
 
-final class CreateV60SingleCupContextToInputsMapperImpTests: XCTestCase {
+final class CreateV60ContextToInputMapperImpTests: XCTestCase {
 
-	var sut: CreateV60SingleCupContextToInputsMapperImp!
+	var sut: CreateV60ContextToInputMapperImp!
 
 	override func setUpWithError() throws {
-		sut = CreateV60SingleCupContextToInputsMapperImp()
+		sut = CreateV60ContextToInputMapperImp()
 	}
 
 	func test_map_whenEmptyRecipeProfile_shouldThrowErrorMissing() throws {
@@ -28,9 +28,9 @@ final class CreateV60SingleCupContextToInputsMapperImpTests: XCTestCase {
 		let context = createNonEmptyProfileContext()
 		context.cupsCountAmount = 1
 
-		let resultedInputs = try sut.map(context: context)
+		let resultedInput = try sut.map(context: context)
 
-		XCTAssertEqual(resultedInputs.water, .init(amount: 250, type: .millilitre))
+		XCTAssertEqual(resultedInput.water, .init(amount: 250, type: .millilitre))
 	}
 
 	func test_map_shouldReturnExpectedCoffeeAmount() throws {
@@ -38,9 +38,9 @@ final class CreateV60SingleCupContextToInputsMapperImpTests: XCTestCase {
 		context.cupsCountAmount = 16
 		context.ratio = .ratio16
 
-		let resultedInputs = try sut.map(context: context)
+		let resultedInput = try sut.map(context: context)
 
-		XCTAssertEqual(resultedInputs.coffee, .init(amount: 250, type: .gram))
+		XCTAssertEqual(resultedInput.coffee, .init(amount: 250, type: .gram))
 	}
 
 	private func createNonEmptyProfileContext() -> CreateRecipeContext {

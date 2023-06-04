@@ -7,18 +7,12 @@
 
 import Foundation
 
-struct CreateV60IcedRecipeInput {
-	let recipeProfile: RecipeProfile
-	let coffee: IngredientAmount
-	let water: IngredientAmount
-}
-
 protocol CreateV60IcedRecipeUseCase {
-	func create(input: CreateV60IcedRecipeInput) -> Recipe
+	func create(input: CreateV60RecipeInput) -> Recipe
 }
 
 struct CreateV60IcedRecipeUseCaseImp: CreateV60IcedRecipeUseCase {
-	func create(input: CreateV60IcedRecipeInput) -> Recipe {
+	func create(input: CreateV60RecipeInput) -> Recipe {
 		let stagesBloom = createBloom(input: input)
 		let stagesBrew: [BrewStage] = createBrew(input: input)
 		let stageFinish = [BrewStage(action: .finishIced, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive)]
@@ -34,7 +28,7 @@ struct CreateV60IcedRecipeUseCaseImp: CreateV60IcedRecipeUseCase {
 		)
 	}
 
-	private func createBloom(input: CreateV60IcedRecipeInput) -> [BrewStage] {
+	private func createBloom(input: CreateV60RecipeInput) -> [BrewStage] {
 		return [
 			BrewStage(action: .wet, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
 			BrewStage(action: .putIce(iceAmount(input: input)), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
@@ -45,15 +39,15 @@ struct CreateV60IcedRecipeUseCaseImp: CreateV60IcedRecipeUseCase {
 		]
 	}
 
-	private func iceAmount(input: CreateV60IcedRecipeInput) -> IngredientAmount {
+	private func iceAmount(input: CreateV60RecipeInput) -> IngredientAmount {
 		return IngredientAmount(amount: UInt(Double(input.water.amount) * 0.4), type: .gram)
 	}
 
-	private func hotWaterAmountForBloom(input: CreateV60IcedRecipeInput) -> IngredientAmount {
+	private func hotWaterAmountForBloom(input: CreateV60RecipeInput) -> IngredientAmount {
 		return IngredientAmount(amount: input.coffee.amount * 3, type: .gram)
 	}
 
-	private func createBrew(input: CreateV60IcedRecipeInput) -> [BrewStage] {
+	private func createBrew(input: CreateV60RecipeInput) -> [BrewStage] {
 		let remainingHotWaterAmount = hotWaterAmount(input: input).amount - hotWaterAmountForBloom(input: input).amount
 
 		return [
@@ -63,7 +57,7 @@ struct CreateV60IcedRecipeUseCaseImp: CreateV60IcedRecipeUseCase {
 		]
 	}
 
-	private func hotWaterAmount(input: CreateV60IcedRecipeInput) -> IngredientAmount {
+	private func hotWaterAmount(input: CreateV60RecipeInput) -> IngredientAmount {
 		return IngredientAmount(amount: input.water.amount - iceAmount(input: input).amount, type: .gram)
 	}
 }

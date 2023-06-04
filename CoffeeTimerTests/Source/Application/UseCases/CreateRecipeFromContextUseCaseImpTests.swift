@@ -11,15 +11,15 @@ import XCTest
 final class CreateRecipeFromContextUseCaseImpTests: XCTestCase {
 
 	var mockCreateV60SingleCupRecipeUseCase: MockCreateV60SingleCupRecipeUseCase!
-	var mockCreateV60SingleCupContextToInputsMapper: MockCreateV60SingleCupContextToInputsMapper!
+	var mockCreateV60ContextToInputMapper: MockCreateV60ContextToInputMapper!
 	var sut: CreateRecipeFromContextUseCaseImp!
 
     override func setUpWithError() throws {
 		mockCreateV60SingleCupRecipeUseCase = MockCreateV60SingleCupRecipeUseCase()
-		mockCreateV60SingleCupContextToInputsMapper = MockCreateV60SingleCupContextToInputsMapper()
+		mockCreateV60ContextToInputMapper = MockCreateV60ContextToInputMapper()
 		sut = CreateRecipeFromContextUseCaseImp(
 			createV60SingleCupRecipeUseCase: mockCreateV60SingleCupRecipeUseCase,
-			createV60SingleCupContextToInputsMapper: mockCreateV60SingleCupContextToInputsMapper
+			CreateV60ContextToInputMapper: mockCreateV60ContextToInputMapper
 		)
     }
 
@@ -32,14 +32,14 @@ final class CreateRecipeFromContextUseCaseImpTests: XCTestCase {
 		XCTAssertEqual(resultedRecipe, expectedRecipe)
 	}
 
-	func test_create_shouldCreateWithExpectedInputs() {
+	func test_create_shouldCreateWithExpectedInput() {
 		let expectedContext = CreateRecipeContext()
-		let expectedInputs = CreateV60SingleCupRecipeInputs.stubSingleV60
-		mockCreateV60SingleCupContextToInputsMapper._inputs = expectedInputs
+		let expectedInput = CreateV60RecipeInput.stubSingleV60
+		mockCreateV60ContextToInputMapper._input = expectedInput
 
 		let _ = sut.create(from: expectedContext)
 
-		XCTAssertEqual(mockCreateV60SingleCupContextToInputsMapper._context, expectedContext)
-		XCTAssertEqual(mockCreateV60SingleCupRecipeUseCase._inputs, expectedInputs)
+		XCTAssertEqual(mockCreateV60ContextToInputMapper._context, expectedContext)
+		XCTAssertEqual(mockCreateV60SingleCupRecipeUseCase._input, expectedInput)
 	}
 }

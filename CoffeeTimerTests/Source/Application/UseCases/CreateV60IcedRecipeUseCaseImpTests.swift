@@ -41,8 +41,8 @@ final class CreateV60IcedRecipeUseCaseImpTests: XCTestCase {
 }
 
 extension CreateV60IcedRecipeUseCaseImpTests {
-	var input: CreateV60IcedRecipeInput {
-		return CreateV60IcedRecipeInput(
+	var input: CreateV60RecipeInput {
+		return CreateV60RecipeInput(
 			recipeProfile: RecipeProfile(name: name, icon: .stubSingleV60),
 			coffee: coffeeAmount,
 			water: waterAmount

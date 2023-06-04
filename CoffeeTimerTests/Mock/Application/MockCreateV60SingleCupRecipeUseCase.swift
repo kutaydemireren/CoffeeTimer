@@ -10,10 +10,10 @@ import Foundation
 
 class MockCreateV60SingleCupRecipeUseCase: CreateV60SingleCupRecipeUseCase {
 	var _recipe: Recipe = .stubSingleV60
-	var _inputs: CreateV60SingleCupRecipeInputs?
+	var _input: CreateV60RecipeInput?
 
-	func create(inputs: CreateV60SingleCupRecipeInputs) -> Recipe {
-		self._inputs = inputs
+	func create(input: CreateV60RecipeInput) -> Recipe {
+		self._input = input
 
 		return _recipe
 	}

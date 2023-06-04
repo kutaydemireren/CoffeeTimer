@@ -13,21 +13,21 @@ protocol CreateRecipeFromContextUseCase {
 
 struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
 	private let createV60SingleCupRecipeUseCase: CreateV60SingleCupRecipeUseCase
-	private let createV60SingleCupContextToInputsMapper: CreateV60SingleCupContextToInputsMapper
+	private let CreateV60ContextToInputMapper: CreateV60ContextToInputMapper
 
 	init(
 		createV60SingleCupRecipeUseCase: CreateV60SingleCupRecipeUseCase = CreateV60SingleCupRecipeUseCaseImp(),
-		createV60SingleCupContextToInputsMapper: CreateV60SingleCupContextToInputsMapper = CreateV60SingleCupContextToInputsMapperImp()
+		CreateV60ContextToInputMapper: CreateV60ContextToInputMapper = CreateV60ContextToInputMapperImp()
 	) {
 		self.createV60SingleCupRecipeUseCase = createV60SingleCupRecipeUseCase
-		self.createV60SingleCupContextToInputsMapper = createV60SingleCupContextToInputsMapper
+		self.CreateV60ContextToInputMapper = CreateV60ContextToInputMapper
 	}
 
 	func create(from context: CreateRecipeContext) -> Recipe? {
-		guard let inputs = try? createV60SingleCupContextToInputsMapper.map(context: context) else {
+		guard let input = try? CreateV60ContextToInputMapper.map(context: context) else {
 			return nil
 		}
 
-		return createV60SingleCupRecipeUseCase.create(inputs: inputs)
+		return createV60SingleCupRecipeUseCase.create(input: input)
 	}
 }
