@@ -18,7 +18,6 @@ protocol CreateV60SingleCupRecipeUseCase {
 }
 
 struct CreateV60SingleCupRecipeUseCaseImp: CreateV60SingleCupRecipeUseCase {
-
 	private let stageCount: UInt = 5
 
 	func create(inputs: CreateV60SingleCupRecipeInputs) -> Recipe {

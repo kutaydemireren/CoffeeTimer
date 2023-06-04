@@ -12,7 +12,6 @@ protocol CreateRecipeFromContextUseCase {
 }
 
 struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
-
 	private let createV60SingleCupRecipeUseCase: CreateV60SingleCupRecipeUseCase
 	private let createV60SingleCupContextToInputsMapper: CreateV60SingleCupContextToInputsMapper
 
