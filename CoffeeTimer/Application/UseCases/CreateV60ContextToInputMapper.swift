@@ -19,6 +19,8 @@ struct CreateV60ContextToInputMapperImp: CreateV60ContextToInputMapper {
 	private let waterAmountPerCup = IngredientAmount(amount: 250, type: .millilitre)
 
 	func map(context: CreateRecipeContext) throws -> CreateV60RecipeInput {
+		// TODO: Differentiate calculation for iced coffee:
+		// `base` iced coffee ratio of 65 gr of coffee / 1000 ml of hot water corresponds to the hot coffee ratio of 60 gr of coffee / 1000 ml of hot water (= CoffeeToWaterRatio.ratio16)
 		guard !context.recipeProfile.isEmpty else {
 			throw CreateRecipeMapperError.missingRecipeProfile
 		}

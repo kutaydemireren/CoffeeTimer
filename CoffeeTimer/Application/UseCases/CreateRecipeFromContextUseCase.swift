@@ -13,21 +13,25 @@ protocol CreateRecipeFromContextUseCase {
 
 struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
 	private let createV60SingleCupRecipeUseCase: CreateV60SingleCupRecipeUseCase
-	private let CreateV60ContextToInputMapper: CreateV60ContextToInputMapper
+	private let createV60IcedRecipeUseCase: CreateV60IcedRecipeUseCase
+	private let createV60ContextToInputMapper: CreateV60ContextToInputMapper
 
 	init(
 		createV60SingleCupRecipeUseCase: CreateV60SingleCupRecipeUseCase = CreateV60SingleCupRecipeUseCaseImp(),
+		createV60IcedRecipeUseCase: CreateV60IcedRecipeUseCase = CreateV60IcedRecipeUseCaseImp(),
 		CreateV60ContextToInputMapper: CreateV60ContextToInputMapper = CreateV60ContextToInputMapperImp()
 	) {
 		self.createV60SingleCupRecipeUseCase = createV60SingleCupRecipeUseCase
-		self.CreateV60ContextToInputMapper = CreateV60ContextToInputMapper
+		self.createV60IcedRecipeUseCase = createV60IcedRecipeUseCase
+		self.createV60ContextToInputMapper = CreateV60ContextToInputMapper
 	}
 
 	func create(from context: CreateRecipeContext) -> Recipe? {
-		guard let input = try? CreateV60ContextToInputMapper.map(context: context) else {
+		// TODO: Use `context` to separate iced from single cup
+		guard let input = try? createV60ContextToInputMapper.map(context: context) else {
 			return nil
 		}
 
-		return createV60SingleCupRecipeUseCase.create(input: input)
+		return createV60IcedRecipeUseCase.create(input: input)
 	}
 }
