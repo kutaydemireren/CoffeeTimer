@@ -73,6 +73,7 @@ final class BrewStageTimerViewModel: BrewStageViewModel {
 	}
 }
 
+// TODO: Add Playing/Paused state
 struct BrewStageView<ViewModel>: View where ViewModel: BrewStageViewModel {
 
 	@ObservedObject var viewModel: ViewModel

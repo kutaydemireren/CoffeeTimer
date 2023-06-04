@@ -32,7 +32,7 @@ extension String {
 			case .putCoffee(let coffee):
 				return "Put \(coffee.amount) \(coffee.type) of coffee"
 			case .putIce(let ice):
-				return "Put \(ice.amount) \(ice.type) of coffee"
+				return "Put \(ice.amount) \(ice.type) of ice"
 			case .pourWater(let water):
 				return "Pour \(water.amount) \(water.type) of water"
 			case .wet:
