@@ -27,6 +27,16 @@ final class RecipesViewModel: ObservableObject, Completable {
 		close()
 	}
 
+	func removeRecipes(at indices: IndexSet) {
+		indices
+			.compactMap { recipes[safe: $0] }
+			.forEach(remove(recipe:))
+	}
+
+	private func remove(recipe: Recipe) {
+		recipeRepository.remove(recipe: recipe)
+	}
+
 	func create() {
 		didCreate.send(self)
 	}
@@ -92,11 +102,16 @@ struct RecipesView: View {
 	}
 
 	var recipesList: some View {
-		List(viewModel.recipes) { recipe in
-			RecipeProfileRowView(recipeProfile: recipe.recipeProfile)
-				.onTapGesture {
-					viewModel.select(recipe: recipe)
-				}
+		List {
+			ForEach(viewModel.recipes) { recipe in
+				RecipeProfileRowView(recipeProfile: recipe.recipeProfile)
+					.onTapGesture {
+						viewModel.select(recipe: recipe)
+					}
+			}
+			.onDelete { indexSet in
+				viewModel.removeRecipes(at: indexSet)
+			}
 		}
 		.scrollIndicators(.hidden)
 		.scrollContentBackground(.hidden)
