@@ -46,7 +46,6 @@ final class RecipesViewModel: ObservableObject, Completable {
 	}
 }
 
-// TODO: Add 'remove' capability
 struct RecipesView: View {
 
 	@ObservedObject var viewModel: RecipesViewModel

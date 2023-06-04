@@ -153,16 +153,22 @@ extension RecipeMapperImp {
 			return .boilWater(try mapToIngredientAmount(ingredientAmountDTO: water))
 		case .putCoffee(let coffee):
 			return .putCoffee(try mapToIngredientAmount(ingredientAmountDTO: coffee))
+		case .putIce(let ice):
+			return .putIce(try mapToIngredientAmount(ingredientAmountDTO: ice))
 		case .pourWater(let water):
 			return .pourWater(try mapToIngredientAmount(ingredientAmountDTO: water))
 		case .wet:
 			return .wet
 		case .swirl:
 			return .swirl
+		case .swirlThoroughly:
+			return .swirlThoroughly
 		case .pause:
 			return .pause
 		case .finish:
 			return .finish
+		case .finishIced:
+			return .finishIced
 		}
 	}
 
@@ -283,7 +289,7 @@ extension RecipeMapperImp {
 		case .putCoffee(let coffee):
 			return .putCoffee(mapToIngredientAmountDTO(ingredientAmount: coffee))
 		case .putIce(let ice):
-			return .putCoffee(mapToIngredientAmountDTO(ingredientAmount: ice)) // TODO: return .put(ice: mapToIngredientAmountDTO(ingredientAmount: ice))
+			return .putIce(mapToIngredientAmountDTO(ingredientAmount: ice))
 		case .pourWater(let water):
 			return .pourWater(mapToIngredientAmountDTO(ingredientAmount: water))
 		case .wet:
@@ -291,13 +297,13 @@ extension RecipeMapperImp {
 		case .swirl:
 			return .swirl
 		case .swirlThoroughly:
-			return .swirl // TODO: return .swirlThroughly
+			return .swirlThoroughly
 		case .pause:
 			return .pause
 		case .finish:
 			return .finish
 		case .finishIced:
-			return .finish // TODO: return .finishIced
+			return .finishIced
 		}
 	}
 

@@ -59,11 +59,14 @@ struct BrewStageDTO: Codable, Equatable {
 enum BrewStageActionDTO: Codable, Equatable {
 	case boilWater(IngredientAmountDTO)
 	case putCoffee(IngredientAmountDTO)
+	case putIce(IngredientAmountDTO)
 	case pourWater(IngredientAmountDTO)
 	case wet
 	case swirl
+	case swirlThoroughly
 	case pause
 	case finish
+	case finishIced
 }
 
 enum BrewStageActionMethodDTO: Codable, Equatable {

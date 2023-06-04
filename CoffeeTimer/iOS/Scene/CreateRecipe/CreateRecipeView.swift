@@ -38,7 +38,7 @@ final class CreateRecipeViewModel: ObservableObject {
 		if let recipe = createRecipeFromContextUseCase.create(from: context) {
 			recipeRepository.save(recipe)
 		} else {
-			// TODO
+			// TODO: `throw` from create(?) or handle by having nil(?)
 		}
 	}
 }
