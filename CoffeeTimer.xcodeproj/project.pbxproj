@@ -300,10 +300,8 @@
 		CA5E907529D61A5F00A78CF2 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				CA7B804429BFA9E6007D3DFC /* CountdownTimer.swift */,
-				CA180AF929DB67130056D435 /* CreateV60SingleCupRecipeUseCase.swift */,
-				CA77909A2A06F35A00BEA142 /* CreateV60SingleCupContextToInputsMapper.swift */,
-				CA77909C2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift */,
+				CA9BDA1E2A2CDCA30068DFF7 /* UseCases */,
+				CA9BDA1D2A2CDC9E0068DFF7 /* Timer */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -440,6 +438,24 @@
 				CA367D3529A2B0380095B1B8 /* Assets.xcassets */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		CA9BDA1D2A2CDC9E0068DFF7 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				CA7B804429BFA9E6007D3DFC /* CountdownTimer.swift */,
+			);
+			path = Timer;
+			sourceTree = "<group>";
+		};
+		CA9BDA1E2A2CDCA30068DFF7 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				CA180AF929DB67130056D435 /* CreateV60SingleCupRecipeUseCase.swift */,
+				CA77909A2A06F35A00BEA142 /* CreateV60SingleCupContextToInputsMapper.swift */,
+				CA77909C2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift */,
+			);
+			path = UseCases;
 			sourceTree = "<group>";
 		};
 		CAB1925B2A0D6B4400043837 /* Repository */ = {
