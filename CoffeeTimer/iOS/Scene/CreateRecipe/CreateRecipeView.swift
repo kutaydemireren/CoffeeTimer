@@ -31,7 +31,7 @@ final class CreateRecipeViewModel: ObservableObject {
 		context.selectedBrewMethod != nil &&
 		!context.recipeProfile.isEmpty &&
 		!context.recipeProfile.name.isEmpty &&
-		context.cupsCountAmount > 0
+		context.cupsCount > 0
 	}
 
 	func create(from context: CreateRecipeContext) {
@@ -84,7 +84,7 @@ struct CreateRecipeView: View {
 				CreateRecipeProfileSelection(recipeProfile: $context.recipeProfile, gridCache: gridCache)
 					.tag(2)
 
-				CreateRecipeCoffeeWaterSelection(cupsCountAmount: $context.cupsCountAmount, ratio: $context.ratio)
+				CreateRecipeCoffeeWaterSelection(cupsCountAmount: $context.cupsCount, ratio: $context.ratio)
 					.tag(3)
 			}
 			.tabViewStyle(.page(indexDisplayMode: .never))
@@ -92,7 +92,7 @@ struct CreateRecipeView: View {
 		}
 		.onChange(of: context.selectedBrewMethod, perform: didUpdate(_:))
 		.onChange(of: context.recipeProfile, perform: didUpdate(_:))
-		.onChange(of: context.cupsCountAmount, perform: didUpdate(_:))
+		.onChange(of: context.cupsCount, perform: didUpdate(_:))
 		.onChange(of: context.ratio, perform: didUpdate(_:))
 		.backgroundPrimary()
 	}

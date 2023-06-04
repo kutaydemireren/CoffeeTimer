@@ -25,7 +25,7 @@ struct CreateV60ContextToInputMapperImp: CreateV60ContextToInputMapper {
 			throw CreateRecipeMapperError.missingRecipeProfile
 		}
 
-		let waterAmount = calculateWaterAmount(forCupsCount: Int(context.cupsCountAmount))
+		let waterAmount = calculateWaterAmount(forCupsCount: Int(context.cupsCount))
 		return CreateV60RecipeInput(
 			recipeProfile: context.recipeProfile,
 			coffee: calculateCoffeeAmount(forWaterAmount: waterAmount, withRatio: context.ratio),

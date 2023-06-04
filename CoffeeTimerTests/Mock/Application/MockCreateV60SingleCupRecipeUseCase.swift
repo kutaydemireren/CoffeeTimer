@@ -9,7 +9,7 @@ import Foundation
 @testable import CoffeeTimer
 
 class MockCreateV60SingleCupRecipeUseCase: CreateV60SingleCupRecipeUseCase {
-	var _recipe: Recipe = .stubSingleV60
+	var _recipe: Recipe!
 	var _input: CreateV60RecipeInput?
 
 	func create(input: CreateV60RecipeInput) -> Recipe {

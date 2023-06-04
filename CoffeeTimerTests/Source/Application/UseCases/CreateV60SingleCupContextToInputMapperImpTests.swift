@@ -26,7 +26,7 @@ final class CreateV60ContextToInputMapperImpTests: XCTestCase {
 
 	func test_map_shouldReturn1CupTo250MLWaterRatio() throws {
 		let context = createNonEmptyProfileContext()
-		context.cupsCountAmount = 1
+		context.cupsCount = 1
 
 		let resultedInput = try sut.map(context: context)
 
@@ -35,7 +35,7 @@ final class CreateV60ContextToInputMapperImpTests: XCTestCase {
 
 	func test_map_shouldReturnExpectedCoffeeAmount() throws {
 		let context = createNonEmptyProfileContext()
-		context.cupsCountAmount = 16
+		context.cupsCount = 16
 		context.ratio = .ratio16
 
 		let resultedInput = try sut.map(context: context)

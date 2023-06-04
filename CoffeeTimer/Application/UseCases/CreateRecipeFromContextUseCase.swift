@@ -27,11 +27,25 @@ struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
 	}
 
 	func create(from context: CreateRecipeContext) -> Recipe? {
-		// TODO: Use `context` to separate iced from single cup
 		guard let input = try? createV60ContextToInputMapper.map(context: context) else {
 			return nil
 		}
 
-		return createV60IcedRecipeUseCase.create(input: input)
+		switch context.selectedBrewMethod {
+		case .v60:
+			return createV60(input: input, context: context)
+		case .v60Iced:
+			return createV60IcedRecipeUseCase.create(input: input)
+		case .chemex, .frenchPress, .melitta, .none:
+			return nil
+		}
+	}
+
+	private func createV60(input: CreateV60RecipeInput, context: CreateRecipeContext) -> Recipe? {
+		if context.cupsCount == 1 {
+			return createV60SingleCupRecipeUseCase.create(input: input)
+		} else {
+			return nil
+		}
 	}
 }
