@@ -24,6 +24,16 @@ final class CreateV60ContextToInputMapperImpTests: XCTestCase {
 		}
 	}
 
+	func test_map_whenNonEmptyRecipeProfile_shouldReturnExpectedProfileIcon() throws {
+		let context = CreateRecipeContext()
+		let expectedRecipeProfile = RecipeProfile.stubMini
+		context.recipeProfile = expectedRecipeProfile
+
+		let resultedInput = try sut.map(context: context)
+
+		XCTAssertEqual(resultedInput.recipeProfile, expectedRecipeProfile)
+	}
+
 	func test_map_shouldReturn1CupTo250MLWaterRatio() throws {
 		let context = createNonEmptyProfileContext()
 		context.cupsCount = 1
