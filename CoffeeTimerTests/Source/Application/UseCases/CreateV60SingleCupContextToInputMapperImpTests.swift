@@ -16,8 +16,9 @@ final class CreateV60ContextToInputMapperImpTests: XCTestCase {
 		sut = CreateV60ContextToInputMapperImp()
 	}
 
-	func test_map_whenEmptyRecipeProfile_shouldThrowErrorMissing() throws {
-		let context = CreateRecipeContext()
+	func test_map_whenRecipeProfileEmpty_shouldThrowErrorMissing() throws {
+		let context = createValidContext()
+		context.recipeProfile = .empty
 
 		XCTAssertThrowsError(try sut.map(context: context)) { error in
 			XCTAssertEqual(error as? CreateRecipeMapperError, CreateRecipeMapperError.missingRecipeProfile)
@@ -25,7 +26,7 @@ final class CreateV60ContextToInputMapperImpTests: XCTestCase {
 	}
 
 	func test_map_whenNonEmptyRecipeProfile_shouldReturnExpectedProfileIcon() throws {
-		let context = CreateRecipeContext()
+		let context = createValidContext()
 		let expectedRecipeProfile = RecipeProfile.stubMini
 		context.recipeProfile = expectedRecipeProfile
 
@@ -34,8 +35,17 @@ final class CreateV60ContextToInputMapperImpTests: XCTestCase {
 		XCTAssertEqual(resultedInput.recipeProfile, expectedRecipeProfile)
 	}
 
+	func test_map_whenRatioNil_shouldThrowErrorMissing() throws {
+		let context = createValidContext()
+		context.ratio = nil
+
+		XCTAssertThrowsError(try sut.map(context: context)) { error in
+			XCTAssertEqual(error as? CreateRecipeMapperError, CreateRecipeMapperError.missingRatio)
+		}
+	}
+
 	func test_map_shouldReturn1CupTo250MLWaterRatio() throws {
-		let context = createNonEmptyProfileContext()
+		let context = createValidContext()
 		context.cupsCount = 1
 
 		let resultedInput = try sut.map(context: context)
@@ -44,7 +54,7 @@ final class CreateV60ContextToInputMapperImpTests: XCTestCase {
 	}
 
 	func test_map_shouldReturnExpectedCoffeeAmount() throws {
-		let context = createNonEmptyProfileContext()
+		let context = createValidContext()
 		context.cupsCount = 16
 		context.ratio = .ratio16
 
@@ -53,9 +63,10 @@ final class CreateV60ContextToInputMapperImpTests: XCTestCase {
 		XCTAssertEqual(resultedInput.coffee, .init(amount: 250, type: .gram))
 	}
 
-	private func createNonEmptyProfileContext() -> CreateRecipeContext {
+	private func createValidContext() -> CreateRecipeContext {
 		let context = CreateRecipeContext()
 		context.recipeProfile = .stubSingleV60
+		context.ratio = .ratio19
 		return context
 	}
 }
