@@ -11,6 +11,7 @@ final class CreateRecipeViewModel: ObservableObject {
 	private let pageCount = 3
 
 	@Published var selectedPage = 1
+	@Published var allRatios: [CoffeeToWaterRatio] = []
 
 	private var createRecipeFromContextUseCase: CreateRecipeFromContextUseCase
 	private var recipeRepository: RecipeRepository // TODO: use case - no repo in vm!
@@ -28,7 +29,9 @@ final class CreateRecipeViewModel: ObservableObject {
 	}
 
 	func canCreate(from context: CreateRecipeContext) -> Bool {
-		context.selectedBrewMethod != nil &&
+		self.allRatios = context.selectedBrewMethod == .v60Iced ? [.ratio16, .ratio17] : CoffeeToWaterRatio.allCases
+
+		return context.selectedBrewMethod != nil &&
 		!context.recipeProfile.isEmpty &&
 		!context.recipeProfile.name.isEmpty &&
 		context.cupsCount > 0
@@ -84,7 +87,7 @@ struct CreateRecipeView: View {
 				CreateRecipeProfileSelection(recipeProfile: $context.recipeProfile, gridCache: gridCache)
 					.tag(2)
 
-				CreateRecipeCoffeeWaterSelection(cupsCountAmount: $context.cupsCount, selectedRatio: $context.ratio)
+				CreateRecipeCoffeeWaterSelection(cupsCountAmount: $context.cupsCount, selectedRatio: $context.ratio, allRatios: $viewModel.allRatios)
 					.tag(3)
 			}
 			.tabViewStyle(.page(indexDisplayMode: .never))

@@ -20,6 +20,7 @@ struct CreateRecipeCoffeeWaterSelection: View {
 
 	@Binding var cupsCountAmount: Double
 	@Binding var selectedRatio: CoffeeToWaterRatio
+	@Binding var allRatios: [CoffeeToWaterRatio]
 
 	var body: some View {
 		VStack {
@@ -53,7 +54,7 @@ struct CreateRecipeCoffeeWaterSelection: View {
 		TitledContent(title: "How strong would you like?") {
 			Menu {
 				Picker(selection: $selectedRatio, label: EmptyView()) {
-					ForEach(CoffeeToWaterRatio.allCases) { ratio in
+					ForEach(allRatios) { ratio in
 						Text(ratio.toRepresentableString)
 					}
 				}
@@ -75,7 +76,8 @@ struct CreateRecipeCoffeeWaterSelection_Previews: PreviewProvider {
 	static var previews: some View {
 		CreateRecipeCoffeeWaterSelection(
 			cupsCountAmount: .constant(2.0),
-			selectedRatio: .constant(.ratio18)
+			selectedRatio: .constant(.ratio18),
+			allRatios: .constant(CoffeeToWaterRatio.allCases)
 		)
 		.backgroundPrimary()
 	}
