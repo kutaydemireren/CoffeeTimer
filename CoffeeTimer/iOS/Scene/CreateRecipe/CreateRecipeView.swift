@@ -84,7 +84,7 @@ struct CreateRecipeView: View {
 				CreateRecipeProfileSelection(recipeProfile: $context.recipeProfile, gridCache: gridCache)
 					.tag(2)
 
-				CreateRecipeCoffeeWaterSelection(cupsCountAmount: $context.cupsCount, ratio: $context.ratio)
+				CreateRecipeCoffeeWaterSelection(cupsCountAmount: $context.cupsCount, selectedRatio: $context.ratio)
 					.tag(3)
 			}
 			.tabViewStyle(.page(indexDisplayMode: .never))
