@@ -14,14 +14,17 @@ final class CreateRecipeViewModel: ObservableObject {
 	@Published var allRatios: [CoffeeToWaterRatio] = []
 
 	private var createRecipeFromContextUseCase: CreateRecipeFromContextUseCase
+	private var getRatiosUseCase: GetRatiosUseCase
 	private var recipeRepository: RecipeRepository // TODO: use case - no repo in vm!
 
 	init(
 		createRecipeFromContextUseCase: CreateRecipeFromContextUseCase = CreateRecipeFromContextUseCaseImp(),
-		recipeRepository: RecipeRepository = RecipeRepositoryImp()
+		recipeRepository: RecipeRepository = RecipeRepositoryImp(),
+		getRatiosUseCase: GetRatiosUseCase = GetRatiosUseCase()
 	) {
 		self.createRecipeFromContextUseCase = createRecipeFromContextUseCase
 		self.recipeRepository = recipeRepository
+		self.getRatiosUseCase = getRatiosUseCase
 	}
 
 	func nextPage() {
@@ -29,7 +32,7 @@ final class CreateRecipeViewModel: ObservableObject {
 	}
 
 	func canCreate(from context: CreateRecipeContext) -> Bool {
-		self.allRatios = context.selectedBrewMethod == .v60Iced ? [.ratio16, .ratio17] : CoffeeToWaterRatio.allCases
+		self.allRatios = getRatiosUseCase.ratios(for: context.selectedBrewMethod)
 
 		return context.selectedBrewMethod != nil &&
 		!context.recipeProfile.hasContent &&
