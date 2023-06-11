@@ -12,7 +12,10 @@ extension RecipeProfile {
 		RecipeProfile(name: "", icon: .init(title: "", color: ""))
 	}
 
-	var isEmpty: Bool {
-		return self == .empty
+	var hasContent: Bool {
+		self == .empty ||
+		name.isEmpty ||
+		icon.title.isEmpty ||
+		icon.color.isEmpty
 	}
 }

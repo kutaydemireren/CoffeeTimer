@@ -32,8 +32,7 @@ final class CreateRecipeViewModel: ObservableObject {
 		self.allRatios = context.selectedBrewMethod == .v60Iced ? [.ratio16, .ratio17] : CoffeeToWaterRatio.allCases
 
 		return context.selectedBrewMethod != nil &&
-		!context.recipeProfile.isEmpty &&
-		!context.recipeProfile.name.isEmpty &&
+		!context.recipeProfile.hasContent &&
 		context.cupsCount > 0 &&
 		context.ratio != nil
 	}
