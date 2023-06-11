@@ -34,7 +34,8 @@ final class CreateRecipeViewModel: ObservableObject {
 		return context.selectedBrewMethod != nil &&
 		!context.recipeProfile.isEmpty &&
 		!context.recipeProfile.name.isEmpty &&
-		context.cupsCount > 0
+		context.cupsCount > 0 &&
+		context.ratio != nil
 	}
 
 	func create(from context: CreateRecipeContext) {
@@ -112,7 +113,7 @@ struct CreateRecipeView: View {
 		checkIfCanCreate()
 	}
 
-	private func didUpdate(_ ratio: CoffeeToWaterRatio) {
+	private func didUpdate(_ ratio: CoffeeToWaterRatio?) {
 		checkIfCanCreate()
 	}
 

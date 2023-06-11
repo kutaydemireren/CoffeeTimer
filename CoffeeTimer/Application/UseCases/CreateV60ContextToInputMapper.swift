@@ -9,6 +9,7 @@ import Foundation
 
 enum CreateRecipeMapperError: Error {
 	case missingRecipeProfile
+	case missingRatio
 }
 
 protocol CreateV60ContextToInputMapper {
@@ -25,10 +26,14 @@ struct CreateV60ContextToInputMapperImp: CreateV60ContextToInputMapper {
 			throw CreateRecipeMapperError.missingRecipeProfile
 		}
 
+		guard let ratio = context.ratio else {
+			throw CreateRecipeMapperError.missingRatio
+		}
+
 		let waterAmount = calculateWaterAmount(forCupsCount: Int(context.cupsCount))
 		return CreateV60RecipeInput(
 			recipeProfile: context.recipeProfile,
-			coffee: calculateCoffeeAmount(forWaterAmount: waterAmount, withRatio: context.ratio),
+			coffee: calculateCoffeeAmount(forWaterAmount: waterAmount, withRatio: ratio),
 			water: waterAmount
 		)
 	}
