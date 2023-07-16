@@ -55,6 +55,7 @@ extension CreateRecipeFromContextUseCaseImpTests {
 
 	func test_canCreate_whenRecipeProfileHasNoContent_shouldThrowMissingRecipeProfile() {
 		let createRecipeContext = CreateRecipeContext()
+		createRecipeContext.selectedBrewMethod = .frenchPress
 
 		var thrownError: Error?
 		do {
@@ -64,6 +65,21 @@ extension CreateRecipeFromContextUseCaseImpTests {
 		}
 
 		XCTAssertEqual(thrownError as? CreateRecipeFromContextUseCaseError, CreateRecipeFromContextUseCaseError.missingRecipeProfile)
+	}
+
+	func test_canCreate_whenCupsCountIsGreaterThanZero_shouldThrowMissingCupsCount() {
+		let createRecipeContext = CreateRecipeContext()
+		createRecipeContext.selectedBrewMethod = .frenchPress
+		createRecipeContext.recipeProfile = .stubMini
+
+		var thrownError: Error?
+		do {
+			let _ = try sut.canCreate(from: createRecipeContext)
+		} catch let error {
+			thrownError = error
+		}
+
+		XCTAssertEqual(thrownError as? CreateRecipeFromContextUseCaseError, CreateRecipeFromContextUseCaseError.missingCupsCount)
 	}
 }
 
