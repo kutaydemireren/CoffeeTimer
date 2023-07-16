@@ -70,7 +70,7 @@
 		CAF42CF329EC9906004D7788 /* RecipeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CF229EC9906004D7788 /* RecipeRepository.swift */; };
 		CAF42CF529EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CF429EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift */; };
 		CAF54BF42A36525C0033A43F /* GetRatiosUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF54BF32A36525C0033A43F /* GetRatiosUseCase.swift */; };
-		CAF54BF72A3652970033A43F /* GetRatiosUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF54BF62A3652970033A43F /* GetRatiosUseCaseTests.swift */; };
+		CAF54BF72A3652970033A43F /* GetRatiosUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF54BF62A3652970033A43F /* GetRatiosUseCaseImpTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,7 +157,7 @@
 		CAF42CF229EC9906004D7788 /* RecipeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRepository.swift; sourceTree = "<group>"; };
 		CAF42CF429EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeBrewMethodSelection.swift; sourceTree = "<group>"; };
 		CAF54BF32A36525C0033A43F /* GetRatiosUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRatiosUseCase.swift; sourceTree = "<group>"; };
-		CAF54BF62A3652970033A43F /* GetRatiosUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRatiosUseCaseTests.swift; sourceTree = "<group>"; };
+		CAF54BF62A3652970033A43F /* GetRatiosUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRatiosUseCaseImpTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -361,6 +361,17 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		CA711D402A64302A00C21E41 /* CreateRecipe */ = {
+			isa = PBXGroup;
+			children = (
+				CA9C7FCD29D9E4A200F2DE30 /* CreateV60SingleCupRecipeUseCaseImpTests.swift */,
+				CA7790942A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift */,
+				CA7790982A06F34100BEA142 /* CreateV60SingleCupContextToInputMapperImpTests.swift */,
+				CA9BDA262A2CE9EC0068DFF7 /* CreateV60IcedRecipeUseCaseImpTests.swift */,
+			);
+			path = CreateRecipe;
+			sourceTree = "<group>";
+		};
 		CA77909E2A06F3A400BEA142 /* Test Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -476,11 +487,8 @@
 		CA9BDA232A2CE9CA0068DFF7 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				CA711D402A64302A00C21E41 /* CreateRecipe */,
 				CAF54BF52A3652810033A43F /* GetRatios */,
-				CA9C7FCD29D9E4A200F2DE30 /* CreateV60SingleCupRecipeUseCaseImpTests.swift */,
-				CA7790942A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift */,
-				CA7790982A06F34100BEA142 /* CreateV60SingleCupContextToInputMapperImpTests.swift */,
-				CA9BDA262A2CE9EC0068DFF7 /* CreateV60IcedRecipeUseCaseImpTests.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -589,7 +597,7 @@
 		CAF54BF52A3652810033A43F /* GetRatios */ = {
 			isa = PBXGroup;
 			children = (
-				CAF54BF62A3652970033A43F /* GetRatiosUseCaseTests.swift */,
+				CAF54BF62A3652970033A43F /* GetRatiosUseCaseImpTests.swift */,
 			);
 			path = GetRatios;
 			sourceTree = "<group>";
@@ -781,7 +789,7 @@
 				CA02D0DC2A255A6D0012EE87 /* MockStorage.swift in Sources */,
 				CA9BDA272A2CE9EC0068DFF7 /* CreateV60IcedRecipeUseCaseImpTests.swift in Sources */,
 				CA6263BB2A25492D003E167D /* DTOs+Stub.swift in Sources */,
-				CAF54BF72A3652970033A43F /* GetRatiosUseCaseTests.swift in Sources */,
+				CAF54BF72A3652970033A43F /* GetRatiosUseCaseImpTests.swift in Sources */,
 				CAB1925F2A0D6B6500043837 /* RecipeRepositoryImpTests.swift in Sources */,
 				CA7790952A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift in Sources */,
 				CA9C7FCE29D9E4A200F2DE30 /* CreateV60SingleCupRecipeUseCaseImpTests.swift in Sources */,

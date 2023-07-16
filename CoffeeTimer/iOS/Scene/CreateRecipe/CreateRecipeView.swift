@@ -20,7 +20,7 @@ final class CreateRecipeViewModel: ObservableObject {
 	init(
 		createRecipeFromContextUseCase: CreateRecipeFromContextUseCase = CreateRecipeFromContextUseCaseImp(),
 		recipeRepository: RecipeRepository = RecipeRepositoryImp(),
-		getRatiosUseCase: GetRatiosUseCase = GetRatiosUseCase()
+		getRatiosUseCase: GetRatiosUseCase = GetRatiosUseCaseImp()
 	) {
 		self.createRecipeFromContextUseCase = createRecipeFromContextUseCase
 		self.recipeRepository = recipeRepository
@@ -32,7 +32,11 @@ final class CreateRecipeViewModel: ObservableObject {
 	}
 
 	func canCreate(from context: CreateRecipeContext) -> Bool {
-		self.allRatios = getRatiosUseCase.ratios(for: context.selectedBrewMethod)
+		let newRatios = getRatiosUseCase.ratios(for: context.selectedBrewMethod)
+		if newRatios != allRatios {
+			self.allRatios = newRatios
+			context.ratio = nil
+		}
 
 		return context.selectedBrewMethod != nil &&
 		!context.recipeProfile.hasContent &&

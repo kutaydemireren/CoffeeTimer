@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct GetRatiosUseCase {
+protocol GetRatiosUseCase {
+	func ratios(for brewMethod: BrewMethod?) -> [CoffeeToWaterRatio]
+}
+
+struct GetRatiosUseCaseImp: GetRatiosUseCase {
 
 	func ratios(for brewMethod: BrewMethod?) -> [CoffeeToWaterRatio] {
 
@@ -15,10 +19,9 @@ struct GetRatiosUseCase {
 			return []
 		}
 
-		switch brewMethod {
-		case .v60Iced:
+		if brewMethod.isIced {
 			return [.ratio15, .ratio16, .ratio17, .ratio18, .ratio19]
-		default:
+		} else {
 			return [.ratio16, .ratio17, .ratio18, .ratio19, .ratio20]
 		}
 	}

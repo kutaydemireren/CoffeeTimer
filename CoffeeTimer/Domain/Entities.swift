@@ -28,6 +28,15 @@ enum BrewMethod: String, Equatable {
 			return "French Press"
 		}
 	}
+
+	var isIced: Bool {
+		switch self {
+		case .v60Iced:
+			return true
+		default:
+			return false
+		}
+	}
 }
 
 struct Recipe: Equatable {

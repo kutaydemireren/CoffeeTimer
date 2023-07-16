@@ -149,7 +149,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 			currentStageIndex = tempCurrentStageIndex
 		} else {
 			isActive = true
-			loadStage()
+			currentStageIndex = 0
 		}
 	}
 
