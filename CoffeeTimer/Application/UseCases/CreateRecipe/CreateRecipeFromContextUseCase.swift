@@ -7,7 +7,12 @@
 
 import Foundation
 
+enum CreateRecipeFromContextUseCaseError: Error {
+	case missingBrewMethod
+}
+
 protocol CreateRecipeFromContextUseCase {
+	func canCreate(from context: CreateRecipeContext) throws -> Bool
 	func create(from context: CreateRecipeContext) -> Recipe?
 }
 
@@ -24,6 +29,17 @@ struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
 		self.createV60SingleCupRecipeUseCase = createV60SingleCupRecipeUseCase
 		self.createV60IcedRecipeUseCase = createV60IcedRecipeUseCase
 		self.createV60ContextToInputMapper = CreateV60ContextToInputMapper
+	}
+
+	func canCreate(from context: CreateRecipeContext) throws  -> Bool {
+
+		guard context.selectedBrewMethod != nil else {
+			throw CreateRecipeFromContextUseCaseError.missingBrewMethod
+		}
+
+		return !context.recipeProfile.hasContent &&
+		context.cupsCount > 0 &&
+		context.ratio != nil
 	}
 
 	func create(from context: CreateRecipeContext) -> Recipe? {

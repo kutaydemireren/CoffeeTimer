@@ -31,25 +31,32 @@ final class CreateRecipeViewModel: ObservableObject {
 		selectedPage = (selectedPage % pageCount) + 1
 	}
 
+	// TODO: Extract to createRecipeFromContextUseCase
 	func canCreate(from context: CreateRecipeContext) -> Bool {
+		// TODO: Extract below to separate functionality
 		let newRatios = getRatiosUseCase.ratios(for: context.selectedBrewMethod)
 		if newRatios != allRatios {
 			self.allRatios = newRatios
 			context.ratio = nil
 		}
 
-		return context.selectedBrewMethod != nil &&
-		!context.recipeProfile.hasContent &&
-		context.cupsCount > 0 &&
-		context.ratio != nil
+		do {
+			return try createRecipeFromContextUseCase.canCreate(from: context)
+		} catch is CreateRecipeFromContextUseCaseError {
+			// TODO: Handle error
+			return false
+		} catch {
+			return false
+		}
 	}
 
 	func create(from context: CreateRecipeContext) {
-		if let recipe = createRecipeFromContextUseCase.create(from: context) {
-			recipeRepository.save(recipe)
-		} else {
+		guard let recipe = createRecipeFromContextUseCase.create(from: context) else {
 			// TODO: `throw` from create(?) or handle by having nil(?)
+			return
 		}
+
+		recipeRepository.save(recipe)
 	}
 }
 

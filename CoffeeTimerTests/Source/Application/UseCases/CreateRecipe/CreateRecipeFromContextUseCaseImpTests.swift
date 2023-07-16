@@ -36,7 +36,26 @@ final class CreateRecipeFromContextUseCaseImpTests: XCTestCase {
 			CreateV60ContextToInputMapper: mockCreateV60ContextToInputMapper
 		)
     }
+}
 
+// MARK: - Can Create
+extension CreateRecipeFromContextUseCaseImpTests {
+	func test_canCreate_whenSelectedBrewMethodIsNil_shouldThrowMissingBrewMethod() {
+		let createRecipeContext = CreateRecipeContext()
+
+		var thrownError: Error?
+		do {
+			let _ = try sut.canCreate(from: createRecipeContext)
+		} catch let error {
+			thrownError = error
+		}
+
+		XCTAssertEqual(thrownError as? CreateRecipeFromContextUseCaseError, CreateRecipeFromContextUseCaseError.missingBrewMethod)
+	}
+}
+
+// MARK: - Create
+extension CreateRecipeFromContextUseCaseImpTests {
 	func test_create_whenMappingFails_shouldReturnNil() {
 		let expectedContext = CreateRecipeContext()
 
