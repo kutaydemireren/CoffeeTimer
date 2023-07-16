@@ -105,14 +105,16 @@ extension CreateRecipeFromContextUseCaseImpTests {
 		createRecipeContext.cupsCount = 1
 		createRecipeContext.ratio = .ratio15
 
+		var resultedCanCreate: Bool = false
 		var thrownError: Error?
 		do {
-			let _ = try sut.canCreate(from: createRecipeContext)
+			resultedCanCreate = try sut.canCreate(from: createRecipeContext)
 		} catch let error {
 			thrownError = error
 		}
 
-		XCTAssertEqual(thrownError as? CreateRecipeFromContextUseCaseError, CreateRecipeFromContextUseCaseError.missingRatio)
+		XCTAssertTrue(resultedCanCreate)
+		XCTAssertNil(thrownError)
 	}
 }
 
