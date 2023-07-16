@@ -27,11 +27,38 @@ final class CreateRecipeViewModel: ObservableObject {
 		self.getRatiosUseCase = getRatiosUseCase
 	}
 
-	func nextPage() {
-		selectedPage = (selectedPage % pageCount) + 1
+	func nextPage(in context: CreateRecipeContext) {
+		var newSelectedPage = 1
+
+		if selectedPage < 3 {
+			newSelectedPage = (selectedPage % pageCount) + 1
+		} else {
+			newSelectedPage = getNextMissingPage(in: context)
+		}
+
+		selectedPage = newSelectedPage
 	}
 
-	// TODO: Extract to createRecipeFromContextUseCase
+	private func getNextMissingPage(in context: CreateRecipeContext) -> Int {
+		do {
+			let _ = try createRecipeFromContextUseCase.canCreate(from: context)
+		} catch let error as CreateRecipeFromContextUseCaseError {
+			switch error {
+			case .missingBrewMethod:
+				return 1
+			case .missingRecipeProfile:
+				return 2
+			case .missingCupsCount, .missingRatio:
+				return 3
+			}
+		} catch _ {
+			// Unknown error
+		}
+
+		// No missing, return last page
+		return 3
+	}
+
 	func canCreate(from context: CreateRecipeContext) -> Bool {
 		// TODO: Extract below to separate functionality
 		let newRatios = getRatiosUseCase.ratios(for: context.selectedBrewMethod)
@@ -42,9 +69,6 @@ final class CreateRecipeViewModel: ObservableObject {
 
 		do {
 			return try createRecipeFromContextUseCase.canCreate(from: context)
-		} catch is CreateRecipeFromContextUseCaseError {
-			// TODO: Handle error
-			return false
 		} catch {
 			return false
 		}
@@ -81,7 +105,7 @@ struct CreateRecipeView: View {
 
 				if !canCreate {
 					Button("Next") {
-						withAnimation { viewModel.nextPage() }
+						withAnimation { viewModel.nextPage(in: context) }
 					}
 				} else {
 					Button("Done") {
