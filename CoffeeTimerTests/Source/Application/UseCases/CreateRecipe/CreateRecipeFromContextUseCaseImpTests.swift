@@ -67,7 +67,7 @@ extension CreateRecipeFromContextUseCaseImpTests {
 		XCTAssertEqual(thrownError as? CreateRecipeFromContextUseCaseError, CreateRecipeFromContextUseCaseError.missingRecipeProfile)
 	}
 
-	func test_canCreate_whenCupsCountIsGreaterThanZero_shouldThrowMissingCupsCount() {
+	func test_canCreate_whenCupsCountIsNotGreaterThanZero_shouldThrowMissingCupsCount() {
 		let createRecipeContext = CreateRecipeContext()
 		createRecipeContext.selectedBrewMethod = .frenchPress
 		createRecipeContext.recipeProfile = .stubMini
@@ -80,6 +80,39 @@ extension CreateRecipeFromContextUseCaseImpTests {
 		}
 
 		XCTAssertEqual(thrownError as? CreateRecipeFromContextUseCaseError, CreateRecipeFromContextUseCaseError.missingCupsCount)
+	}
+
+	func test_canCreate_whenRatioIsNil_shouldThrowMissingRatio() {
+		let createRecipeContext = CreateRecipeContext()
+		createRecipeContext.selectedBrewMethod = .frenchPress
+		createRecipeContext.recipeProfile = .stubMini
+		createRecipeContext.cupsCount = 1
+
+		var thrownError: Error?
+		do {
+			let _ = try sut.canCreate(from: createRecipeContext)
+		} catch let error {
+			thrownError = error
+		}
+
+		XCTAssertEqual(thrownError as? CreateRecipeFromContextUseCaseError, CreateRecipeFromContextUseCaseError.missingRatio)
+	}
+
+	func test_canCreate_whenContextIsAllSet_shouldReturnTrue() {
+		let createRecipeContext = CreateRecipeContext()
+		createRecipeContext.selectedBrewMethod = .frenchPress
+		createRecipeContext.recipeProfile = .stubMini
+		createRecipeContext.cupsCount = 1
+		createRecipeContext.ratio = .ratio15
+
+		var thrownError: Error?
+		do {
+			let _ = try sut.canCreate(from: createRecipeContext)
+		} catch let error {
+			thrownError = error
+		}
+
+		XCTAssertEqual(thrownError as? CreateRecipeFromContextUseCaseError, CreateRecipeFromContextUseCaseError.missingRatio)
 	}
 }
 
