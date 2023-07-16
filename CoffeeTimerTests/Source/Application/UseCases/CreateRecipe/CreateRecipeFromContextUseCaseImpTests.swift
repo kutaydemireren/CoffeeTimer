@@ -52,6 +52,19 @@ extension CreateRecipeFromContextUseCaseImpTests {
 
 		XCTAssertEqual(thrownError as? CreateRecipeFromContextUseCaseError, CreateRecipeFromContextUseCaseError.missingBrewMethod)
 	}
+
+	func test_canCreate_whenRecipeProfileHasNoContent_shouldThrowMissingRecipeProfile() {
+		let createRecipeContext = CreateRecipeContext()
+
+		var thrownError: Error?
+		do {
+			let _ = try sut.canCreate(from: createRecipeContext)
+		} catch let error {
+			thrownError = error
+		}
+
+		XCTAssertEqual(thrownError as? CreateRecipeFromContextUseCaseError, CreateRecipeFromContextUseCaseError.missingRecipeProfile)
+	}
 }
 
 // MARK: - Create

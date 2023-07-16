@@ -13,9 +13,9 @@ extension RecipeProfile {
 	}
 
 	var hasContent: Bool {
-		self == .empty ||
-		name.isEmpty ||
-		icon.title.isEmpty ||
-		icon.color.isEmpty
+		self != .empty &&
+		!name.isEmpty &&
+		!icon.title.isEmpty &&
+		!icon.color.isEmpty
 	}
 }

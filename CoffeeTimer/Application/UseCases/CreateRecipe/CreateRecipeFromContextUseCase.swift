@@ -9,6 +9,7 @@ import Foundation
 
 enum CreateRecipeFromContextUseCaseError: Error {
 	case missingBrewMethod
+	case missingRecipeProfile
 }
 
 protocol CreateRecipeFromContextUseCase {
@@ -37,8 +38,11 @@ struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
 			throw CreateRecipeFromContextUseCaseError.missingBrewMethod
 		}
 
-		return !context.recipeProfile.hasContent &&
-		context.cupsCount > 0 &&
+		guard context.recipeProfile.hasContent else {
+			throw CreateRecipeFromContextUseCaseError.missingRecipeProfile
+		}
+
+		return context.cupsCount > 0 &&
 		context.ratio != nil
 	}
 
