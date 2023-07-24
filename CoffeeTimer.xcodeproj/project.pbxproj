@@ -71,6 +71,7 @@
 		CAF42CF529EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CF429EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift */; };
 		CAF54BF42A36525C0033A43F /* GetRatiosUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF54BF32A36525C0033A43F /* GetRatiosUseCase.swift */; };
 		CAF54BF72A3652970033A43F /* GetRatiosUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF54BF62A3652970033A43F /* GetRatiosUseCaseImpTests.swift */; };
+		CAFCF54B2A6F0A1700875CB7 /* HapticGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -158,6 +159,7 @@
 		CAF42CF429EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeBrewMethodSelection.swift; sourceTree = "<group>"; };
 		CAF54BF32A36525C0033A43F /* GetRatiosUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRatiosUseCase.swift; sourceTree = "<group>"; };
 		CAF54BF62A3652970033A43F /* GetRatiosUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRatiosUseCaseImpTests.swift; sourceTree = "<group>"; };
+		CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -449,6 +451,7 @@
 				CAD071E329DCCAD60010E561 /* Extensions */,
 				CA17289729EB4CC9000F867B /* Models */,
 				CAF42CEB29EC9867004D7788 /* ViewModifiers */,
+				CAFCF5492A6F0A0300875CB7 /* Utils */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -592,6 +595,14 @@
 				CAF54BF62A3652970033A43F /* GetRatiosUseCaseImpTests.swift */,
 			);
 			path = GetRatios;
+			sourceTree = "<group>";
+		};
+		CAFCF5492A6F0A0300875CB7 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -767,6 +778,7 @@
 				CAF42CE129EC90CA004D7788 /* AlphanumericTextField.swift in Sources */,
 				CAF42CE329EC9524004D7788 /* CreateRecipeFlowView.swift in Sources */,
 				CA77909B2A06F35A00BEA142 /* CreateV60ContextToInputMapper.swift in Sources */,
+				CAFCF54B2A6F0A1700875CB7 /* HapticGenerator.swift in Sources */,
 				CA17289F29EB58F1000F867B /* CreateRecipeProfileSelection.swift in Sources */,
 				CA6263D12A255266003E167D /* RecipeProfile+UserDefined.swift in Sources */,
 				CA2D8BE22A02F3AA00BA2899 /* CreateRecipeContext.swift in Sources */,

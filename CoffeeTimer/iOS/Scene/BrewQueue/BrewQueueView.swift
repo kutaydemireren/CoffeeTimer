@@ -81,6 +81,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 		didSet {
 			if canProceedToNextStep && currentStage?.passMethod == .auto {
 				DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+					self.hapticGenerator.heavy()
 					self.nextStage()
 				}
 			}
@@ -89,6 +90,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
 	private var currentStage: BrewStage? {
 		didSet {
+			hapticGenerator.medium()
 			loadStage()
 		}
 	}
@@ -114,9 +116,14 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 	}
 
 	private var recipeRepository: RecipeRepository
+	private var hapticGenerator: HapticGenerator
 
-	init(recipeRepository: RecipeRepository = RecipeRepositoryImp.shared) { // TODO: use case - no repo in vm!
+	init(
+		recipeRepository: RecipeRepository = RecipeRepositoryImp.shared, // TODO: use case - no repo in vm!
+		hapticGenerator: HapticGenerator = HapticGeneratorImp()
+	) {
 		self.recipeRepository = recipeRepository
+		self.hapticGenerator = hapticGenerator
 
 		loadInitialStage()
 	}

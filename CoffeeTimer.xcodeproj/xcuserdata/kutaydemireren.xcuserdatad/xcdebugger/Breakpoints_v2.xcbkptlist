@@ -3,4 +3,102 @@
    uuid = "D8BB661D-B0B9-4AB0-9F08-70AB30A272A0"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5376DBE7-5E96-4011-B25B-C6CFFCC4C4F7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoffeeTimer/iOS/Scene/BrewQueue/BrewQueueView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "canProceedToNextStep"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "5376DBE7-5E96-4011-B25B-C6CFFCC4C4F7 - ac7b6574fc3137c0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in CoffeeTimer.BrewQueueViewModel.canProceedToNextStep.didset : Swift.Bool"
+                  moduleName = "CoffeeTimer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kutaydemireren/Documents/projects/CoffeeTimer/CoffeeTimer/iOS/Scene/BrewQueue/BrewQueueView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "84"
+                  endingLineNumber = "84"
+                  offsetFromSymbolStart = "43">
+               </Location>
+               <Location
+                  uuid = "5376DBE7-5E96-4011-B25B-C6CFFCC4C4F7 - ac7b6574fc3137c0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in CoffeeTimer.BrewQueueViewModel.canProceedToNextStep.didset : Swift.Bool"
+                  moduleName = "CoffeeTimer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kutaydemireren/Documents/projects/CoffeeTimer/CoffeeTimer/iOS/Scene/BrewQueue/BrewQueueView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "84"
+                  endingLineNumber = "84"
+                  offsetFromSymbolStart = "48">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "30A5EE0A-D9DF-465D-9708-6660953A5801"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoffeeTimer/iOS/Scene/BrewQueue/BrewQueueView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "currentStage"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "30A5EE0A-D9DF-465D-9708-6660953A5801 - 551cf04d0e0bd28b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CoffeeTimer.BrewQueueViewModel.currentStage.didset : Swift.Optional&lt;CoffeeTimer.BrewStage&gt;"
+                  moduleName = "CoffeeTimer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kutaydemireren/Documents/projects/CoffeeTimer/CoffeeTimer/iOS/Scene/BrewQueue/BrewQueueView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "93"
+                  endingLineNumber = "93"
+                  offsetFromSymbolStart = "46">
+               </Location>
+               <Location
+                  uuid = "30A5EE0A-D9DF-465D-9708-6660953A5801 - 551cf04d0e0bd28b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CoffeeTimer.BrewQueueViewModel.currentStage.didset : Swift.Optional&lt;CoffeeTimer.BrewStage&gt;"
+                  moduleName = "CoffeeTimer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kutaydemireren/Documents/projects/CoffeeTimer/CoffeeTimer/iOS/Scene/BrewQueue/BrewQueueView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "93"
+                  endingLineNumber = "93"
+                  offsetFromSymbolStart = "48">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
