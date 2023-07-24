@@ -421,7 +421,6 @@
 			isa = PBXGroup;
 			children = (
 				CA91CEF429E5FA7D00E9F5D1 /* Flow */,
-				CAF42CE829EC980F004D7788 /* Common */,
 				CAF42CE929EC9821004D7788 /* BrewQueue */,
 				CAF42CEA29EC9842004D7788 /* CreateRecipe */,
 				CA4758DB2A0C2CF20022BC7D /* Recipes */,
@@ -443,20 +442,24 @@
 		CA981F822A2695D8000254CD /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				CA981F832A2695E6000254CD /* Main */,
+				CA367D3129A2B0370095B1B8 /* CoffeeTimerApp.swift */,
+				CA981F832A2695E6000254CD /* Resources */,
 				CA7B804929BFABA8007D3DFC /* Scene */,
+				CA17289229EB4B90000F867B /* Views */,
+				CAD071E329DCCAD60010E561 /* Extensions */,
+				CA17289729EB4CC9000F867B /* Models */,
+				CAF42CEB29EC9867004D7788 /* ViewModifiers */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
 		};
-		CA981F832A2695E6000254CD /* Main */ = {
+		CA981F832A2695E6000254CD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				CA8B44422A2563780003EE57 /* Colors.xcassets */,
-				CA367D3129A2B0370095B1B8 /* CoffeeTimerApp.swift */,
 				CA367D3529A2B0380095B1B8 /* Assets.xcassets */,
 			);
-			path = Main;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		CA9BDA1D2A2CDC9E0068DFF7 /* Timer */ = {
@@ -511,17 +514,6 @@
 				CA6263D02A255266003E167D /* RecipeProfile+UserDefined.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		CAF42CE829EC980F004D7788 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				CAF42CEB29EC9867004D7788 /* ViewModifiers */,
-				CA17289729EB4CC9000F867B /* Models */,
-				CA17289229EB4B90000F867B /* Views */,
-				CAD071E329DCCAD60010E561 /* Extensions */,
-			);
-			path = Common;
 			sourceTree = "<group>";
 		};
 		CAF42CE929EC9821004D7788 /* BrewQueue */ = {

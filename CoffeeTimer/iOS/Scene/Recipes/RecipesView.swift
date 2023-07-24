@@ -81,10 +81,6 @@ final class RecipesViewModel: ObservableObject, Completable {
 
 		self.getSavedRecipesUseCase.savedRecipes
 			.assign(to: &$recipes)
-
-		DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-			let v60 = CreateV60SingleCupRecipeUseCaseImp().create(input: .stubSingleV60)
-		}
 	}
 
 	func select(recipe: Recipe) {
