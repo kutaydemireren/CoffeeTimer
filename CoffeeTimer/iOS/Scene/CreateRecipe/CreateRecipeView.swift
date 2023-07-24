@@ -19,7 +19,7 @@ final class CreateRecipeViewModel: ObservableObject {
 
 	init(
 		createRecipeFromContextUseCase: CreateRecipeFromContextUseCase = CreateRecipeFromContextUseCaseImp(),
-		recipeRepository: RecipeRepository = RecipeRepositoryImp(),
+		recipeRepository: RecipeRepository = RecipeRepositoryImp.shared,
 		getRatiosUseCase: GetRatiosUseCase = GetRatiosUseCaseImp()
 	) {
 		self.createRecipeFromContextUseCase = createRecipeFromContextUseCase

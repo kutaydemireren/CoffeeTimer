@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 struct RecipeConstants {
 	static let selectedRecipeKey = "selectedRecipe"
@@ -13,11 +14,21 @@ struct RecipeConstants {
 }
 
 final class RecipeRepositoryImp: RecipeRepository {
+
+	static let shared: RecipeRepositoryImp = RecipeRepositoryImp()
+
+	var recipesPublisher: AnyPublisher<[Recipe], Never> {
+		return savedRecipes.eraseToAnyPublisher()
+	}
+	private var savedRecipes: CurrentValueSubject<[Recipe], Never> = .init([])
+
 	private let selectedRecipeKey = RecipeConstants.selectedRecipeKey
 	private let savedRecipesKey = RecipeConstants.savedRecipesKey
 
 	private var storage: Storage
 	private var mapper: RecipeMapper
+
+	private var cancellables: [AnyCancellable] = []
 
 	init(
 		storage: Storage = StorageImp(userDefaults: .standard),
@@ -25,6 +36,8 @@ final class RecipeRepositoryImp: RecipeRepository {
 	) {
 		self.storage = storage
 		self.mapper = mapper
+
+		refreshSavedRecipes()
 	}
 }
 
@@ -46,15 +59,17 @@ extension RecipeRepositoryImp {
 
 // MARK: Save(d) Recipe(s)
 extension RecipeRepositoryImp {
-	func getSavedRecipes() -> [Recipe] {
-		let recipeDTOs = getSavedRecipeDTOs()
-		return recipeDTOs.compactMap { try? mapper.mapToRecipe(recipeDTO: $0) }
-	}
-
 	func save(_ recipe: Recipe) {
 		var newRecipeDTOs = getSavedRecipeDTOs()
 		newRecipeDTOs.append(mapper.mapToRecipeDTO(recipe: recipe))
 		storage.save(newRecipeDTOs, forKey: savedRecipesKey)
+		refreshSavedRecipes()
+	}
+
+	private func refreshSavedRecipes() {
+		let recipeDTOs = getSavedRecipeDTOs()
+		let savedRecipes  = recipeDTOs.compactMap { try? mapper.mapToRecipe(recipeDTO: $0) }
+		self.savedRecipes.send(savedRecipes)
 	}
 
 	private func getSavedRecipeDTOs() -> [RecipeDTO] {
@@ -69,9 +84,13 @@ extension RecipeRepositoryImp {
 extension RecipeRepositoryImp {
 	func remove(recipe: Recipe) {
 		var savedRecipeDTOs = getSavedRecipeDTOs()
+		print("Deleting savedRecipesDTOS: \(savedRecipeDTOs)")
 		if let index = savedRecipeDTOs.firstIndex(of: mapper.mapToRecipeDTO(recipe: recipe)) {
+			print("Found at index: \(index) in savedRecipesDTOS: \(savedRecipeDTOs)")
 			savedRecipeDTOs.remove(at: index)
+			print("Removed at index: \(index) in savedRecipesDTOS: \(savedRecipeDTOs)")
 			storage.save(savedRecipeDTOs, forKey: savedRecipesKey)
+			refreshSavedRecipes()
 		}
 	}
 }

@@ -115,7 +115,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
 	private var recipeRepository: RecipeRepository
 
-	init(recipeRepository: RecipeRepository = RecipeRepositoryImp()) { // TODO: use case - no repo in vm!
+	init(recipeRepository: RecipeRepository = RecipeRepositoryImp.shared) { // TODO: use case - no repo in vm!
 		self.recipeRepository = recipeRepository
 
 		loadInitialStage()

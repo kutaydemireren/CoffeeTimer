@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import Combine
 
 protocol RecipeRepository: AnyObject {
+	var recipesPublisher: AnyPublisher<[Recipe], Never> { get }
+
 	func getSelectedRecipe() -> Recipe?
-	func getSavedRecipes() -> [Recipe]
 	func save(_ recipe: Recipe)
 	func update(selectedRecipe: Recipe)
 	func remove(recipe: Recipe)

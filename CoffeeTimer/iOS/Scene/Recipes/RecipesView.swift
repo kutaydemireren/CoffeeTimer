@@ -8,22 +8,87 @@
 import SwiftUI
 import Combine
 
+protocol RemoveRecipeUseCase {
+	func remove(recipe: Recipe)
+}
+
+final class RemoveRecipeUseCaseImp: RemoveRecipeUseCase {
+	private let recipeRepository: RecipeRepository
+
+	init(recipeRepository: RecipeRepository = RecipeRepositoryImp.shared) {
+		self.recipeRepository = recipeRepository
+	}
+
+	func remove(recipe: Recipe) {
+		recipeRepository.remove(recipe: recipe)
+	}
+}
+
+protocol GetSavedRecipesUseCase {
+	var savedRecipes: AnyPublisher<[Recipe], Never> { get }
+}
+
+final class GetSavedRecipesUseCaseImp: GetSavedRecipesUseCase {
+	var savedRecipes: AnyPublisher<[Recipe], Never> {
+		recipeRepository.recipesPublisher
+	}
+
+	private let recipeRepository: RecipeRepository
+
+	private var cancellables: [AnyCancellable] = []
+
+	init(recipeRepository: RecipeRepository = RecipeRepositoryImp.shared) {
+		self.recipeRepository = recipeRepository
+	}
+}
+
+protocol UpdateSelectedRecipeUseCase {
+	func update(selectedRecipe: Recipe)
+}
+
+final class UpdateSelectedRecipeUseCaseImp: UpdateSelectedRecipeUseCase {
+	private let recipeRepository: RecipeRepository
+
+	init(recipeRepository: RecipeRepository = RecipeRepositoryImp.shared) {
+		self.recipeRepository = recipeRepository
+	}
+
+	func update(selectedRecipe: Recipe) {
+		recipeRepository.update(selectedRecipe: selectedRecipe)
+	}
+}
+
 final class RecipesViewModel: ObservableObject, Completable {
 	var didComplete = PassthroughSubject<RecipesViewModel, Never>()
 	var didCreate = PassthroughSubject<RecipesViewModel, Never>()
 
 	@Published var recipes: [Recipe] = []
 
-	private let recipeRepository: RecipeRepository // TODO: use case - no repo in vm!
+	private var cancellables: [AnyCancellable] = []
 
-	init(repository: RecipeRepository = RecipeRepositoryImp()) {
-		self.recipeRepository = repository
+	private let getSavedRecipesUseCase: GetSavedRecipesUseCase
+	private let updateSelectedRecipeUseCase: UpdateSelectedRecipeUseCase
+	private let removeRecipeUseCase: RemoveRecipeUseCase
 
-		recipes = repository.getSavedRecipes()
+	init(
+		getSavedRecipesUseCase: GetSavedRecipesUseCase = GetSavedRecipesUseCaseImp(),
+		updateSelectedRecipeUseCase: UpdateSelectedRecipeUseCase = UpdateSelectedRecipeUseCaseImp(),
+		removeRecipeUseCase: RemoveRecipeUseCase = RemoveRecipeUseCaseImp()
+	) {
+		self.getSavedRecipesUseCase = getSavedRecipesUseCase
+		self.updateSelectedRecipeUseCase = updateSelectedRecipeUseCase
+		self.removeRecipeUseCase = removeRecipeUseCase
+
+		self.getSavedRecipesUseCase.savedRecipes
+			.assign(to: &$recipes)
+
+		DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+			let v60 = CreateV60SingleCupRecipeUseCaseImp().create(input: .stubSingleV60)
+		}
 	}
 
 	func select(recipe: Recipe) {
-		recipeRepository.update(selectedRecipe: recipe)
+		updateSelectedRecipeUseCase.update(selectedRecipe: recipe)
 		close()
 	}
 
@@ -34,7 +99,7 @@ final class RecipesViewModel: ObservableObject, Completable {
 	}
 
 	private func remove(recipe: Recipe) {
-		recipeRepository.remove(recipe: recipe)
+		removeRecipeUseCase.remove(recipe: recipe)
 	}
 
 	func create() {
