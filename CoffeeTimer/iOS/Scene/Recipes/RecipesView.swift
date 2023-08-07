@@ -62,7 +62,7 @@ final class RecipesViewModel: ObservableObject, Completable {
 	var didComplete = PassthroughSubject<RecipesViewModel, Never>()
 	var didCreate = PassthroughSubject<RecipesViewModel, Never>()
 
-	@Published var recipes: [Recipe] = []
+	@Published var recipes: [Recipe] = [.stubSingleV60]
 
 	private var cancellables: [AnyCancellable] = []
 
@@ -79,8 +79,8 @@ final class RecipesViewModel: ObservableObject, Completable {
 		self.updateSelectedRecipeUseCase = updateSelectedRecipeUseCase
 		self.removeRecipeUseCase = removeRecipeUseCase
 
-		self.getSavedRecipesUseCase.savedRecipes
-			.assign(to: &$recipes)
+//		self.getSavedRecipesUseCase.savedRecipes
+//			.assign(to: &$recipes)
 	}
 
 	func select(recipe: Recipe) {
@@ -164,7 +164,7 @@ struct RecipesView: View {
 	var recipesList: some View {
 		List {
 			ForEach(viewModel.recipes) { recipe in
-				RecipeProfileRowView(recipeProfile: recipe.recipeProfile)
+				RecipeRowView(recipe: recipe)
 					.onTapGesture {
 						viewModel.select(recipe: recipe)
 					}

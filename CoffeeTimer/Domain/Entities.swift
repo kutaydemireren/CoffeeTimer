@@ -44,6 +44,7 @@ struct Recipe: Equatable {
 	let ingredients: [Ingredient]
 	let brewQueue: BrewQueue
 }
+
 struct RecipeProfile: Equatable {
 	let name: String
 	let icon: RecipeProfileIcon

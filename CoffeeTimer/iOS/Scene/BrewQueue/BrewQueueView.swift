@@ -8,6 +8,12 @@
 import SwiftUI
 import Combine
 
+extension Array where Element == Ingredient {
+	var toRepresentableString: String {
+		return map { "\($0.toRepresentableString)" }.joined(separator: "\n")
+	}
+}
+
 extension Ingredient {
 	var toRepresentableString: String {
 		switch ingredientType {
@@ -144,7 +150,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 			return nil
 		}
 
-		return selectedRecipe.ingredients.map { "\($0.toRepresentableString)" }.joined(separator: "\n")
+		return selectedRecipe.ingredients.toRepresentableString
 	}
 
 	private var recipeRepository: RecipeRepository

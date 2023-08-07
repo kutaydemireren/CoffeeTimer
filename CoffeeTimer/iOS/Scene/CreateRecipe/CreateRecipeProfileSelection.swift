@@ -7,36 +7,6 @@
 
 import SwiftUI
 
-struct RecipeProfileIconView: View {
-	let recipeProfileIcon: RecipeProfileIcon
-	var isSelected = false
-
-	var body: some View {
-		if !recipeProfileIcon.imageName.isEmpty {
-			Image(recipeProfileIcon.imageName)
-				.resizable()
-				.aspectRatio(contentMode: .fit)
-				.padding(12)
-				.foregroundColor(Color("foregroundPrimary"))
-				.opacity(isSelected ? 1.0 : 0.4)
-		}
-	}
-}
-
-struct RecipeProfileView: View {
-	let recipeProfile: RecipeProfile
-
-	var body: some View {
-		HStack {
-			RecipeProfileIconView(recipeProfileIcon: recipeProfile.icon, isSelected: true)
-			Text(recipeProfile.name)
-				.foregroundColor(Color("foregroundPrimary"))
-				.bold()
-		}
-		.frame(maxHeight: 55)
-	}
-}
-
 extension RecipeProfile {
 	func updating(name: String) -> RecipeProfile {
 		return RecipeProfile(
@@ -169,7 +139,7 @@ struct CreateRecipeProfileSelection: View {
 								recipeProfileIcon: gridCache.recipeProfileIcons[index],
 								isSelected: recipeProfile.icon == gridCache.recipeProfileIcons[index]
 							)
-							.padding(2)
+							.padding(12)
 							.frame(width: gridCache.widths[index], height: gridCache.heights[index], alignment: gridCache.alignments[index])
 							.rotationEffect(gridCache.rotations[index])
 							.offset(x: gridCache.offsetX[index], y: gridCache.offsetY[index])
