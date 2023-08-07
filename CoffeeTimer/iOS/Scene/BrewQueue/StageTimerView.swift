@@ -16,22 +16,26 @@ extension TimeInterval {
 
 protocol BrewStageViewModel: ObservableObject {
 	var text: String { get }
+	var subtext: String? { get }
 	var progress: Double { get }
 }
 
 final class BrewStageConstantViewModel: BrewStageViewModel {
 
 	@Published var text: String
+	@Published var subtext: String?
 	let progress = 1.0
 
-	init(text: String) {
+	init(text: String, subtext: String? = nil) {
 		self.text = text
+		self.subtext = subtext
 	}
 }
 
 final class BrewStageTimerViewModel: BrewStageViewModel {
 
 	@Published var text: String = ""
+	@Published var subtext: String? = nil
 	@Published var progress: Double = 0.0
 	@Published private(set) var timeIntervalLeft: TimeInterval {
 		didSet {
@@ -93,9 +97,16 @@ struct BrewStageView<ViewModel>: View where ViewModel: BrewStageViewModel {
 		}
 		.rotationEffect(.degrees(-90))
 		.overlay {
-			Text(viewModel.text)
-				.font(.largeTitle)
-				.foregroundColor(.init("backgroundSecondary"))
+			VStack {
+				Text(viewModel.text)
+					.font(.largeTitle)
+					.foregroundColor(.init("backgroundSecondary"))
+				if let subtext = viewModel.subtext {
+					Text(subtext)
+						.font(.body)
+						.foregroundColor(.init("backgroundSecondary"))
+				}
+			}
 		}
 	}
 }

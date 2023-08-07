@@ -8,6 +8,30 @@
 import SwiftUI
 import Combine
 
+extension Ingredient {
+	var toRepresentableString: String {
+		switch ingredientType {
+		case .coffee:
+			return "Coffee: \(amount.toRepresentableString)"
+		case .water:
+			return "Water: \(amount.toRepresentableString)"
+		}
+	}
+}
+
+extension IngredientAmount {
+	var toRepresentableString: String {
+		switch type {
+		case .gram:
+			return "\(amount) gr"
+		case .millilitre:
+			return "\(amount) ml"
+		case .spoon:
+			return "\(amount) spoon"
+		}
+	}
+}
+
 extension Array {
 	subscript(safe index: Int) -> Element? {
 		guard index >= 0 && index < count else {
@@ -115,6 +139,14 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 		recipeRepository.getSelectedRecipe()
 	}
 
+	private var subtextIfExists: String? {
+		guard let selectedRecipe = selectedRecipe else {
+			return nil
+		}
+
+		return selectedRecipe.ingredients.map { "\($0.toRepresentableString)" }.joined(separator: "\n")
+	}
+
 	private var recipeRepository: RecipeRepository
 	private var hapticGenerator: HapticGenerator
 
@@ -163,7 +195,8 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 	private func loadInitialStage() {
 		stageHeader = "Welcome"
 		stageTitle = "All set to go!"
-		currentStageViewModel = BrewStageConstantViewModel(text: "Begin")
+
+		currentStageViewModel = BrewStageConstantViewModel(text: "Begin", subtext: subtextIfExists)
 		canProceedToNextStep = true
 	}
 
