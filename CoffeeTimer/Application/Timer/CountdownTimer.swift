@@ -62,7 +62,7 @@ final class CountdownTimerImp: CountdownTimer {
 
 		let newTimeLeft = timeLeft - stepInterval
 
-		if newTimeLeft < stepInterval {
+		if newTimeLeft < 0 {
 			stop()
 		}
 

@@ -110,10 +110,8 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 	@Published private(set) var canProceedToNextStep = true {
 		didSet {
 			if canProceedToNextStep && currentStage?.passMethod == .auto {
-				DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-					self.hapticGenerator.heavy()
-					self.nextStage()
-				}
+				self.hapticGenerator.heavy()
+				self.nextStage()
 			}
 		}
 	}

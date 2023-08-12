@@ -84,11 +84,8 @@ extension RecipeRepositoryImp {
 extension RecipeRepositoryImp {
 	func remove(recipe: Recipe) {
 		var savedRecipeDTOs = getSavedRecipeDTOs()
-		print("Deleting savedRecipesDTOS: \(savedRecipeDTOs)")
 		if let index = savedRecipeDTOs.firstIndex(of: mapper.mapToRecipeDTO(recipe: recipe)) {
-			print("Found at index: \(index) in savedRecipesDTOS: \(savedRecipeDTOs)")
 			savedRecipeDTOs.remove(at: index)
-			print("Removed at index: \(index) in savedRecipesDTOS: \(savedRecipeDTOs)")
 			storage.save(savedRecipeDTOs, forKey: savedRecipesKey)
 			refreshSavedRecipes()
 		}

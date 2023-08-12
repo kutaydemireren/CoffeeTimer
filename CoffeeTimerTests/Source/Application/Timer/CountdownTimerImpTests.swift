@@ -77,7 +77,7 @@ final class CountdownTimerImpTests: XCTestCase {
 		XCTAssertEqual(resultedTime, expectedTime)
 	}
 
-	func test_start_whenTimeLeftReachEnd_shouldStop() {
+	func test_start_whenTimeLeftReachEnd_shouldAutoStop() {
 		let expectedTime = 3.0
 		sut = CountdownTimerImp(timeLeft: expectedTime)
 
@@ -87,12 +87,12 @@ final class CountdownTimerImpTests: XCTestCase {
 
 		let subs = sut.timeLeftPublisher
 			.sink { timeInterval in
-				if timeInterval <= self.expectedStepInterval {
+				if timeInterval <= 0 {
 					exp.fulfill()
 				}
 			}
 
-		wait(for: [exp], timeout: expectedTime)
+		wait(for: [exp], timeout: expectedTime + 0.1)
 
 		subs.cancel()
 		XCTAssertFalse(sut.isRunning)
