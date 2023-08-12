@@ -11,9 +11,10 @@ import Combine
 
 final class CountdownTimerImpTests: XCTestCase {
 
-	var sut: CountdownTimerImp!
-
+	let expectedStepInterval: TimeInterval = 0.1
 	let defaultInitialTimeLeft = 10.0
+
+	var sut: CountdownTimerImp!
 
 	override func setUpWithError() throws {
 
@@ -55,8 +56,8 @@ final class CountdownTimerImpTests: XCTestCase {
 		XCTAssertEqual(thrownError?.localizedDescription, CountdownTimerError.alreadyRunning.localizedDescription)
 	}
 
-	func test_start_shouldCountdownByOne() {
-		let expectedTime = sut.timeLeft - 1
+	func test_start_shouldCountdownByOneInterval() {
+		let expectedTime = sut.timeLeft - expectedStepInterval
 
 		let exp = expectation(description: "time left should be updated 1 second after start")
 
@@ -86,7 +87,7 @@ final class CountdownTimerImpTests: XCTestCase {
 
 		let subs = sut.timeLeftPublisher
 			.sink { timeInterval in
-				if timeInterval == 0 {
+				if timeInterval <= self.expectedStepInterval {
 					exp.fulfill()
 				}
 			}

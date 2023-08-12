@@ -39,7 +39,7 @@ final class BrewStageTimerViewModel: BrewStageViewModel {
 	@Published var progress: Double = 0.0
 	@Published private(set) var timeIntervalLeft: TimeInterval {
 		didSet {
-			withAnimation(.linear(duration: 1.0)) { progress = (duration - timeIntervalLeft) / duration }
+			withAnimation(.linear(duration: 0.1)) { progress = (duration - timeIntervalLeft) / duration }
 			text = timeIntervalLeft.toRepresentableString
 		}
 	}

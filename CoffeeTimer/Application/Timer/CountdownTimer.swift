@@ -23,7 +23,7 @@ protocol CountdownTimer {
 
 final class CountdownTimerImp: CountdownTimer {
 
-	private let stepInterval: TimeInterval = 1.0
+	private let stepInterval: TimeInterval = 0.1
 
 	var isRunning: Bool {
 		return timer != nil
