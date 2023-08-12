@@ -17,7 +17,7 @@ struct MockStore {
 
 	static var savedRecipes: [Recipe] {
 		let recipeProfileIcons = ProfileIconStorage.recipeProfileIcons
-		return (0..<5).map { index in
+		return (0..<3).map { index in
 			return Recipe(
 				recipeProfile: .init(name: "My Recipe - \(index)", icon: recipeProfileIcons[Int(index)]),
 				ingredients: [
@@ -31,7 +31,7 @@ struct MockStore {
 
 	static var savedRecipeDTOs: [RecipeDTO] {
 		let recipeProfileIconDTOs = recipeProfileIconDTOs
-		return (0..<5).map { index in
+		return (0..<3).map { index in
 			return RecipeDTO(
 				recipeProfile: .init(name: "My Recipe - \(index)", icon: recipeProfileIconDTOs[Int(index)]),
 				ingredients: [

@@ -23,6 +23,8 @@ protocol CountdownTimer {
 
 final class CountdownTimerImp: CountdownTimer {
 
+	private let stepInterval: TimeInterval = 1.0
+
 	var isRunning: Bool {
 		return timer != nil
 	}
@@ -46,7 +48,7 @@ final class CountdownTimerImp: CountdownTimer {
 		guard !isRunning else { throw CountdownTimerError.alreadyRunning }
 		guard canStart() else { return }
 
-		let timer = Timer(timeInterval: 1, target: self, selector: #selector(timerDidFire), userInfo: nil, repeats: true)
+		let timer = Timer(timeInterval: stepInterval, target: self, selector: #selector(timerDidFire), userInfo: nil, repeats: true)
 		RunLoop.current.add(timer, forMode: .common)
 
 		self.timer = timer
@@ -58,9 +60,9 @@ final class CountdownTimerImp: CountdownTimer {
 
 	@objc private func timerDidFire() {
 
-		let newTimeLeft = timeLeft - 1
+		let newTimeLeft = timeLeft - stepInterval
 
-		if newTimeLeft < 1 {
+		if newTimeLeft < stepInterval {
 			stop()
 		}
 

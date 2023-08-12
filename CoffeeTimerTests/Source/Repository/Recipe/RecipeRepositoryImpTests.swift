@@ -7,6 +7,7 @@
 
 import XCTest
 @testable import CoffeeTimer
+import Combine
 
 final class RecipeRepositoryTests: XCTestCase {
 	let expectedSelectedRecipeKey = RecipeConstants.selectedRecipeKey
@@ -15,6 +16,7 @@ final class RecipeRepositoryTests: XCTestCase {
 	var mockStorage: MockStorage!
 	var mockMapper: MockRecipeMapper!
 	var sut: RecipeRepositoryImp!
+	private var cancellables: [AnyCancellable] = []
 
 	override func setUpWithError() throws {
 		mockStorage = MockStorage()
@@ -78,20 +80,31 @@ extension RecipeRepositoryTests {
 
 // MARK: Save(d) Recipe(s)
 extension RecipeRepositoryTests {
-	func test_getSavedRecipes_shouldReturnExpectedRecipes() {
+	func test_recipesPublisher_whenInitialised_shouldBeUpToDate() {
 		let expectedRecipeDTOs = MockStore.savedRecipeDTOs
 		mockStorage.storageDictionary = [expectedSavedRecipesKey: expectedRecipeDTOs]
 
 		let expectedRecipes = MockStore.savedRecipes
 		setupMapperReturn(expectedRecipeDTOs: expectedRecipeDTOs, expectedRecipes: expectedRecipes)
 
-		let resultedRecipes = sut.getSavedRecipes()
+		let expectation = expectation(description: "Should get saved recipes")
+		sut = RecipeRepositoryImp(storage: mockStorage, mapper: mockMapper)
+
+		var resultedRecipes: [Recipe] = []
+		sut.recipesPublisher
+			.sink { savedRecipes in
+				resultedRecipes.append(contentsOf: savedRecipes)
+				expectation.fulfill()
+			}
+			.store(in: &cancellables)
+
+		wait(for: [expectation], timeout: 1.0)
 
 		XCTAssertEqual(resultedRecipes, expectedRecipes)
 		XCTAssertEqual(mockStorage.loadCalledWithKey, expectedSavedRecipesKey)
 	}
 
-	func test_getSavedRecipes_whenOneMappingFails_shouldReturnExpectedRecipesWithoutFailedOne() {
+	func test_recipesPublisher_whenOneMappingFails_shouldReturnExpectedRecipesWithoutFailedOne() {
 		let expectedRecipeDTOs = MockStore.savedRecipeDTOs
 		mockStorage.storageDictionary = [expectedSavedRecipesKey: expectedRecipeDTOs]
 
@@ -99,7 +112,18 @@ extension RecipeRepositoryTests {
 		expectedRecipes.removeLast()
 		setupMapperReturn(expectedRecipeDTOs: expectedRecipeDTOs, expectedRecipes: expectedRecipes)
 
-		let resultedRecipes = sut.getSavedRecipes()
+		let expectation = expectation(description: "Should get only non-failing saved recipes")
+		sut = RecipeRepositoryImp(storage: mockStorage, mapper: mockMapper)
+
+		var resultedRecipes: [Recipe] = []
+		sut.recipesPublisher
+			.sink { savedRecipes in
+				resultedRecipes.append(contentsOf: savedRecipes)
+				expectation.fulfill()
+			}
+			.store(in: &cancellables)
+
+		wait(for: [expectation], timeout: 1.0)
 
 		XCTAssertEqual(resultedRecipes, expectedRecipes)
 		XCTAssertEqual(mockStorage.loadCalledWithKey, expectedSavedRecipesKey)
