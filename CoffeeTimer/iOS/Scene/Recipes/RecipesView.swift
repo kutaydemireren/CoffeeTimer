@@ -123,16 +123,30 @@ struct RecipesView: View {
 				.padding(.horizontal)
 
 				Spacer()
-
-				Button() {
-					viewModel.create()
-				} label: {
-					Image(uiImage: .add)
-						.renderingMode(.template)
-				}
-				.padding(.horizontal)
 			}
 			.foregroundColor(Color("backgroundSecondary"))
+
+			VStack {
+
+				Spacer()
+
+				HStack {
+
+					Spacer()
+
+					Button() {
+						viewModel.create()
+					} label: {
+						Image(uiImage: .add)
+							.renderingMode(.template)
+							.resizable()
+						.frame(width: 60, height: 60)
+						.padding(.horizontal, 32)
+						.shadow(color: .black.opacity(0.3), radius: 16, x: 8, y: 12)
+					}
+				}
+				.foregroundColor(Color("backgroundSecondary"))
+			}
 		}
 		.backgroundPrimary()
 	}
