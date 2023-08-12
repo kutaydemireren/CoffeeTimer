@@ -45,7 +45,7 @@ struct RecipeRowView: View {
 			RecipeProfileView(recipeProfile: recipe.recipeProfile)
 			Text(recipe.ingredients.toRepresentableString)
 				.foregroundColor(Color("foregroundPrimary"))
-				.padding(.leading, 48)
+				.padding(.leading)
 		}
 		.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
 		.padding(.horizontal)
@@ -55,7 +55,7 @@ struct RecipeRowView: View {
 	}
 }
 
-struct RecipeProfileRowView_Previews: PreviewProvider {
+struct RecipeRowView_Previews: PreviewProvider {
 	static var previews: some View {
 		VStack {
 			RecipeRowView(recipe: .stubSingleV60)
