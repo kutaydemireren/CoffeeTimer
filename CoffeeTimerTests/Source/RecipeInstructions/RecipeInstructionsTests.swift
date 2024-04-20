@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import CoffeeTimer
 
 //
 
@@ -15,7 +16,7 @@ struct RecipeInstructions: Decodable {
 }
 
 struct RecipeInstructionStep: Decodable {
-    private enum Action: Decodable {
+    private enum Action: String, Decodable {
         case unknown
         case put
         case message
@@ -36,7 +37,7 @@ struct RecipeInstructionStep: Decodable {
         case .put:
             instructionAction = try? PutInstructionAction(from: decoder)
         case .message:
-            instructionAction = try? MessageInstructionAction(from: decoder)
+            instructionAction = nil // try? MessageInstructionAction(from: decoder)
         case .pause:
             instructionAction = try? PauseInstructionAction(from: decoder)
         case .unknown:
@@ -46,13 +47,15 @@ struct RecipeInstructionStep: Decodable {
 
 }
 
-protocol InstructionAction: Decodable { 
+protocol InstructionAction: Decodable {
     var message: String? { get }
+
+    func stage(for input: CreateRecipeInput) -> BrewStage
 }
 
-struct MessageInstructionAction: InstructionAction {
-    let message: String?
-}
+//struct MessageInstructionAction: InstructionAction {
+//    let message: String?
+//}
 
 struct PutInstructionAction: InstructionAction {
     struct Amount: Codable {
@@ -65,6 +68,27 @@ struct PutInstructionAction: InstructionAction {
     let ingredient: String?
     let amount: Amount?
     let message: String?
+
+    func stage(for input: CreateRecipeInput) -> BrewStage {
+        return BrewStage(
+            action: .pourWater(
+                IngredientAmount(
+                    amount: UInt(calc(amount: amount, input: input)),
+                    type: .gram
+                )
+            ),
+            requirement: .none,
+            startMethod: .userInteractive,
+            passMethod: .userInteractive
+        )
+    }
+
+    private func calc(amount: Amount?, input: CreateRecipeInput) -> Double {
+        guard let factor = amount?.factor, let factorOf = amount?.factorOf, let constant = amount?.constant else { return 0.0 }
+        guard let valueFactorOf = input.ingredients[factorOf] else { return 0.0 }
+
+        return factor * valueFactorOf + constant
+    }
 }
 
 struct PauseInstructionAction: InstructionAction {
@@ -76,15 +100,94 @@ struct PauseInstructionAction: InstructionAction {
     let ingredient: String?
     let duration: Duration?
     let message: String?
+
+    func stage(for input: CreateRecipeInput) -> BrewStage {
+        return BrewStage(
+            action: .pause,
+            requirement: .countdown(UInt(duration?.length ?? 0)),
+            startMethod: .auto,
+            passMethod: .auto
+        )
+    }
 }
 
 //
 
-final class RecipeInstructionsTests: XCTestCase {
+struct CreateRecipeInput {
+    let ingredients: [String: Double]
+}
 
+struct RecipeEngine {
+    func recipe(for input: CreateRecipeInput, from instructions: RecipeInstructions) -> Recipe {
+
+        let stages = instructions.steps.compactMap { recipeInstructionStep in
+            recipeInstructionStep.instructionAction?.stage(for: input)
+        }
+
+        return Recipe(
+            recipeProfile: .empty,
+            ingredients: [],
+            brewQueue: BrewQueue(stages: stages)
+        )
+    }
+}
+
+//
+
+extension RecipeInstructions {
+    static var empty: Self {
+        return RecipeInstructions(ingredients: [], steps: [])
+    }
+}
+
+//
+
+final class RecipeEngineTests: XCTestCase {
     override func setUpWithError() throws {
     }
 
     override func tearDownWithError() throws {
+    }
+
+    func test_recipeForInput_whenInstructionsAvailable_shouldCreateExpectedBrewQueue() throws {
+        let expectedBrewQueue = BrewQueue(
+            stages: [
+                BrewStage(
+                    action: .pourWater(IngredientAmount(amount: 50, type: .gram)),
+                    requirement: .none,
+                    startMethod: .userInteractive,
+                    passMethod: .userInteractive
+                ),
+                BrewStage(
+                    action: .pause,
+                    requirement: .countdown(10),
+                    startMethod: .auto,
+                    passMethod: .auto
+                )
+            ]
+        )
+
+        let sut = RecipeEngine()
+
+        let recipe = sut.recipe(for: .init(ingredients: ["water": 250, "coffee": 15]), from: loadTestRecipeInstructions()!)
+
+        XCTAssertEqual(recipe.brewQueue, expectedBrewQueue)
+    }
+}
+
+func loadTestRecipeInstructions() -> RecipeInstructions? {
+    guard let bundleURL = Bundle(for: RecipeEngineTests.self).url(forResource: "test", withExtension: "json") else {
+        debugPrint("Coffee recipe file not found in bundle")
+        return nil
+    }
+
+    do {
+        let data = try Data(contentsOf: bundleURL)
+        let decoder = JSONDecoder()
+        let recipe = try decoder.decode(RecipeInstructions.self, from: data)
+        return recipe
+    } catch {
+        debugPrint("Error decoding coffee recipe: \(error)")
+        return nil
     }
 }

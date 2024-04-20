@@ -58,6 +58,7 @@
 		CA9BDA272A2CE9EC0068DFF7 /* CreateV60IcedRecipeUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9BDA262A2CE9EC0068DFF7 /* CreateV60IcedRecipeUseCaseImpTests.swift */; };
 		CA9BDA292A2CFD290068DFF7 /* CreateV60RecipeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9BDA282A2CFD290068DFF7 /* CreateV60RecipeInput.swift */; };
 		CA9C7FCE29D9E4A200F2DE30 /* CreateV60SingleCupRecipeUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9C7FCD29D9E4A200F2DE30 /* CreateV60SingleCupRecipeUseCaseImpTests.swift */; };
+		CAA3258A2BD438B1008440D0 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = CAA325892BD438B1008440D0 /* test.json */; };
 		CAB1925F2A0D6B6500043837 /* RecipeRepositoryImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB1925E2A0D6B6500043837 /* RecipeRepositoryImpTests.swift */; };
 		CAE3944229DE13C0007611F1 /* CreateRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3944129DE13C0007611F1 /* CreateRecipeView.swift */; };
 		CAF42CDF29EC907F004D7788 /* View+ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CDE29EC907F004D7788 /* View+ClearButton.swift */; };
@@ -146,6 +147,7 @@
 		CA9BDA262A2CE9EC0068DFF7 /* CreateV60IcedRecipeUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateV60IcedRecipeUseCaseImpTests.swift; sourceTree = "<group>"; };
 		CA9BDA282A2CFD290068DFF7 /* CreateV60RecipeInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateV60RecipeInput.swift; sourceTree = "<group>"; };
 		CA9C7FCD29D9E4A200F2DE30 /* CreateV60SingleCupRecipeUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateV60SingleCupRecipeUseCaseImpTests.swift; sourceTree = "<group>"; };
+		CAA325892BD438B1008440D0 /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 		CAB1925E2A0D6B6500043837 /* RecipeRepositoryImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRepositoryImpTests.swift; sourceTree = "<group>"; };
 		CAD071E629DCCB000010E561 /* Entities+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entities+Stub.swift"; sourceTree = "<group>"; };
 		CAE3944129DE13C0007611F1 /* CreateRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeView.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 		CA367D4129A2B0380095B1B8 /* CoffeeTimerTests */ = {
 			isa = PBXGroup;
 			children = (
+				CAA325892BD438B1008440D0 /* test.json */,
 				CA7790A32A06F3DD00BEA142 /* Mock */,
 				CA7790A22A06F3D500BEA142 /* Source */,
 				CA77909E2A06F3A400BEA142 /* Test Utils */,
@@ -730,6 +733,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAA3258A2BD438B1008440D0 /* test.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

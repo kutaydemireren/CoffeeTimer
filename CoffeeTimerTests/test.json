@@ -1,0 +1,27 @@
+{
+    "ingredients": [
+      "water",
+      "coffee"
+    ],
+    "steps": [
+        {
+            "action": "put",
+            "ingredient": "ingredients.water",
+            "amount": {
+                "type": "gr",
+                "factor": 0.2,
+                "factorOf": "water",
+                "constant": 0
+            },
+            "message": "To bloom, pour #amount of water\nTotal: #currentTotalWater of water"
+        },
+        {
+            "action": "pause",
+            "duration": {
+                "type": "second",
+                "length": 10
+            },
+            "message": "Pause for #duration"
+        }
+    ]
+}
