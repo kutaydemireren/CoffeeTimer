@@ -71,6 +71,7 @@
 		CAF42CF529EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CF429EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift */; };
 		CAF54BF42A36525C0033A43F /* GetRatiosUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF54BF32A36525C0033A43F /* GetRatiosUseCase.swift */; };
 		CAF54BF72A3652970033A43F /* GetRatiosUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF54BF62A3652970033A43F /* GetRatiosUseCaseImpTests.swift */; };
+		CAFA90922BD41ABA00B3435F /* RecipeInstructionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFA90912BD41ABA00B3435F /* RecipeInstructionsTests.swift */; };
 		CAFCF54B2A6F0A1700875CB7 /* HapticGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */; };
 /* End PBXBuildFile section */
 
@@ -159,6 +160,7 @@
 		CAF42CF429EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeBrewMethodSelection.swift; sourceTree = "<group>"; };
 		CAF54BF32A36525C0033A43F /* GetRatiosUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRatiosUseCase.swift; sourceTree = "<group>"; };
 		CAF54BF62A3652970033A43F /* GetRatiosUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRatiosUseCaseImpTests.swift; sourceTree = "<group>"; };
+		CAFA90912BD41ABA00B3435F /* RecipeInstructionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructionsTests.swift; sourceTree = "<group>"; };
 		CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -394,6 +396,7 @@
 		CA7790A22A06F3D500BEA142 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				CAFA908E2BD41A4500B3435F /* RecipeInstructions */,
 				CAB1925B2A0D6B4400043837 /* Repository */,
 				CA5E907629D61A6B00A78CF2 /* Application */,
 			);
@@ -597,6 +600,14 @@
 			path = GetRatios;
 			sourceTree = "<group>";
 		};
+		CAFA908E2BD41A4500B3435F /* RecipeInstructions */ = {
+			isa = PBXGroup;
+			children = (
+				CAFA90912BD41ABA00B3435F /* RecipeInstructionsTests.swift */,
+			);
+			path = RecipeInstructions;
+			sourceTree = "<group>";
+		};
 		CAFCF5492A6F0A0300875CB7 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -793,6 +804,7 @@
 				CA02D0DC2A255A6D0012EE87 /* MockStorage.swift in Sources */,
 				CA9BDA272A2CE9EC0068DFF7 /* CreateV60IcedRecipeUseCaseImpTests.swift in Sources */,
 				CA6263BB2A25492D003E167D /* DTOs+Stub.swift in Sources */,
+				CAFA90922BD41ABA00B3435F /* RecipeInstructionsTests.swift in Sources */,
 				CAF54BF72A3652970033A43F /* GetRatiosUseCaseImpTests.swift in Sources */,
 				CAB1925F2A0D6B6500043837 /* RecipeRepositoryImpTests.swift in Sources */,
 				CA7790952A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift in Sources */,
