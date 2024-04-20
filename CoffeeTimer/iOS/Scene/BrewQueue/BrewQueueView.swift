@@ -314,6 +314,8 @@ struct BrewQueueView: View {
 		.multilineTextAlignment(.center)
 	}
 
+    // TODO: must move this to remove recipe dependency.
+    // `BrewQueue` and `Recipe` will be decoupled (atm, `Recipe` has a `BrewQueue`).
 	@ViewBuilder
 	private var recipesButton: some View {
 		Button {

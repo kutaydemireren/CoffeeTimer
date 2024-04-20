@@ -8,6 +8,61 @@
 import XCTest
 @testable import CoffeeTimer
 
+/*
+ At the moment, `Recipe` stands for certain, finalised set of actions. Not possible to generate
+ `Recipe` will need to stand for repeatable techniques: e.g. V60 Recipe, V60 Iced Recipe.
+ So that, they can be iterated with `Input`s.
+
+ Iterating `Recipe.instructions` with an `Input` will yield `BrewQueue`.
+ `BrewQueue`s will consist of finalised stages that are ready to be used, same as before.
+
+ # (New) `Recipe`:
+
+ Recipe(
+   profile: RecipeProfile ## todo
+   ingredientTypes: [IngredientType]
+   instructions: RecipeInstructions
+ )
+
+ # Input:
+
+ Input(
+   ingredients: [Ingredient]
+ )
+
+ # BrewQueue
+
+ Until new recipe creation is initially introduced, should try mapping to existing `BrewStage`.
+
+ Although the purpose of BrewQueue remains still, the actions will need to be updated
+   to be able to reflect new API response.
+
+ .. TBD ..
+
+ */
+
+/*
+
+ # Scenes:
+
+ - CreateRecipe:
+   1. `BrewMethod` Selection
+   2. Preferred `Ingredient`s Selection
+   3. Profile Creation
+   4. Tap 'Save' -> Create `Input` (of selections)
+   5. Fetch `Recipe` using `BrewMethod`
+   6. Save `Recipe`
+
+ - BrewQueue
+
+ To adapt new `Recipe`s into `BrewQueue`:
+ - Existing `Recipe.ingredients` will be mapped to `Input(ingredients:)` and `Recipe.ingredientTypes` in the new system.
+ - Profile can be skipped initially. Hardcode to skip for now.
+
+ .. TBD ..
+ 
+ */
+
 //
 
 struct RecipeInstructions: Decodable {
