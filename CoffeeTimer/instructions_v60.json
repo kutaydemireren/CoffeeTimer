@@ -6,6 +6,9 @@
 	"steps": [
 		{
 			"action": "put",
+			"requirement": null,
+			"startMethod": "userInteractive",
+			"skipMethod": "userInteractive",
 			"ingredient": "coffee",
 			"amount": {
 				"type": "gr",
@@ -16,13 +19,24 @@
 			"message": "Boil all #amount of water"
 		},
 		{
+			"action": "message",
+			"requirement": null,
+			"startMethod": "userInteractive",
+			"skipMethod": "userInteractive",
 			"message": "Wet filter on hot tap water"
 		},
 		{
+			"action": "message",
+			"requirement": null,
+			"startMethod": "userInteractive",
+			"skipMethod": "userInteractive",
 			"message": "Put all your coffee to brewer"
 		},
 		{
 			"action": "put",
+			"requirement": null,
+			"startMethod": "userInteractive",
+			"skipMethod": "userInteractive",
 			"ingredient": "water",
 			"amount": {
 				"type": "gr",
@@ -33,18 +47,30 @@
 			"message": "To bloom, pour #amount of water\nTotal: #currentTotalWater of water"
 		},
 		{
+			"action": "message",
+			"requirement": null,
+			"startMethod": "userInteractive",
+			"skipMethod": "userInteractive",
 			"message": "Gently swirl the brewer"
 		},
 		{
 			"action": "pause",
-			"duration": {
-				"type": "second",
-				"length": 40
+			"requirement": {
+				"type": "countdown",
+				"duration": {
+					"type": "second",
+					"length": 40
+				}
 			},
+			"startMethod": "auto",
+			"skipMethod": "auto",
 			"message": "Let it bloom for #duration"
 		},
 		{
 			"action": "put",
+			"requirement": null,
+			"startMethod": "userInteractive",
+			"skipMethod": "userInteractive",
 			"ingredient": "water",
 			"amount": {
 				"type": "gr",
@@ -56,14 +82,22 @@
 		},
 		{
 			"action": "pause",
-			"duration": {
-				"type": "second",
-				"length": 10
+			"requirement": {
+				"type": "countdown",
+				"duration": {
+					"type": "second",
+					"length": 10
+				}
 			},
+			"startMethod": "auto",
+			"skipMethod": "auto",
 			"message": "Pause for #duration"
 		},
 		{
 			"action": "put",
+			"requirement": null,
+			"startMethod": "userInteractive",
+			"skipMethod": "userInteractive",
 			"ingredient": "water",
 			"amount": {
 				"type": "gr",
@@ -75,14 +109,22 @@
 		},
 		{
 			"action": "pause",
-			"duration": {
-				"type": "second",
-				"length": 10
+			"requirement": {
+				"type": "countdown",
+				"duration": {
+					"type": "second",
+					"length": 10
+				}
 			},
+			"startMethod": "auto",
+			"skipMethod": "auto",
 			"message": "Pause for #duration"
 		},
 		{
 			"action": "put",
+			"requirement": null,
+			"startMethod": "userInteractive",
+			"skipMethod": "userInteractive",
 			"ingredient": "water",
 			"amount": {
 				"type": "gr",
@@ -94,14 +136,22 @@
 		},
 		{
 			"action": "pause",
-			"duration": {
-				"type": "second",
-				"length": 10
+			"requirement": {
+				"type": "countdown",
+				"duration": {
+					"type": "second",
+					"length": 10
+				}
 			},
+			"startMethod": "auto",
+			"skipMethod": "auto",
 			"message": "Pause for #duration"
 		},
 		{
 			"action": "put",
+			"requirement": null,
+			"startMethod": "userInteractive",
+			"skipMethod": "userInteractive",
 			"ingredient": "water",
 			"amount": {
 				"type": "gr",

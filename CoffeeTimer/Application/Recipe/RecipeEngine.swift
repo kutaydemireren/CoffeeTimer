@@ -128,40 +128,112 @@ struct RecipeInstructionStep: Decodable {
 
 //
 
-protocol InstructionAction: Decodable {
-	var message: String? { get }
-
-	func stage(for input: RecipeInstructionInput) -> BrewStage
-}
-
-//struct MessageInstructionAction: InstructionAction {
-//    let message: String?
-//}
-
-struct InstructionAmount: Codable {
+struct InstructionAmount: Decodable {
 	let type: String?
 	let factor: Double?
 	let factorOf: String?
 	let constant: Double?
 }
 
+enum InstructionRequirement: Decodable {
+	private struct Duration: Decodable {
+		let type: String?
+		let length: Double?
+	}
+
+	case unknown
+	case countdown(UInt)
+
+	private enum CodingKeys: String, CodingKey {
+		case type = "type"
+		case duration = "duration"
+	}
+
+	init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+
+		let typeString = try container.decode(String.self, forKey: .type)
+		guard typeString == "countdown" else {
+			self = .unknown
+			return
+		}
+
+		let duration = try container.decode(Duration.self, forKey: .duration)
+		guard let durationLength = duration.length, durationLength > 0 else {
+			self = .unknown
+			return
+		}
+
+		self = .countdown(UInt(round(durationLength)))
+	}
+}
+
+enum InstructionInteractionMethod: String, Decodable {
+	case auto
+	case userInteractive
+}
+
+//
+
+protocol InstructionAction: Decodable {
+	var requirement: InstructionRequirement? { get }
+	var startMethod: InstructionInteractionMethod? { get }
+	var skipMethod: InstructionInteractionMethod? { get }
+	var message: String? { get }
+
+	func action(for input: RecipeInstructionInput) -> BrewStageAction
+}
+
+extension InstructionAction {
+	func stage(for input: RecipeInstructionInput) -> BrewStage {
+		return BrewStage(
+			action: action(for: input),
+			requirement: map(requirement),
+			startMethod: map(startMethod),
+			passMethod: map(skipMethod)
+		)
+	}
+
+	private func map(_ requirement: InstructionRequirement?) -> BrewStageRequirement {
+		switch requirement {
+		case .countdown(let duration):
+			return .countdown(duration)
+		case .unknown, .none:
+			return .none
+		}
+	}
+
+	private func map(_ interactionMethod: InstructionInteractionMethod?) -> BrewStageActionMethod {
+		switch interactionMethod {
+		case .auto:
+			return .auto
+		case .userInteractive:
+			return .userInteractive
+		case .none:
+			return .userInteractive
+		}
+	}
+}
+
+//struct MessageInstructionAction: InstructionAction {
+//    let message: String?
+//}
+
 struct PutInstructionAction: InstructionAction {
+	let requirement: InstructionRequirement?
+	let startMethod: InstructionInteractionMethod?
+	let skipMethod: InstructionInteractionMethod?
+	let message: String?
 
 	let ingredient: String?
 	let amount: InstructionAmount?
-	let message: String?
 
-	func stage(for input: RecipeInstructionInput) -> BrewStage {
-		return BrewStage(
-			action: .pourWater(
-				IngredientAmount(
-					amount: UInt(calculate(amount: amount, input: input)),
-					type: .gram
-				)
-			),
-			requirement: .none,
-			startMethod: .userInteractive,
-			passMethod: .userInteractive
+	func action(for input: RecipeInstructionInput) -> BrewStageAction {
+		return .pourWater(
+			IngredientAmount(
+				amount: UInt(calculate(amount: amount, input: input)),
+				type: .gram
+			)
 		)
 	}
 
@@ -174,22 +246,13 @@ struct PutInstructionAction: InstructionAction {
 }
 
 struct PauseInstructionAction: InstructionAction {
-	struct Duration: Codable {
-		let type: String?
-		let length: Int?
-	}
-
-	let ingredient: String?
-	let duration: Duration?
+	let requirement: InstructionRequirement?
+	let startMethod: InstructionInteractionMethod?
+	let skipMethod: InstructionInteractionMethod?
 	let message: String?
 
-	func stage(for input: RecipeInstructionInput) -> BrewStage {
-		return BrewStage(
-			action: .pause,
-			requirement: .countdown(UInt(duration?.length ?? 0)),
-			startMethod: .auto,
-			passMethod: .auto
-		)
+	func action(for input: RecipeInstructionInput) -> BrewStageAction {
+		return .pause
 	}
 }
 

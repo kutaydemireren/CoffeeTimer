@@ -99,6 +99,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
 	@Published var currentStageViewModel: any BrewStageViewModel = BrewStageConstantViewModel(text: "")
 
+	// TODO: Unify VMs for a single source
 	var currentStageTimerViewModel: BrewStageTimerViewModel? {
 		currentStageViewModel as? BrewStageTimerViewModel
 	}
@@ -106,17 +107,6 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 	var currentStageConstantViewModel: BrewStageConstantViewModel? {
 		currentStageViewModel as? BrewStageConstantViewModel
 	}
-
-//	var flag = true
-//
-//	var currentsdf: (some BrewStageViewModel)? {
-//		if flag {
-//			return currentStageViewModel as? BrewStageTimerViewModel
-//		} else {
-//			return currentStageViewModel as? BrewStageConstantViewModel
-//		}
-//
-//	}
 
 	@Published private(set) var canProceedToNextStep = true {
 		didSet {

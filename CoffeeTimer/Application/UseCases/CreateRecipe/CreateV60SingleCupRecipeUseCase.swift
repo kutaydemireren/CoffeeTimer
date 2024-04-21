@@ -12,8 +12,6 @@ protocol CreateV60SingleCupRecipeUseCase {
 }
 
 struct CreateV60SingleCupRecipeUseCaseImp: CreateV60SingleCupRecipeUseCase {
-	private let stageCount: UInt = 5
-
 	func create(input: CreateV60RecipeInput) -> Recipe {
 		return Recipe(
 			recipeProfile: input.recipeProfile,
@@ -36,27 +34,5 @@ struct CreateV60SingleCupRecipeUseCaseImp: CreateV60SingleCupRecipeUseCase {
 		return RecipeEngine
 			.recipe(for: input, from: loadV60SingleRecipeInstructions())
 			.brewQueue
-	}
-
-	private func createBloom(input: CreateV60RecipeInput) -> [BrewStage] {
-		let waterPerBlock = IngredientAmount(amount: input.water.amount / stageCount, type: .gram)
-
-		return [
-			.init(action: .wet, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
-			.init(action: .putCoffee(input.coffee), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
-			.init(action: .pourWater(waterPerBlock), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
-			.init(action: .swirl, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
-			.init(action: .pause, requirement: .countdown(40), startMethod: .auto, passMethod: .auto)
-		]
-	}
-
-	private func createBrew(input: CreateV60RecipeInput) -> [BrewStage] {
-		let waterPerBlock = IngredientAmount(amount: input.water.amount / stageCount, type: .gram)
-
-		return (1..<stageCount).flatMap { index in
-			let pour = [BrewStage(action: .pourWater(waterPerBlock), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive)]
-			let pause = index == stageCount - 1 ? [] : [BrewStage(action: .pause, requirement: .countdown(10), startMethod: .auto, passMethod: .auto)]
-			return pour + pause
-		}
 	}
 }
