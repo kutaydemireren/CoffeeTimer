@@ -190,7 +190,8 @@ extension InstructionAction {
 			action: action(for: input),
 			requirement: map(requirement),
 			startMethod: map(startMethod),
-			passMethod: map(skipMethod)
+			passMethod: map(skipMethod),
+			message: message ?? ""
 		)
 	}
 

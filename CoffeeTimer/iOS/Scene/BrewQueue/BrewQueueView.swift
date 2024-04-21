@@ -219,7 +219,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 		}
 
 		stageHeader = .brewQueue.stageHeader(for: currentStage.action)
-		stageTitle = .brewQueue.stageTitle(for: currentStage.action)
+		stageTitle = currentStage.message
 
 		switch currentStage.requirement {
 		case .none:
@@ -304,8 +304,6 @@ struct BrewQueueView: View {
 				.foregroundColor(Color("foregroundPrimary").opacity(0.8))
 				.font(.title3)
 
-			Spacer(minLength: 0).fixedSize(horizontal: false, vertical: true)
-
 			Text(viewModel.stageTitle)
 				.foregroundColor(Color("foregroundPrimary"))
 				.font(.title)
@@ -315,7 +313,7 @@ struct BrewQueueView: View {
 		.multilineTextAlignment(.center)
 	}
 
-    // TODO: must move this to remove recipe dependency.
+	// TODO: must move this to remove recipe dependency.
     // `BrewQueue` and `Recipe` will be decoupled (atm, `Recipe` has a `BrewQueue`).
 	@ViewBuilder
 	private var recipesButton: some View {

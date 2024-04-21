@@ -6,22 +6,51 @@
 	"steps": [
 		{
 			"action": "put",
-			"ingredient": "ingredients.water",
+			"requirement": null,
+			"startMethod": "userInteractive",
+			"skipMethod": "userInteractive",
+			"ingredient": "water",
 			"amount": {
 				"type": "gr",
 				"factor": 0.2,
 				"factorOf": "water",
 				"constant": 0
 			},
-			"message": "To bloom, pour #amount of water\nTotal: #currentTotalWater of water"
+			"message": null
 		},
 		{
 			"action": "pause",
-			"duration": {
-				"type": "second",
-				"length": 10
+			"requirement": {
+				"type": "countdown",
+				"duration": {
+					"type": "second",
+					"length": 10
+				}
 			},
-			"message": "Pause for #duration"
+			"startMethod": "auto",
+			"skipMethod": "auto",
+			"message": null
+		},
+		{
+			"action": "put",
+			"requirement": null,
+			"startMethod": "userInteractive",
+			"skipMethod": "userInteractive",
+			"ingredient": "coffee",
+			"amount": {
+				"type": "gr",
+				"factor": 0.2,
+				"factorOf": "water",
+				"constant": 0
+			},
+			"message": null
+		},
+		{
+			"action": "message",
+			"requirement": null,
+			"startMethod": "userInteractive",
+			"skipMethod": "userInteractive",
+			"message": "Put all your coffee to brewer"
 		}
 	]
 }

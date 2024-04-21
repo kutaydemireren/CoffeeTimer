@@ -26,7 +26,7 @@ final class CreateV60SingleCupRecipeUseCaseImpTests: XCTestCase {
 		XCTAssertEqual(resultedRecipe.recipeProfile, expectedRecipe(name: name).recipeProfile)
 	}
 
-	func test_create_shouldReturnWithExpectedBrewQueue() {
+	func test_create_shouldReturnWithExpectedBrewQueue() { // Expected to fail, update requirement
 		let resultedRecipe = sut.create(input: input)
 
 		XCTAssertEqual(resultedRecipe.brewQueue, expectedRecipe(name: name).brewQueue)

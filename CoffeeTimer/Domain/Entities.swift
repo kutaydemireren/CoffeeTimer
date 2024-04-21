@@ -92,17 +92,20 @@ struct BrewStage: Equatable {
 	let requirement: BrewStageRequirement
 	let startMethod: BrewStageActionMethod
 	let passMethod: BrewStageActionMethod
+	let message: String
 
 	init(
 		action: BrewStageAction,
 		requirement: BrewStageRequirement,
 		startMethod: BrewStageActionMethod,
-		passMethod: BrewStageActionMethod
+		passMethod: BrewStageActionMethod,
+		message: String = ""
 	) {
 		self.action = action
 		self.requirement = requirement
 		self.startMethod = startMethod
 		self.passMethod = passMethod
+		self.message = message
 	}
 }
 

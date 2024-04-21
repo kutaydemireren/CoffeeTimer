@@ -134,12 +134,14 @@ extension RecipeMapperImp {
 		let requirement = try mapToBrewStageRequirement(brewStageRequirementDTO: brewStageDTO.requirement)
 		let startMethod = brewStageDTO.startMethod ?? .userInteractive
 		let passMethod = brewStageDTO.passMethod ?? .userInteractive
+		let message = brewStageDTO.message
 
 		return BrewStage(
 			action: action,
 			requirement: requirement,
 			startMethod: mapToMethod(brewStageActionMethodDTO: startMethod),
-			passMethod: mapToMethod(brewStageActionMethodDTO: passMethod)
+			passMethod: mapToMethod(brewStageActionMethodDTO: passMethod),
+			message: message ?? ""
 		)
 	}
 
@@ -213,11 +215,11 @@ extension RecipeMapperImp {
 	}
 
 	private func mapToRecipeProfileIconDTO(recipeProfileIcon: RecipeProfileIcon) -> RecipeProfileIconDTO {
-		let title = recipeProfileIcon.title
-		let colorHex = recipeProfileIcon.color
-		let imageName = recipeProfileIcon.imageName
-
-		return RecipeProfileIconDTO(title: title, colorHex: colorHex, imageName: imageName)
+		return RecipeProfileIconDTO(
+			title: recipeProfileIcon.title,
+			colorHex: recipeProfileIcon.color,
+			imageName: recipeProfileIcon.imageName
+		)
 	}
 
 	private func mapToIngredientDTOs(ingredients: [Ingredient]) -> [IngredientDTO] {
@@ -225,10 +227,10 @@ extension RecipeMapperImp {
 	}
 
 	private func mapToIngredientDTO(ingredient: Ingredient) -> IngredientDTO {
-		let ingredientType = mapToIngredientTypeDTO(ingredientType: ingredient.ingredientType)
-		let amount = mapToIngredientAmountDTO(ingredientAmount: ingredient.amount)
-
-		return IngredientDTO(ingredientType: ingredientType, amount: amount)
+		return IngredientDTO(
+			ingredientType: mapToIngredientTypeDTO(ingredientType: ingredient.ingredientType),
+			amount: mapToIngredientAmountDTO(ingredientAmount: ingredient.amount)
+		)
 	}
 
 	private func mapToIngredientTypeDTO(ingredientType: IngredientType) -> IngredientTypeDTO {
@@ -241,10 +243,10 @@ extension RecipeMapperImp {
 	}
 
 	private func mapToIngredientAmountDTO(ingredientAmount: IngredientAmount) -> IngredientAmountDTO {
-		let amount = ingredientAmount.amount
-		let type = mapToIngredientAmountTypeDTO(ingredientAmountType: ingredientAmount.type)
-
-		return IngredientAmountDTO(amount: amount, type: type)
+		return IngredientAmountDTO(
+			amount: ingredientAmount.amount,
+			type: mapToIngredientAmountTypeDTO(ingredientAmountType: ingredientAmount.type)
+		)
 	}
 
 	private func mapToIngredientAmountTypeDTO(ingredientAmountType: IngredientAmountType) -> IngredientAmountTypeDTO {
@@ -259,9 +261,7 @@ extension RecipeMapperImp {
 	}
 
 	private func mapToBrewQueueDTO(brewQueue: BrewQueue) -> BrewQueueDTO {
-		let stages = mapToBrewStageDTOs(brewStages: brewQueue.stages)
-
-		return BrewQueueDTO(stages: stages)
+		return BrewQueueDTO(stages: mapToBrewStageDTOs(brewStages: brewQueue.stages))
 	}
 
 	private func mapToBrewStageDTOs(brewStages: [BrewStage]) -> [BrewStageDTO] {
@@ -269,16 +269,12 @@ extension RecipeMapperImp {
 	}
 
 	private func mapToBrewStageDTO(brewStage: BrewStage) -> BrewStageDTO {
-		let action = mapToBrewStageActionDTO(brewStageAction: brewStage.action)
-		let requirement = mapToBrewStageRequirementDTO(brewStageRequirement: brewStage.requirement)
-		let startMethod = brewStage.startMethod
-		let passMethod = brewStage.passMethod
-
 		return BrewStageDTO(
-			action: action,
-			requirement: requirement,
-			startMethod: mapToMethodDTO(brewStageActionMethod: startMethod),
-			passMethod: mapToMethodDTO(brewStageActionMethod: passMethod)
+			action: mapToBrewStageActionDTO(brewStageAction: brewStage.action),
+			requirement: mapToBrewStageRequirementDTO(brewStageRequirement: brewStage.requirement),
+			startMethod: mapToMethodDTO(brewStageActionMethod: brewStage.startMethod),
+			passMethod: mapToMethodDTO(brewStageActionMethod: brewStage.passMethod),
+			message: brewStage.message
 		)
 	}
 
