@@ -66,7 +66,9 @@ import XCTest
 //
 
 struct RecipeInstructions: Decodable {
-    let ingredients: [String]
+    typealias Ingredient = String
+
+    let ingredients: [RecipeInstructions.Ingredient]
     let steps: [RecipeInstructionStep]
 }
 
@@ -105,30 +107,31 @@ struct RecipeInstructionStep: Decodable {
 protocol InstructionAction: Decodable {
     var message: String? { get }
 
-    func stage(for input: CreateRecipeInput) -> BrewStage
+    func stage(for input: RecipeInstructionInput) -> BrewStage
 }
 
 //struct MessageInstructionAction: InstructionAction {
 //    let message: String?
 //}
 
+struct InstructionAmount: Codable {
+    let type: String?
+    let factor: Double?
+    let factorOf: String?
+    let constant: Double?
+}
+
 struct PutInstructionAction: InstructionAction {
-    struct Amount: Codable {
-        let type: String?
-        let factor: Double?
-        let factorOf: String?
-        let constant: Double?
-    }
 
     let ingredient: String?
-    let amount: Amount?
+    let amount: InstructionAmount?
     let message: String?
 
-    func stage(for input: CreateRecipeInput) -> BrewStage {
+    func stage(for input: RecipeInstructionInput) -> BrewStage {
         return BrewStage(
             action: .pourWater(
                 IngredientAmount(
-                    amount: UInt(calc(amount: amount, input: input)),
+                    amount: UInt(calculate(amount: amount, input: input)),
                     type: .gram
                 )
             ),
@@ -138,7 +141,7 @@ struct PutInstructionAction: InstructionAction {
         )
     }
 
-    private func calc(amount: Amount?, input: CreateRecipeInput) -> Double {
+    private func calculate(amount: InstructionAmount?, input: RecipeInstructionInput) -> Double {
         guard let factor = amount?.factor, let factorOf = amount?.factorOf, let constant = amount?.constant else { return 0.0 }
         guard let valueFactorOf = input.ingredients[factorOf] else { return 0.0 }
 
@@ -156,7 +159,7 @@ struct PauseInstructionAction: InstructionAction {
     let duration: Duration?
     let message: String?
 
-    func stage(for input: CreateRecipeInput) -> BrewStage {
+    func stage(for input: RecipeInstructionInput) -> BrewStage {
         return BrewStage(
             action: .pause,
             requirement: .countdown(UInt(duration?.length ?? 0)),
@@ -168,12 +171,12 @@ struct PauseInstructionAction: InstructionAction {
 
 //
 
-struct CreateRecipeInput {
-    let ingredients: [String: Double]
+struct RecipeInstructionInput {
+    let ingredients: [RecipeInstructions.Ingredient: Double]
 }
 
 struct RecipeEngine {
-    func recipe(for input: CreateRecipeInput, from instructions: RecipeInstructions) -> Recipe {
+    func recipe(for input: RecipeInstructionInput, from instructions: RecipeInstructions) -> Recipe {
 
         let stages = instructions.steps.compactMap { recipeInstructionStep in
             recipeInstructionStep.instructionAction?.stage(for: input)
