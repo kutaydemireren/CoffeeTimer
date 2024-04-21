@@ -15,19 +15,27 @@ struct CreateV60SingleCupRecipeUseCaseImp: CreateV60SingleCupRecipeUseCase {
 	private let stageCount: UInt = 5
 
 	func create(input: CreateV60RecipeInput) -> Recipe {
-		let stagesBloom = createBloom(input: input)
-		let stagesBrew: [BrewStage] = createBrew(input: input)
-		let stageFinish = [BrewStage(action: .finish, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive)]
-		let stagesAll = stagesBloom + stagesBrew + stageFinish
-
 		return Recipe(
 			recipeProfile: input.recipeProfile,
 			ingredients: [
 				.init(ingredientType: .coffee, amount: input.coffee),
 				.init(ingredientType: .water, amount: input.water),
 			],
-			brewQueue: .init(stages: stagesAll)
+			brewQueue: getBrew(input: input)
 		)
+	}
+
+	private func getBrew(input: CreateV60RecipeInput) -> BrewQueue {
+		let input = RecipeInstructionInput(
+			ingredients: [
+				"water": Double(input.water.amount),
+				"coffee": Double(input.coffee.amount)
+			]
+		)
+
+		return RecipeEngine
+			.recipe(for: input, from: loadV60SingleRecipeInstructions())
+			.brewQueue
 	}
 
 	private func createBloom(input: CreateV60RecipeInput) -> [BrewStage] {

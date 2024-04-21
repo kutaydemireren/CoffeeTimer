@@ -1,0 +1,115 @@
+{
+	"ingredients": [
+		"water",
+		"coffee"
+	],
+	"steps": [
+		{
+			"action": "put",
+			"ingredient": "coffee",
+			"amount": {
+				"type": "gr",
+				"factor": 1,
+				"factorOf": "coffee",
+				"constant": 0
+			},
+			"message": "Boil all #amount of water"
+		},
+		{
+			"message": "Wet filter on hot tap water"
+		},
+		{
+			"message": "Put all your coffee to brewer"
+		},
+		{
+			"action": "put",
+			"ingredient": "water",
+			"amount": {
+				"type": "gr",
+				"factor": 0.2,
+				"factorOf": "water",
+				"constant": 0
+			},
+			"message": "To bloom, pour #amount of water\nTotal: #currentTotalWater of water"
+		},
+		{
+			"message": "Gently swirl the brewer"
+		},
+		{
+			"action": "pause",
+			"duration": {
+				"type": "second",
+				"length": 40
+			},
+			"message": "Let it bloom for #duration"
+		},
+		{
+			"action": "put",
+			"ingredient": "water",
+			"amount": {
+				"type": "gr",
+				"factor": 0.2,
+				"factorOf": "water",
+				"constant": 0
+			},
+			"message": "Pour #amount of water\nTotal: #currentTotalWater of water"
+		},
+		{
+			"action": "pause",
+			"duration": {
+				"type": "second",
+				"length": 10
+			},
+			"message": "Pause for #duration"
+		},
+		{
+			"action": "put",
+			"ingredient": "water",
+			"amount": {
+				"type": "gr",
+				"factor": 0.2,
+				"factorOf": "water",
+				"constant": 0
+			},
+			"message": "Pour #amount of water\nTotal: #currentTotalWater of water"
+		},
+		{
+			"action": "pause",
+			"duration": {
+				"type": "second",
+				"length": 10
+			},
+			"message": "Pause for #duration"
+		},
+		{
+			"action": "put",
+			"ingredient": "water",
+			"amount": {
+				"type": "gr",
+				"factor": 0.2,
+				"factorOf": "water",
+				"constant": 0
+			},
+			"message": "Pour #amount of water\nTotal: #currentTotalWater of water"
+		},
+		{
+			"action": "pause",
+			"duration": {
+				"type": "second",
+				"length": 10
+			},
+			"message": "Pause for #duration"
+		},
+		{
+			"action": "put",
+			"ingredient": "water",
+			"amount": {
+				"type": "gr",
+				"factor": 0.2,
+				"factorOf": "water",
+				"constant": 0
+			},
+			"message": "Pour #amount of water\nTotal: #currentTotalWater of water"
+		}
+	]
+}

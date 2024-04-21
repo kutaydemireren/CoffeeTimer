@@ -107,6 +107,17 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 		currentStageViewModel as? BrewStageConstantViewModel
 	}
 
+//	var flag = true
+//
+//	var currentsdf: (some BrewStageViewModel)? {
+//		if flag {
+//			return currentStageViewModel as? BrewStageTimerViewModel
+//		} else {
+//			return currentStageViewModel as? BrewStageConstantViewModel
+//		}
+//
+//	}
+
 	@Published private(set) var canProceedToNextStep = true {
 		didSet {
 			if canProceedToNextStep && currentStage?.passMethod == .auto {

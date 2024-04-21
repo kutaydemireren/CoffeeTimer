@@ -7,6 +7,7 @@
 
 import Foundation
 
+// TODO: This could represent any `CreateRecipeInput` just as well. Remove `V60`.
 struct CreateV60RecipeInput {
 	let recipeProfile: RecipeProfile
 	let coffee: IngredientAmount
