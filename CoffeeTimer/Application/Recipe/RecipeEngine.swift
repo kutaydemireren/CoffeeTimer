@@ -102,7 +102,7 @@ struct RecipeInstructionStep: Decodable {
 		case pause
 	}
 
-	enum CodingKeys: CodingKey {
+	private enum CodingKeys: String, CodingKey {
 		case action
 	}
 
@@ -145,8 +145,8 @@ enum InstructionRequirement: Decodable {
 	case countdown(UInt)
 
 	private enum CodingKeys: String, CodingKey {
-		case type = "type"
-		case duration = "duration"
+		case type
+		case duration
 	}
 
 	init(from decoder: Decoder) throws {
