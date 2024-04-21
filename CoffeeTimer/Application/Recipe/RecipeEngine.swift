@@ -219,29 +219,45 @@ extension InstructionAction {
 //    let message: String?
 //}
 
+extension RecipeInstructions.Ingredient {
+	static var water: Self { return "water" }
+	static var coffee: Self { return "coffee" }
+}
+
 struct PutInstructionAction: InstructionAction {
 	let requirement: InstructionRequirement?
 	let startMethod: InstructionInteractionMethod?
 	let skipMethod: InstructionInteractionMethod?
 	let message: String?
 
-	let ingredient: String?
+	let ingredient: RecipeInstructions.Ingredient?
 	let amount: InstructionAmount?
 
 	func action(for input: RecipeInstructionInput) -> BrewStageAction {
-		return .pourWater(
-			IngredientAmount(
-				amount: UInt(calculate(amount: amount, input: input)),
-				type: .gram
-			)
-		)
+		switch ingredient {
+		case .some(.coffee): return .putCoffee(calculate(amount: amount, input: input))
+		case .some(.water): return .pourWater(calculate(amount: amount, input: input))
+		case .some, .none: return .pourWater(.zeroGram)
+		}
 	}
 
-	private func calculate(amount: InstructionAmount?, input: RecipeInstructionInput) -> Double {
-		guard let factor = amount?.factor, let factorOf = amount?.factorOf, let constant = amount?.constant else { return 0.0 }
-		guard let valueFactorOf = input.ingredients[factorOf] else { return 0.0 }
+	private func calculate(amount: InstructionAmount?, input: RecipeInstructionInput) -> IngredientAmount {
+		guard let factor = amount?.factor, let factorOf = amount?.factorOf, let constant = amount?.constant else { return .zeroGram }
+		guard let valueFactorOf = input.ingredients[factorOf] else { return .zeroGram }
 
-		return factor * valueFactorOf + constant
+		return IngredientAmount(
+			amount: UInt(factor * valueFactorOf + constant),
+			type: .gram
+		)
+	}
+}
+
+extension IngredientAmount {
+	static var zeroGram: Self {
+		return IngredientAmount(
+			amount: 0,
+			type: .gram
+		)
 	}
 }
 
