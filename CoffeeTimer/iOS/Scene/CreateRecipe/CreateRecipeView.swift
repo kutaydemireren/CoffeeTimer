@@ -138,19 +138,7 @@ struct CreateRecipeView: View {
 		.backgroundPrimary()
 	}
 
-	private func didUpdate(_ selectedBrewMethod: BrewMethod?) {
-		checkIfCanCreate()
-	}
-
-	private func didUpdate(_ recipeProfile: RecipeProfile?) {
-		checkIfCanCreate()
-	}
-
-	private func didUpdate(_ cupsCountAmount: Double) {
-		checkIfCanCreate()
-	}
-
-	private func didUpdate(_ ratio: CoffeeToWaterRatio?) {
+	private func didUpdate<T>(_ context: T?) {
 		checkIfCanCreate()
 	}
 

@@ -18,10 +18,16 @@ import Foundation
  # (New) `Recipe`:
 
  Recipe(
- profile: RecipeProfile ## todo
+ profile: RecipeProfile
  ingredientTypes: [IngredientType]
  instructions: RecipeInstructions
  )
+
+ # New `RecipeProfile`:
+ Recipe(
+ name: String
+ icon: ..Icon
+ preferredRatio:
 
  # Input:
 
@@ -33,9 +39,13 @@ import Foundation
 
  Until new recipe creation is initially introduced, should try mapping to existing `BrewStage`.
 
- Although the purpose of BrewQueue remains still, the actions will need to be updated
- to be able to reflect new API response.
+ At the moment, a `BrewQueue` is created when creating a `Recipe`. In the new system, a `BrewQueue` will be created whenever user decides to start the queue.
 
+ In the new system, the main change in `BrewQueue` scene is that the `BrewQueue` model is separated from the `Recipe` model.
+ `Recipe`s will consist `instructions`, and still be saved to user defaults.
+ At the same time, `cupsCount` and `ratio` will be saved within `RecipeProfile`, denoting preferred user options for the recipe.
+
+ Later: It must be very convenient to user to able the update these two preferences.
  .. TBD ..
 
  */
@@ -52,12 +62,17 @@ import Foundation
  5. Fetch `Recipe` using `BrewMethod`
  6. Save `Recipe`
 
- - BrewQueue
+ - SelectedRecipe:
+ 1. Displays selected ratio using constant `BrewStage`
+ 2. On tap, generate a `BrewQueue` to populate `BrewQueueView`
+
+ - BrewQueue:
+ Remains same for now. Displays `BrewStage`s respecting the order in the queue.
 
  To adapt new `Recipe`s into `BrewQueue`:
  - Existing `Recipe.ingredients` will be mapped to `Input(ingredients:)` and `Recipe.ingredientTypes` in the new system.
- - Profile can be skipped initially. Hardcode to skip for now.
 
+ - Update Preferences
  .. TBD ..
 
  */
