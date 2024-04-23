@@ -19,7 +19,12 @@ extension Recipe {
 
 extension RecipeProfile {
 	static var stubMini: RecipeProfile {
-		return RecipeProfile(name: "My Recipe Mini", icon: .stubMini)
+		return RecipeProfile(
+			name: "My Recipe Mini",
+			icon: .stubMini,
+			cupsCount: 1,
+			ratio: .ratio15
+		)
 	}
 }
 

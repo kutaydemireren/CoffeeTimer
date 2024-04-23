@@ -9,7 +9,15 @@ import Foundation
 
 extension RecipeProfile {
 	static var empty: RecipeProfile {
-		RecipeProfile(name: "", icon: .init(title: "", color: ""))
+		RecipeProfile(
+			name: "",
+			icon: .init(
+				title: "",
+				color: ""
+			),
+			cupsCount: 0,
+			ratio: .ratio15
+		)
 	}
 
 	var hasContent: Bool {

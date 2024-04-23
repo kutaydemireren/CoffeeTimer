@@ -27,7 +27,12 @@ extension RecipeProfileIcon {
 
 extension RecipeProfile {
 	static var stubSingleV60: RecipeProfile {
-		return RecipeProfile(name: "Single V60 Recipe", icon: .stubSingleV60)
+		return RecipeProfile(
+			name: "Single V60 Recipe",
+			icon: .stubSingleV60,
+			cupsCount: 1,
+			ratio: .ratio15
+		)
 	}
 }
 

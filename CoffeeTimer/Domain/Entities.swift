@@ -48,6 +48,8 @@ struct Recipe: Equatable {
 struct RecipeProfile: Equatable {
 	let name: String
 	let icon: RecipeProfileIcon
+	let cupsCount: Double
+	let ratio: CoffeeToWaterRatio
 }
 
 struct RecipeProfileIcon: Equatable {

@@ -54,7 +54,12 @@ final class CreateV60IcedRecipeUseCaseImpTests: XCTestCase {
 extension CreateV60IcedRecipeUseCaseImpTests {
 	var input: CreateV60RecipeInput {
 		return CreateV60RecipeInput(
-			recipeProfile: RecipeProfile(name: name, icon: .stubSingleV60),
+			recipeProfile: RecipeProfile(
+				name: name,
+				icon: .stubSingleV60,
+				cupsCount: 1,
+				ratio: .ratio15
+			),
 			coffee: coffeeAmount,
 			water: waterAmount
 		)
@@ -85,6 +90,17 @@ extension CreateV60IcedRecipeUseCaseImpTests {
 	}
 
 	func expectedRecipe(name: String) -> Recipe {
-		Recipe(recipeProfile: .init(name: name, icon: .stubSingleV60), ingredients: expectedIngredients, brewQueue: .init(stages: expectedStages))
+		Recipe(
+			recipeProfile: .init(
+				name: name,
+				icon: .stubSingleV60,
+				cupsCount: 1,
+				ratio: .ratio15
+			),
+			ingredients: expectedIngredients,
+			brewQueue: .init(
+				stages: expectedStages
+			)
+		)
 	}
 }

@@ -11,7 +11,12 @@ import XCTest
 extension RecipeDTO {
 	static var stub: RecipeDTO {
 		return .init(
-			recipeProfile: .init(name: "an arbitrary name", icon: .init(title: "icon title", colorHex: "color hex", imageName: "image name")),
+			recipeProfile: .init(
+				name: "an arbitrary name",
+				icon: .init(title: "icon title", colorHex: "color hex", imageName: "image name"),
+				cupsCount: 1,
+				ratio: "1:15"
+			),
 			ingredients: [
 				.init(ingredientType: .coffee, amount: .init(amount: 10, type: .gram)),
 				.init(ingredientType: .water, amount: .init(amount: 15, type: .millilitre)),

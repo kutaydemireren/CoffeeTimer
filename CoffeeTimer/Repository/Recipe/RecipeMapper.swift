@@ -40,10 +40,12 @@ extension RecipeMapperImp {
 			throw RecipeMapperError.missingRecipeProfile
 		}
 
-		let name = dto.name ?? ""
-		let icon = try mapToRecipeProfileIcon(recipeProfileIconDTO: dto.icon)
-
-		return RecipeProfile(name: name, icon: icon)
+		return RecipeProfile(
+			name: dto.name ?? "",
+			icon: try mapToRecipeProfileIcon(recipeProfileIconDTO: dto.icon),
+			cupsCount: 1,
+			ratio: .ratio15
+		)
 	}
 
 	private func mapToRecipeProfileIcon(recipeProfileIconDTO: RecipeProfileIconDTO?) throws -> RecipeProfileIcon {
@@ -211,7 +213,12 @@ extension RecipeMapperImp {
 		let name = recipeProfile.name
 		let icon = mapToRecipeProfileIconDTO(recipeProfileIcon: recipeProfile.icon)
 
-		return RecipeProfileDTO(name: name, icon: icon)
+		return RecipeProfileDTO(
+			name: name,
+			icon: icon,
+			cupsCount: 1,
+			ratio: CoffeeToWaterRatio.ratio15.rawValue
+		)
 	}
 
 	private func mapToRecipeProfileIconDTO(recipeProfileIcon: RecipeProfileIcon) -> RecipeProfileIconDTO {

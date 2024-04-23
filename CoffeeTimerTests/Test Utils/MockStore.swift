@@ -19,7 +19,14 @@ struct MockStore {
 		let recipeProfileIcons = ProfileIconStorage.recipeProfileIcons
 		return (0..<3).map { index in
 			return Recipe(
-				recipeProfile: .init(name: "My Recipe - \(index)", icon: recipeProfileIcons[Int(index)]),
+				recipeProfile: .init(
+					name: "My Recipe - \(index)",
+					icon: recipeProfileIcons[Int(
+						index
+					)],
+					cupsCount: 1,
+					ratio: .ratio15
+				),
 				ingredients: [
 					.init(ingredientType: .coffee, amount: .init(amount: 2 * index, type: .gram)),
 					.init(ingredientType: .water, amount: .init(amount: 40 * index, type: .millilitre))
@@ -33,7 +40,14 @@ struct MockStore {
 		let recipeProfileIconDTOs = recipeProfileIconDTOs
 		return (0..<3).map { index in
 			return RecipeDTO(
-				recipeProfile: .init(name: "My Recipe - \(index)", icon: recipeProfileIconDTOs[Int(index)]),
+				recipeProfile: .init(
+					name: "My Recipe - \(index)",
+					icon: recipeProfileIconDTOs[Int(
+						index
+					)],
+					cupsCount: 1,
+					ratio: "1:15"
+				),
 				ingredients: [
 					.init(ingredientType: .coffee, amount: .init(amount: 2 * index, type: .gram)),
 					.init(ingredientType: .water, amount: .init(amount: 40 * index, type: .millilitre))

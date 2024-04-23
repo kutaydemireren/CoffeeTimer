@@ -38,7 +38,23 @@ extension RecipeDTO {
 
 	var excludingProfileIcon: Self {
 		return RecipeDTO(
-			recipeProfile: .init(name: nil, icon: nil),
+			recipeProfile: .init(name: nil, icon: nil, cupsCount: 0, ratio: ""),
+			ingredients: ingredients,
+			brewQueue: brewQueue
+		)
+	}
+
+	var excludingCupsCount: Self {
+		return RecipeDTO(
+			recipeProfile: .init(name: nil, icon: .stubMini, cupsCount: nil, ratio: ""),
+			ingredients: ingredients,
+			brewQueue: brewQueue
+		)
+	}
+
+	var excludingRatio: Self {
+		return RecipeDTO(
+			recipeProfile: .init(name: nil, icon: .stubMini, cupsCount: 0, ratio: nil),
 			ingredients: ingredients,
 			brewQueue: brewQueue
 		)
@@ -105,7 +121,12 @@ extension RecipeDTO {
 
 extension RecipeProfileDTO {
 	static var stubMini: RecipeProfileDTO {
-		return RecipeProfileDTO(name: "My Recipe Mini", icon: .stubMini)
+		return RecipeProfileDTO(
+			name: "My Recipe Mini",
+			icon: .stubMini,
+			cupsCount: 1,
+			ratio: "1:15"
+		)
 	}
 }
 
