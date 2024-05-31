@@ -8,39 +8,6 @@
 import XCTest
 @testable import CoffeeTimer
 
-// TODO: Move
-
-enum TestError: Error {
-    case notAllowed
-}
-
-//
-
-final class MockFetchRecipeInstructionsUseCase: FetchRecipeInstructionsUseCase {
-    var _instructions: RecipeInstructions = .empty
-    var _error: Error?
-
-    func fetch(brewMethod: BrewMethod) throws -> RecipeInstructions {
-        if let _error {
-            throw _error
-        }
-
-        return _instructions
-    }
-}
-
-//
-
-final class MockCreateRecipeFromInputUseCase: CreateRecipeFromInputUseCase {
-    var _recipe: Recipe!
-
-    func create(from context: CreateV60RecipeInput, instructions: RecipeInstructions) -> Recipe {
-        return _recipe
-    }
-}
-
-//
-
 final class CreateRecipeFromContextUseCaseImpTests: XCTestCase {
     var mockCreateV60ContextToInputMapper: MockCreateV60ContextToInputMapper!
     var mockFetchRecipeInstructionsUseCase: MockFetchRecipeInstructionsUseCase!

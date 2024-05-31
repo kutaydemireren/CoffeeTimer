@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		CA02D0D82A255A440012EE87 /* MockRecipeMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA02D0D72A255A440012EE87 /* MockRecipeMapper.swift */; };
 		CA02D0DC2A255A6D0012EE87 /* MockStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA02D0DB2A255A6D0012EE87 /* MockStorage.swift */; };
+		CA1552802C0A5D3F000334FB /* CreateRecipeFromInputUseCaseImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA15527F2C0A5D3F000334FB /* CreateRecipeFromInputUseCaseImp.swift */; };
+		CA1552822C0A5D71000334FB /* MockCreateRecipeFromInputUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1552812C0A5D71000334FB /* MockCreateRecipeFromInputUseCase.swift */; };
+		CA1552842C0A5D9A000334FB /* MockFetchRecipeInstructionsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1552832C0A5D9A000334FB /* MockFetchRecipeInstructionsUseCase.swift */; };
+		CA1552862C0A5DB9000334FB /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1552852C0A5DB9000334FB /* TestError.swift */; };
+		CA1552882C0A5DEB000334FB /* FetchRecipeInstructionsUseCaseImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1552872C0A5DEB000334FB /* FetchRecipeInstructionsUseCaseImp.swift */; };
 		CA17289429EB4B9F000F867B /* NumericTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289329EB4B9F000F867B /* NumericTextField.swift */; };
 		CA17289629EB4CA8000F867B /* View+Responder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289529EB4CA8000F867B /* View+Responder.swift */; };
 		CA17289929EB4CD1000F867B /* CoffeeToWaterRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289829EB4CD1000F867B /* CoffeeToWaterRatio.swift */; };
@@ -93,6 +98,11 @@
 /* Begin PBXFileReference section */
 		CA02D0D72A255A440012EE87 /* MockRecipeMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecipeMapper.swift; sourceTree = "<group>"; };
 		CA02D0DB2A255A6D0012EE87 /* MockStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStorage.swift; sourceTree = "<group>"; };
+		CA15527F2C0A5D3F000334FB /* CreateRecipeFromInputUseCaseImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeFromInputUseCaseImp.swift; sourceTree = "<group>"; };
+		CA1552812C0A5D71000334FB /* MockCreateRecipeFromInputUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCreateRecipeFromInputUseCase.swift; sourceTree = "<group>"; };
+		CA1552832C0A5D9A000334FB /* MockFetchRecipeInstructionsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchRecipeInstructionsUseCase.swift; sourceTree = "<group>"; };
+		CA1552852C0A5DB9000334FB /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
+		CA1552872C0A5DEB000334FB /* FetchRecipeInstructionsUseCaseImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchRecipeInstructionsUseCaseImp.swift; sourceTree = "<group>"; };
 		CA17289329EB4B9F000F867B /* NumericTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericTextField.swift; sourceTree = "<group>"; };
 		CA17289529EB4CA8000F867B /* View+Responder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Responder.swift"; sourceTree = "<group>"; };
 		CA17289829EB4CD1000F867B /* CoffeeToWaterRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeToWaterRatio.swift; sourceTree = "<group>"; };
@@ -378,6 +388,7 @@
 			children = (
 				CA77909F2A06F3AB00BEA142 /* Extensions */,
 				CA6263CE2A2551B5003E167D /* MockStore.swift */,
+				CA1552852C0A5DB9000334FB /* TestError.swift */,
 			);
 			path = "Test Utils";
 			sourceTree = "<group>";
@@ -413,7 +424,9 @@
 		CA7790A42A06F3F100BEA142 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				CA1552812C0A5D71000334FB /* MockCreateRecipeFromInputUseCase.swift */,
 				CA7790A72A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputMapper.swift */,
+				CA1552832C0A5D9A000334FB /* MockFetchRecipeInstructionsUseCase.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -581,7 +594,9 @@
 			children = (
 				CA77909A2A06F35A00BEA142 /* CreateV60ContextToInputMapper.swift */,
 				CA77909C2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift */,
+				CA15527F2C0A5D3F000334FB /* CreateRecipeFromInputUseCaseImp.swift */,
 				CA9BDA282A2CFD290068DFF7 /* CreateV60RecipeInput.swift */,
+				CA1552872C0A5DEB000334FB /* FetchRecipeInstructionsUseCaseImp.swift */,
 			);
 			path = CreateRecipe;
 			sourceTree = "<group>";
@@ -770,6 +785,7 @@
 				CA7B804D29BFBD8C007D3DFC /* BrewQueueView.swift in Sources */,
 				CA17289929EB4CD1000F867B /* CoffeeToWaterRatio.swift in Sources */,
 				CAF42CDF29EC907F004D7788 /* View+ClearButton.swift in Sources */,
+				CA1552882C0A5DEB000334FB /* FetchRecipeInstructionsUseCaseImp.swift in Sources */,
 				CA17289429EB4B9F000F867B /* NumericTextField.swift in Sources */,
 				CA7B804B29BFABBB007D3DFC /* StageTimerView.swift in Sources */,
 				CAF42CED29EC98A1004D7788 /* Screen.swift in Sources */,
@@ -794,6 +810,7 @@
 				CA77909B2A06F35A00BEA142 /* CreateV60ContextToInputMapper.swift in Sources */,
 				CAFCF54B2A6F0A1700875CB7 /* HapticGenerator.swift in Sources */,
 				CA17289F29EB58F1000F867B /* CreateRecipeProfileSelection.swift in Sources */,
+				CA1552802C0A5D3F000334FB /* CreateRecipeFromInputUseCaseImp.swift in Sources */,
 				CA6263D12A255266003E167D /* RecipeProfile+UserDefined.swift in Sources */,
 				CA2D8BE22A02F3AA00BA2899 /* CreateRecipeContext.swift in Sources */,
 			);
@@ -806,6 +823,7 @@
 				CA7B804729BFAA21007D3DFC /* CountdownTimerImpTests.swift in Sources */,
 				CA02D0DC2A255A6D0012EE87 /* MockStorage.swift in Sources */,
 				CA6263BB2A25492D003E167D /* DTOs+Stub.swift in Sources */,
+				CA1552862C0A5DB9000334FB /* TestError.swift in Sources */,
 				CAFA90922BD41ABA00B3435F /* RecipeInstructionsTests.swift in Sources */,
 				CAF54BF72A3652970033A43F /* GetRatiosUseCaseImpTests.swift in Sources */,
 				CAB1925F2A0D6B6500043837 /* RecipeRepositoryImpTests.swift in Sources */,
@@ -816,7 +834,9 @@
 				CA7790A82A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputMapper.swift in Sources */,
 				CA6263BC2A254955003E167D /* Entities+Stub.swift in Sources */,
 				CA7790992A06F34100BEA142 /* CreateV60ContextToInputMapperImpTests.swift in Sources */,
+				CA1552842C0A5D9A000334FB /* MockFetchRecipeInstructionsUseCase.swift in Sources */,
 				CA02D0D82A255A440012EE87 /* MockRecipeMapper.swift in Sources */,
+				CA1552822C0A5D71000334FB /* MockCreateRecipeFromInputUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
