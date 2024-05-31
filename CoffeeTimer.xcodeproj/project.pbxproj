@@ -48,7 +48,7 @@
 		CA7790932A06DB5300BEA142 /* TitledContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790922A06DB5300BEA142 /* TitledContent.swift */; };
 		CA7790952A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790942A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift */; };
 		CA7790992A06F34100BEA142 /* CreateV60ContextToInputMapperImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790982A06F34100BEA142 /* CreateV60ContextToInputMapperImpTests.swift */; };
-		CA77909B2A06F35A00BEA142 /* CreateV60ContextToInputMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77909A2A06F35A00BEA142 /* CreateV60ContextToInputMapper.swift */; };
+		CA77909B2A06F35A00BEA142 /* CreateContextToInputMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77909A2A06F35A00BEA142 /* CreateContextToInputMapper.swift */; };
 		CA77909D2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77909C2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift */; };
 		CA7790A12A06F3BB00BEA142 /* Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790A02A06F3BB00BEA142 /* Equatable.swift */; };
 		CA7790A82A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790A72A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputMapper.swift */; };
@@ -138,7 +138,7 @@
 		CA7790922A06DB5300BEA142 /* TitledContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledContent.swift; sourceTree = "<group>"; };
 		CA7790942A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeFromContextUseCaseImpTests.swift; sourceTree = "<group>"; };
 		CA7790982A06F34100BEA142 /* CreateV60ContextToInputMapperImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateV60ContextToInputMapperImpTests.swift; sourceTree = "<group>"; };
-		CA77909A2A06F35A00BEA142 /* CreateV60ContextToInputMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateV60ContextToInputMapper.swift; sourceTree = "<group>"; };
+		CA77909A2A06F35A00BEA142 /* CreateContextToInputMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContextToInputMapper.swift; sourceTree = "<group>"; };
 		CA77909C2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeFromContextUseCase.swift; sourceTree = "<group>"; };
 		CA7790A02A06F3BB00BEA142 /* Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equatable.swift; sourceTree = "<group>"; };
 		CA7790A72A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCreateV60SingleCupContextToInputMapper.swift; sourceTree = "<group>"; };
@@ -590,7 +590,7 @@
 		CAF54BF02A3651D00033A43F /* CreateRecipe */ = {
 			isa = PBXGroup;
 			children = (
-				CA77909A2A06F35A00BEA142 /* CreateV60ContextToInputMapper.swift */,
+				CA77909A2A06F35A00BEA142 /* CreateContextToInputMapper.swift */,
 				CA77909C2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift */,
 				CA15527F2C0A5D3F000334FB /* CreateRecipeFromInputUseCaseImp.swift */,
 				CA9BDA282A2CFD290068DFF7 /* CreateV60RecipeInput.swift */,
@@ -803,7 +803,7 @@
 				CA852F252BD5552D00FEF144 /* RecipeInstructions.swift in Sources */,
 				CAF42CE129EC90CA004D7788 /* AlphanumericTextField.swift in Sources */,
 				CAF42CE329EC9524004D7788 /* CreateRecipeFlowView.swift in Sources */,
-				CA77909B2A06F35A00BEA142 /* CreateV60ContextToInputMapper.swift in Sources */,
+				CA77909B2A06F35A00BEA142 /* CreateContextToInputMapper.swift in Sources */,
 				CAFCF54B2A6F0A1700875CB7 /* HapticGenerator.swift in Sources */,
 				CA17289F29EB58F1000F867B /* CreateRecipeProfileSelection.swift in Sources */,
 				CA1552802C0A5D3F000334FB /* CreateRecipeFromInputUseCaseImp.swift in Sources */,

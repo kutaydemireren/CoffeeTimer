@@ -20,16 +20,16 @@ protocol CreateRecipeFromContextUseCase {
 }
 
 struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
-    private let createV60ContextToInputMapper: CreateV60ContextToInputMapper
+    private let createContextToInputMapper: CreateContextToInputMapper
     private let fetchRecipeInstructionsUseCase: FetchRecipeInstructionsUseCase
     private let createRecipeFromInputUseCase: CreateRecipeFromInputUseCase
 
     init(
-        createV60ContextToInputMapper: CreateV60ContextToInputMapper = CreateV60ContextToInputMapperImp(),
+        createContextToInputMapper: CreateContextToInputMapper = CreateContextToInputMapperImp(),
         fetchRecipeInstructionsUseCase: FetchRecipeInstructionsUseCase = FetchRecipeInstructionsUseCaseImp(),
         createRecipeFromInputUseCase: CreateRecipeFromInputUseCase = CreateRecipeFromInputUseCaseImp()
     ) {
-        self.createV60ContextToInputMapper = createV60ContextToInputMapper
+        self.createContextToInputMapper = createContextToInputMapper
         self.fetchRecipeInstructionsUseCase = fetchRecipeInstructionsUseCase
         self.createRecipeFromInputUseCase = createRecipeFromInputUseCase
     }
@@ -56,7 +56,7 @@ struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
 
     func create(from context: CreateRecipeContext) -> Recipe? {
         guard let selectedBrewMethod = context.selectedBrewMethod else { return nil }
-        guard let input = try? createV60ContextToInputMapper.map(context: context) else { return nil }
+        guard let input = try? createContextToInputMapper.map(context: context) else { return nil }
         guard let instructions = try? fetchRecipeInstructionsUseCase.fetch(brewMethod: selectedBrewMethod) else { return nil }
 
         return createRecipeFromInputUseCase.create(from: input, instructions: instructions)

@@ -9,7 +9,7 @@ import XCTest
 @testable import CoffeeTimer
 
 final class CreateRecipeFromContextUseCaseImpTests: XCTestCase {
-    var mockCreateV60ContextToInputMapper: MockCreateV60ContextToInputMapper!
+    var mockCreateContextToInputMapper: MockCreateContextToInputMapper!
     var mockFetchRecipeInstructionsUseCase: MockFetchRecipeInstructionsUseCase!
     var mockCreateRecipeFromInputUseCase: MockCreateRecipeFromInputUseCase!
     var sut: CreateRecipeFromContextUseCaseImp!
@@ -25,13 +25,13 @@ final class CreateRecipeFromContextUseCaseImpTests: XCTestCase {
     }
 
     override func setUpWithError() throws {
-        mockCreateV60ContextToInputMapper = MockCreateV60ContextToInputMapper()
-        mockCreateV60ContextToInputMapper._input = .stubSingleV60
+        mockCreateContextToInputMapper = MockCreateContextToInputMapper()
+        mockCreateContextToInputMapper._input = .stubSingleV60
         mockFetchRecipeInstructionsUseCase = MockFetchRecipeInstructionsUseCase()
         mockCreateRecipeFromInputUseCase = MockCreateRecipeFromInputUseCase()
 
         sut = CreateRecipeFromContextUseCaseImp(
-            createV60ContextToInputMapper: mockCreateV60ContextToInputMapper,
+            createContextToInputMapper: mockCreateContextToInputMapper,
             fetchRecipeInstructionsUseCase: mockFetchRecipeInstructionsUseCase,
             createRecipeFromInputUseCase: mockCreateRecipeFromInputUseCase
         )
@@ -122,7 +122,7 @@ extension CreateRecipeFromContextUseCaseImpTests {
     }
 
     func test_create_whenMappingToInputFails_shouldReturnNil() {
-        mockCreateV60ContextToInputMapper._error = TestError.notAllowed
+        mockCreateContextToInputMapper._error = TestError.notAllowed
 
         let resultedRecipe = sut.create(from: validContext)
 
