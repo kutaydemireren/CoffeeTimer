@@ -90,36 +90,10 @@ struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
         guard let input = try? createV60ContextToInputMapper.map(context: context) else { return nil }
         guard let instructions = try? fetchRecipeInstructionsUseCase.fetch(brewMethod: selectedBrewMethod) else { return nil }
 
-        let recipe = createRecipeFromInputUseCase.create(from: input, instructions: instructions)
-
-        return recipe
+        return createRecipeFromInputUseCase.create(from: input, instructions: instructions)
     }
 
-    /*
-	func create(from context: CreateRecipeContext) -> Recipe? {
-		guard let input = try? createV60ContextToInputMapper.map(context: context) else {
-			return nil
-		}
-
-		switch context.selectedBrewMethod {
-		case .v60:
-			return createV60(input: input, context: context)
-		case .v60Iced:
-			return createV60IcedRecipeUseCase.create(input: input)
-		case .chemex, .frenchPress, .melitta, .none:
-			return nil
-		}
-	}
-
-	private func createV60(input: CreateV60RecipeInput, context: CreateRecipeContext) -> Recipe? {
-		if context.cupsCount == 1 {
-			return createV60SingleCupRecipeUseCase.create(input: input)
-		} else {
-			return nil
-		}
-	}
-     */
-
+    // TODO: temp, not used, will be moved
     private func createRecipe(input: CreateV60RecipeInput, instructions: RecipeInstructions) -> Recipe {
         return Recipe(
             recipeProfile: input.recipeProfile,

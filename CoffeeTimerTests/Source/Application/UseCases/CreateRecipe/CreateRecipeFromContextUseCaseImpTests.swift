@@ -168,57 +168,6 @@ extension CreateRecipeFromContextUseCaseImpTests {
 
 // MARK: - Create
 extension CreateRecipeFromContextUseCaseImpTests {
-    /*
-	func test_create_whenTypeIsV60AndSingleCup_shouldCreateV60SingleCupUsingExpectedInput() {
-		let context = CreateRecipeContext()
-		context.selectedBrewMethod = .v60
-		context.cupsCount = 1
-
-		let expectedInput = CreateV60RecipeInput.stubSingleV60
-		mockCreateV60ContextToInputMapper._input = expectedInput
-
-		mockCreateV60SingleCupRecipeUseCase._recipe = .stubMini
-
-		let resultedRecipe = sut.create(from: context)
-
-		XCTAssertEqual(resultedRecipe, .stubMini)
-		XCTAssertEqual(mockCreateV60SingleCupRecipeUseCase._input, expectedInput)
-	}
-
-	// TODO: temporary requirement until method V60 is introduced -> shouldReturnCreateV60UsingExpectedInput
-	func test_create_whenTypeIsV60ButMultipleCups_shouldReturnNil() {
-		let context = CreateRecipeContext()
-		context.selectedBrewMethod = .v60
-		context.cupsCount = 2
-
-		let expectedInput = CreateV60RecipeInput.stubSingleV60
-		mockCreateV60ContextToInputMapper._input = expectedInput
-
-		mockCreateV60SingleCupRecipeUseCase._recipe = .stubMini
-
-		let resultedRecipe = sut.create(from: context)
-
-		XCTAssertNil(resultedRecipe)
-		XCTAssertNil(mockCreateV60SingleCupRecipeUseCase._input)
-	}
-
-	func test_create_whenTypeIsV60Iced_shouldCreateV60IcedUsingExpectedInput() {
-		let context = CreateRecipeContext()
-		context.selectedBrewMethod = .v60Iced
-
-		let expectedInput = CreateV60RecipeInput.stubSingleV60
-		mockCreateV60ContextToInputMapper._input = expectedInput
-
-		let expectedRecipe = Recipe.stubMini
-		mockCreateV60IcedRecipeUseCase._recipe = expectedRecipe
-
-		let resultedRecipe = sut.create(from: context)
-
-		XCTAssertEqual(resultedRecipe, expectedRecipe)
-		XCTAssertEqual(mockCreateV60IcedRecipeUseCase._input, expectedInput)
-	}
-     */
-
     func test_create_whenMissingContext_shouldReturnNil() {
         let resultedRecipe = sut.create(from: CreateRecipeContext())
 
@@ -241,7 +190,7 @@ extension CreateRecipeFromContextUseCaseImpTests {
         XCTAssertNil(resultedRecipe)
     }
 
-    func test_create_shouldReturnExpectedRecipe() { // TODO: failing - missing req
+    func test_create_shouldReturnExpectedRecipe() {
         let expectedRecipe = Recipe.stubSingleV60
         mockCreateRecipeFromInputUseCase._recipe = expectedRecipe
 
