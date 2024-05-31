@@ -34,7 +34,6 @@ final class MockFetchRecipeInstructionsUseCase: FetchRecipeInstructionsUseCase {
     var _error: Error?
 
     func fetch(brewMethod: BrewMethod) throws -> RecipeInstructions {
-
         if let _error {
             throw _error
         }
@@ -67,8 +66,10 @@ final class CreateRecipeFromContextUseCaseImpTests: XCTestCase {
 		mockCreateV60SingleCupRecipeUseCase = MockCreateV60SingleCupRecipeUseCase()
 		mockCreateV60IcedRecipeUseCase = MockCreateV60IcedUseCase()
         mockCreateV60ContextToInputMapper = MockCreateV60ContextToInputMapper()
+        mockCreateV60ContextToInputMapper._input = .stubSingleV60
         mockFetchRecipeInstructionsUseCase = MockFetchRecipeInstructionsUseCase()
-		sut = CreateRecipeFromContextUseCaseImp(
+
+        sut = CreateRecipeFromContextUseCaseImp(
 			createV60SingleCupRecipeUseCase: mockCreateV60SingleCupRecipeUseCase,
 			createV60IcedRecipeUseCase: mockCreateV60IcedRecipeUseCase,
             createV60ContextToInputMapper: mockCreateV60ContextToInputMapper,
@@ -155,15 +156,6 @@ extension CreateRecipeFromContextUseCaseImpTests {
 // MARK: - Create
 extension CreateRecipeFromContextUseCaseImpTests {
     /*
-	func test_create_whenMappingFails_shouldReturnNil() {
-		let expectedContext = CreateRecipeContext()
-
-		let resultedRecipe = sut.create(from: expectedContext)
-
-		XCTAssertNil(resultedRecipe)
-		XCTAssertEqual(mockCreateV60ContextToInputMapper._context, expectedContext)
-	}
-
 	func test_create_whenTypeIsV60AndSingleCup_shouldCreateV60SingleCupUsingExpectedInput() {
 		let context = CreateRecipeContext()
 		context.selectedBrewMethod = .v60
@@ -216,6 +208,14 @@ extension CreateRecipeFromContextUseCaseImpTests {
 
     func test_create_whenMissingContext_shouldReturnNil() {
         let resultedRecipe = sut.create(from: CreateRecipeContext())
+
+        XCTAssertNil(resultedRecipe)
+    }
+
+    func test_create_whenMappingFails_shouldReturnNil() {
+        mockCreateV60ContextToInputMapper._error = TestError.notAllowed
+
+        let resultedRecipe = sut.create(from: validContext)
 
         XCTAssertNil(resultedRecipe)
     }
