@@ -7,6 +7,31 @@
 
 import Foundation
 
+// TODO: Move
+protocol FetchRecipeInstructionsUseCase {
+    func fetch(brewMethod: BrewMethod) throws -> RecipeInstructions
+}
+
+struct FetchRecipeInstructionsUseCaseImp: FetchRecipeInstructionsUseCase {
+    func fetch(brewMethod: BrewMethod) throws -> RecipeInstructions {
+        fatalError("missing implementation")
+    }
+}
+
+//
+
+protocol CreateRecipeFromInputUseCase {
+    func create(from context: CreateV60RecipeInput, instructions: RecipeInstructions) -> Recipe
+}
+
+struct CreateRecipeFromInputUseCaseImp: CreateRecipeFromInputUseCase {
+    func create(from context: CreateV60RecipeInput, instructions: RecipeInstructions) -> Recipe {
+        fatalError("missing implementation")
+    }
+}
+
+//
+
 enum CreateRecipeFromContextUseCaseError: Error {
 	case missingBrewMethod
 	case missingRecipeProfile
@@ -116,28 +141,5 @@ struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
 
         return RecipeEngine
             .brewQueue(for: input, from: instructions)
-    }
-}
-
-// TODO: Move
-protocol FetchRecipeInstructionsUseCase {
-    func fetch(brewMethod: BrewMethod) throws -> RecipeInstructions
-}
-
-struct FetchRecipeInstructionsUseCaseImp: FetchRecipeInstructionsUseCase {
-    func fetch(brewMethod: BrewMethod) throws -> RecipeInstructions {
-        fatalError("missing implementation")
-    }
-}
-
-//
-
-protocol CreateRecipeFromInputUseCase {
-    func create(from context: CreateV60RecipeInput, instructions: RecipeInstructions) -> Recipe
-}
-
-struct CreateRecipeFromInputUseCaseImp: CreateRecipeFromInputUseCase {
-    func create(from context: CreateV60RecipeInput, instructions: RecipeInstructions) -> Recipe {
-        fatalError("missing implementation")
     }
 }
