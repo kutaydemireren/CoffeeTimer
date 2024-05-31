@@ -26,6 +26,16 @@ final class CreateRecipeFromContextUseCaseImpTests: XCTestCase {
 	var mockCreateV60ContextToInputMapper: MockCreateV60ContextToInputMapper!
 	var sut: CreateRecipeFromContextUseCaseImp!
 
+    var validContext: CreateRecipeContext {
+        let createRecipeContext = CreateRecipeContext()
+        createRecipeContext.selectedBrewMethod = .frenchPress
+        createRecipeContext.recipeProfile = .stubMini
+        createRecipeContext.cupsCount = 1
+        createRecipeContext.ratio = .ratio15
+
+        return createRecipeContext
+    }
+
     override func setUpWithError() throws {
 		mockCreateV60SingleCupRecipeUseCase = MockCreateV60SingleCupRecipeUseCase()
 		mockCreateV60IcedRecipeUseCase = MockCreateV60IcedUseCase()
@@ -99,16 +109,11 @@ extension CreateRecipeFromContextUseCaseImpTests {
 	}
 
 	func test_canCreate_whenContextIsAllSet_shouldReturnTrue() {
-		let createRecipeContext = CreateRecipeContext()
-		createRecipeContext.selectedBrewMethod = .frenchPress
-		createRecipeContext.recipeProfile = .stubMini
-		createRecipeContext.cupsCount = 1
-		createRecipeContext.ratio = .ratio15
-
 		var resultedCanCreate: Bool = false
-		var thrownError: Error?
+
+        var thrownError: Error?
 		do {
-			resultedCanCreate = try sut.canCreate(from: createRecipeContext)
+			resultedCanCreate = try sut.canCreate(from: validContext)
 		} catch let error {
 			thrownError = error
 		}
@@ -120,6 +125,7 @@ extension CreateRecipeFromContextUseCaseImpTests {
 
 // MARK: - Create
 extension CreateRecipeFromContextUseCaseImpTests {
+    /*
 	func test_create_whenMappingFails_shouldReturnNil() {
 		let expectedContext = CreateRecipeContext()
 
@@ -177,4 +183,17 @@ extension CreateRecipeFromContextUseCaseImpTests {
 		XCTAssertEqual(resultedRecipe, expectedRecipe)
 		XCTAssertEqual(mockCreateV60IcedRecipeUseCase._input, expectedInput)
 	}
+     */
+
+    func test_create_cannotCreate_shouldReturnNil() {
+        let resultedRecipe = sut.create(from: CreateRecipeContext())
+
+        XCTAssertNil(resultedRecipe)
+    }
+
+    func test_create_canCreate_shouldReturnExpectedRecipe() { // TODO: failing - missing req
+        let resultedRecipe = sut.create(from: validContext)
+
+        XCTAssertNotNil(resultedRecipe)
+    }
 }

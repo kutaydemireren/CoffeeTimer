@@ -54,6 +54,13 @@ struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
 		return true
 	}
 
+    func create(from context: CreateRecipeContext) -> Recipe? {
+        guard (try? canCreate(from: context)) ?? false else { return nil }
+
+        return nil
+    }
+
+    /*
 	func create(from context: CreateRecipeContext) -> Recipe? {
 		guard let input = try? createV60ContextToInputMapper.map(context: context) else {
 			return nil
@@ -76,4 +83,5 @@ struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
 			return nil
 		}
 	}
+     */
 }
