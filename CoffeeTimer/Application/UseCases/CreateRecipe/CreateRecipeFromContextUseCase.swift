@@ -45,21 +45,15 @@ protocol CreateRecipeFromContextUseCase {
 }
 
 struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
-	private let createV60SingleCupRecipeUseCase: CreateV60SingleCupRecipeUseCase
-	private let createV60IcedRecipeUseCase: CreateV60IcedRecipeUseCase
     private let createV60ContextToInputMapper: CreateV60ContextToInputMapper
     private let fetchRecipeInstructionsUseCase: FetchRecipeInstructionsUseCase
     private let createRecipeFromInputUseCase: CreateRecipeFromInputUseCase
 
 	init(
-		createV60SingleCupRecipeUseCase: CreateV60SingleCupRecipeUseCase = CreateV60SingleCupRecipeUseCaseImp(),
-		createV60IcedRecipeUseCase: CreateV60IcedRecipeUseCase = CreateV60IcedRecipeUseCaseImp(),
         createV60ContextToInputMapper: CreateV60ContextToInputMapper = CreateV60ContextToInputMapperImp(),
         fetchRecipeInstructionsUseCase: FetchRecipeInstructionsUseCase = FetchRecipeInstructionsUseCaseImp(),
         createRecipeFromInputUseCase: CreateRecipeFromInputUseCase = CreateRecipeFromInputUseCaseImp()
 	) {
-		self.createV60SingleCupRecipeUseCase = createV60SingleCupRecipeUseCase
-		self.createV60IcedRecipeUseCase = createV60IcedRecipeUseCase
         self.createV60ContextToInputMapper = createV60ContextToInputMapper
         self.fetchRecipeInstructionsUseCase = fetchRecipeInstructionsUseCase
         self.createRecipeFromInputUseCase = createRecipeFromInputUseCase

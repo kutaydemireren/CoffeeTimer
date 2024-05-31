@@ -10,19 +10,6 @@ import XCTest
 
 // TODO: Move
 
-final class MockCreateV60IcedUseCase: CreateV60IcedRecipeUseCase {
-	var _recipe: Recipe!
-	var _input: CreateV60RecipeInput?
-
-	func create(input: CreateV60RecipeInput) -> Recipe {
-		self._input = input
-
-		return _recipe
-	}
-}
-
-//
-
 enum TestError: Error {
     case notAllowed
 }
@@ -55,9 +42,6 @@ final class MockCreateRecipeFromInputUseCase: CreateRecipeFromInputUseCase {
 //
 
 final class CreateRecipeFromContextUseCaseImpTests: XCTestCase {
-
-	var mockCreateV60SingleCupRecipeUseCase: MockCreateV60SingleCupRecipeUseCase!
-	var mockCreateV60IcedRecipeUseCase: MockCreateV60IcedUseCase!
     var mockCreateV60ContextToInputMapper: MockCreateV60ContextToInputMapper!
     var mockFetchRecipeInstructionsUseCase: MockFetchRecipeInstructionsUseCase!
 	var mockCreateRecipeFromInputUseCase: MockCreateRecipeFromInputUseCase!
@@ -74,16 +58,12 @@ final class CreateRecipeFromContextUseCaseImpTests: XCTestCase {
     }
 
     override func setUpWithError() throws {
-		mockCreateV60SingleCupRecipeUseCase = MockCreateV60SingleCupRecipeUseCase()
-		mockCreateV60IcedRecipeUseCase = MockCreateV60IcedUseCase()
         mockCreateV60ContextToInputMapper = MockCreateV60ContextToInputMapper()
         mockCreateV60ContextToInputMapper._input = .stubSingleV60
         mockFetchRecipeInstructionsUseCase = MockFetchRecipeInstructionsUseCase()
         mockCreateRecipeFromInputUseCase = MockCreateRecipeFromInputUseCase()
 
         sut = CreateRecipeFromContextUseCaseImp(
-			createV60SingleCupRecipeUseCase: mockCreateV60SingleCupRecipeUseCase,
-			createV60IcedRecipeUseCase: mockCreateV60IcedRecipeUseCase,
             createV60ContextToInputMapper: mockCreateV60ContextToInputMapper,
             fetchRecipeInstructionsUseCase: mockFetchRecipeInstructionsUseCase,
             createRecipeFromInputUseCase: mockCreateRecipeFromInputUseCase

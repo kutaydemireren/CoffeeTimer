@@ -9,7 +9,14 @@ import Foundation
 
 extension Recipe {
 	static var stubSingleV60: Recipe {
-		return CreateV60SingleCupRecipeUseCaseImp().create(input: .stubSingleV60)
+        return Recipe(
+            recipeProfile: .stubSingleV60,
+            ingredients: [.init(ingredientType: .coffee, amount: .init(amount: 15, type: .gram)), .init(ingredientType: .water, amount: .init(amount: 250, type: .millilitre))],
+            brewQueue: RecipeEngine.brewQueue(
+                for: RecipeInstructionInput(ingredients: [.coffee: 15,.water: 250]),
+                from: loadV60SingleRecipeInstructions()
+            )
+        )
 	}
 }
 

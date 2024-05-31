@@ -14,7 +14,6 @@
 		CA17289929EB4CD1000F867B /* CoffeeToWaterRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289829EB4CD1000F867B /* CoffeeToWaterRatio.swift */; };
 		CA17289D29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289C29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift */; };
 		CA17289F29EB58F1000F867B /* CreateRecipeProfileSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289E29EB58F1000F867B /* CreateRecipeProfileSelection.swift */; };
-		CA180AFA29DB67130056D435 /* CreateV60SingleCupRecipeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA180AF929DB67130056D435 /* CreateV60SingleCupRecipeUseCase.swift */; };
 		CA2D8BE22A02F3AA00BA2899 /* CreateRecipeContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2D8BE12A02F3AA00BA2899 /* CreateRecipeContext.swift */; };
 		CA367D3229A2B0370095B1B8 /* CoffeeTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA367D3129A2B0370095B1B8 /* CoffeeTimerApp.swift */; };
 		CA367D3629A2B0380095B1B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA367D3529A2B0380095B1B8 /* Assets.xcassets */; };
@@ -42,11 +41,10 @@
 		CA77908F2A06DB3C00BEA142 /* LeadingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77908E2A06DB3C00BEA142 /* LeadingText.swift */; };
 		CA7790932A06DB5300BEA142 /* TitledContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790922A06DB5300BEA142 /* TitledContent.swift */; };
 		CA7790952A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790942A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift */; };
-		CA7790992A06F34100BEA142 /* CreateV60SingleCupContextToInputMapperImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790982A06F34100BEA142 /* CreateV60SingleCupContextToInputMapperImpTests.swift */; };
+		CA7790992A06F34100BEA142 /* CreateV60ContextToInputMapperImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790982A06F34100BEA142 /* CreateV60ContextToInputMapperImpTests.swift */; };
 		CA77909B2A06F35A00BEA142 /* CreateV60ContextToInputMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77909A2A06F35A00BEA142 /* CreateV60ContextToInputMapper.swift */; };
 		CA77909D2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77909C2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift */; };
 		CA7790A12A06F3BB00BEA142 /* Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790A02A06F3BB00BEA142 /* Equatable.swift */; };
-		CA7790A62A06F3FA00BEA142 /* MockCreateV60SingleCupRecipeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790A52A06F3FA00BEA142 /* MockCreateV60SingleCupRecipeUseCase.swift */; };
 		CA7790A82A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790A72A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputMapper.swift */; };
 		CA7B804529BFA9E7007D3DFC /* CountdownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804429BFA9E6007D3DFC /* CountdownTimer.swift */; };
 		CA7B804729BFAA21007D3DFC /* CountdownTimerImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804629BFAA21007D3DFC /* CountdownTimerImpTests.swift */; };
@@ -57,10 +55,7 @@
 		CA852F282BD557EC00FEF144 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = CA852F272BD557EC00FEF144 /* test.json */; };
 		CA8B44432A2563780003EE57 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA8B44422A2563780003EE57 /* Colors.xcassets */; };
 		CA91CEF729E5FA9100E9F5D1 /* AppFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CEF629E5FA9100E9F5D1 /* AppFlowView.swift */; };
-		CA9BDA212A2CE9530068DFF7 /* CreateV60IcedRecipeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9BDA202A2CE9530068DFF7 /* CreateV60IcedRecipeUseCase.swift */; };
-		CA9BDA272A2CE9EC0068DFF7 /* CreateV60IcedRecipeUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9BDA262A2CE9EC0068DFF7 /* CreateV60IcedRecipeUseCaseImpTests.swift */; };
 		CA9BDA292A2CFD290068DFF7 /* CreateV60RecipeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9BDA282A2CFD290068DFF7 /* CreateV60RecipeInput.swift */; };
-		CA9C7FCE29D9E4A200F2DE30 /* CreateV60SingleCupRecipeUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9C7FCD29D9E4A200F2DE30 /* CreateV60SingleCupRecipeUseCaseImpTests.swift */; };
 		CAB1925F2A0D6B6500043837 /* RecipeRepositoryImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB1925E2A0D6B6500043837 /* RecipeRepositoryImpTests.swift */; };
 		CAE3944229DE13C0007611F1 /* CreateRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3944129DE13C0007611F1 /* CreateRecipeView.swift */; };
 		CAF42CDF29EC907F004D7788 /* View+ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CDE29EC907F004D7788 /* View+ClearButton.swift */; };
@@ -103,7 +98,6 @@
 		CA17289829EB4CD1000F867B /* CoffeeToWaterRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeToWaterRatio.swift; sourceTree = "<group>"; };
 		CA17289C29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeCoffeeWaterSelection.swift; sourceTree = "<group>"; };
 		CA17289E29EB58F1000F867B /* CreateRecipeProfileSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeProfileSelection.swift; sourceTree = "<group>"; };
-		CA180AF929DB67130056D435 /* CreateV60SingleCupRecipeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateV60SingleCupRecipeUseCase.swift; sourceTree = "<group>"; };
 		CA2D8BE12A02F3AA00BA2899 /* CreateRecipeContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeContext.swift; sourceTree = "<group>"; };
 		CA367D2E29A2B0370095B1B8 /* CoffeeTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA367D3129A2B0370095B1B8 /* CoffeeTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeTimerApp.swift; sourceTree = "<group>"; };
@@ -133,11 +127,10 @@
 		CA77908E2A06DB3C00BEA142 /* LeadingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingText.swift; sourceTree = "<group>"; };
 		CA7790922A06DB5300BEA142 /* TitledContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledContent.swift; sourceTree = "<group>"; };
 		CA7790942A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeFromContextUseCaseImpTests.swift; sourceTree = "<group>"; };
-		CA7790982A06F34100BEA142 /* CreateV60SingleCupContextToInputMapperImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateV60SingleCupContextToInputMapperImpTests.swift; sourceTree = "<group>"; };
+		CA7790982A06F34100BEA142 /* CreateV60ContextToInputMapperImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateV60ContextToInputMapperImpTests.swift; sourceTree = "<group>"; };
 		CA77909A2A06F35A00BEA142 /* CreateV60ContextToInputMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateV60ContextToInputMapper.swift; sourceTree = "<group>"; };
 		CA77909C2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeFromContextUseCase.swift; sourceTree = "<group>"; };
 		CA7790A02A06F3BB00BEA142 /* Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equatable.swift; sourceTree = "<group>"; };
-		CA7790A52A06F3FA00BEA142 /* MockCreateV60SingleCupRecipeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCreateV60SingleCupRecipeUseCase.swift; sourceTree = "<group>"; };
 		CA7790A72A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCreateV60SingleCupContextToInputMapper.swift; sourceTree = "<group>"; };
 		CA7B804429BFA9E6007D3DFC /* CountdownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimer.swift; sourceTree = "<group>"; };
 		CA7B804629BFAA21007D3DFC /* CountdownTimerImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimerImpTests.swift; sourceTree = "<group>"; };
@@ -147,10 +140,7 @@
 		CA852F272BD557EC00FEF144 /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 		CA8B44422A2563780003EE57 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		CA91CEF629E5FA9100E9F5D1 /* AppFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowView.swift; sourceTree = "<group>"; };
-		CA9BDA202A2CE9530068DFF7 /* CreateV60IcedRecipeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateV60IcedRecipeUseCase.swift; sourceTree = "<group>"; };
-		CA9BDA262A2CE9EC0068DFF7 /* CreateV60IcedRecipeUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateV60IcedRecipeUseCaseImpTests.swift; sourceTree = "<group>"; };
 		CA9BDA282A2CFD290068DFF7 /* CreateV60RecipeInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateV60RecipeInput.swift; sourceTree = "<group>"; };
-		CA9C7FCD29D9E4A200F2DE30 /* CreateV60SingleCupRecipeUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateV60SingleCupRecipeUseCaseImpTests.swift; sourceTree = "<group>"; };
 		CAA325892BD438B1008440D0 /* instructions_v60.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = instructions_v60.json; sourceTree = "<group>"; };
 		CAB1925E2A0D6B6500043837 /* RecipeRepositoryImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRepositoryImpTests.swift; sourceTree = "<group>"; };
 		CAD071E629DCCB000010E561 /* Entities+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entities+Stub.swift"; sourceTree = "<group>"; };
@@ -377,10 +367,8 @@
 		CA711D402A64302A00C21E41 /* CreateRecipe */ = {
 			isa = PBXGroup;
 			children = (
-				CA9C7FCD29D9E4A200F2DE30 /* CreateV60SingleCupRecipeUseCaseImpTests.swift */,
 				CA7790942A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift */,
-				CA7790982A06F34100BEA142 /* CreateV60SingleCupContextToInputMapperImpTests.swift */,
-				CA9BDA262A2CE9EC0068DFF7 /* CreateV60IcedRecipeUseCaseImpTests.swift */,
+				CA7790982A06F34100BEA142 /* CreateV60ContextToInputMapperImpTests.swift */,
 			);
 			path = CreateRecipe;
 			sourceTree = "<group>";
@@ -425,7 +413,6 @@
 		CA7790A42A06F3F100BEA142 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				CA7790A52A06F3FA00BEA142 /* MockCreateV60SingleCupRecipeUseCase.swift */,
 				CA7790A72A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputMapper.swift */,
 			);
 			path = Application;
@@ -592,8 +579,6 @@
 		CAF54BF02A3651D00033A43F /* CreateRecipe */ = {
 			isa = PBXGroup;
 			children = (
-				CA9BDA202A2CE9530068DFF7 /* CreateV60IcedRecipeUseCase.swift */,
-				CA180AF929DB67130056D435 /* CreateV60SingleCupRecipeUseCase.swift */,
 				CA77909A2A06F35A00BEA142 /* CreateV60ContextToInputMapper.swift */,
 				CA77909C2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift */,
 				CA9BDA282A2CFD290068DFF7 /* CreateV60RecipeInput.swift */,
@@ -772,7 +757,6 @@
 				CA4758DF2A0C2D440022BC7D /* RecipesView.swift in Sources */,
 				CA4758E42A0C3C5C0022BC7D /* RecipesFlowView.swift in Sources */,
 				CAF54BF42A36525C0033A43F /* GetRatiosUseCase.swift in Sources */,
-				CA9BDA212A2CE9530068DFF7 /* CreateV60IcedRecipeUseCase.swift in Sources */,
 				CAE3944229DE13C0007611F1 /* CreateRecipeView.swift in Sources */,
 				CA17289629EB4CA8000F867B /* View+Responder.swift in Sources */,
 				CA77909D2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift in Sources */,
@@ -781,7 +765,6 @@
 				CA5A7D0F2A0EBA7400C7EC04 /* DTOs.swift in Sources */,
 				CA6263C92A254F67003E167D /* ProfileIconStorage.swift in Sources */,
 				CA9BDA292A2CFD290068DFF7 /* CreateV60RecipeInput.swift in Sources */,
-				CA180AFA29DB67130056D435 /* CreateV60SingleCupRecipeUseCase.swift in Sources */,
 				CA5CA81929EB662F001E384D /* View+Background.swift in Sources */,
 				CA367D3229A2B0370095B1B8 /* CoffeeTimerApp.swift in Sources */,
 				CA7B804D29BFBD8C007D3DFC /* BrewQueueView.swift in Sources */,
@@ -822,20 +805,17 @@
 			files = (
 				CA7B804729BFAA21007D3DFC /* CountdownTimerImpTests.swift in Sources */,
 				CA02D0DC2A255A6D0012EE87 /* MockStorage.swift in Sources */,
-				CA9BDA272A2CE9EC0068DFF7 /* CreateV60IcedRecipeUseCaseImpTests.swift in Sources */,
 				CA6263BB2A25492D003E167D /* DTOs+Stub.swift in Sources */,
 				CAFA90922BD41ABA00B3435F /* RecipeInstructionsTests.swift in Sources */,
 				CAF54BF72A3652970033A43F /* GetRatiosUseCaseImpTests.swift in Sources */,
 				CAB1925F2A0D6B6500043837 /* RecipeRepositoryImpTests.swift in Sources */,
 				CA7790952A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift in Sources */,
-				CA9C7FCE29D9E4A200F2DE30 /* CreateV60SingleCupRecipeUseCaseImpTests.swift in Sources */,
 				CA6263CF2A2551B5003E167D /* MockStore.swift in Sources */,
 				CA3CA4B12A1AA22600C76E28 /* RecipeMapperTests.swift in Sources */,
-				CA7790A62A06F3FA00BEA142 /* MockCreateV60SingleCupRecipeUseCase.swift in Sources */,
 				CA7790A12A06F3BB00BEA142 /* Equatable.swift in Sources */,
 				CA7790A82A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputMapper.swift in Sources */,
 				CA6263BC2A254955003E167D /* Entities+Stub.swift in Sources */,
-				CA7790992A06F34100BEA142 /* CreateV60SingleCupContextToInputMapperImpTests.swift in Sources */,
+				CA7790992A06F34100BEA142 /* CreateV60ContextToInputMapperImpTests.swift in Sources */,
 				CA02D0D82A255A440012EE87 /* MockRecipeMapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
