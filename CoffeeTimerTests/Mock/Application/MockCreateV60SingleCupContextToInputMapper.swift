@@ -10,10 +10,10 @@ import Foundation
 
 class MockCreateContextToInputMapper: CreateContextToInputMapper {
     
-    var _input: CreateV60RecipeInput!
+    var _input: CreateRecipeInput!
     var _error: Error!
     
-    func map(context: CreateRecipeContext) throws -> CreateV60RecipeInput {
+    func map(context: CreateRecipeContext) throws -> CreateRecipeInput {
         if let _error {
             throw _error
         }

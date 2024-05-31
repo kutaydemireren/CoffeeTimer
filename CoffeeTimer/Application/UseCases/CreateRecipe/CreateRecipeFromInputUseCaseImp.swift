@@ -8,11 +8,11 @@
 import Foundation
 
 protocol CreateRecipeFromInputUseCase {
-    func create(from input: CreateV60RecipeInput, instructions: RecipeInstructions) -> Recipe
+    func create(from input: CreateRecipeInput, instructions: RecipeInstructions) -> Recipe
 }
 
 struct CreateRecipeFromInputUseCaseImp: CreateRecipeFromInputUseCase {
-    func create(from input: CreateV60RecipeInput, instructions: RecipeInstructions) -> Recipe {
+    func create(from input: CreateRecipeInput, instructions: RecipeInstructions) -> Recipe {
         return Recipe(
             recipeProfile: input.recipeProfile,
             ingredients: [
@@ -23,7 +23,7 @@ struct CreateRecipeFromInputUseCaseImp: CreateRecipeFromInputUseCase {
         )
     }
     
-    private func getBrew(input: CreateV60RecipeInput, instructions: RecipeInstructions) -> BrewQueue {
+    private func getBrew(input: CreateRecipeInput, instructions: RecipeInstructions) -> BrewQueue {
         let input = RecipeInstructionInput(
             ingredients: [
                 "water": Double(input.water.amount),

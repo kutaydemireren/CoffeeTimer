@@ -11,7 +11,7 @@ import Foundation
 final class MockCreateRecipeFromInputUseCase: CreateRecipeFromInputUseCase {
     var _recipe: Recipe!
 
-    func create(from context: CreateV60RecipeInput, instructions: RecipeInstructions) -> Recipe {
+    func create(from context: CreateRecipeInput, instructions: RecipeInstructions) -> Recipe {
         return _recipe
     }
 }

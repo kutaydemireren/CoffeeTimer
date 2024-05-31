@@ -8,16 +8,16 @@
 import Foundation
 @testable import CoffeeTimer
 
-extension CreateV60RecipeInput: Equatable {
-	public static func == (lhs: CreateV60RecipeInput, rhs: CreateV60RecipeInput) -> Bool {
-		lhs.water == rhs.water &&
-		lhs.coffee == rhs.coffee &&
-		lhs.recipeProfile == rhs.recipeProfile
-	}
+extension CreateRecipeInput: Equatable {
+    public static func == (lhs: CreateRecipeInput, rhs: CreateRecipeInput) -> Bool {
+        lhs.water == rhs.water &&
+        lhs.coffee == rhs.coffee &&
+        lhs.recipeProfile == rhs.recipeProfile
+    }
 }
 
 extension CreateRecipeContext: Equatable {
-	public static func == (lhs: CreateRecipeContext, rhs: CreateRecipeContext) -> Bool {
-		lhs.recipeProfile == rhs.recipeProfile
-	}
+    public static func == (lhs: CreateRecipeContext, rhs: CreateRecipeContext) -> Bool {
+        lhs.recipeProfile == rhs.recipeProfile
+    }
 }

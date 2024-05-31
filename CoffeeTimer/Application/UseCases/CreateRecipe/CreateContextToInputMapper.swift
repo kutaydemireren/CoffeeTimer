@@ -14,36 +14,36 @@ enum CreateRecipeMapperError: Error {
 
 // TODO: rename to drop v60
 protocol CreateContextToInputMapper {
-    func map(context: CreateRecipeContext) throws -> CreateV60RecipeInput
+    func map(context: CreateRecipeContext) throws -> CreateRecipeInput
 }
 
 struct CreateContextToInputMapperImp: CreateContextToInputMapper {
     private let waterAmountPerCup = IngredientAmount(amount: 250, type: .millilitre)
-    
-    func map(context: CreateRecipeContext) throws -> CreateV60RecipeInput {
+
+    func map(context: CreateRecipeContext) throws -> CreateRecipeInput {
         guard context.recipeProfile.hasContent else {
             throw CreateRecipeMapperError.missingRecipeProfile
         }
-        
+
         guard let ratio = context.ratio else {
             throw CreateRecipeMapperError.missingRatio
         }
-        
+
         let waterAmount = calculateWaterAmount(forCupsCount: Int(context.cupsCount))
-        return CreateV60RecipeInput(
+        return CreateRecipeInput(
             recipeProfile: context.recipeProfile,
             coffee: calculateCoffeeAmount(forWaterAmount: waterAmount, withRatio: ratio),
             water: waterAmount
         )
     }
-    
+
     private func calculateWaterAmount(forCupsCount cupsCount: Int) -> IngredientAmount {
         return IngredientAmount(
             amount: waterAmountPerCup.amount * UInt(cupsCount),
             type: waterAmountPerCup.type
         )
     }
-    
+
     private func calculateCoffeeAmount(forWaterAmount waterAmount: IngredientAmount, withRatio ratio: CoffeeToWaterRatio) -> IngredientAmount {
         return IngredientAmount(
             amount: waterAmount.amount / UInt(ratio.value),

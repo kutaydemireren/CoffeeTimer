@@ -17,9 +17,9 @@ extension Recipe {
     }
 }
 
-extension CreateV60RecipeInput {
-    static var stubSingleV60: CreateV60RecipeInput{
-        return CreateV60RecipeInput(recipeProfile: .stubSingleV60, coffee: .init(amount: 15, type: .gram), water: .init(amount: 250, type: .millilitre))
+extension CreateRecipeInput {
+    static var stubSingleV60: CreateRecipeInput{
+        return CreateRecipeInput(recipeProfile: .stubSingleV60, coffee: .init(amount: 15, type: .gram), water: .init(amount: 250, type: .millilitre))
     }
 }
 
