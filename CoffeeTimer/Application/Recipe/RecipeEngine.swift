@@ -107,6 +107,10 @@ extension RecipeInstructions { // TODO: Move to test target
 	static var empty: Self {
 		return RecipeInstructions(ingredients: [], steps: [])
 	}
+
+    static var stub: Self {
+        return loadV60SingleRecipeInstructions()
+    }
 }
 
 struct RecipeInstructionStep: Decodable {

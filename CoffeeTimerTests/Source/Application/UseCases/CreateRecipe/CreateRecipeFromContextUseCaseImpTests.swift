@@ -8,6 +8,8 @@
 import XCTest
 @testable import CoffeeTimer
 
+// TODO: Move
+
 final class MockCreateV60IcedUseCase: CreateV60IcedRecipeUseCase {
 	var _recipe: Recipe!
 	var _input: CreateV60RecipeInput?
@@ -19,11 +21,36 @@ final class MockCreateV60IcedUseCase: CreateV60IcedRecipeUseCase {
 	}
 }
 
+//
+
+enum TestError: Error {
+    case notAllowed
+}
+
+//
+
+final class MockFetchRecipeInstructionsUseCase: FetchRecipeInstructionsUseCase {
+    var _instructions: RecipeInstructions = .empty
+    var _error: Error?
+
+    func fetch(brewMethod: BrewMethod) throws -> RecipeInstructions {
+
+        if let _error {
+            throw _error
+        }
+
+        return _instructions
+    }
+}
+
+//
+
 final class CreateRecipeFromContextUseCaseImpTests: XCTestCase {
 
 	var mockCreateV60SingleCupRecipeUseCase: MockCreateV60SingleCupRecipeUseCase!
 	var mockCreateV60IcedRecipeUseCase: MockCreateV60IcedUseCase!
-	var mockCreateV60ContextToInputMapper: MockCreateV60ContextToInputMapper!
+    var mockCreateV60ContextToInputMapper: MockCreateV60ContextToInputMapper!
+	var mockFetchRecipeInstructionsUseCase: MockFetchRecipeInstructionsUseCase!
 	var sut: CreateRecipeFromContextUseCaseImp!
 
     var validContext: CreateRecipeContext {
@@ -39,11 +66,13 @@ final class CreateRecipeFromContextUseCaseImpTests: XCTestCase {
     override func setUpWithError() throws {
 		mockCreateV60SingleCupRecipeUseCase = MockCreateV60SingleCupRecipeUseCase()
 		mockCreateV60IcedRecipeUseCase = MockCreateV60IcedUseCase()
-		mockCreateV60ContextToInputMapper = MockCreateV60ContextToInputMapper()
+        mockCreateV60ContextToInputMapper = MockCreateV60ContextToInputMapper()
+        mockFetchRecipeInstructionsUseCase = MockFetchRecipeInstructionsUseCase()
 		sut = CreateRecipeFromContextUseCaseImp(
 			createV60SingleCupRecipeUseCase: mockCreateV60SingleCupRecipeUseCase,
 			createV60IcedRecipeUseCase: mockCreateV60IcedRecipeUseCase,
-			CreateV60ContextToInputMapper: mockCreateV60ContextToInputMapper
+            createV60ContextToInputMapper: mockCreateV60ContextToInputMapper,
+            fetchRecipeInstructionsUseCase: mockFetchRecipeInstructionsUseCase
 		)
     }
 }
@@ -185,8 +214,16 @@ extension CreateRecipeFromContextUseCaseImpTests {
 	}
      */
 
-    func test_create_cannotCreate_shouldReturnNil() {
+    func test_create_whenMissingContext_shouldReturnNil() {
         let resultedRecipe = sut.create(from: CreateRecipeContext())
+
+        XCTAssertNil(resultedRecipe)
+    }
+
+    func test_create_whenFetchBrewInstructionsFails_shouldReturnNil() {
+        mockFetchRecipeInstructionsUseCase._error = TestError.notAllowed
+
+        let resultedRecipe = sut.create(from: validContext)
 
         XCTAssertNil(resultedRecipe)
     }

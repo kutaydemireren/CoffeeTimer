@@ -22,16 +22,19 @@ protocol CreateRecipeFromContextUseCase {
 struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
 	private let createV60SingleCupRecipeUseCase: CreateV60SingleCupRecipeUseCase
 	private let createV60IcedRecipeUseCase: CreateV60IcedRecipeUseCase
-	private let createV60ContextToInputMapper: CreateV60ContextToInputMapper
+    private let createV60ContextToInputMapper: CreateV60ContextToInputMapper
+	private let fetchRecipeInstructionsUseCase: FetchRecipeInstructionsUseCase
 
 	init(
 		createV60SingleCupRecipeUseCase: CreateV60SingleCupRecipeUseCase = CreateV60SingleCupRecipeUseCaseImp(),
 		createV60IcedRecipeUseCase: CreateV60IcedRecipeUseCase = CreateV60IcedRecipeUseCaseImp(),
-		CreateV60ContextToInputMapper: CreateV60ContextToInputMapper = CreateV60ContextToInputMapperImp()
+        createV60ContextToInputMapper: CreateV60ContextToInputMapper = CreateV60ContextToInputMapperImp(),
+        fetchRecipeInstructionsUseCase: FetchRecipeInstructionsUseCase = FetchRecipeInstructionsUseCaseImp()
 	) {
 		self.createV60SingleCupRecipeUseCase = createV60SingleCupRecipeUseCase
 		self.createV60IcedRecipeUseCase = createV60IcedRecipeUseCase
-		self.createV60ContextToInputMapper = CreateV60ContextToInputMapper
+        self.createV60ContextToInputMapper = createV60ContextToInputMapper
+		self.fetchRecipeInstructionsUseCase = fetchRecipeInstructionsUseCase
 	}
 
 	func canCreate(from context: CreateRecipeContext) throws  -> Bool {
@@ -55,7 +58,9 @@ struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
 	}
 
     func create(from context: CreateRecipeContext) -> Recipe? {
-        guard (try? canCreate(from: context)) ?? false else { return nil }
+        guard let selectedBrewMethod = context.selectedBrewMethod else { return nil }
+
+        let instructions = try? fetchRecipeInstructionsUseCase.fetch(brewMethod: selectedBrewMethod)
 
         return nil
     }
@@ -84,4 +89,15 @@ struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
 		}
 	}
      */
+}
+
+// TODO: Move
+protocol FetchRecipeInstructionsUseCase {
+    func fetch(brewMethod: BrewMethod) throws -> RecipeInstructions
+}
+
+struct FetchRecipeInstructionsUseCaseImp: FetchRecipeInstructionsUseCase {
+    func fetch(brewMethod: BrewMethod) throws -> RecipeInstructions {
+        return .empty
+    }
 }
