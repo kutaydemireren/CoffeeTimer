@@ -19,7 +19,22 @@ struct CreateRecipeFromInputUseCaseImp: CreateRecipeFromInputUseCase {
                 Ingredient(ingredientType: .coffee, amount: input.coffee),
                 Ingredient(ingredientType: .water, amount: input.water)
             ],
-            brewQueue: .empty
+            brewQueue: getBrew(input: input, instructions: instructions)
         )
+    }
+    
+    private func getBrew(input: CreateV60RecipeInput, instructions: RecipeInstructions) -> BrewQueue {
+        let input = RecipeInstructionInput(
+            ingredients: [
+                "water": Double(input.water.amount),
+                "coffee": Double(input.coffee.amount)
+            ]
+        )
+
+        let stages = instructions.steps.compactMap { recipeInstructionStep in
+            recipeInstructionStep.instructionAction?.stage(for: input)
+        }
+
+        return BrewQueue(stages: stages)
     }
 }

@@ -56,9 +56,8 @@
 		CA7B804729BFAA21007D3DFC /* CountdownTimerImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804629BFAA21007D3DFC /* CountdownTimerImpTests.swift */; };
 		CA7B804B29BFABBB007D3DFC /* StageTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804A29BFABBB007D3DFC /* StageTimerView.swift */; };
 		CA7B804D29BFBD8C007D3DFC /* BrewQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804C29BFBD8C007D3DFC /* BrewQueueView.swift */; };
-		CA852F252BD5552D00FEF144 /* RecipeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA852F242BD5552D00FEF144 /* RecipeEngine.swift */; };
+		CA852F252BD5552D00FEF144 /* RecipeInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA852F242BD5552D00FEF144 /* RecipeInstructions.swift */; };
 		CA852F262BD557A800FEF144 /* instructions_v60.json in Resources */ = {isa = PBXBuildFile; fileRef = CAA325892BD438B1008440D0 /* instructions_v60.json */; };
-		CA852F282BD557EC00FEF144 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = CA852F272BD557EC00FEF144 /* test.json */; };
 		CA8B44432A2563780003EE57 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA8B44422A2563780003EE57 /* Colors.xcassets */; };
 		CA91CEF729E5FA9100E9F5D1 /* AppFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CEF629E5FA9100E9F5D1 /* AppFlowView.swift */; };
 		CA9BDA292A2CFD290068DFF7 /* CreateV60RecipeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9BDA282A2CFD290068DFF7 /* CreateV60RecipeInput.swift */; };
@@ -75,7 +74,6 @@
 		CAF42CF529EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CF429EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift */; };
 		CAF54BF42A36525C0033A43F /* GetRatiosUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF54BF32A36525C0033A43F /* GetRatiosUseCase.swift */; };
 		CAF54BF72A3652970033A43F /* GetRatiosUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF54BF62A3652970033A43F /* GetRatiosUseCaseImpTests.swift */; };
-		CAFA90922BD41ABA00B3435F /* RecipeInstructionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFA90912BD41ABA00B3435F /* RecipeInstructionsTests.swift */; };
 		CAFCF54B2A6F0A1700875CB7 /* HapticGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */; };
 /* End PBXBuildFile section */
 
@@ -148,8 +146,7 @@
 		CA7B804629BFAA21007D3DFC /* CountdownTimerImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimerImpTests.swift; sourceTree = "<group>"; };
 		CA7B804A29BFABBB007D3DFC /* StageTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageTimerView.swift; sourceTree = "<group>"; };
 		CA7B804C29BFBD8C007D3DFC /* BrewQueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewQueueView.swift; sourceTree = "<group>"; };
-		CA852F242BD5552D00FEF144 /* RecipeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeEngine.swift; sourceTree = "<group>"; };
-		CA852F272BD557EC00FEF144 /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
+		CA852F242BD5552D00FEF144 /* RecipeInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructions.swift; sourceTree = "<group>"; };
 		CA8B44422A2563780003EE57 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		CA91CEF629E5FA9100E9F5D1 /* AppFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowView.swift; sourceTree = "<group>"; };
 		CA9BDA282A2CFD290068DFF7 /* CreateV60RecipeInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateV60RecipeInput.swift; sourceTree = "<group>"; };
@@ -168,7 +165,6 @@
 		CAF42CF429EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeBrewMethodSelection.swift; sourceTree = "<group>"; };
 		CAF54BF32A36525C0033A43F /* GetRatiosUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRatiosUseCase.swift; sourceTree = "<group>"; };
 		CAF54BF62A3652970033A43F /* GetRatiosUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRatiosUseCaseImpTests.swift; sourceTree = "<group>"; };
-		CAFA90912BD41ABA00B3435F /* RecipeInstructionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructionsTests.swift; sourceTree = "<group>"; };
 		CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -287,7 +283,6 @@
 		CA367D4129A2B0380095B1B8 /* CoffeeTimerTests */ = {
 			isa = PBXGroup;
 			children = (
-				CA852F272BD557EC00FEF144 /* test.json */,
 				CA7790A32A06F3DD00BEA142 /* Mock */,
 				CA7790A22A06F3D500BEA142 /* Source */,
 				CA77909E2A06F3A400BEA142 /* Test Utils */,
@@ -448,7 +443,7 @@
 		CA852F232BD5551900FEF144 /* Recipe */ = {
 			isa = PBXGroup;
 			children = (
-				CA852F242BD5552D00FEF144 /* RecipeEngine.swift */,
+				CA852F242BD5552D00FEF144 /* RecipeInstructions.swift */,
 			);
 			path = Recipe;
 			sourceTree = "<group>";
@@ -623,7 +618,6 @@
 		CAFA908E2BD41A4500B3435F /* RecipeInstructions */ = {
 			isa = PBXGroup;
 			children = (
-				CAFA90912BD41ABA00B3435F /* RecipeInstructionsTests.swift */,
 			);
 			path = RecipeInstructions;
 			sourceTree = "<group>";
@@ -751,7 +745,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA852F282BD557EC00FEF144 /* test.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -807,7 +800,7 @@
 				CAF42CF529EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift in Sources */,
 				CAF42CF129EC98E4004D7788 /* RecipeRepositoryImp.swift in Sources */,
 				CA7790932A06DB5300BEA142 /* TitledContent.swift in Sources */,
-				CA852F252BD5552D00FEF144 /* RecipeEngine.swift in Sources */,
+				CA852F252BD5552D00FEF144 /* RecipeInstructions.swift in Sources */,
 				CAF42CE129EC90CA004D7788 /* AlphanumericTextField.swift in Sources */,
 				CAF42CE329EC9524004D7788 /* CreateRecipeFlowView.swift in Sources */,
 				CA77909B2A06F35A00BEA142 /* CreateV60ContextToInputMapper.swift in Sources */,
@@ -827,7 +820,6 @@
 				CA02D0DC2A255A6D0012EE87 /* MockStorage.swift in Sources */,
 				CA6263BB2A25492D003E167D /* DTOs+Stub.swift in Sources */,
 				CA1552862C0A5DB9000334FB /* TestError.swift in Sources */,
-				CAFA90922BD41ABA00B3435F /* RecipeInstructionsTests.swift in Sources */,
 				CAF54BF72A3652970033A43F /* GetRatiosUseCaseImpTests.swift in Sources */,
 				CAB1925F2A0D6B6500043837 /* RecipeRepositoryImpTests.swift in Sources */,
 				CA7790952A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift in Sources */,

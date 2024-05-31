@@ -12,10 +12,7 @@ extension Recipe {
         return Recipe(
             recipeProfile: .stubSingleV60,
             ingredients: .stubSingleV60,
-            brewQueue: RecipeEngine.brewQueue(
-                for: RecipeInstructionInput(ingredients: [.coffee: 15, .water: 250]),
-                from: loadV60SingleRecipeInstructions()
-            )
+            brewQueue: .stubSingleV60
         )
     }
 }
@@ -54,6 +51,10 @@ extension Array where Element == Ingredient {
 
 extension BrewQueue {
     static var stubSingleV60: BrewQueue {
-        return Recipe.stubSingleV60.brewQueue
+        let stages = loadSingleV60RecipeInstructions()
+            .steps
+            .compactMap { $0.instructionAction?.stage(for: RecipeInstructionInput(ingredients: [.coffee: 15, .water: 250])) }
+
+        return BrewQueue(stages: stages)
     }
 }

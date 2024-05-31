@@ -61,28 +61,4 @@ struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
 
         return createRecipeFromInputUseCase.create(from: input, instructions: instructions)
     }
-
-    // TODO: temp, not used, will be moved
-    private func createRecipe(input: CreateV60RecipeInput, instructions: RecipeInstructions) -> Recipe {
-        return Recipe(
-            recipeProfile: input.recipeProfile,
-            ingredients: [
-                .init(ingredientType: .coffee, amount: input.coffee),
-                .init(ingredientType: .water, amount: input.water),
-            ],
-            brewQueue: getBrew(input: input, instructions: instructions)
-        )
-    }
-
-    private func getBrew(input: CreateV60RecipeInput, instructions: RecipeInstructions) -> BrewQueue {
-        let input = RecipeInstructionInput(
-            ingredients: [
-                "water": Double(input.water.amount),
-                "coffee": Double(input.coffee.amount)
-            ]
-        )
-
-        return RecipeEngine
-            .brewQueue(for: input, from: instructions)
-    }
 }
