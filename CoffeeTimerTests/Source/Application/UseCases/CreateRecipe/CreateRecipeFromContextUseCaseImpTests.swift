@@ -44,8 +44,8 @@ final class MockCreateRecipeFromInputUseCase: CreateRecipeFromInputUseCase {
 final class CreateRecipeFromContextUseCaseImpTests: XCTestCase {
     var mockCreateV60ContextToInputMapper: MockCreateV60ContextToInputMapper!
     var mockFetchRecipeInstructionsUseCase: MockFetchRecipeInstructionsUseCase!
-	var mockCreateRecipeFromInputUseCase: MockCreateRecipeFromInputUseCase!
-	var sut: CreateRecipeFromContextUseCaseImp!
+    var mockCreateRecipeFromInputUseCase: MockCreateRecipeFromInputUseCase!
+    var sut: CreateRecipeFromContextUseCaseImp!
 
     var validContext: CreateRecipeContext {
         let createRecipeContext = CreateRecipeContext()
@@ -67,83 +67,83 @@ final class CreateRecipeFromContextUseCaseImpTests: XCTestCase {
             createV60ContextToInputMapper: mockCreateV60ContextToInputMapper,
             fetchRecipeInstructionsUseCase: mockFetchRecipeInstructionsUseCase,
             createRecipeFromInputUseCase: mockCreateRecipeFromInputUseCase
-		)
+        )
     }
 }
 
 // MARK: - Can Create
 extension CreateRecipeFromContextUseCaseImpTests {
-	func test_canCreate_whenSelectedBrewMethodIsNil_shouldThrowMissingBrewMethod() {
-		let createRecipeContext = CreateRecipeContext()
-
-		var thrownError: Error?
-		do {
-			let _ = try sut.canCreate(from: createRecipeContext)
-		} catch let error {
-			thrownError = error
-		}
-
-		XCTAssertEqual(thrownError as? CreateRecipeFromContextUseCaseError, CreateRecipeFromContextUseCaseError.missingBrewMethod)
-	}
-
-	func test_canCreate_whenRecipeProfileHasNoContent_shouldThrowMissingRecipeProfile() {
-		let createRecipeContext = CreateRecipeContext()
-		createRecipeContext.selectedBrewMethod = .frenchPress
-
-		var thrownError: Error?
-		do {
-			let _ = try sut.canCreate(from: createRecipeContext)
-		} catch let error {
-			thrownError = error
-		}
-
-		XCTAssertEqual(thrownError as? CreateRecipeFromContextUseCaseError, CreateRecipeFromContextUseCaseError.missingRecipeProfile)
-	}
-
-	func test_canCreate_whenCupsCountIsNotGreaterThanZero_shouldThrowMissingCupsCount() {
-		let createRecipeContext = CreateRecipeContext()
-		createRecipeContext.selectedBrewMethod = .frenchPress
-		createRecipeContext.recipeProfile = .stubMini
-
-		var thrownError: Error?
-		do {
-			let _ = try sut.canCreate(from: createRecipeContext)
-		} catch let error {
-			thrownError = error
-		}
-
-		XCTAssertEqual(thrownError as? CreateRecipeFromContextUseCaseError, CreateRecipeFromContextUseCaseError.missingCupsCount)
-	}
-
-	func test_canCreate_whenRatioIsNil_shouldThrowMissingRatio() {
-		let createRecipeContext = CreateRecipeContext()
-		createRecipeContext.selectedBrewMethod = .frenchPress
-		createRecipeContext.recipeProfile = .stubMini
-		createRecipeContext.cupsCount = 1
-
-		var thrownError: Error?
-		do {
-			let _ = try sut.canCreate(from: createRecipeContext)
-		} catch let error {
-			thrownError = error
-		}
-
-		XCTAssertEqual(thrownError as? CreateRecipeFromContextUseCaseError, CreateRecipeFromContextUseCaseError.missingRatio)
-	}
-
-	func test_canCreate_whenContextIsAllSet_shouldReturnTrue() {
-		var resultedCanCreate: Bool = false
+    func test_canCreate_whenSelectedBrewMethodIsNil_shouldThrowMissingBrewMethod() {
+        let createRecipeContext = CreateRecipeContext()
 
         var thrownError: Error?
-		do {
-			resultedCanCreate = try sut.canCreate(from: validContext)
-		} catch let error {
-			thrownError = error
-		}
+        do {
+            let _ = try sut.canCreate(from: createRecipeContext)
+        } catch let error {
+            thrownError = error
+        }
 
-		XCTAssertTrue(resultedCanCreate)
-		XCTAssertNil(thrownError)
-	}
+        XCTAssertEqual(thrownError as? CreateRecipeFromContextUseCaseError, CreateRecipeFromContextUseCaseError.missingBrewMethod)
+    }
+
+    func test_canCreate_whenRecipeProfileHasNoContent_shouldThrowMissingRecipeProfile() {
+        let createRecipeContext = CreateRecipeContext()
+        createRecipeContext.selectedBrewMethod = .frenchPress
+
+        var thrownError: Error?
+        do {
+            let _ = try sut.canCreate(from: createRecipeContext)
+        } catch let error {
+            thrownError = error
+        }
+
+        XCTAssertEqual(thrownError as? CreateRecipeFromContextUseCaseError, CreateRecipeFromContextUseCaseError.missingRecipeProfile)
+    }
+
+    func test_canCreate_whenCupsCountIsNotGreaterThanZero_shouldThrowMissingCupsCount() {
+        let createRecipeContext = CreateRecipeContext()
+        createRecipeContext.selectedBrewMethod = .frenchPress
+        createRecipeContext.recipeProfile = .stubMini
+
+        var thrownError: Error?
+        do {
+            let _ = try sut.canCreate(from: createRecipeContext)
+        } catch let error {
+            thrownError = error
+        }
+
+        XCTAssertEqual(thrownError as? CreateRecipeFromContextUseCaseError, CreateRecipeFromContextUseCaseError.missingCupsCount)
+    }
+
+    func test_canCreate_whenRatioIsNil_shouldThrowMissingRatio() {
+        let createRecipeContext = CreateRecipeContext()
+        createRecipeContext.selectedBrewMethod = .frenchPress
+        createRecipeContext.recipeProfile = .stubMini
+        createRecipeContext.cupsCount = 1
+
+        var thrownError: Error?
+        do {
+            let _ = try sut.canCreate(from: createRecipeContext)
+        } catch let error {
+            thrownError = error
+        }
+
+        XCTAssertEqual(thrownError as? CreateRecipeFromContextUseCaseError, CreateRecipeFromContextUseCaseError.missingRatio)
+    }
+
+    func test_canCreate_whenContextIsAllSet_shouldReturnTrue() {
+        var resultedCanCreate: Bool = false
+
+        var thrownError: Error?
+        do {
+            resultedCanCreate = try sut.canCreate(from: validContext)
+        } catch let error {
+            thrownError = error
+        }
+
+        XCTAssertTrue(resultedCanCreate)
+        XCTAssertNil(thrownError)
+    }
 }
 
 // MARK: - Create
