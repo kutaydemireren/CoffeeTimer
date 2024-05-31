@@ -58,7 +58,7 @@ extension String {
 }
 
 extension BrewQueue {
-	static var noneSelected: BrewQueue {
+	static var empty: BrewQueue {
 		return BrewQueue(stages: [])
 	}
 }
@@ -110,7 +110,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 	}
 
 	var brewQueue: BrewQueue {
-		selectedRecipe?.brewQueue ?? .noneSelected
+		selectedRecipe?.brewQueue ?? .empty
 	}
 
 	var selectedRecipe: Recipe? {

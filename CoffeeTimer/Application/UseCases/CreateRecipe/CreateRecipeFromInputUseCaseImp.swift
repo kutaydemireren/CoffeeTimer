@@ -8,11 +8,15 @@
 import Foundation
 
 protocol CreateRecipeFromInputUseCase {
-    func create(from context: CreateV60RecipeInput, instructions: RecipeInstructions) -> Recipe
+    func create(from input: CreateV60RecipeInput, instructions: RecipeInstructions) -> Recipe
 }
 
 struct CreateRecipeFromInputUseCaseImp: CreateRecipeFromInputUseCase {
-    func create(from context: CreateV60RecipeInput, instructions: RecipeInstructions) -> Recipe {
-        fatalError("missing implementation")
+    func create(from input: CreateV60RecipeInput, instructions: RecipeInstructions) -> Recipe {
+        return Recipe(
+            recipeProfile: input.recipeProfile,
+            ingredients: [],
+            brewQueue: .empty
+        )
     }
 }
