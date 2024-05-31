@@ -32,7 +32,6 @@ struct CreateV60SingleCupRecipeUseCaseImp: CreateV60SingleCupRecipeUseCase {
 		)
 
 		return RecipeEngine
-			.recipe(for: input, from: loadV60SingleRecipeInstructions())
-			.brewQueue
+			.brewQueue(for: input, from: loadV60SingleRecipeInstructions())
 	}
 }

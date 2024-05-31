@@ -15,7 +15,7 @@ final class RecipeEngineTests: XCTestCase {
 	override func tearDownWithError() throws {
 	}
 	
-	func test_recipeForInput_whenInstructionsAvailable_shouldCreateExpectedBrewQueue() throws {
+	func test_brewQueue_whenInstructionsAvailable_shouldCreateExpectedBrewQueue() throws {
 		let expectedBrewQueue = BrewQueue(
 			stages: [
 				BrewStage(
@@ -39,9 +39,9 @@ final class RecipeEngineTests: XCTestCase {
 			]
 		)
 		
-		let recipe = RecipeEngine.recipe(for: .init(ingredients: ["water": 250, "coffee": 15]), from: loadTestRecipeInstructions()!)
-		
-		XCTAssertEqual(recipe.brewQueue, expectedBrewQueue)
+		let brewQueue = RecipeEngine.brewQueue(for: .init(ingredients: ["water": 250, "coffee": 15]), from: loadTestRecipeInstructions()!)
+
+		XCTAssertEqual(brewQueue, expectedBrewQueue)
 	}
 }
 

@@ -44,12 +44,23 @@ final class MockFetchRecipeInstructionsUseCase: FetchRecipeInstructionsUseCase {
 
 //
 
+final class MockCreateRecipeFromInputUseCase: CreateRecipeFromInputUseCase {
+    var _recipe: Recipe!
+
+    func create(from context: CreateV60RecipeInput, instructions: RecipeInstructions) -> Recipe {
+        return _recipe
+    }
+}
+
+//
+
 final class CreateRecipeFromContextUseCaseImpTests: XCTestCase {
 
 	var mockCreateV60SingleCupRecipeUseCase: MockCreateV60SingleCupRecipeUseCase!
 	var mockCreateV60IcedRecipeUseCase: MockCreateV60IcedUseCase!
     var mockCreateV60ContextToInputMapper: MockCreateV60ContextToInputMapper!
-	var mockFetchRecipeInstructionsUseCase: MockFetchRecipeInstructionsUseCase!
+    var mockFetchRecipeInstructionsUseCase: MockFetchRecipeInstructionsUseCase!
+	var mockCreateRecipeFromInputUseCase: MockCreateRecipeFromInputUseCase!
 	var sut: CreateRecipeFromContextUseCaseImp!
 
     var validContext: CreateRecipeContext {
@@ -68,12 +79,14 @@ final class CreateRecipeFromContextUseCaseImpTests: XCTestCase {
         mockCreateV60ContextToInputMapper = MockCreateV60ContextToInputMapper()
         mockCreateV60ContextToInputMapper._input = .stubSingleV60
         mockFetchRecipeInstructionsUseCase = MockFetchRecipeInstructionsUseCase()
+        mockCreateRecipeFromInputUseCase = MockCreateRecipeFromInputUseCase()
 
         sut = CreateRecipeFromContextUseCaseImp(
 			createV60SingleCupRecipeUseCase: mockCreateV60SingleCupRecipeUseCase,
 			createV60IcedRecipeUseCase: mockCreateV60IcedRecipeUseCase,
             createV60ContextToInputMapper: mockCreateV60ContextToInputMapper,
-            fetchRecipeInstructionsUseCase: mockFetchRecipeInstructionsUseCase
+            fetchRecipeInstructionsUseCase: mockFetchRecipeInstructionsUseCase,
+            createRecipeFromInputUseCase: mockCreateRecipeFromInputUseCase
 		)
     }
 }
@@ -212,7 +225,7 @@ extension CreateRecipeFromContextUseCaseImpTests {
         XCTAssertNil(resultedRecipe)
     }
 
-    func test_create_whenMappingFails_shouldReturnNil() {
+    func test_create_whenMappingToInputFails_shouldReturnNil() {
         mockCreateV60ContextToInputMapper._error = TestError.notAllowed
 
         let resultedRecipe = sut.create(from: validContext)
@@ -228,9 +241,12 @@ extension CreateRecipeFromContextUseCaseImpTests {
         XCTAssertNil(resultedRecipe)
     }
 
-    func test_create_canCreate_shouldReturnExpectedRecipe() { // TODO: failing - missing req
+    func test_create_shouldReturnExpectedRecipe() { // TODO: failing - missing req
+        let expectedRecipe = Recipe.stubSingleV60
+        mockCreateRecipeFromInputUseCase._recipe = expectedRecipe
+
         let resultedRecipe = sut.create(from: validContext)
 
-        XCTAssertNotNil(resultedRecipe)
+        XCTAssertEqual(resultedRecipe, expectedRecipe)
     }
 }

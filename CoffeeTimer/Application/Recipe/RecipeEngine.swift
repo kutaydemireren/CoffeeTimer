@@ -299,16 +299,12 @@ struct RecipeInstructionInput {
 }
 
 struct RecipeEngine { // TODO: temp name, rename
-	static func recipe(for input: RecipeInstructionInput, from instructions: RecipeInstructions) -> Recipe {
+	static func brewQueue(for input: RecipeInstructionInput, from instructions: RecipeInstructions) -> BrewQueue {
 
 		let stages = instructions.steps.compactMap { recipeInstructionStep in
 			recipeInstructionStep.instructionAction?.stage(for: input)
 		}
 
-		return Recipe(
-			recipeProfile: .empty,
-			ingredients: [],
-			brewQueue: BrewQueue(stages: stages)
-		)
+		return BrewQueue(stages: stages)
 	}
 }
