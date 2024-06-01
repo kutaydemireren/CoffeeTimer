@@ -10,11 +10,11 @@ import SwiftUI
 // TODO: move
 
 protocol GetBrewMethodsUseCase {
-    func getAll() -> [BrewMethod]
+    func getAll() async throws -> [BrewMethod]
 }
 
 struct GetBrewMethodsUseCaseImp: GetBrewMethodsUseCase {
-    func getAll() -> [BrewMethod] {
+    func getAll() async throws -> [BrewMethod] {
         BrewMethodStorage.brewMethods
     }
 }
@@ -30,8 +30,9 @@ final class CreateRecipeViewModel: ObservableObject {
     @Published var allRatios: [CoffeeToWaterRatio] = []
 
     private var createRecipeFromContextUseCase: CreateRecipeFromContextUseCase
-    private var getRatiosUseCase: GetRatiosUseCase
     private var recipeRepository: RecipeRepository // TODO: use case - no repo in vm!
+    private var getBrewMethodsUseCase: GetBrewMethodsUseCase
+    private var getRatiosUseCase: GetRatiosUseCase
 
     init(
         createRecipeFromContextUseCase: CreateRecipeFromContextUseCase = CreateRecipeFromContextUseCaseImp(),
@@ -41,8 +42,16 @@ final class CreateRecipeViewModel: ObservableObject {
     ) {
         self.createRecipeFromContextUseCase = createRecipeFromContextUseCase
         self.recipeRepository = recipeRepository
+        self.getBrewMethodsUseCase = getBrewMethodsUseCase
         self.getRatiosUseCase = getRatiosUseCase
-        self.brewMethods = getBrewMethodsUseCase.getAll()
+
+        refreshBrewMethods()
+    }
+
+    func refreshBrewMethods() {
+        Task {
+            self.brewMethods = try await getBrewMethodsUseCase.getAll()
+        }
     }
 
     func nextPage(in context: CreateRecipeContext) {
