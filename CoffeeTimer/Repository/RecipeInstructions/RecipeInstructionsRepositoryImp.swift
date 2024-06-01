@@ -34,7 +34,7 @@ struct RecipeInstructionsRepositoryImp: RecipeInstructionsRepository {
     }
 
     func fetchInstructions(for brewMethod: BrewMethod) async throws -> RecipeInstructions {
-        let data = try await networkManager.perform(request: RecipeInstructionsRequest(brewMethod: brewMethod))
+        let data = try await networkManager.perform(request: FetchRecipeInstructionsRequest(brewMethod: brewMethod))
         let recipeInstructions = try decoding.decode(RecipeInstructions.self, from: data)
         return recipeInstructions
     }

@@ -99,10 +99,10 @@ final class RecipeInstructionsRepositoryImpTests: XCTestCase {
         }
     }
 
-    func test_fetchInstructions_shouldUseExpectedBrewRequest() async throws {
+    func test_fetchInstructions_shouldCreateExpectedBrewRequest() async throws {
         _ = try await sut.fetchInstructions(for: .frenchPress)
 
-        XCTAssertEqual(try mockNetworkManager._request.createURLRequest(), try RecipeInstructionsRequest(brewMethod: .frenchPress).createURLRequest())
+        XCTAssertEqual(try mockNetworkManager._request.createURLRequest(), try FetchRecipeInstructionsRequest(brewMethod: .frenchPress).createURLRequest())
     }
 
     func test_fetchInstructions_shouldReturnExpectedRecipeInstructions() async throws {

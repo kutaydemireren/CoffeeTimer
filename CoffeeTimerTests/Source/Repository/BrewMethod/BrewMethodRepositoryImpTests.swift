@@ -45,6 +45,12 @@ final class BrewMethodRepositoryImpTests: XCTestCase {
         }
     }
 
+    func test_fetchBrewMethods_shouldCreateExpectedBrewRequest() async throws {
+        _ = try await sut.fetchBrewMethods()
+
+        XCTAssertEqual(try mockNetworkManager._request.createURLRequest(), try FetchBrewMethodsRequest().createURLRequest())
+    }
+
     func test_fetchBrewMethods_shouldReturnExpectedBrewMethods() async throws {
         mockDecoding._decoded = [BrewMethodDTO.frenchPress, BrewMethodDTO.v60Single]
 

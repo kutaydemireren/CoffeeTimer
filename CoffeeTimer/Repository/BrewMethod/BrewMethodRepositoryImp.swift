@@ -20,7 +20,7 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
     }
 
     func fetchBrewMethods() async throws -> [BrewMethod] {
-        let data = try await networkManager.perform(request: RecipeInstructionsRequest(brewMethod: .frenchPress))
+        let data = try await networkManager.perform(request: FetchBrewMethodsRequest())
         let brewMethodDTOs = try decoding.decode([BrewMethodDTO].self, from: data)
         return map(brewMethodDTOs: brewMethodDTOs)
     }
