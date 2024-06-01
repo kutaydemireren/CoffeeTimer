@@ -13,8 +13,11 @@ import XCTest
 final class MockRecipeInstructionsRepository: RecipeInstructionsRepository {
     var _error: Error!
     var _recipeInstructions: RecipeInstructions!
+    var _brewMethod: BrewMethod!
 
     func fetchInstructions(for brewMethod: BrewMethod) throws -> RecipeInstructions {
+        _brewMethod = brewMethod
+
         if let _error {
             throw _error
         }
@@ -44,5 +47,23 @@ final class FetchRecipeInstructionsUseCaseImpTests: XCTestCase {
         XCTAssertThrowsError(try sut.fetch(brewMethod: .frenchPress)) { error in
             XCTAssertEqual(error as? TestError, .notAllowed)
         }
+    }
+
+    func test_fetch_shouldRequestExpectedBrewMethod() throws {
+        let expectedBrewMethod = BrewMethod.frenchPress
+        mockRepository._recipeInstructions = loadV60SingleRecipeInstructions()
+
+        _ = try sut.fetch(brewMethod: expectedBrewMethod)
+
+        XCTAssertEqual(mockRepository._brewMethod, expectedBrewMethod)
+    }
+
+    func test_fetch_shouldRequestExpectedInstructions() throws {
+        let expectedInstructions = loadV60SingleRecipeInstructions()
+        mockRepository._recipeInstructions = expectedInstructions
+
+        let resultedInstructions = try sut.fetch(brewMethod: .frenchPress)
+
+        XCTAssertEqual(resultedInstructions, expectedInstructions)
     }
 }

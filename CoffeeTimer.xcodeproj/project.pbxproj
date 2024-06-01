@@ -57,7 +57,7 @@
 		CA7B804B29BFABBB007D3DFC /* StageTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804A29BFABBB007D3DFC /* StageTimerView.swift */; };
 		CA7B804D29BFBD8C007D3DFC /* BrewQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804C29BFBD8C007D3DFC /* BrewQueueView.swift */; };
 		CA852F252BD5552D00FEF144 /* RecipeInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA852F242BD5552D00FEF144 /* RecipeInstructions.swift */; };
-		CA852F262BD557A800FEF144 /* instructions_v60.json in Resources */ = {isa = PBXBuildFile; fileRef = CAA325892BD438B1008440D0 /* instructions_v60.json */; };
+		CA852F262BD557A800FEF144 /* instructions_v60_single.json in Resources */ = {isa = PBXBuildFile; fileRef = CAA325892BD438B1008440D0 /* instructions_v60_single.json */; };
 		CA8B44432A2563780003EE57 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA8B44422A2563780003EE57 /* Colors.xcassets */; };
 		CA8C9AEB2C0B4339000A71AC /* FetchRecipeInstructionsUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8C9AEA2C0B4339000A71AC /* FetchRecipeInstructionsUseCaseImpTests.swift */; };
 		CA91CEF729E5FA9100E9F5D1 /* AppFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CEF629E5FA9100E9F5D1 /* AppFlowView.swift */; };
@@ -152,7 +152,7 @@
 		CA8C9AEA2C0B4339000A71AC /* FetchRecipeInstructionsUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchRecipeInstructionsUseCaseImpTests.swift; sourceTree = "<group>"; };
 		CA91CEF629E5FA9100E9F5D1 /* AppFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowView.swift; sourceTree = "<group>"; };
 		CA9BDA282A2CFD290068DFF7 /* CreateRecipeInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeInput.swift; sourceTree = "<group>"; };
-		CAA325892BD438B1008440D0 /* instructions_v60.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = instructions_v60.json; sourceTree = "<group>"; };
+		CAA325892BD438B1008440D0 /* instructions_v60_single.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = instructions_v60_single.json; sourceTree = "<group>"; };
 		CAB1925E2A0D6B6500043837 /* RecipeRepositoryImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRepositoryImpTests.swift; sourceTree = "<group>"; };
 		CAD071E629DCCB000010E561 /* Entities+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entities+Stub.swift"; sourceTree = "<group>"; };
 		CAE3944129DE13C0007611F1 /* CreateRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeView.swift; sourceTree = "<group>"; };
@@ -263,7 +263,7 @@
 		CA367D3029A2B0370095B1B8 /* CoffeeTimer */ = {
 			isa = PBXGroup;
 			children = (
-				CAA325892BD438B1008440D0 /* instructions_v60.json */,
+				CAA325892BD438B1008440D0 /* instructions_v60_single.json */,
 				CA5E907529D61A5F00A78CF2 /* Application */,
 				CA5E907829D61AA400A78CF2 /* Domain */,
 				CA981F822A2695D8000254CD /* iOS */,
@@ -738,7 +738,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA8B44432A2563780003EE57 /* Colors.xcassets in Resources */,
-				CA852F262BD557A800FEF144 /* instructions_v60.json in Resources */,
+				CA852F262BD557A800FEF144 /* instructions_v60_single.json in Resources */,
 				CA367D3929A2B0380095B1B8 /* Preview Assets.xcassets in Resources */,
 				CA367D3629A2B0380095B1B8 /* Assets.xcassets in Resources */,
 			);
