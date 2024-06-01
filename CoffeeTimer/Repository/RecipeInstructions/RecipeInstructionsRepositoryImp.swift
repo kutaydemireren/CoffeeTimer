@@ -9,14 +9,9 @@ import Foundation
 
 // TODO: move
 
-protocol Request {
-
-}
-
-//
-
 struct BrewRequest: Request {
-
+    let host: String = "raw.githubusercontent.com"
+    let path: String = "/kutaydemireren/CoffeeTimer/main/data/v0/brew-instructions/v60-single.json"
 }
 
 //
@@ -31,12 +26,6 @@ extension JSONDecoder: Decoding { }
 
 protocol NetworkManager {
     func perform(request: Request) async throws -> Data
-}
-
-struct NetworkManagerImp: NetworkManager {
-    func perform(request: Request) async throws -> Data {
-        fatalError("missing implementation")
-    }
 }
 
 //

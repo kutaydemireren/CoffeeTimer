@@ -20,6 +20,7 @@
 		CA17289929EB4CD1000F867B /* CoffeeToWaterRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289829EB4CD1000F867B /* CoffeeToWaterRatio.swift */; };
 		CA17289D29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289C29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift */; };
 		CA17289F29EB58F1000F867B /* CreateRecipeProfileSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289E29EB58F1000F867B /* CreateRecipeProfileSelection.swift */; };
+		CA2A00CA2C0B65E10040B50D /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2A00C92C0B65E10040B50D /* Errors.swift */; };
 		CA2D8BE22A02F3AA00BA2899 /* CreateRecipeContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2D8BE12A02F3AA00BA2899 /* CreateRecipeContext.swift */; };
 		CA367D3229A2B0370095B1B8 /* CoffeeTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA367D3129A2B0370095B1B8 /* CoffeeTimerApp.swift */; };
 		CA367D3629A2B0380095B1B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA367D3529A2B0380095B1B8 /* Assets.xcassets */; };
@@ -63,6 +64,8 @@
 		CA8C9AEE2C0B5081000A71AC /* RecipeInstructionsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8C9AED2C0B5081000A71AC /* RecipeInstructionsRepository.swift */; };
 		CA8C9AF12C0B50ED000A71AC /* RecipeInstructionsRepositoryImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8C9AF02C0B50ED000A71AC /* RecipeInstructionsRepositoryImp.swift */; };
 		CA8C9AF42C0B51A9000A71AC /* RecipeInstructionsRepositoryImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8C9AF32C0B51A9000A71AC /* RecipeInstructionsRepositoryImpTests.swift */; };
+		CA8C9AF72C0B6061000A71AC /* NetworkManagerImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8C9AF62C0B6061000A71AC /* NetworkManagerImp.swift */; };
+		CA8C9AFA2C0B609D000A71AC /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8C9AF92C0B609D000A71AC /* Request.swift */; };
 		CA91CEF729E5FA9100E9F5D1 /* AppFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CEF629E5FA9100E9F5D1 /* AppFlowView.swift */; };
 		CA9BDA292A2CFD290068DFF7 /* CreateRecipeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9BDA282A2CFD290068DFF7 /* CreateRecipeInput.swift */; };
 		CAB1925F2A0D6B6500043837 /* RecipeRepositoryImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB1925E2A0D6B6500043837 /* RecipeRepositoryImpTests.swift */; };
@@ -112,6 +115,7 @@
 		CA17289829EB4CD1000F867B /* CoffeeToWaterRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeToWaterRatio.swift; sourceTree = "<group>"; };
 		CA17289C29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeCoffeeWaterSelection.swift; sourceTree = "<group>"; };
 		CA17289E29EB58F1000F867B /* CreateRecipeProfileSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeProfileSelection.swift; sourceTree = "<group>"; };
+		CA2A00C92C0B65E10040B50D /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		CA2D8BE12A02F3AA00BA2899 /* CreateRecipeContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeContext.swift; sourceTree = "<group>"; };
 		CA367D2E29A2B0370095B1B8 /* CoffeeTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA367D3129A2B0370095B1B8 /* CoffeeTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeTimerApp.swift; sourceTree = "<group>"; };
@@ -156,6 +160,8 @@
 		CA8C9AED2C0B5081000A71AC /* RecipeInstructionsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructionsRepository.swift; sourceTree = "<group>"; };
 		CA8C9AF02C0B50ED000A71AC /* RecipeInstructionsRepositoryImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructionsRepositoryImp.swift; sourceTree = "<group>"; };
 		CA8C9AF32C0B51A9000A71AC /* RecipeInstructionsRepositoryImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructionsRepositoryImpTests.swift; sourceTree = "<group>"; };
+		CA8C9AF62C0B6061000A71AC /* NetworkManagerImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerImp.swift; sourceTree = "<group>"; };
+		CA8C9AF92C0B609D000A71AC /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		CA91CEF629E5FA9100E9F5D1 /* AppFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowView.swift; sourceTree = "<group>"; };
 		CA9BDA282A2CFD290068DFF7 /* CreateRecipeInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeInput.swift; sourceTree = "<group>"; };
 		CAA325892BD438B1008440D0 /* instructions_v60_single.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = instructions_v60_single.json; sourceTree = "<group>"; };
@@ -275,6 +281,7 @@
 				CA981F822A2695D8000254CD /* iOS */,
 				CA367D3729A2B0380095B1B8 /* Preview Content */,
 				CAF42CEE29EC98BF004D7788 /* Repository */,
+				CA8C9AF52C0B604C000A71AC /* Network */,
 			);
 			path = CoffeeTimer;
 			sourceTree = "<group>";
@@ -316,12 +323,13 @@
 			path = Recipes;
 			sourceTree = "<group>";
 		};
-		CA5A7D0D2A0EBA6900C7EC04 /* DTO */ = {
+		CA5A7D0D2A0EBA6900C7EC04 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
 				CA5A7D0E2A0EBA7400C7EC04 /* DTOs.swift */,
+				CA2A00C92C0B65E10040B50D /* Errors.swift */,
 			);
-			path = DTO;
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		CA5E907529D61A5F00A78CF2 /* Application */ = {
@@ -481,6 +489,22 @@
 			path = RecipeInstructions;
 			sourceTree = "<group>";
 		};
+		CA8C9AF52C0B604C000A71AC /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				CA8C9AF62C0B6061000A71AC /* NetworkManagerImp.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		CA8C9AF82C0B608F000A71AC /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				CA8C9AF92C0B609D000A71AC /* Request.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
 		CA91CEF429E5FA7D00E9F5D1 /* Flow */ = {
 			isa = PBXGroup;
 			children = (
@@ -605,9 +629,10 @@
 		CAF42CEE29EC98BF004D7788 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				CA8C9AF82C0B608F000A71AC /* Request */,
 				CA8C9AEF2C0B50DA000A71AC /* RecipeInstructions */,
 				CA6263B62A250EDD003E167D /* Storage */,
-				CA5A7D0D2A0EBA6900C7EC04 /* DTO */,
+				CA5A7D0D2A0EBA6900C7EC04 /* Shared */,
 				CAF42CEF29EC98D8004D7788 /* Recipe */,
 			);
 			path = Repository;
@@ -797,6 +822,7 @@
 				CA4758E42A0C3C5C0022BC7D /* RecipesFlowView.swift in Sources */,
 				CAF54BF42A36525C0033A43F /* GetRatiosUseCase.swift in Sources */,
 				CAE3944229DE13C0007611F1 /* CreateRecipeView.swift in Sources */,
+				CA8C9AFA2C0B609D000A71AC /* Request.swift in Sources */,
 				CA17289629EB4CA8000F867B /* View+Responder.swift in Sources */,
 				CA77909D2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift in Sources */,
 				CA91CEF729E5FA9100E9F5D1 /* AppFlowView.swift in Sources */,
@@ -809,6 +835,7 @@
 				CA367D3229A2B0370095B1B8 /* CoffeeTimerApp.swift in Sources */,
 				CA7B804D29BFBD8C007D3DFC /* BrewQueueView.swift in Sources */,
 				CA17289929EB4CD1000F867B /* CoffeeToWaterRatio.swift in Sources */,
+				CA2A00CA2C0B65E10040B50D /* Errors.swift in Sources */,
 				CAF42CDF29EC907F004D7788 /* View+ClearButton.swift in Sources */,
 				CA1552882C0A5DEB000334FB /* FetchRecipeInstructionsUseCaseImp.swift in Sources */,
 				CA17289429EB4B9F000F867B /* NumericTextField.swift in Sources */,
@@ -831,6 +858,7 @@
 				CAF42CF129EC98E4004D7788 /* RecipeRepositoryImp.swift in Sources */,
 				CA7790932A06DB5300BEA142 /* TitledContent.swift in Sources */,
 				CA852F252BD5552D00FEF144 /* RecipeInstructions.swift in Sources */,
+				CA8C9AF72C0B6061000A71AC /* NetworkManagerImp.swift in Sources */,
 				CAF42CE129EC90CA004D7788 /* AlphanumericTextField.swift in Sources */,
 				CAF42CE329EC9524004D7788 /* CreateRecipeFlowView.swift in Sources */,
 				CA77909B2A06F35A00BEA142 /* CreateContextToInputMapper.swift in Sources */,

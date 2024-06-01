@@ -78,7 +78,7 @@ final class CreateRecipeViewModel: ObservableObject {
 	func create(from context: CreateRecipeContext) {
         Task {
             guard let recipe = await createRecipeFromContextUseCase.create(from: context) else {
-                // TODO: `throw` from create(?) or handle by having nil(?)
+                // TODO: throw and handle
                 return
             }
 
