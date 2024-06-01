@@ -1,5 +1,5 @@
 //
-//  CreateRecipeFromInputUseCaseImp.swift
+//  CreateRecipeFromInputUseCaseImpTests.swift
 //  CoffeeTimerTests
 //
 //  Created by Kutay Demireren on 31/05/2024.
@@ -49,7 +49,7 @@ final class CreateRecipeFromInputUseCaseImpTests: XCTestCase {
                 coffee: ingredients[0].amount,
                 water: ingredients[1].amount
             ),
-            instructions: loadSingleV60RecipeInstructions()
+            instructions: loadV60SingleRecipeInstructions()
         )
 
         XCTAssertEqual(resultedRecipe.brewQueue, .stubSingleV60)

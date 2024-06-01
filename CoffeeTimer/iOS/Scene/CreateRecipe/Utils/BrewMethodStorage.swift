@@ -8,13 +8,14 @@
 import Foundation
 
 struct BrewMethodStorage {
-	static var brewMethods: [BrewMethod] {
-		[
-			.v60,
-			.v60Iced,
-			.chemex,
-			.frenchPress,
-			.melitta
-		]
-	}
+    static var brewMethods: [BrewMethod] {
+        [
+            .v60,
+            .v60Single,
+            .v60Iced,
+            .chemex,
+            .frenchPress,
+            .melitta
+        ]
+    }
 }

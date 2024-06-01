@@ -8,11 +8,17 @@
 import Foundation
 
 protocol FetchRecipeInstructionsUseCase {
-    func fetch(brewMethod: BrewMethod) throws -> RecipeInstructions
+    func fetch(brewMethod: BrewMethod) async throws -> RecipeInstructions
 }
 
 struct FetchRecipeInstructionsUseCaseImp: FetchRecipeInstructionsUseCase {
-    func fetch(brewMethod: BrewMethod) throws -> RecipeInstructions {
-        fatalError("missing implementation")
+    var repository: RecipeInstructionsRepository
+
+    init(repository: RecipeInstructionsRepository = RecipeInstructionsRepositoryImp()) {
+        self.repository = repository
+    }
+
+    func fetch(brewMethod: BrewMethod) async throws -> RecipeInstructions {
+        try await repository.fetchInstructions(for: brewMethod)
     }
 }

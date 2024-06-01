@@ -21,3 +21,9 @@ extension CreateRecipeContext: Equatable {
         lhs.recipeProfile == rhs.recipeProfile
     }
 }
+
+extension RecipeInstructions: Equatable {
+    public static func == (lhs: RecipeInstructions, rhs: RecipeInstructions) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+}

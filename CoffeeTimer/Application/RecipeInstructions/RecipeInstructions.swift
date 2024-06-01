@@ -79,8 +79,8 @@ import Foundation
 
 //
 
-func loadSingleV60RecipeInstructions() -> RecipeInstructions { // TODO: remove once fetching is possible
-    guard let bundleURL = Bundle.main.url(forResource: "instructions_v60", withExtension: "json") else {
+func loadV60SingleRecipeInstructions() -> RecipeInstructions { // TODO: remove once fetching is possible
+    guard let bundleURL = Bundle.main.url(forResource: "instructions_v60_single", withExtension: "json") else {
         fatalError("Coffee recipe file not found in bundle")
     }
 
@@ -99,13 +99,14 @@ func loadSingleV60RecipeInstructions() -> RecipeInstructions { // TODO: remove o
 struct RecipeInstructions: Decodable {
     typealias Ingredient = String
 
+    let identifier: String
     let ingredients: [RecipeInstructions.Ingredient]
     let steps: [RecipeInstructionStep]
 }
 
 extension RecipeInstructions { // TODO: Move to test target
     static var empty: Self {
-        return RecipeInstructions(ingredients: [], steps: [])
+        return RecipeInstructions(identifier: "", ingredients: [], steps: [])
     }
 }
 
