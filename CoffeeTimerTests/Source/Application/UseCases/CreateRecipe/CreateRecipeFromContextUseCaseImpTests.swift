@@ -129,7 +129,7 @@ extension CreateRecipeFromContextUseCaseImpTests {
         XCTAssertNil(resultedRecipe)
     }
 
-    func test_create_whenFetchBrewInstructionsFails_shouldReturnNil() {
+    func test_create_whenFetchRecipeInstructionsFails_shouldReturnNil() {
         mockFetchRecipeInstructionsUseCase._error = TestError.notAllowed
 
         let resultedRecipe = sut.create(from: validContext)
