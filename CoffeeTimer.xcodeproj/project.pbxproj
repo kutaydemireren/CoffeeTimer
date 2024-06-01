@@ -79,8 +79,6 @@
 		CAF42CF129EC98E4004D7788 /* RecipeRepositoryImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CF029EC98E4004D7788 /* RecipeRepositoryImp.swift */; };
 		CAF42CF329EC9906004D7788 /* RecipeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CF229EC9906004D7788 /* RecipeRepository.swift */; };
 		CAF42CF529EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CF429EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift */; };
-		CAF54BF42A36525C0033A43F /* GetRatiosUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF54BF32A36525C0033A43F /* GetRatiosUseCase.swift */; };
-		CAF54BF72A3652970033A43F /* GetRatiosUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF54BF62A3652970033A43F /* GetRatiosUseCaseImpTests.swift */; };
 		CAFCF54B2A6F0A1700875CB7 /* HapticGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */; };
 /* End PBXBuildFile section */
 
@@ -177,8 +175,6 @@
 		CAF42CF029EC98E4004D7788 /* RecipeRepositoryImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRepositoryImp.swift; sourceTree = "<group>"; };
 		CAF42CF229EC9906004D7788 /* RecipeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRepository.swift; sourceTree = "<group>"; };
 		CAF42CF429EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeBrewMethodSelection.swift; sourceTree = "<group>"; };
-		CAF54BF32A36525C0033A43F /* GetRatiosUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRatiosUseCase.swift; sourceTree = "<group>"; };
-		CAF54BF62A3652970033A43F /* GetRatiosUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRatiosUseCaseImpTests.swift; sourceTree = "<group>"; };
 		CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -551,7 +547,6 @@
 		CA9BDA1E2A2CDCA30068DFF7 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				CAF54BF22A3652000033A43F /* GetRatios */,
 				CAF54BF02A3651D00033A43F /* CreateRecipe */,
 			);
 			path = UseCases;
@@ -569,7 +564,6 @@
 			isa = PBXGroup;
 			children = (
 				CA711D402A64302A00C21E41 /* CreateRecipe */,
-				CAF54BF52A3652810033A43F /* GetRatios */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -657,22 +651,6 @@
 				CA1552872C0A5DEB000334FB /* FetchRecipeInstructionsUseCase.swift */,
 			);
 			path = CreateRecipe;
-			sourceTree = "<group>";
-		};
-		CAF54BF22A3652000033A43F /* GetRatios */ = {
-			isa = PBXGroup;
-			children = (
-				CAF54BF32A36525C0033A43F /* GetRatiosUseCase.swift */,
-			);
-			path = GetRatios;
-			sourceTree = "<group>";
-		};
-		CAF54BF52A3652810033A43F /* GetRatios */ = {
-			isa = PBXGroup;
-			children = (
-				CAF54BF62A3652970033A43F /* GetRatiosUseCaseImpTests.swift */,
-			);
-			path = GetRatios;
 			sourceTree = "<group>";
 		};
 		CAFCF5492A6F0A0300875CB7 /* Utils */ = {
@@ -820,7 +798,6 @@
 				CA3CA4AF2A1AA20B00C76E28 /* RecipeMapper.swift in Sources */,
 				CA4758DF2A0C2D440022BC7D /* RecipesView.swift in Sources */,
 				CA4758E42A0C3C5C0022BC7D /* RecipesFlowView.swift in Sources */,
-				CAF54BF42A36525C0033A43F /* GetRatiosUseCase.swift in Sources */,
 				CAE3944229DE13C0007611F1 /* CreateRecipeView.swift in Sources */,
 				CA8C9AFA2C0B609D000A71AC /* Request.swift in Sources */,
 				CA17289629EB4CA8000F867B /* View+Responder.swift in Sources */,
@@ -879,7 +856,6 @@
 				CA6263BB2A25492D003E167D /* DTOs+Stub.swift in Sources */,
 				CA1552862C0A5DB9000334FB /* TestError.swift in Sources */,
 				CA8C9AEB2C0B4339000A71AC /* FetchRecipeInstructionsUseCaseImpTests.swift in Sources */,
-				CAF54BF72A3652970033A43F /* GetRatiosUseCaseImpTests.swift in Sources */,
 				CAB1925F2A0D6B6500043837 /* RecipeRepositoryImpTests.swift in Sources */,
 				CA7790952A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift in Sources */,
 				CA8C9AF42C0B51A9000A71AC /* RecipeInstructionsRepositoryImpTests.swift in Sources */,

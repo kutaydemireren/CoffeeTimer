@@ -32,18 +32,15 @@ final class CreateRecipeViewModel: ObservableObject {
     private var createRecipeFromContextUseCase: CreateRecipeFromContextUseCase
     private var recipeRepository: RecipeRepository // TODO: use case - no repo in vm!
     private var getBrewMethodsUseCase: GetBrewMethodsUseCase
-    private var getRatiosUseCase: GetRatiosUseCase
 
     init(
         createRecipeFromContextUseCase: CreateRecipeFromContextUseCase = CreateRecipeFromContextUseCaseImp(),
         recipeRepository: RecipeRepository = RecipeRepositoryImp.shared,
-        getBrewMethodsUseCase: GetBrewMethodsUseCase = GetBrewMethodsUseCaseImp(),
-        getRatiosUseCase: GetRatiosUseCase = GetRatiosUseCaseImp() // TODO: remove, no longer needed
+        getBrewMethodsUseCase: GetBrewMethodsUseCase = GetBrewMethodsUseCaseImp()
     ) {
         self.createRecipeFromContextUseCase = createRecipeFromContextUseCase
         self.recipeRepository = recipeRepository
         self.getBrewMethodsUseCase = getBrewMethodsUseCase
-        self.getRatiosUseCase = getRatiosUseCase
 
         refreshBrewMethods()
     }
