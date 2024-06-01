@@ -14,43 +14,6 @@ struct BrewMethod: Equatable {
     let ratios: [CoffeeToWaterRatio]
 }
 
-/*
-enum BrewMethod: String, Equatable {
-    case v60 = "v60"
-    case v60Single = "v60-single"
-    case v60Iced = "v60-iced"
-    case chemex
-    case melitta
-    case frenchPress = "french-press"
-
-    var title: String {
-        switch self {
-        case .v60:
-            return "V60"
-        case .v60Single:
-            return "V60 Single"
-        case .v60Iced:
-            return "V60 Iced"
-        case .chemex:
-            return "Chemex"
-        case .melitta:
-            return "Melitta"
-        case .frenchPress:
-            return "French Press"
-        }
-    }
-
-    var isIced: Bool {
-        switch self {
-        case .v60Iced:
-            return true
-        default:
-            return false
-        }
-    }
-}
- */
-
 struct Recipe: Equatable {
     let recipeProfile: RecipeProfile
     let ingredients: [Ingredient]
