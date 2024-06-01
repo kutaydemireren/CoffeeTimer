@@ -11,7 +11,11 @@ import Foundation
 
 struct BrewRequest: Request {
     let host: String = "raw.githubusercontent.com"
-    let path: String = "/kutaydemireren/CoffeeTimer/main/data/v0/brew-instructions/v60-single.json"
+    let path: String
+
+    init(brewMethod: BrewMethod) {
+        path = "/kutaydemireren/CoffeeTimer/main/data/v0/brew-instructions/\(brewMethod.rawValue).json"
+    }
 }
 
 //
@@ -43,7 +47,7 @@ struct RecipeInstructionsRepositoryImp: RecipeInstructionsRepository {
     }
 
     func fetchInstructions(for brewMethod: BrewMethod) async throws -> RecipeInstructions {
-        let data = try await networkManager.perform(request: BrewRequest())
+        let data = try await networkManager.perform(request: BrewRequest(brewMethod: brewMethod))
         let recipeInstructions = try decoding.decode(RecipeInstructions.self, from: data)
         return recipeInstructions
     }

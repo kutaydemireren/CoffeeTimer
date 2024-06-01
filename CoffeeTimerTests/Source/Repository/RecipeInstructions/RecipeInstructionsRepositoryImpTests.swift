@@ -69,6 +69,7 @@ final class RecipeInstructionsRepositoryImpTests: XCTestCase {
         mockNetworkManager = MockNetworkManager()
         mockNetworkManager._data = Data()
         mockDecoding = MockDecoding()
+        mockDecoding._decoded = RecipeInstructions.empty
         sut = RecipeInstructionsRepositoryImp(networkManager: mockNetworkManager, decoding: mockDecoding)
     }
 
@@ -98,7 +99,13 @@ final class RecipeInstructionsRepositoryImpTests: XCTestCase {
         }
     }
 
-    func test_fetchInstructions_shouldReturnEmpty() async throws {
+    func test_fetchInstructions_shouldUseExpectedBrewRequest() async throws {
+        _ = try await sut.fetchInstructions(for: .frenchPress)
+
+        XCTAssertEqual(try mockNetworkManager._request.createURLRequest(), try BrewRequest(brewMethod: .frenchPress).createURLRequest())
+    }
+
+    func test_fetchInstructions_shouldReturnExpectedRecipeInstructions() async throws {
         mockNetworkManager._data = Data()
         let expectedInstructions = loadV60SingleRecipeInstructions()
         mockDecoding._decoded = expectedInstructions
