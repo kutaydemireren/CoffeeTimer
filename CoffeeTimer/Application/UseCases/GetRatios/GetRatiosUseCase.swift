@@ -8,21 +8,26 @@
 import Foundation
 
 protocol GetRatiosUseCase {
-	func ratios(for brewMethod: BrewMethod?) -> [CoffeeToWaterRatio]
+    func ratios(for brewMethod: BrewMethod?) -> [CoffeeToWaterRatio]
 }
 
 struct GetRatiosUseCaseImp: GetRatiosUseCase {
 
-	func ratios(for brewMethod: BrewMethod?) -> [CoffeeToWaterRatio] {
+    func ratios(for brewMethod: BrewMethod?) -> [CoffeeToWaterRatio] {
 
-		guard let brewMethod = brewMethod else {
-			return []
-		}
+        guard let brewMethod = brewMethod else {
+            return []
+        }
 
-		if brewMethod.isIced {
-			return [.ratio15, .ratio16, .ratio17, .ratio18, .ratio19]
-		} else {
-			return [.ratio16, .ratio17, .ratio18, .ratio19, .ratio20]
-		}
-	}
+        // TODO: update to map from brewMethod
+        return [.ratio16, .ratio17, .ratio18, .ratio19, .ratio20]
+
+        /*
+        if brewMethod.isIced {
+            return [.ratio15, .ratio16, .ratio17, .ratio18, .ratio19]
+        } else {
+            return [.ratio16, .ratio17, .ratio18, .ratio19, .ratio20]
+        }
+        */
+    }
 }

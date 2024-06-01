@@ -8,6 +8,16 @@
 import XCTest
 @testable import CoffeeTimer
 
+// TODO: move
+
+extension BrewMethod {
+    static var frenchPress: Self {
+        return BrewMethod(id: "french-press", title: "French Press", path: "", ratios: CoffeeToWaterRatio.allCases)
+    }
+}
+
+//
+
 final class CreateRecipeFromContextUseCaseImpTests: XCTestCase {
     var mockCreateContextToInputMapper: MockCreateContextToInputMapper!
     var mockFetchRecipeInstructionsUseCase: MockFetchRecipeInstructionsUseCase!
