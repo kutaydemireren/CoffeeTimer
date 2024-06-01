@@ -8,7 +8,7 @@
 import XCTest
 @testable import CoffeeTimer
 
-//
+// TODO: move
 
 final class MockNetworkManager: NetworkManager {
     var _error: Error!
@@ -28,17 +28,39 @@ final class MockNetworkManager: NetworkManager {
 
 //
 
+final class MockDecoding: Decoding {
+    var _error: Error!
+    var _decoded: Any!
+    var _data: Data!
+
+    func decode<T: Decodable>(_ type: T.Type, from data: Data) throws -> T {
+        _data = data
+
+        if let _error {
+            throw _error
+        }
+
+        return _decoded as! T
+    }
+}
+
+//
+
 final class RecipeInstructionsRepositoryImpTests: XCTestCase {
     var mockNetworkManager: MockNetworkManager!
+    var mockDecoding: MockDecoding!
     var sut: RecipeInstructionsRepositoryImp!
 
     override func setUp() {
         mockNetworkManager = MockNetworkManager()
-        sut = RecipeInstructionsRepositoryImp(networkManager: mockNetworkManager)
+        mockNetworkManager._data = Data()
+        mockDecoding = MockDecoding()
+        sut = RecipeInstructionsRepositoryImp(networkManager: mockNetworkManager, decoding: mockDecoding)
     }
 
     override func tearDown() {
         mockNetworkManager = nil
+        mockDecoding = nil
         sut = nil
     }
 
@@ -50,8 +72,17 @@ final class RecipeInstructionsRepositoryImpTests: XCTestCase {
         }
     }
 
+    func test_fetchInstructions_whenDecodingThrowsError_shouldThrowExpectedError() {
+        mockDecoding._error = TestError.notAllowed
+
+        XCTAssertThrowsError(try sut.fetchInstructions(for: .frenchPress)) { error in
+            XCTAssertEqual(error as? TestError, .notAllowed)
+        }
+    }
+
     func test_fetchInstructions_shouldReturnEmpty() {
         mockNetworkManager._data = Data()
+        mockDecoding._decoded = RecipeInstructions.empty
 
         XCTAssertEqual(try sut.fetchInstructions(for: .frenchPress), .empty)
     }
