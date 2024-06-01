@@ -10,11 +10,14 @@ import XCTest
 
 final class BrewMethodRepositoryImpTests: XCTestCase {
     var mockNetworkManager: MockNetworkManager!
+    var mockDecoding: MockDecoding!
     var sut: BrewMethodRepositoryImp!
 
     override func setUpWithError() throws {
         mockNetworkManager = MockNetworkManager()
-        sut = BrewMethodRepositoryImp(networkManager: mockNetworkManager)
+        mockNetworkManager._data = Data()
+        mockDecoding = MockDecoding()
+        sut = BrewMethodRepositoryImp(networkManager: mockNetworkManager, decoding: mockDecoding)
     }
 
     override func tearDownWithError() throws {
@@ -23,6 +26,16 @@ final class BrewMethodRepositoryImpTests: XCTestCase {
 
     func test_fetchBrewMethods_whenNetworkThrowsError_shouldThrowExpectedError() async throws {
         mockNetworkManager._error = TestError.notAllowed
+
+        await assertThrowsError {
+            try await sut.fetchBrewMethods()
+        } _: { error in
+            XCTAssertEqual(error as? TestError, .notAllowed)
+        }
+    }
+
+    func test_fetchBrewMethods_whenDecodingThrowsError_shouldThrowExpectedError() async throws {
+        mockDecoding._error = TestError.notAllowed
 
         await assertThrowsError {
             try await sut.fetchBrewMethods()

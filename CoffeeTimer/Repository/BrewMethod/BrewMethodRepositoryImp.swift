@@ -9,13 +9,19 @@ import Foundation
 
 struct BrewMethodRepositoryImp: BrewMethodRepository {
     let networkManager: NetworkManager
+    let decoding: Decoding
 
-    init(networkManager: NetworkManager = NetworkManagerImp()) {
+    init(
+        networkManager: NetworkManager = NetworkManagerImp(),
+        decoding: Decoding = JSONDecoder()
+    ) {
         self.networkManager = networkManager
+        self.decoding = decoding
     }
 
     func fetchBrewMethods() async throws -> [BrewMethod] {
-        let _ = try await networkManager.perform(request: RecipeInstructionsRequest(brewMethod: .frenchPress))
+        let data = try await networkManager.perform(request: RecipeInstructionsRequest(brewMethod: .frenchPress))
+        let _ = try decoding.decode(RecipeInstructions.self, from: data)
         return []
     }
 }
