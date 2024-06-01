@@ -7,6 +7,12 @@
 
 import Foundation
 
+// TODO: replace with `BrewMethod`
+struct NewBrewMethod {
+    let id: String
+    let title: String
+}
+
 enum BrewMethod: String, Equatable {
     case v60 = "v60"
     case v60Single = "v60-single"
