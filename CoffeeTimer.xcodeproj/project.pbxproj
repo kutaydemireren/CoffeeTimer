@@ -21,6 +21,7 @@
 		CA17289D29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289C29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift */; };
 		CA17289F29EB58F1000F867B /* CreateRecipeProfileSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289E29EB58F1000F867B /* CreateRecipeProfileSelection.swift */; };
 		CA2A00CA2C0B65E10040B50D /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2A00C92C0B65E10040B50D /* Errors.swift */; };
+		CA2A00CE2C0B8FF10040B50D /* GetBrewMethodsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2A00CD2C0B8FF10040B50D /* GetBrewMethodsUseCase.swift */; };
 		CA2D8BE22A02F3AA00BA2899 /* CreateRecipeContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2D8BE12A02F3AA00BA2899 /* CreateRecipeContext.swift */; };
 		CA367D3229A2B0370095B1B8 /* CoffeeTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA367D3129A2B0370095B1B8 /* CoffeeTimerApp.swift */; };
 		CA367D3629A2B0380095B1B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA367D3529A2B0380095B1B8 /* Assets.xcassets */; };
@@ -114,6 +115,7 @@
 		CA17289C29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeCoffeeWaterSelection.swift; sourceTree = "<group>"; };
 		CA17289E29EB58F1000F867B /* CreateRecipeProfileSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeProfileSelection.swift; sourceTree = "<group>"; };
 		CA2A00C92C0B65E10040B50D /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		CA2A00CD2C0B8FF10040B50D /* GetBrewMethodsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBrewMethodsUseCase.swift; sourceTree = "<group>"; };
 		CA2D8BE12A02F3AA00BA2899 /* CreateRecipeContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeContext.swift; sourceTree = "<group>"; };
 		CA367D2E29A2B0370095B1B8 /* CoffeeTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA367D3129A2B0370095B1B8 /* CoffeeTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeTimerApp.swift; sourceTree = "<group>"; };
@@ -247,6 +249,22 @@
 				CAF42CE429EC9548004D7788 /* Navigable.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		CA2A00CB2C0B8FA20040B50D /* RecipeInstructions */ = {
+			isa = PBXGroup;
+			children = (
+				CA1552872C0A5DEB000334FB /* FetchRecipeInstructionsUseCase.swift */,
+			);
+			path = RecipeInstructions;
+			sourceTree = "<group>";
+		};
+		CA2A00CC2C0B8FB90040B50D /* BrewMethods */ = {
+			isa = PBXGroup;
+			children = (
+				CA2A00CD2C0B8FF10040B50D /* GetBrewMethodsUseCase.swift */,
+			);
+			path = BrewMethods;
 			sourceTree = "<group>";
 		};
 		CA367D2529A2B0370095B1B8 = {
@@ -383,7 +401,7 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		CA711D402A64302A00C21E41 /* CreateRecipe */ = {
+		CA711D402A64302A00C21E41 /* Recipe */ = {
 			isa = PBXGroup;
 			children = (
 				CA7790942A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift */,
@@ -391,7 +409,7 @@
 				CA1552892C0A5E2E000334FB /* CreateRecipeFromInputUseCaseImpTests.swift */,
 				CA8C9AEA2C0B4339000A71AC /* FetchRecipeInstructionsUseCaseImpTests.swift */,
 			);
-			path = CreateRecipe;
+			path = Recipe;
 			sourceTree = "<group>";
 		};
 		CA77909E2A06F3A400BEA142 /* Test Utils */ = {
@@ -547,7 +565,9 @@
 		CA9BDA1E2A2CDCA30068DFF7 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				CAF54BF02A3651D00033A43F /* CreateRecipe */,
+				CA2A00CC2C0B8FB90040B50D /* BrewMethods */,
+				CA2A00CB2C0B8FA20040B50D /* RecipeInstructions */,
+				CAF54BF02A3651D00033A43F /* Recipe */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -563,7 +583,7 @@
 		CA9BDA232A2CE9CA0068DFF7 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				CA711D402A64302A00C21E41 /* CreateRecipe */,
+				CA711D402A64302A00C21E41 /* Recipe */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -641,16 +661,15 @@
 			path = Recipe;
 			sourceTree = "<group>";
 		};
-		CAF54BF02A3651D00033A43F /* CreateRecipe */ = {
+		CAF54BF02A3651D00033A43F /* Recipe */ = {
 			isa = PBXGroup;
 			children = (
 				CA77909A2A06F35A00BEA142 /* CreateContextToInputMapper.swift */,
 				CA77909C2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift */,
 				CA15527F2C0A5D3F000334FB /* CreateRecipeFromInputUseCase.swift */,
 				CA9BDA282A2CFD290068DFF7 /* CreateRecipeInput.swift */,
-				CA1552872C0A5DEB000334FB /* FetchRecipeInstructionsUseCase.swift */,
 			);
-			path = CreateRecipe;
+			path = Recipe;
 			sourceTree = "<group>";
 		};
 		CAFCF5492A6F0A0300875CB7 /* Utils */ = {
@@ -804,6 +823,7 @@
 				CA77909D2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift in Sources */,
 				CA91CEF729E5FA9100E9F5D1 /* AppFlowView.swift in Sources */,
 				CA7B804529BFA9E7007D3DFC /* CountdownTimer.swift in Sources */,
+				CA2A00CE2C0B8FF10040B50D /* GetBrewMethodsUseCase.swift in Sources */,
 				CA5A7D0F2A0EBA7400C7EC04 /* DTOs.swift in Sources */,
 				CA6263C92A254F67003E167D /* ProfileIconStorage.swift in Sources */,
 				CA8C9AF12C0B50ED000A71AC /* RecipeInstructionsRepositoryImp.swift in Sources */,

@@ -7,20 +7,6 @@
 
 import SwiftUI
 
-// TODO: move
-
-protocol GetBrewMethodsUseCase {
-    func getAll() async throws -> [BrewMethod]
-}
-
-struct GetBrewMethodsUseCaseImp: GetBrewMethodsUseCase {
-    func getAll() async throws -> [BrewMethod] {
-        BrewMethodStorage.brewMethods
-    }
-}
-
-//
-
 @MainActor
 final class CreateRecipeViewModel: ObservableObject {
     private let pageCount = 3
