@@ -26,12 +26,12 @@ final class MockBrewMethodRepository: BrewMethodRepository {
 //
 
 final class GetBrewMethodsUseCaseImpTests: XCTestCase {
-    var mockBrewMethodRepository: MockBrewMethodRepository!
+    var repository: MockBrewMethodRepository!
     var sut: GetBrewMethodsUseCaseImp!
 
     override func setUpWithError() throws {
-        mockBrewMethodRepository = MockBrewMethodRepository()
-        sut = GetBrewMethodsUseCaseImp(repository: mockBrewMethodRepository)
+        repository = MockBrewMethodRepository()
+        sut = GetBrewMethodsUseCaseImp(repository: repository)
     }
 
     override func tearDownWithError() throws {
@@ -39,7 +39,7 @@ final class GetBrewMethodsUseCaseImpTests: XCTestCase {
     }
 
     func test_getAll_whenErrorThrown_shouldThrowExpectedError() async throws {
-        mockBrewMethodRepository._error = TestError.notAllowed
+        repository._error = TestError.notAllowed
 
         await assertThrowsError {
             try await sut.getAll()
@@ -50,7 +50,7 @@ final class GetBrewMethodsUseCaseImpTests: XCTestCase {
 
     func test_getAll_shouldReturnExpectedBrewMethods() async throws {
         let expectedBrewMethods: [BrewMethod] = [.frenchPress, .v60Iced]
-        mockBrewMethodRepository._brewMethods = expectedBrewMethods
+        repository._brewMethods = expectedBrewMethods
 
         let resultedBrewMethods = try await sut.getAll()
 

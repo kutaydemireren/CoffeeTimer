@@ -8,7 +8,14 @@
 import Foundation
 
 struct BrewMethodRepositoryImp: BrewMethodRepository {
+    let networkManager: NetworkManager
+
+    init(networkManager: NetworkManager = NetworkManagerImp()) {
+        self.networkManager = networkManager
+    }
+
     func fetchBrewMethods() async throws -> [BrewMethod] {
-        fatalError("missing implementation")
+        let _ = try await networkManager.perform(request: RecipeInstructionsRequest(brewMethod: .frenchPress))
+        return []
     }
 }
