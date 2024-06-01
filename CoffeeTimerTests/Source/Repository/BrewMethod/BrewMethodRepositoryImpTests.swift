@@ -17,6 +17,7 @@ final class BrewMethodRepositoryImpTests: XCTestCase {
         mockNetworkManager = MockNetworkManager()
         mockNetworkManager._data = Data()
         mockDecoding = MockDecoding()
+        mockDecoding._decoded = [BrewMethod]()
         sut = BrewMethodRepositoryImp(networkManager: mockNetworkManager, decoding: mockDecoding)
     }
 
@@ -42,5 +43,13 @@ final class BrewMethodRepositoryImpTests: XCTestCase {
         } _: { error in
             XCTAssertEqual(error as? TestError, .notAllowed)
         }
+    }
+
+    func test_fetchBrewMethods_shouldReturnExpectedBrewMethods() async throws {
+        mockDecoding._decoded = [BrewMethodDTO.frenchPress, BrewMethodDTO.v60Single]
+
+        let resultedBrewMethods = try await sut.fetchBrewMethods()
+
+        XCTAssertEqual(resultedBrewMethods, [.frenchPress, .v60Single])
     }
 }

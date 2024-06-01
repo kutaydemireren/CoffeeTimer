@@ -73,6 +73,6 @@ extension BrewMethod {
     }
 
     static var frenchPress: Self {
-        return BrewMethod(id: "french-press", title: "French Press", path: "", ratios: [.ratio16, .ratio17, .ratio18, .ratio19, .ratio20])
+        return BrewMethod(id: "french-press", title: "French Press", path: "", ratios: [.ratio17, .ratio18, .ratio19, .ratio20])
     }
 }

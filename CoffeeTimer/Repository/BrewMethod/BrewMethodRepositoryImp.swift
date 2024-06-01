@@ -21,7 +21,18 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
 
     func fetchBrewMethods() async throws -> [BrewMethod] {
         let data = try await networkManager.perform(request: RecipeInstructionsRequest(brewMethod: .frenchPress))
-        let _ = try decoding.decode(RecipeInstructions.self, from: data)
-        return []
+        let brewMethodDTOs = try decoding.decode([BrewMethodDTO].self, from: data)
+        return map(brewMethodDTOs: brewMethodDTOs)
+    }
+
+    private func map(brewMethodDTOs: [BrewMethodDTO]) -> [BrewMethod] {
+        brewMethodDTOs.map { brewMethodDTO in
+            BrewMethod(
+                id: brewMethodDTO.id,
+                title: brewMethodDTO.title,
+                path: brewMethodDTO.path,
+                ratios: brewMethodDTO.ratios.compactMap { CoffeeToWaterRatio(rawValue: $0) }
+            )
+        }
     }
 }

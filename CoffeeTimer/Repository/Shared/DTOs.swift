@@ -47,6 +47,13 @@ enum IngredientAmountTypeDTO: Codable, Equatable {
     case millilitre
 }
 
+struct BrewMethodDTO: Codable, Equatable {
+    let id: String
+    let title: String
+    let path: String
+    let ratios: [String]
+}
+
 struct BrewQueueDTO: Codable, Equatable {
     let stages: [BrewStageDTO]?
 }
