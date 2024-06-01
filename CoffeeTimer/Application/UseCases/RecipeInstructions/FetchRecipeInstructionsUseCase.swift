@@ -1,5 +1,5 @@
 //
-//  FetchRecipeInstructionsUseCaseImp.swift
+//  FetchRecipeInstructionsUseCase.swift
 //  CoffeeTimer
 //
 //  Created by Kutay Demireren on 31/05/2024.

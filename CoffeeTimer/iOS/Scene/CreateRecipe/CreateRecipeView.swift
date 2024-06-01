@@ -9,73 +9,82 @@ import SwiftUI
 
 @MainActor
 final class CreateRecipeViewModel: ObservableObject {
-	private let pageCount = 3
+    private let pageCount = 3
 
-	@Published var selectedPage = 1
-	@Published var allRatios: [CoffeeToWaterRatio] = []
+    @Published var selectedPage = 1
+    @Published var brewMethods: [BrewMethod] = []
+    @Published var allRatios: [CoffeeToWaterRatio] = []
 
-	private var createRecipeFromContextUseCase: CreateRecipeFromContextUseCase
-	private var getRatiosUseCase: GetRatiosUseCase
-	private var recipeRepository: RecipeRepository // TODO: use case - no repo in vm!
+    private var createRecipeFromContextUseCase: CreateRecipeFromContextUseCase
+    private var recipeRepository: RecipeRepository // TODO: use case - no repo in vm!
+    private var getBrewMethodsUseCase: GetBrewMethodsUseCase
 
-	init(
-		createRecipeFromContextUseCase: CreateRecipeFromContextUseCase = CreateRecipeFromContextUseCaseImp(),
-		recipeRepository: RecipeRepository = RecipeRepositoryImp.shared,
-		getRatiosUseCase: GetRatiosUseCase = GetRatiosUseCaseImp()
-	) {
-		self.createRecipeFromContextUseCase = createRecipeFromContextUseCase
-		self.recipeRepository = recipeRepository
-		self.getRatiosUseCase = getRatiosUseCase
-	}
+    init(
+        createRecipeFromContextUseCase: CreateRecipeFromContextUseCase = CreateRecipeFromContextUseCaseImp(),
+        recipeRepository: RecipeRepository = RecipeRepositoryImp.shared,
+        getBrewMethodsUseCase: GetBrewMethodsUseCase = GetBrewMethodsUseCaseImp()
+    ) {
+        self.createRecipeFromContextUseCase = createRecipeFromContextUseCase
+        self.recipeRepository = recipeRepository
+        self.getBrewMethodsUseCase = getBrewMethodsUseCase
 
-	func nextPage(in context: CreateRecipeContext) {
-		var newSelectedPage = 1
+        refreshBrewMethods()
+    }
 
-		if selectedPage < 3 {
-			newSelectedPage = (selectedPage % pageCount) + 1
-		} else {
-			newSelectedPage = getNextMissingPage(in: context)
-		}
+    func refreshBrewMethods() {
+        Task {
+            self.brewMethods = try await getBrewMethodsUseCase.getAll()
+        }
+    }
 
-		selectedPage = newSelectedPage
-	}
+    func nextPage(in context: CreateRecipeContext) {
+        var newSelectedPage = 1
 
-	private func getNextMissingPage(in context: CreateRecipeContext) -> Int {
-		do {
-			let _ = try createRecipeFromContextUseCase.canCreate(from: context)
-		} catch let error as CreateRecipeFromContextUseCaseError {
-			switch error {
-			case .missingBrewMethod:
-				return 1
-			case .missingRecipeProfile:
-				return 2
-			case .missingCupsCount, .missingRatio:
-				return 3
-			}
-		} catch _ {
-			// Unknown error
-		}
+        if selectedPage < 3 {
+            newSelectedPage = (selectedPage % pageCount) + 1
+        } else {
+            newSelectedPage = getNextMissingPage(in: context)
+        }
 
-		// No missing, return last page
-		return 3
-	}
+        selectedPage = newSelectedPage
+    }
 
-	func canCreate(from context: CreateRecipeContext) -> Bool {
-		// TODO: Extract below to separate functionality
-		let newRatios = getRatiosUseCase.ratios(for: context.selectedBrewMethod)
-		if newRatios != allRatios {
-			self.allRatios = newRatios
-			context.ratio = nil
-		}
+    private func getNextMissingPage(in context: CreateRecipeContext) -> Int {
+        do {
+            let _ = try createRecipeFromContextUseCase.canCreate(from: context)
+        } catch let error as CreateRecipeFromContextUseCaseError {
+            switch error {
+            case .missingBrewMethod:
+                return 1
+            case .missingRecipeProfile:
+                return 2
+            case .missingCupsCount, .missingRatio:
+                return 3
+            }
+        } catch _ {
+            // Unknown error
+        }
 
-		do {
-			return try createRecipeFromContextUseCase.canCreate(from: context)
-		} catch {
-			return false
-		}
-	}
+        // No missing, return last page
+        return 3
+    }
 
-	func create(from context: CreateRecipeContext) {
+    func canCreate(from context: CreateRecipeContext) -> Bool {
+        // TODO: Extract below to separate functionality
+        let newRatios = context.selectedBrewMethod?.ratios
+        if let newRatios, newRatios != allRatios {
+            self.allRatios = newRatios
+            context.ratio = nil
+        }
+
+        do {
+            return try createRecipeFromContextUseCase.canCreate(from: context)
+        } catch {
+            return false
+        }
+    }
+
+    func create(from context: CreateRecipeContext) {
         Task {
             guard let recipe = await createRecipeFromContextUseCase.create(from: context) else {
                 // TODO: throw and handle
@@ -84,75 +93,75 @@ final class CreateRecipeViewModel: ObservableObject {
 
             recipeRepository.save(recipe)
         }
-	}
+    }
 }
 
 struct CreateRecipeView: View {
 
-	@ObservedObject var viewModel: CreateRecipeViewModel
-	@EnvironmentObject var context: CreateRecipeContext
-	var closeRequest: () -> Void
+    @ObservedObject var viewModel: CreateRecipeViewModel
+    @EnvironmentObject var context: CreateRecipeContext
+    var closeRequest: () -> Void
 
-	let gridCache = GridCache(title: TitleStorage.randomFunTitle, recipeProfileIcons: ProfileIconStorage.recipeProfileIcons)
+    let gridCache = GridCache(title: TitleStorage.randomFunTitle, recipeProfileIcons: ProfileIconStorage.recipeProfileIcons)
 
-	@State private var canCreate = false
+    @State private var canCreate = false
 
-	var body: some View {
+    var body: some View {
 
-		VStack {
-			HStack {
-				Button("Close", action: closeRequest)
-					.frame(alignment: .topLeading)
+        VStack {
+            HStack {
+                Button("Close", action: closeRequest)
+                    .frame(alignment: .topLeading)
 
-				Spacer()
+                Spacer()
 
-				if !canCreate {
-					Button("Next") {
-						withAnimation { viewModel.nextPage(in: context) }
-					}
-				} else {
-					Button("Done") {
-						viewModel.create(from: context)
-						closeRequest()
-					}
-				}
-			}
-			.padding()
-			.foregroundColor(Color("backgroundSecondary"))
+                if !canCreate {
+                    Button("Next") {
+                        withAnimation { viewModel.nextPage(in: context) }
+                    }
+                } else {
+                    Button("Done") {
+                        viewModel.create(from: context)
+                        closeRequest()
+                    }
+                }
+            }
+            .padding()
+            .foregroundColor(Color("backgroundSecondary"))
 
-			TabView(selection: $viewModel.selectedPage) {
+            TabView(selection: $viewModel.selectedPage) {
 
-				CreateRecipeBrewMethodSelection(selectedBrewMethod: $context.selectedBrewMethod)
-					.tag(1)
+                CreateRecipeBrewMethodSelection(brewMethods: $viewModel.brewMethods, selectedBrewMethod: $context.selectedBrewMethod)
+                    .tag(1)
 
-				CreateRecipeProfileSelection(recipeProfile: $context.recipeProfile, gridCache: gridCache)
-					.tag(2)
+                CreateRecipeProfileSelection(recipeProfile: $context.recipeProfile, gridCache: gridCache)
+                    .tag(2)
 
-				CreateRecipeCoffeeWaterSelection(cupsCountAmount: $context.cupsCount, selectedRatio: $context.ratio, allRatios: $viewModel.allRatios)
-					.tag(3)
-			}
-			.tabViewStyle(.page(indexDisplayMode: .never))
-			.ignoresSafeArea()
-		}
-		.onChange(of: context.selectedBrewMethod, perform: didUpdate(_:))
-		.onChange(of: context.recipeProfile, perform: didUpdate(_:))
-		.onChange(of: context.cupsCount, perform: didUpdate(_:))
-		.onChange(of: context.ratio, perform: didUpdate(_:))
-		.backgroundPrimary()
-	}
+                CreateRecipeCoffeeWaterSelection(cupsCountAmount: $context.cupsCount, selectedRatio: $context.ratio, allRatios: $viewModel.allRatios)
+                    .tag(3)
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .ignoresSafeArea()
+        }
+        .onChange(of: context.selectedBrewMethod, perform: didUpdate(_:))
+        .onChange(of: context.recipeProfile, perform: didUpdate(_:))
+        .onChange(of: context.cupsCount, perform: didUpdate(_:))
+        .onChange(of: context.ratio, perform: didUpdate(_:))
+        .backgroundPrimary()
+    }
 
-	private func didUpdate<T>(_ context: T?) {
-		checkIfCanCreate()
-	}
+    private func didUpdate<T>(_ context: T?) {
+        checkIfCanCreate()
+    }
 
-	private func checkIfCanCreate() {
-		canCreate = viewModel.canCreate(from: context)
-	}
+    private func checkIfCanCreate() {
+        canCreate = viewModel.canCreate(from: context)
+    }
 }
 
 struct CreateRecipeView_Previews: PreviewProvider {
-	static var previews: some View {
-		CreateRecipeView(viewModel: .init(), closeRequest: { })
-			.environmentObject(CreateRecipeContext())
-	}
+    static var previews: some View {
+        CreateRecipeView(viewModel: .init(), closeRequest: { })
+            .environmentObject(CreateRecipeContext())
+    }
 }

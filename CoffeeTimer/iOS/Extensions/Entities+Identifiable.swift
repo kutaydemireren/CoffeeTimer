@@ -8,25 +8,21 @@
 import Foundation
 
 extension Recipe: Identifiable {
-	var id: String {
-		recipeProfile.id
-	}
+    var id: String {
+        recipeProfile.id
+    }
 }
 
 extension RecipeProfile: Identifiable {
-	var id: String {
-		name + "_" + icon.id
-	}
+    var id: String {
+        name + "_" + icon.id
+    }
 }
 
 extension RecipeProfileIcon: Identifiable {
-	var id: String {
-		title
-	}
+    var id: String {
+        title
+    }
 }
 
-extension BrewMethod: Identifiable {
-	var id: String {
-		rawValue
-	}
-}
+extension BrewMethod: Identifiable { }

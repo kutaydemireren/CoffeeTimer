@@ -7,19 +7,6 @@
 
 import Foundation
 
-// TODO: move
-
-struct BrewRequest: Request {
-    let host: String = "raw.githubusercontent.com"
-    let path: String
-
-    init(brewMethod: BrewMethod) {
-        path = "/kutaydemireren/CoffeeTimer/main/data/v0/brew-instructions/\(brewMethod.rawValue).json"
-    }
-}
-
-//
-
 protocol Decoding {
     func decode<T: Decodable>(_ type: T.Type, from data: Data) throws -> T
 }
@@ -47,7 +34,7 @@ struct RecipeInstructionsRepositoryImp: RecipeInstructionsRepository {
     }
 
     func fetchInstructions(for brewMethod: BrewMethod) async throws -> RecipeInstructions {
-        let data = try await networkManager.perform(request: BrewRequest(brewMethod: brewMethod))
+        let data = try await networkManager.perform(request: FetchRecipeInstructionsRequest(brewMethod: brewMethod))
         let recipeInstructions = try decoding.decode(RecipeInstructions.self, from: data)
         return recipeInstructions
     }

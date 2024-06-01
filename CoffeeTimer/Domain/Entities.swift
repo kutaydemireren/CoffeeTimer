@@ -7,6 +7,14 @@
 
 import Foundation
 
+struct BrewMethod: Equatable {
+    let id: String
+    let title: String
+    let path: String
+    let ratios: [CoffeeToWaterRatio]
+}
+
+/*
 enum BrewMethod: String, Equatable {
     case v60 = "v60"
     case v60Single = "v60-single"
@@ -41,6 +49,7 @@ enum BrewMethod: String, Equatable {
         }
     }
 }
+ */
 
 struct Recipe: Equatable {
     let recipeProfile: RecipeProfile
