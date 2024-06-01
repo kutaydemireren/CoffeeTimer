@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 final class CreateRecipeViewModel: ObservableObject {
 	private let pageCount = 3
 
@@ -75,12 +76,14 @@ final class CreateRecipeViewModel: ObservableObject {
 	}
 
 	func create(from context: CreateRecipeContext) {
-		guard let recipe = createRecipeFromContextUseCase.create(from: context) else {
-			// TODO: `throw` from create(?) or handle by having nil(?)
-			return
-		}
+        Task {
+            guard let recipe = await createRecipeFromContextUseCase.create(from: context) else {
+                // TODO: `throw` from create(?) or handle by having nil(?)
+                return
+            }
 
-		recipeRepository.save(recipe)
+            recipeRepository.save(recipe)
+        }
 	}
 }
 

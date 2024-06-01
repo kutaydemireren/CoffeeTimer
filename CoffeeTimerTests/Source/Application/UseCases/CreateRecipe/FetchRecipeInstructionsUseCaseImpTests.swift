@@ -41,28 +41,30 @@ final class FetchRecipeInstructionsUseCaseImpTests: XCTestCase {
         sut = nil
     }
 
-    func test_fetch_whenErrorThrown_shouldThrowExpectedError() {
+    func test_fetch_whenErrorThrown_shouldThrowExpectedError() async {
         mockRepository._error = TestError.notAllowed
 
-        XCTAssertThrowsError(try sut.fetch(brewMethod: .frenchPress)) { error in
+        await assertThrowsError {
+            try await sut.fetch(brewMethod: .frenchPress)
+        } _: { error in
             XCTAssertEqual(error as? TestError, .notAllowed)
         }
     }
 
-    func test_fetch_shouldRequestExpectedBrewMethod() throws {
+    func test_fetch_shouldRequestExpectedBrewMethod() async throws {
         let expectedBrewMethod = BrewMethod.frenchPress
         mockRepository._recipeInstructions = loadV60SingleRecipeInstructions()
 
-        _ = try sut.fetch(brewMethod: expectedBrewMethod)
+        _ = try await sut.fetch(brewMethod: expectedBrewMethod)
 
         XCTAssertEqual(mockRepository._brewMethod, expectedBrewMethod)
     }
 
-    func test_fetch_shouldRequestExpectedInstructions() throws {
+    func test_fetch_shouldRequestExpectedInstructions() async throws {
         let expectedInstructions = loadV60SingleRecipeInstructions()
         mockRepository._recipeInstructions = expectedInstructions
 
-        let resultedInstructions = try sut.fetch(brewMethod: .frenchPress)
+        let resultedInstructions = try await sut.fetch(brewMethod: .frenchPress)
 
         XCTAssertEqual(resultedInstructions, expectedInstructions)
     }

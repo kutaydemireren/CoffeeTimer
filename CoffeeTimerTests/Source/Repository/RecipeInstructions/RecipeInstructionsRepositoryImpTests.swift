@@ -10,6 +10,20 @@ import XCTest
 
 // TODO: move
 
+func assertThrowsError<T>(
+    act: () async throws -> T,
+    _ catchError: (Error) -> Void
+) async {
+    do {
+        _ = try await act()
+        XCTFail("Error is expected to be thrown")
+    } catch {
+        catchError(error)
+    }
+}
+
+//
+
 final class MockNetworkManager: NetworkManager {
     var _error: Error!
     var _data: Data!
@@ -64,28 +78,32 @@ final class RecipeInstructionsRepositoryImpTests: XCTestCase {
         sut = nil
     }
 
-    func test_fetchInstructions_whenNetworkThrowsError_shouldThrowExpectedError() {
+    func test_fetchInstructions_whenNetworkThrowsError_shouldThrowExpectedError() async {
         mockNetworkManager._error = TestError.notAllowed
 
-        XCTAssertThrowsError(try sut.fetchInstructions(for: .frenchPress)) { error in
+        await assertThrowsError {
+            try await sut.fetchInstructions(for: .frenchPress)
+        } _: { error in
             XCTAssertEqual(error as? TestError, .notAllowed)
         }
     }
 
-    func test_fetchInstructions_whenDecodingThrowsError_shouldThrowExpectedError() {
+    func test_fetchInstructions_whenDecodingThrowsError_shouldThrowExpectedError() async {
         mockDecoding._error = TestError.notAllowed
 
-        XCTAssertThrowsError(try sut.fetchInstructions(for: .frenchPress)) { error in
+        await assertThrowsError {
+            try await sut.fetchInstructions(for: .frenchPress)
+        } _: { error in
             XCTAssertEqual(error as? TestError, .notAllowed)
         }
     }
 
-    func test_fetchInstructions_shouldReturnEmpty() throws {
+    func test_fetchInstructions_shouldReturnEmpty() async throws {
         mockNetworkManager._data = Data()
         let expectedInstructions = loadV60SingleRecipeInstructions()
         mockDecoding._decoded = expectedInstructions
 
-        let resultedInstructions = try sut.fetchInstructions(for: .frenchPress)
+        let resultedInstructions = try await sut.fetchInstructions(for: .frenchPress)
 
         XCTAssertEqual(resultedInstructions, expectedInstructions)
     }

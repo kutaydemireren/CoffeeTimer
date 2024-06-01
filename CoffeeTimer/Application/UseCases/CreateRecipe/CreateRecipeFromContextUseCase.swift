@@ -16,7 +16,7 @@ enum CreateRecipeFromContextUseCaseError: Error {
 
 protocol CreateRecipeFromContextUseCase {
     func canCreate(from context: CreateRecipeContext) throws -> Bool
-    func create(from context: CreateRecipeContext) -> Recipe?
+    func create(from context: CreateRecipeContext) async -> Recipe?
 }
 
 /*
@@ -59,10 +59,10 @@ struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
         return true
     }
 
-    func create(from context: CreateRecipeContext) -> Recipe? {
+    func create(from context: CreateRecipeContext) async -> Recipe? {
         guard let selectedBrewMethod = context.selectedBrewMethod else { return nil }
         guard let input = try? createContextToInputMapper.map(context: context) else { return nil }
-        guard let instructions = try? fetchRecipeInstructionsUseCase.fetch(brewMethod: selectedBrewMethod) else { return nil }
+        guard let instructions = try? await fetchRecipeInstructionsUseCase.fetch(brewMethod: selectedBrewMethod) else { return nil }
 
         return createRecipeFromInputUseCase.create(from: input, instructions: instructions)
     }

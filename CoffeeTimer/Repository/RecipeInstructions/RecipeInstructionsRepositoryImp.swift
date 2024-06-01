@@ -30,12 +30,11 @@ extension JSONDecoder: Decoding { }
 //
 
 protocol NetworkManager {
-    // TODO: async
-    func perform(request: Request) throws -> Data
+    func perform(request: Request) async throws -> Data
 }
 
 struct NetworkManagerImp: NetworkManager {
-    func perform(request: Request) throws -> Data {
+    func perform(request: Request) async throws -> Data {
         fatalError("missing implementation")
     }
 }
@@ -54,8 +53,8 @@ struct RecipeInstructionsRepositoryImp: RecipeInstructionsRepository {
         self.decoding = decoding
     }
 
-    func fetchInstructions(for brewMethod: BrewMethod) throws -> RecipeInstructions {
-        let data = try networkManager.perform(request: BrewRequest())
+    func fetchInstructions(for brewMethod: BrewMethod) async throws -> RecipeInstructions {
+        let data = try await networkManager.perform(request: BrewRequest())
         let recipeInstructions = try decoding.decode(RecipeInstructions.self, from: data)
         return recipeInstructions
     }

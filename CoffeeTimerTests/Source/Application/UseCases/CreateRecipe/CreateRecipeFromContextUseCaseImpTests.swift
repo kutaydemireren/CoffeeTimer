@@ -89,33 +89,33 @@ extension CreateRecipeFromContextUseCaseImpTests {
 
 // MARK: - Create
 extension CreateRecipeFromContextUseCaseImpTests {
-    func test_create_whenMissingContext_shouldReturnNil() {
-        let resultedRecipe = sut.create(from: CreateRecipeContext())
+    func test_create_whenMissingContext_shouldReturnNil() async {
+        let resultedRecipe = await sut.create(from: CreateRecipeContext())
 
         XCTAssertNil(resultedRecipe)
     }
 
-    func test_create_whenMappingToInputFails_shouldReturnNil() {
+    func test_create_whenMappingToInputFails_shouldReturnNil() async {
         mockCreateContextToInputMapper._error = TestError.notAllowed
 
-        let resultedRecipe = sut.create(from: validContext)
+        let resultedRecipe = await sut.create(from: validContext)
 
         XCTAssertNil(resultedRecipe)
     }
 
-    func test_create_whenFetchRecipeInstructionsFails_shouldReturnNil() {
+    func test_create_whenFetchRecipeInstructionsFails_shouldReturnNil() async {
         mockFetchRecipeInstructionsUseCase._error = TestError.notAllowed
 
-        let resultedRecipe = sut.create(from: validContext)
+        let resultedRecipe = await sut.create(from: validContext)
 
         XCTAssertNil(resultedRecipe)
     }
 
-    func test_create_shouldReturnExpectedRecipe() {
+    func test_create_shouldReturnExpectedRecipe() async {
         let expectedRecipe = Recipe.stubSingleV60
         mockCreateRecipeFromInputUseCase._recipe = expectedRecipe
 
-        let resultedRecipe = sut.create(from: validContext)
+        let resultedRecipe = await sut.create(from: validContext)
 
         XCTAssertEqual(resultedRecipe, expectedRecipe)
     }

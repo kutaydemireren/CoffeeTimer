@@ -8,7 +8,7 @@
 import Foundation
 
 protocol FetchRecipeInstructionsUseCase {
-    func fetch(brewMethod: BrewMethod) throws -> RecipeInstructions
+    func fetch(brewMethod: BrewMethod) async throws -> RecipeInstructions
 }
 
 struct FetchRecipeInstructionsUseCaseImp: FetchRecipeInstructionsUseCase {
@@ -18,7 +18,7 @@ struct FetchRecipeInstructionsUseCaseImp: FetchRecipeInstructionsUseCase {
         self.repository = repository
     }
 
-    func fetch(brewMethod: BrewMethod) throws -> RecipeInstructions {
-        try repository.fetchInstructions(for: brewMethod)
+    func fetch(brewMethod: BrewMethod) async throws -> RecipeInstructions {
+        try await repository.fetchInstructions(for: brewMethod)
     }
 }
