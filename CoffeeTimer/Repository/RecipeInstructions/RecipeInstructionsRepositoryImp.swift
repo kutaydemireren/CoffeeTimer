@@ -7,19 +7,6 @@
 
 import Foundation
 
-// TODO: move
-
-struct RecipeInstructionsRequest: Request {
-    let host: String = "raw.githubusercontent.com"
-    let path: String
-
-    init(brewMethod: BrewMethod) {
-        path = brewMethod.path
-    }
-}
-
-//
-
 protocol Decoding {
     func decode<T: Decodable>(_ type: T.Type, from data: Data) throws -> T
 }
