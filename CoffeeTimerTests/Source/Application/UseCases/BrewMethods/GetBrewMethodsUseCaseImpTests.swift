@@ -47,4 +47,13 @@ final class GetBrewMethodsUseCaseImpTests: XCTestCase {
             XCTAssertEqual(error as? TestError, .notAllowed)
         }
     }
+
+    func test_getAll_shouldReturnExpectedBrewMethods() async throws {
+        let expectedBrewMethods: [BrewMethod] = [.frenchPress, .v60Iced]
+        mockBrewMethodRepository._brewMethods = expectedBrewMethods
+
+        let resultedBrewMethods = try await sut.getAll()
+
+        XCTAssertEqual(resultedBrewMethods, expectedBrewMethods)
+    }
 }
