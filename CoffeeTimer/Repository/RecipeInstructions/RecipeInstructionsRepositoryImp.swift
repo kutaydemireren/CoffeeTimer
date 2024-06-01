@@ -57,6 +57,6 @@ struct RecipeInstructionsRepositoryImp: RecipeInstructionsRepository {
     func fetchInstructions(for brewMethod: BrewMethod) throws -> RecipeInstructions {
         let data = try networkManager.perform(request: BrewRequest())
         let recipeInstructions = try decoding.decode(RecipeInstructions.self, from: data)
-        return .empty
+        return recipeInstructions
     }
 }

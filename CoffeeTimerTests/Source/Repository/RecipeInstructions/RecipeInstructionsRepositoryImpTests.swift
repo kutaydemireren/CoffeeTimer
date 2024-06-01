@@ -80,10 +80,13 @@ final class RecipeInstructionsRepositoryImpTests: XCTestCase {
         }
     }
 
-    func test_fetchInstructions_shouldReturnEmpty() {
+    func test_fetchInstructions_shouldReturnEmpty() throws {
         mockNetworkManager._data = Data()
-        mockDecoding._decoded = RecipeInstructions.empty
+        let expectedInstructions = loadV60SingleRecipeInstructions()
+        mockDecoding._decoded = expectedInstructions
 
-        XCTAssertEqual(try sut.fetchInstructions(for: .frenchPress), .empty)
+        let resultedInstructions = try sut.fetchInstructions(for: .frenchPress)
+
+        XCTAssertEqual(resultedInstructions, expectedInstructions)
     }
 }
