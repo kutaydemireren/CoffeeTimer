@@ -23,6 +23,7 @@
 		CA1B52B02C0B97B300C4B923 /* BrewMethodRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B52AF2C0B97B300C4B923 /* BrewMethodRepository.swift */; };
 		CA1B52B32C0B97E700C4B923 /* BrewMethodRepositoryImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B52B22C0B97E700C4B923 /* BrewMethodRepositoryImp.swift */; };
 		CA1B52B52C0B980400C4B923 /* RecipeInstructionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B52B42C0B980400C4B923 /* RecipeInstructionsRequest.swift */; };
+		CA1B52BA2C0B98D000C4B923 /* BrewMethodRepositoryImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B52B92C0B98D000C4B923 /* BrewMethodRepositoryImpTests.swift */; };
 		CA2A00CA2C0B65E10040B50D /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2A00C92C0B65E10040B50D /* Errors.swift */; };
 		CA2A00CE2C0B8FF10040B50D /* GetBrewMethodsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2A00CD2C0B8FF10040B50D /* GetBrewMethodsUseCase.swift */; };
 		CA2A00D12C0B90A40040B50D /* GetBrewMethodsUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2A00D02C0B90A40040B50D /* GetBrewMethodsUseCaseImpTests.swift */; };
@@ -120,6 +121,7 @@
 		CA1B52AF2C0B97B300C4B923 /* BrewMethodRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewMethodRepository.swift; sourceTree = "<group>"; };
 		CA1B52B22C0B97E700C4B923 /* BrewMethodRepositoryImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewMethodRepositoryImp.swift; sourceTree = "<group>"; };
 		CA1B52B42C0B980400C4B923 /* RecipeInstructionsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructionsRequest.swift; sourceTree = "<group>"; };
+		CA1B52B92C0B98D000C4B923 /* BrewMethodRepositoryImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewMethodRepositoryImpTests.swift; sourceTree = "<group>"; };
 		CA2A00C92C0B65E10040B50D /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		CA2A00CD2C0B8FF10040B50D /* GetBrewMethodsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBrewMethodsUseCase.swift; sourceTree = "<group>"; };
 		CA2A00D02C0B90A40040B50D /* GetBrewMethodsUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBrewMethodsUseCaseImpTests.swift; sourceTree = "<group>"; };
@@ -269,6 +271,14 @@
 			isa = PBXGroup;
 			children = (
 				CA1B52B22C0B97E700C4B923 /* BrewMethodRepositoryImp.swift */,
+			);
+			path = BrewMethod;
+			sourceTree = "<group>";
+		};
+		CA1B52B62C0B98A900C4B923 /* BrewMethod */ = {
+			isa = PBXGroup;
+			children = (
+				CA1B52B92C0B98D000C4B923 /* BrewMethodRepositoryImpTests.swift */,
 			);
 			path = BrewMethod;
 			sourceTree = "<group>";
@@ -616,6 +626,7 @@
 		CAB1925B2A0D6B4400043837 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				CA1B52B62C0B98A900C4B923 /* BrewMethod */,
 				CA8C9AF22C0B519C000A71AC /* RecipeInstructions */,
 				CA3CA4A92A1A803600C76E28 /* Recipe */,
 			);
@@ -909,6 +920,7 @@
 				CA8C9AF42C0B51A9000A71AC /* RecipeInstructionsRepositoryImpTests.swift in Sources */,
 				CA6263CF2A2551B5003E167D /* MockStore.swift in Sources */,
 				CA15528A2C0A5E2E000334FB /* CreateRecipeFromInputUseCaseImpTests.swift in Sources */,
+				CA1B52BA2C0B98D000C4B923 /* BrewMethodRepositoryImpTests.swift in Sources */,
 				CA3CA4B12A1AA22600C76E28 /* RecipeMapperTests.swift in Sources */,
 				CA7790A12A06F3BB00BEA142 /* Equatable.swift in Sources */,
 				CA7790A82A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputMapper.swift in Sources */,
