@@ -12,7 +12,6 @@ enum CreateRecipeMapperError: Error {
     case missingRatio
 }
 
-// TODO: rename to drop v60
 protocol CreateContextToInputMapper {
     func map(context: CreateRecipeContext) throws -> CreateRecipeInput
 }
