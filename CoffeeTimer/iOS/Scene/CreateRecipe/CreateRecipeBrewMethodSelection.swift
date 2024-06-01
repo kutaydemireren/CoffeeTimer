@@ -9,9 +9,9 @@ import SwiftUI
 
 struct BrewMethodView: View {
     let brewMethod: BrewMethod
-    
+
     var isSelected = false
-    
+
     var body: some View {
         VStack {
             RoundedRectangle(cornerRadius: 12)
@@ -26,16 +26,16 @@ struct BrewMethodView: View {
 }
 
 struct CreateRecipeBrewMethodSelection: View {
-    
+
     let columns: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible()),
     ]
     let height: CGFloat = 150
-    let brewMethods: [BrewMethod] = BrewMethodStorage.brewMethods
-    
+
+    @Binding var brewMethods: [BrewMethod]
     @Binding var selectedBrewMethod: BrewMethod?
-    
+
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 16) {
@@ -57,14 +57,22 @@ struct CreateRecipeBrewMethodSelection: View {
 
 struct CreateRecipeBrewMethodSelection_Previews: PreviewProvider {
     static var previews: some View {
-        CreateRecipeBrewMethodSelection(selectedBrewMethod: .constant(.v60))
+        CreateRecipeBrewMethodSelection(brewMethods: .constant(BrewMethodStorage.brewMethods), selectedBrewMethod: .constant(.v60Single))
             .backgroundPrimary()
     }
 }
 
 // TODO: move to preview content
 extension BrewMethod {
-    static var v60: Self {
-        return BrewMethod(id: "v60", title: "V60", path: "", ratios: CoffeeToWaterRatio.allCases)
+    static var v60Single: Self {
+        return BrewMethod(id: "v60-single", title: "V60 Single", path: "", ratios: [.ratio16, .ratio17, .ratio18, .ratio19, .ratio20])
+    }
+
+    static var v60Iced: Self {
+        return BrewMethod(id: "v60-iced", title: "V60 Iced", path: "", ratios: [.ratio15, .ratio16, .ratio17, .ratio18, .ratio19])
+    }
+
+    static var frenchPress: Self {
+        return BrewMethod(id: "french-press", title: "French Press", path: "", ratios: [.ratio16, .ratio17, .ratio18, .ratio19, .ratio20])
     }
 }

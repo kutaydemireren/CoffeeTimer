@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		CA02D0D82A255A440012EE87 /* MockRecipeMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA02D0D72A255A440012EE87 /* MockRecipeMapper.swift */; };
 		CA02D0DC2A255A6D0012EE87 /* MockStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA02D0DB2A255A6D0012EE87 /* MockStorage.swift */; };
-		CA1552802C0A5D3F000334FB /* CreateRecipeFromInputUseCaseImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA15527F2C0A5D3F000334FB /* CreateRecipeFromInputUseCaseImp.swift */; };
+		CA1552802C0A5D3F000334FB /* CreateRecipeFromInputUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA15527F2C0A5D3F000334FB /* CreateRecipeFromInputUseCase.swift */; };
 		CA1552822C0A5D71000334FB /* MockCreateRecipeFromInputUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1552812C0A5D71000334FB /* MockCreateRecipeFromInputUseCase.swift */; };
 		CA1552842C0A5D9A000334FB /* MockFetchRecipeInstructionsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1552832C0A5D9A000334FB /* MockFetchRecipeInstructionsUseCase.swift */; };
 		CA1552862C0A5DB9000334FB /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1552852C0A5DB9000334FB /* TestError.swift */; };
-		CA1552882C0A5DEB000334FB /* FetchRecipeInstructionsUseCaseImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1552872C0A5DEB000334FB /* FetchRecipeInstructionsUseCaseImp.swift */; };
+		CA1552882C0A5DEB000334FB /* FetchRecipeInstructionsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1552872C0A5DEB000334FB /* FetchRecipeInstructionsUseCase.swift */; };
 		CA15528A2C0A5E2E000334FB /* CreateRecipeFromInputUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1552892C0A5E2E000334FB /* CreateRecipeFromInputUseCaseImpTests.swift */; };
 		CA17289429EB4B9F000F867B /* NumericTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289329EB4B9F000F867B /* NumericTextField.swift */; };
 		CA17289629EB4CA8000F867B /* View+Responder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289529EB4CA8000F867B /* View+Responder.swift */; };
@@ -104,11 +104,11 @@
 /* Begin PBXFileReference section */
 		CA02D0D72A255A440012EE87 /* MockRecipeMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecipeMapper.swift; sourceTree = "<group>"; };
 		CA02D0DB2A255A6D0012EE87 /* MockStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStorage.swift; sourceTree = "<group>"; };
-		CA15527F2C0A5D3F000334FB /* CreateRecipeFromInputUseCaseImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeFromInputUseCaseImp.swift; sourceTree = "<group>"; };
+		CA15527F2C0A5D3F000334FB /* CreateRecipeFromInputUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeFromInputUseCase.swift; sourceTree = "<group>"; };
 		CA1552812C0A5D71000334FB /* MockCreateRecipeFromInputUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCreateRecipeFromInputUseCase.swift; sourceTree = "<group>"; };
 		CA1552832C0A5D9A000334FB /* MockFetchRecipeInstructionsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchRecipeInstructionsUseCase.swift; sourceTree = "<group>"; };
 		CA1552852C0A5DB9000334FB /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
-		CA1552872C0A5DEB000334FB /* FetchRecipeInstructionsUseCaseImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchRecipeInstructionsUseCaseImp.swift; sourceTree = "<group>"; };
+		CA1552872C0A5DEB000334FB /* FetchRecipeInstructionsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchRecipeInstructionsUseCase.swift; sourceTree = "<group>"; };
 		CA1552892C0A5E2E000334FB /* CreateRecipeFromInputUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeFromInputUseCaseImpTests.swift; sourceTree = "<group>"; };
 		CA17289329EB4B9F000F867B /* NumericTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericTextField.swift; sourceTree = "<group>"; };
 		CA17289529EB4CA8000F867B /* View+Responder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Responder.swift"; sourceTree = "<group>"; };
@@ -652,9 +652,9 @@
 			children = (
 				CA77909A2A06F35A00BEA142 /* CreateContextToInputMapper.swift */,
 				CA77909C2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift */,
-				CA15527F2C0A5D3F000334FB /* CreateRecipeFromInputUseCaseImp.swift */,
+				CA15527F2C0A5D3F000334FB /* CreateRecipeFromInputUseCase.swift */,
 				CA9BDA282A2CFD290068DFF7 /* CreateRecipeInput.swift */,
-				CA1552872C0A5DEB000334FB /* FetchRecipeInstructionsUseCaseImp.swift */,
+				CA1552872C0A5DEB000334FB /* FetchRecipeInstructionsUseCase.swift */,
 			);
 			path = CreateRecipe;
 			sourceTree = "<group>";
@@ -837,7 +837,7 @@
 				CA17289929EB4CD1000F867B /* CoffeeToWaterRatio.swift in Sources */,
 				CA2A00CA2C0B65E10040B50D /* Errors.swift in Sources */,
 				CAF42CDF29EC907F004D7788 /* View+ClearButton.swift in Sources */,
-				CA1552882C0A5DEB000334FB /* FetchRecipeInstructionsUseCaseImp.swift in Sources */,
+				CA1552882C0A5DEB000334FB /* FetchRecipeInstructionsUseCase.swift in Sources */,
 				CA17289429EB4B9F000F867B /* NumericTextField.swift in Sources */,
 				CA7B804B29BFABBB007D3DFC /* StageTimerView.swift in Sources */,
 				CAF42CED29EC98A1004D7788 /* Screen.swift in Sources */,
@@ -864,7 +864,7 @@
 				CA77909B2A06F35A00BEA142 /* CreateContextToInputMapper.swift in Sources */,
 				CAFCF54B2A6F0A1700875CB7 /* HapticGenerator.swift in Sources */,
 				CA17289F29EB58F1000F867B /* CreateRecipeProfileSelection.swift in Sources */,
-				CA1552802C0A5D3F000334FB /* CreateRecipeFromInputUseCaseImp.swift in Sources */,
+				CA1552802C0A5D3F000334FB /* CreateRecipeFromInputUseCase.swift in Sources */,
 				CA6263D12A255266003E167D /* RecipeProfile+UserDefined.swift in Sources */,
 				CA2D8BE22A02F3AA00BA2899 /* CreateRecipeContext.swift in Sources */,
 			);

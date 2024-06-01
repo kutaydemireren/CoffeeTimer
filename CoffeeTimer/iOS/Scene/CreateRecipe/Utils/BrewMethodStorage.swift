@@ -9,5 +9,11 @@ import Foundation
 
 struct BrewMethodStorage {
     // TODO: can be removed once brew methods are fetched
-    static var brewMethods: [BrewMethod] { [] }
+    static var brewMethods: [BrewMethod] {
+        [
+            .v60Single,
+            .v60Iced,
+            .frenchPress
+        ]
+    }
 }
