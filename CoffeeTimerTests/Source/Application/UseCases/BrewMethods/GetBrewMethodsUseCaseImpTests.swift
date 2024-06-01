@@ -8,17 +8,43 @@
 import XCTest
 @testable import CoffeeTimer
 
+//
+
+final class MockBrewMethodRepository: BrewMethodRepository {
+    var _brewMethods: [BrewMethod]!
+    var _error: Error!
+
+    func fetchBrewMethods() async throws -> [BrewMethod] {
+        if let _error {
+            throw _error
+        }
+
+        return _brewMethods
+    }
+}
+
+//
+
 final class GetBrewMethodsUseCaseImpTests: XCTestCase {
+    var mockBrewMethodRepository: MockBrewMethodRepository!
     var sut: GetBrewMethodsUseCaseImp!
 
     override func setUpWithError() throws {
-        sut = GetBrewMethodsUseCaseImp()
+        mockBrewMethodRepository = MockBrewMethodRepository()
+        sut = GetBrewMethodsUseCaseImp(repository: mockBrewMethodRepository)
     }
 
     override func tearDownWithError() throws {
         sut = nil
     }
 
-    func test_() throws {
+    func test_getAll_whenErrorThrown_shouldThrowExpectedError() async throws {
+        mockBrewMethodRepository._error = TestError.notAllowed
+
+        await assertThrowsError {
+            try await sut.getAll()
+        } _: { error in
+            XCTAssertEqual(error as? TestError, .notAllowed)
+        }
     }
 }

@@ -57,7 +57,7 @@ struct CreateRecipeBrewMethodSelection: View {
 
 struct CreateRecipeBrewMethodSelection_Previews: PreviewProvider {
     static var previews: some View {
-        CreateRecipeBrewMethodSelection(brewMethods: .constant(BrewMethodStorage.brewMethods), selectedBrewMethod: .constant(.v60Single))
+        CreateRecipeBrewMethodSelection(brewMethods: .constant([.frenchPress, .v60Single]), selectedBrewMethod: .constant(.v60Single))
             .backgroundPrimary()
     }
 }

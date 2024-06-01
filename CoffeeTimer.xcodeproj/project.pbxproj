@@ -43,7 +43,6 @@
 		CA6263C52A254E97003E167D /* Entities+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263C42A254E97003E167D /* Entities+Identifiable.swift */; };
 		CA6263C72A254EB3003E167D /* Color+HexString.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263C62A254EB3003E167D /* Color+HexString.swift */; };
 		CA6263C92A254F67003E167D /* ProfileIconStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263C82A254F67003E167D /* ProfileIconStorage.swift */; };
-		CA6263CD2A25502C003E167D /* BrewMethodStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263CC2A25502C003E167D /* BrewMethodStorage.swift */; };
 		CA6263CF2A2551B5003E167D /* MockStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263CE2A2551B5003E167D /* MockStore.swift */; };
 		CA6263D12A255266003E167D /* RecipeProfile+UserDefined.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263D02A255266003E167D /* RecipeProfile+UserDefined.swift */; };
 		CA77908D2A06A39900BEA142 /* String+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77908C2A06A39900BEA142 /* String+Filter.swift */; };
@@ -140,7 +139,6 @@
 		CA6263C42A254E97003E167D /* Entities+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entities+Identifiable.swift"; sourceTree = "<group>"; };
 		CA6263C62A254EB3003E167D /* Color+HexString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+HexString.swift"; sourceTree = "<group>"; };
 		CA6263C82A254F67003E167D /* ProfileIconStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileIconStorage.swift; sourceTree = "<group>"; };
-		CA6263CC2A25502C003E167D /* BrewMethodStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewMethodStorage.swift; sourceTree = "<group>"; };
 		CA6263CE2A2551B5003E167D /* MockStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStore.swift; sourceTree = "<group>"; };
 		CA6263D02A255266003E167D /* RecipeProfile+UserDefined.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecipeProfile+UserDefined.swift"; sourceTree = "<group>"; };
 		CA77908C2A06A39900BEA142 /* String+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Filter.swift"; sourceTree = "<group>"; };
@@ -406,7 +404,6 @@
 			children = (
 				CA6263C02A254C78003E167D /* TitleStorage.swift */,
 				CA6263C82A254F67003E167D /* ProfileIconStorage.swift */,
-				CA6263CC2A25502C003E167D /* BrewMethodStorage.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -824,7 +821,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAF42CE729EC9561004D7788 /* Completable.swift in Sources */,
-				CA6263CD2A25502C003E167D /* BrewMethodStorage.swift in Sources */,
 				CA3CA4AF2A1AA20B00C76E28 /* RecipeMapper.swift in Sources */,
 				CA4758DF2A0C2D440022BC7D /* RecipesView.swift in Sources */,
 				CA4758E42A0C3C5C0022BC7D /* RecipesFlowView.swift in Sources */,

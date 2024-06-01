@@ -7,12 +7,32 @@
 
 import Foundation
 
+// TODO: move
+
+protocol BrewMethodRepository {
+    func fetchBrewMethods() async throws -> [BrewMethod]
+}
+
+struct BrewMethodRepositoryImp: BrewMethodRepository {
+    func fetchBrewMethods() async throws -> [BrewMethod] {
+        fatalError("missing implementation")
+    }
+}
+
+//
+
 protocol GetBrewMethodsUseCase {
     func getAll() async throws -> [BrewMethod]
 }
 
 struct GetBrewMethodsUseCaseImp: GetBrewMethodsUseCase {
+    let repository: BrewMethodRepository
+
+    init(repository: BrewMethodRepository = BrewMethodRepositoryImp()) {
+        self.repository = repository
+    }
+
     func getAll() async throws -> [BrewMethod] {
-        BrewMethodStorage.brewMethods
+        try await repository.fetchBrewMethods()
     }
 }
