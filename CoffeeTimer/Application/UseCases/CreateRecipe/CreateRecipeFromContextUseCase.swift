@@ -19,6 +19,11 @@ protocol CreateRecipeFromContextUseCase {
     func create(from context: CreateRecipeContext) -> Recipe?
 }
 
+/*
+ TODO: removing context dependency
+ `context` used here is essentially a UI component.
+ this needs to be addressed so that needs it can be scoped to only presentation layer.
+ */
 struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
     private let createContextToInputMapper: CreateContextToInputMapper
     private let fetchRecipeInstructionsUseCase: FetchRecipeInstructionsUseCase
