@@ -8,16 +8,19 @@
 import Foundation
 
 enum BrewMethod: String, Equatable {
-    case v60
-    case v60Iced
+    case v60 = "v60"
+    case v60Single = "v60-single"
+    case v60Iced = "v60-iced"
     case chemex
     case melitta
-    case frenchPress
+    case frenchPress = "french-press"
 
     var title: String {
         switch self {
         case .v60:
             return "V60"
+        case .v60Single:
+            return "V60 Single"
         case .v60Iced:
             return "V60 Iced"
         case .chemex:
