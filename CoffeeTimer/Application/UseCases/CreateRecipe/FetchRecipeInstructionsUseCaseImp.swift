@@ -7,22 +7,6 @@
 
 import Foundation
 
-// TODO: move
-
-protocol RecipeInstructionsRepository {
-    func fetchInstructions(for brewMethod: BrewMethod) throws -> RecipeInstructions
-}
-
-//
-
-struct RecipeInstructionsRepositoryImp: RecipeInstructionsRepository {
-    func fetchInstructions(for brewMethod: BrewMethod) throws -> RecipeInstructions {
-        fatalError("missing implementation")
-    }
-}
-
-//
-
 protocol FetchRecipeInstructionsUseCase {
     func fetch(brewMethod: BrewMethod) throws -> RecipeInstructions
 }
