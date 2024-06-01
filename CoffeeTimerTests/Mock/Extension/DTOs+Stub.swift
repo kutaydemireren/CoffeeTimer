@@ -9,11 +9,11 @@
 
 extension BrewMethodDTO {
     static var v60Single: Self {
-        return BrewMethodDTO(id: "v60-single", title: "V60 Single", path: "v60-single/", ratios: ["1:16", "1:17", "1:18", "1:19", "1:20"])
+        return BrewMethodDTO(id: "v60-single", title: "V60 Single", path: "/v60-single", ratios: ["1:16", "1:17", "1:18", "1:19", "1:20"])
     }
 
     static var frenchPress: Self {
-        return BrewMethodDTO(id: "french-press", title: "French Press", path: "french-press/", ratios: ["1:17", "1:18", "1:19", "1:20"])
+        return BrewMethodDTO(id: "french-press", title: "French Press", path: "/french-press", ratios: ["1:17", "1:18", "1:19", "1:20"])
     }
 }
 

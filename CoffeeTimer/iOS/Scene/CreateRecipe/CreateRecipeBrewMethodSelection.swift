@@ -65,14 +65,14 @@ struct CreateRecipeBrewMethodSelection_Previews: PreviewProvider {
 // TODO: move to preview content
 extension BrewMethod {
     static var v60Single: Self {
-        return BrewMethod(id: "v60-single", title: "V60 Single", path: "v60-single/", ratios: [.ratio16, .ratio17, .ratio18, .ratio19, .ratio20])
+        return BrewMethod(id: "v60-single", title: "V60 Single", path: "/v60-single", ratios: [.ratio16, .ratio17, .ratio18, .ratio19, .ratio20])
     }
 
     static var v60Iced: Self {
-        return BrewMethod(id: "v60-iced", title: "V60 Iced", path: "v60-iced/", ratios: [.ratio15, .ratio16, .ratio17, .ratio18, .ratio19])
+        return BrewMethod(id: "v60-iced", title: "V60 Iced", path: "/v60-iced", ratios: [.ratio15, .ratio16, .ratio17, .ratio18, .ratio19])
     }
 
     static var frenchPress: Self {
-        return BrewMethod(id: "french-press", title: "French Press", path: "french-press/", ratios: [.ratio17, .ratio18, .ratio19, .ratio20])
+        return BrewMethod(id: "french-press", title: "French Press", path: "/french-press", ratios: [.ratio17, .ratio18, .ratio19, .ratio20])
     }
 }
