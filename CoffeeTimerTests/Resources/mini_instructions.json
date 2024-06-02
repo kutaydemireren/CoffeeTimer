@@ -10,10 +10,6 @@
             "coffee": 0,
             "water": 0
         },
-        "used": {
-            "water": 0,
-            "coffee": 0
-        },
         "total": {
             "water": 0,
             "coffee": 0
@@ -32,7 +28,7 @@
                 "factorOf": "coffee",
                 "constant": 0
             },
-            "message": "Put all your #amount of coffee to brewer"
+            "message": "Put all your #current.amount grams of coffee to brewer"
         },
         {
             "action": "put",
@@ -52,7 +48,7 @@
                 "factorOf": "water",
                 "constant": 0
             },
-            "message": "To bloom, pour #amount of water\nTotal: #currentTotalWater of water"
+            "message": "To bloom, pour #current.amount millilitres of water\nTotal: #current.water millilitres of water"
         },
         {
             "action": "put",
@@ -66,7 +62,7 @@
                 "factorOf": "water",
                 "constant": 0
             },
-            "message": "To bloom, pour #amount of water\nTotal: #currentTotalWater of water"
+            "message": "To bloom, pour #current.amount millilitres of water\nTotal: #current.water millilitres of water"
         },
         {
             "action": "message",
@@ -86,7 +82,7 @@
             },
             "startMethod": "auto",
             "skipMethod": "auto",
-            "message": "Let it bloom for #duration"
+            "message": "Let it bloom for #duration seconds"
         }
     ]
 }
