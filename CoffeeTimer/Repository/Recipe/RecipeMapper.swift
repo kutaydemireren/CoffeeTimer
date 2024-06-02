@@ -23,6 +23,17 @@ protocol RecipeMapper {
 	func mapToRecipeDTO(recipe: Recipe) -> RecipeDTO
 }
 
+extension IngredientAmountTypeDTO {
+    func map() -> IngredientAmountType {
+        switch self {
+        case .gram:
+            return .gram
+        case .millilitre:
+            return .millilitre
+        }
+    }
+}
+
 struct RecipeMapperImp: RecipeMapper { }
 
 // MARK: Recipe to RecipeDTO
@@ -87,31 +98,17 @@ extension RecipeMapperImp {
 		}
 	}
 
-	private func mapToIngredientAmount(ingredientAmountDTO: IngredientAmountDTO?) throws -> IngredientAmount {
-		guard let dto = ingredientAmountDTO else {
-			throw RecipeMapperError.missingIngredientAmount
-		}
+    private func mapToIngredientAmount(ingredientAmountDTO: IngredientAmountDTO?) throws -> IngredientAmount {
+        guard let dto = ingredientAmountDTO else {
+            throw RecipeMapperError.missingIngredientAmount
+        }
 
-		let amount = dto.amount ?? 0
-		let type = try mapToIngredientAmountType(ingredientAmountTypeDTO: dto.type)
+        guard let type = dto.type?.map() else {
+            throw RecipeMapperError.missingIngredientAmountType
+        }
 
-		return IngredientAmount(amount: amount, type: type)
-	}
-
-	private func mapToIngredientAmountType(ingredientAmountTypeDTO: IngredientAmountTypeDTO?) throws -> IngredientAmountType {
-		guard let dto = ingredientAmountTypeDTO else {
-			throw RecipeMapperError.missingIngredientAmountType
-		}
-
-		switch dto {
-		case .spoon:
-			return .spoon
-		case .gram:
-			return .gram
-		case .millilitre:
-			return .millilitre
-		}
-	}
+        return IngredientAmount(amount: dto.amount ?? 0, type: type)
+    }
 
 	private func mapToBrewQueue(brewQueueDTO: BrewQueueDTO?) throws-> BrewQueue {
 		guard let dto = brewQueueDTO else {
@@ -258,8 +255,6 @@ extension RecipeMapperImp {
 
 	private func mapToIngredientAmountTypeDTO(ingredientAmountType: IngredientAmountType) -> IngredientAmountTypeDTO {
 		switch ingredientAmountType {
-		case .spoon:
-			return .spoon
 		case .gram:
 			return .gram
 		case .millilitre:

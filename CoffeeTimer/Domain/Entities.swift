@@ -55,7 +55,6 @@ struct IngredientAmount: Equatable {
 }
 
 enum IngredientAmountType {
-    case spoon
     case gram
     case millilitre
 }
@@ -76,7 +75,7 @@ struct BrewStage: Equatable {
         requirement: BrewStageRequirement,
         startMethod: BrewStageActionMethod,
         passMethod: BrewStageActionMethod,
-        message: String = ""
+        message: String = "" // TODO: process instr msg -> remove default
     ) {
         self.action = action
         self.requirement = requirement

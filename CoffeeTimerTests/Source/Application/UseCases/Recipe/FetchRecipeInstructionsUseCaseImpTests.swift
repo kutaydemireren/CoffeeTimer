@@ -53,7 +53,7 @@ final class FetchRecipeInstructionsUseCaseImpTests: XCTestCase {
 
     func test_fetch_shouldRequestExpectedBrewMethod() async throws {
         let expectedBrewMethod = BrewMethod.frenchPress
-        mockRepository._recipeInstructions = loadV60SingleRecipeInstructions()
+        mockRepository._recipeInstructions = loadMiniInstructions()
 
         _ = try await sut.fetch(brewMethod: expectedBrewMethod)
 
@@ -61,7 +61,7 @@ final class FetchRecipeInstructionsUseCaseImpTests: XCTestCase {
     }
 
     func test_fetch_shouldRequestExpectedInstructions() async throws {
-        let expectedInstructions = loadV60SingleRecipeInstructions()
+        let expectedInstructions = loadMiniInstructions()
         mockRepository._recipeInstructions = expectedInstructions
 
         let resultedInstructions = try await sut.fetch(brewMethod: .frenchPress)

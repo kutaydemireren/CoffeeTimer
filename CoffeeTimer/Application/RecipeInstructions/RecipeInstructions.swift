@@ -81,7 +81,7 @@ import Foundation
 
 func loadV60SingleRecipeInstructions() -> RecipeInstructions { // TODO: remove once fetching is possible
     guard let bundleURL = Bundle.main.url(forResource: "instructions_v60_single", withExtension: "json") else {
-        fatalError("Coffee recipe file not found in bundle")
+        fatalError("Instructions file not found in bundle")
     }
 
     do {
@@ -145,7 +145,7 @@ struct RecipeInstructionStep: Decodable {
 //
 
 struct InstructionAmount: Decodable {
-    let type: String?
+    let type: IngredientAmountTypeDTO?
     let factor: Double?
     let factorOf: String?
     let constant: Double?
@@ -264,7 +264,7 @@ struct PutInstructionAction: InstructionAction {
 
         return IngredientAmount(
             amount: UInt(factor * valueFactorOf + constant),
-            type: .gram
+            type: amount?.type?.map() ?? .gram // TODO: throw from `calculate` methods?
         )
     }
 }

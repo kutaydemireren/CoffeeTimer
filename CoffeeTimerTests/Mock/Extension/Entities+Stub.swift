@@ -46,9 +46,9 @@ extension Array where Element == Ingredient {
 extension BrewQueue {
     static var stubMini: BrewQueue {
         BrewQueue(stages: [
-            .init(action: .wet, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive),
-            .init(action: .boilWater(.init(amount: 10, type: .gram)), requirement: .countdown(3), startMethod: .auto, passMethod: .userInteractive),
-            .init(action: .finish, requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive)
+            .init(action: .putCoffee(.init(amount: 10, type: .gram)), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive, message: "Put all your coffee to brewer"),
+            .init(action: .pourWater(.init(amount: 40, type: .millilitre)), requirement: .countdown(10), startMethod: .userInteractive, passMethod: .auto, message: "To bloom, pour #amount of water\nTotal: #currentTotalWater of water"),
+            .init(action: .pause, requirement: .countdown(30), startMethod: .auto, passMethod: .auto, message: "Let it bloom for #duration")
         ])
     }
 }
