@@ -101,12 +101,18 @@ struct RecipeInstructions: Decodable {
 
     let identifier: String
     let ingredients: [RecipeInstructions.Ingredient]
+    let context: InstructionActionContext?
     let steps: [RecipeInstructionStep]
 }
 
 extension RecipeInstructions { // TODO: Move to test target
     static var empty: Self {
-        return RecipeInstructions(identifier: "", ingredients: [], steps: [])
+        return RecipeInstructions(
+            identifier: "",
+            ingredients: [],
+            context: InstructionActionContext(),
+            steps: []
+        )
     }
 }
 
@@ -190,6 +196,23 @@ enum InstructionInteractionMethod: String, Decodable {
 }
 
 // TODO: move
+struct RecipeInstructionInput {
+    let ingredients: [RecipeInstructions.Ingredient: Double]
+}
+
+//
+
+extension IngredientAmount {
+    static var zeroGram: Self {
+        return IngredientAmount(
+            amount: 0,
+            type: .gram
+        )
+    }
+}
+
+//
+
 protocol MessageProcessing {
 }
 
@@ -205,12 +228,37 @@ extension MessageProcessing {
 
 //
 
+struct InstructionActionContext: Decodable {
+    struct Context: Decodable {
+        let amount: Double?
+        let coffee: Double?
+        let water: Double?
+    }
+
+    let current: Context?
+    let used: Context?
+    let total: Context?
+
+    init(
+        current: Context? = nil,
+        used: Context? = nil,
+        total: Context? = nil
+    ) {
+        self.current = current
+        self.used = used
+        self.total = total
+    }
+}
+
+//
+
 protocol InstructionAction: Decodable, MessageProcessing {
     var requirement: InstructionRequirement? { get }
     var startMethod: InstructionInteractionMethod? { get }
     var skipMethod: InstructionInteractionMethod? { get }
     var message: String? { get }
 
+    func updateContext(_ context: InstructionActionContext, input: RecipeInstructionInput) -> InstructionActionContext
     func action(for input: RecipeInstructionInput) -> BrewStageAction
 }
 
@@ -246,6 +294,8 @@ extension InstructionAction {
     }
 }
 
+//
+
 extension RecipeInstructions.Ingredient {
     static var water: Self { return "water" }
     static var coffee: Self { return "coffee" }
@@ -277,16 +327,13 @@ struct PutInstructionAction: InstructionAction {
             type: amount?.type?.map() ?? .gram // TODO: throw from `calculate` methods?
         )
     }
-}
 
-extension IngredientAmount {
-    static var zeroGram: Self {
-        return IngredientAmount(
-            amount: 0,
-            type: .gram
-        )
+    func updateContext(_ context: InstructionActionContext, input: RecipeInstructionInput) -> InstructionActionContext {
+        return InstructionActionContext(current: nil, used: nil, total: nil)
     }
 }
+
+//
 
 struct PauseInstructionAction: InstructionAction {
     let requirement: InstructionRequirement?
@@ -297,10 +344,8 @@ struct PauseInstructionAction: InstructionAction {
     func action(for input: RecipeInstructionInput) -> BrewStageAction {
         return .pause
     }
-}
 
-//
-
-struct RecipeInstructionInput {
-    let ingredients: [RecipeInstructions.Ingredient: Double]
+    func updateContext(_ context: InstructionActionContext, input: RecipeInstructionInput) -> InstructionActionContext {
+        return InstructionActionContext(current: nil, used: nil, total: nil)
+    }
 }

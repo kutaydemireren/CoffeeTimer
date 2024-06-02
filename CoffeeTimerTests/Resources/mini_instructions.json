@@ -4,6 +4,21 @@
         "water",
         "coffee"
     ],
+    "context": {
+        "current": {
+            "amount": 0,
+            "coffee": 0,
+            "water": 0
+        },
+        "used": {
+            "water": 0,
+            "coffee": 0
+        },
+        "total": {
+            "water": 0,
+            "coffee": 0
+        }
+    },
     "steps": [
         {
             "action": "put",
@@ -17,7 +32,7 @@
                 "factorOf": "coffee",
                 "constant": 0
             },
-            "message": "Put all your coffee to brewer"
+            "message": "Put all your #amount of coffee to brewer"
         },
         {
             "action": "put",
@@ -30,6 +45,20 @@
             },
             "startMethod": "userInteractive",
             "skipMethod": "auto",
+            "ingredient": "water",
+            "amount": {
+                "type": "millilitre",
+                "factor": 0.2,
+                "factorOf": "water",
+                "constant": 0
+            },
+            "message": "To bloom, pour #amount of water\nTotal: #currentTotalWater of water"
+        },
+        {
+            "action": "put",
+            "requirement": null,
+            "startMethod": "auto",
+            "skipMethod": "userInteractive",
             "ingredient": "water",
             "amount": {
                 "type": "millilitre",

@@ -46,9 +46,10 @@ extension Array where Element == Ingredient {
 extension BrewQueue {
     static var stubMini: BrewQueue {
         BrewQueue(stages: [
-            .init(action: .putCoffee(.init(amount: 10, type: .gram)), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive, message: "Put all your coffee to brewer"),
-            .init(action: .pourWater(.init(amount: 40, type: .millilitre)), requirement: .countdown(10), startMethod: .userInteractive, passMethod: .auto, message: "To bloom, pour #amount of water\nTotal: #currentTotalWater of water"),
-            .init(action: .pause, requirement: .countdown(30), startMethod: .auto, passMethod: .auto, message: "Let it bloom for #duration")
+            .init(action: .putCoffee(.init(amount: 10, type: .gram)), requirement: .none, startMethod: .userInteractive, passMethod: .userInteractive, message: "Put all your 10 grams of coffee to brewer"),
+            .init(action: .pourWater(.init(amount: 40, type: .millilitre)), requirement: .countdown(10), startMethod: .userInteractive, passMethod: .auto, message: "To bloom, pour 40 millilitres of water\nTotal: 40 millilitres of water"),
+            .init(action: .pourWater(.init(amount: 40, type: .millilitre)), requirement: .none, startMethod: .auto, passMethod: .userInteractive, message: "To bloom, pour 40 millilitres of water\nTotal: 80 millilitres of water"),
+            .init(action: .pause, requirement: .countdown(30), startMethod: .auto, passMethod: .auto, message: "Let it bloom for 30 seconds.")
         ])
     }
 }
