@@ -189,9 +189,23 @@ enum InstructionInteractionMethod: String, Decodable {
     case userInteractive
 }
 
+// TODO: move
+protocol MessageProcessing {
+}
+
+extension MessageProcessing {
+    func process(message: String, with replacements: [String: String]) -> String {
+        var processedMessage = message
+        for (key, value) in replacements {
+            processedMessage = processedMessage.replacingOccurrences(of: key, with: value)
+        }
+        return processedMessage
+    }
+}
+
 //
 
-protocol InstructionAction: Decodable {
+protocol InstructionAction: Decodable, MessageProcessing {
     var requirement: InstructionRequirement? { get }
     var startMethod: InstructionInteractionMethod? { get }
     var skipMethod: InstructionInteractionMethod? { get }
@@ -207,7 +221,7 @@ extension InstructionAction {
             requirement: map(requirement),
             startMethod: map(startMethod),
             passMethod: map(skipMethod),
-            message: message ?? ""
+            message: process(message: message ?? "", with: [:]) // TODO: process instr msg -> context
         )
     }
 
@@ -231,10 +245,6 @@ extension InstructionAction {
         }
     }
 }
-
-//struct MessageInstructionAction: InstructionAction {
-//    let message: String?
-//}
 
 extension RecipeInstructions.Ingredient {
     static var water: Self { return "water" }
