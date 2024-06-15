@@ -101,7 +101,6 @@ struct RecipeInstructions: Decodable {
 
     let identifier: String
     let ingredients: [RecipeInstructions.Ingredient]
-    let context: InstructionActionContext?
     let steps: [RecipeInstructionStep]
 }
 
@@ -110,7 +109,6 @@ extension RecipeInstructions { // TODO: Move to test target
         return RecipeInstructions(
             identifier: "",
             ingredients: [],
-            context: InstructionActionContext.empty,
             steps: []
         )
     }
@@ -236,20 +234,14 @@ struct InstructionActionContext: Decodable {
     }
 
     let current: Context?
-    let total: Context?
 
     func toDict() -> [String: String] {
         var dict = [String: String]()
 
         if let current {
-            dict["#current.amount"] = .from(optionalDouble: current.amount)
-            dict["#current.coffee"] = .from(optionalDouble: current.coffee)
-            dict["#current.water"] = .from(optionalDouble: current.water)
-        }
-
-        if let total {
-            dict["#total.coffee"] = .from(optionalDouble: total.coffee)
-            dict["#total.water"] = .from(optionalDouble: total.water)
+            dict["#current.amount"] = String(current.amount)
+            dict["#current.coffee"] = String(current.coffee)
+            dict["#current.water"] = String(current.water)
         }
 
         return dict
@@ -257,24 +249,22 @@ struct InstructionActionContext: Decodable {
 }
 
 extension String {
-    static func from(optionalDouble doubleVal: Double?) -> String? {
+    init?(_ doubleVal: Double?) {
         guard let doubleVal else { return nil }
-        return "\(doubleVal)"
+        self.init(doubleVal)
     }
 }
 
 extension InstructionActionContext {
     static var empty: InstructionActionContext {
         return InstructionActionContext(
-            current: nil,
-            total: nil
+            current: nil
         )
     }
 
     func updating(current: Context? = nil) -> InstructionActionContext {
         return InstructionActionContext(
-            current: current ?? self.current,
-            total: self.total
+            current: current ?? self.current
         )
     }
 }
@@ -292,15 +282,13 @@ protocol InstructionAction: Decodable, MessageProcessing {
 }
 
 extension InstructionAction {
-    func stage(for input: RecipeInstructionInput) -> BrewStage {
-        let newContext = updateContext(InstructionActionContext.empty, input: input)
+    func stage(for input: RecipeInstructionInput, in context: InstructionActionContext) -> BrewStage {
         return BrewStage(
             action: action(for: input),
             requirement: map(requirement),
             startMethod: map(startMethod),
             passMethod: map(skipMethod),
-            // TODO: process instr msg -> context
-            message: process(message: message ?? "", with: newContext.toDict())
+            message: process(message: message ?? "", with: context.toDict())
         )
     }
 

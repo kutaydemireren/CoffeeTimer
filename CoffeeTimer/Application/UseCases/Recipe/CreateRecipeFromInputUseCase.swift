@@ -31,8 +31,10 @@ struct CreateRecipeFromInputUseCaseImp: CreateRecipeFromInputUseCase {
             ]
         )
 
-        let stages = instructions.steps.compactMap { recipeInstructionStep in
-            recipeInstructionStep.instructionAction?.stage(for: input)
+        var context = InstructionActionContext.empty
+        let stages = instructions.steps.compactMap { recipeInstructionStep -> BrewStage? in
+            context = recipeInstructionStep.instructionAction?.updateContext(context, input: input) ?? .empty
+            return recipeInstructionStep.instructionAction?.stage(for: input, in: context)
         }
 
         return BrewQueue(stages: stages)
