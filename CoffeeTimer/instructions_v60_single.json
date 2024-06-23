@@ -12,12 +12,12 @@
             "skipMethod": "userInteractive",
             "ingredient": "coffee",
             "amount": {
-                "type": "gr",
+                "type": "gram",
                 "factor": 1,
                 "factorOf": "coffee",
                 "constant": 0
             },
-            "message": "Boil all #current.amount of water"
+            "message": "Put all your #current.amount grams of coffee to brewer"
         },
         {
             "action": "message",
@@ -40,7 +40,7 @@
             "skipMethod": "userInteractive",
             "ingredient": "water",
             "amount": {
-                "type": "gr",
+                "type": "gram",
                 "factor": 0.2,
                 "factorOf": "water",
                 "constant": 0
@@ -74,7 +74,7 @@
             "skipMethod": "userInteractive",
             "ingredient": "water",
             "amount": {
-                "type": "gr",
+                "type": "gram",
                 "factor": 0.2,
                 "factorOf": "water",
                 "constant": 0
@@ -101,7 +101,7 @@
             "skipMethod": "userInteractive",
             "ingredient": "water",
             "amount": {
-                "type": "gr",
+                "type": "gram",
                 "factor": 0.2,
                 "factorOf": "water",
                 "constant": 0
@@ -128,7 +128,7 @@
             "skipMethod": "userInteractive",
             "ingredient": "water",
             "amount": {
-                "type": "gr",
+                "type": "gram",
                 "factor": 0.2,
                 "factorOf": "water",
                 "constant": 0
@@ -155,7 +155,7 @@
             "skipMethod": "userInteractive",
             "ingredient": "water",
             "amount": {
-                "type": "gr",
+                "type": "gram",
                 "factor": 0.2,
                 "factorOf": "water",
                 "constant": 0

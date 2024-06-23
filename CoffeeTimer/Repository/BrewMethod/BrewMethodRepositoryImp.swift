@@ -21,10 +21,11 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
 
     func fetchBrewMethods() async throws -> [BrewMethod] {
         // TODO: temp, revert
-        return [.v60Single]
-//        let data = try await networkManager.perform(request: FetchBrewMethodsRequest())
-//        let brewMethodDTOs = try decoding.decode([BrewMethodDTO].self, from: data)
-//        return map(brewMethodDTOs: brewMethodDTOs)
+        // return [.v60Single]
+
+        let data = try await networkManager.perform(request: FetchBrewMethodsRequest())
+        let brewMethodDTOs = try decoding.decode([BrewMethodDTO].self, from: data)
+        return map(brewMethodDTOs: brewMethodDTOs)
     }
 
     private func map(brewMethodDTOs: [BrewMethodDTO]) -> [BrewMethod] {

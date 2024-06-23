@@ -31,6 +31,13 @@
             "message": "Put all your #current.amount grams of coffee to brewer"
         },
         {
+            "action": "message",
+            "requirement": null,
+            "startMethod": "auto",
+            "skipMethod": "userInteractive",
+            "message": "Wet filter on hot tap water"
+        },
+        {
             "action": "put",
             "requirement": {
                 "type": "countdown",
@@ -51,6 +58,19 @@
             "message": "To bloom, pour #current.amount millilitres of water\nTotal: #current.water millilitres of water"
         },
         {
+            "action": "pause",
+            "requirement": {
+                "type": "countdown",
+                "duration": {
+                    "type": "second",
+                    "length": 30
+                }
+            },
+            "startMethod": "auto",
+            "skipMethod": "auto",
+            "message": "Let it bloom for #current.duration seconds"
+        },
+        {
             "action": "put",
             "requirement": null,
             "startMethod": "auto",
@@ -63,26 +83,6 @@
                 "constant": 0
             },
             "message": "To bloom, pour #current.amount millilitres of water\nTotal: #current.water millilitres of water"
-        },
-        {
-            "action": "message",
-            "requirement": null,
-            "startMethod": "auto",
-            "skipMethod": "userInteractive",
-            "message": "Wet filter on hot tap water"
-        },
-        {
-            "action": "pause",
-            "requirement": {
-                "type": "countdown",
-                "duration": {
-                    "type": "second",
-                    "length": 30
-                }
-            },
-            "startMethod": "auto",
-            "skipMethod": "auto",
-            "message": "Let it bloom for #current.duration seconds"
         }
     ]
 }

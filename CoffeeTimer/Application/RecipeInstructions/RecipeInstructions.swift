@@ -379,6 +379,13 @@ struct PauseInstructionAction: InstructionAction {
             return context
         }
 
-        return context.updating(current: .init(amount: 0, coffee: 0, water: 0, duration: Double(duration)))
+        return context.updating(
+            current: InstructionActionContext.Context(
+                amount: context.current?.amount ?? 0,
+                coffee: (context.current?.coffee ?? 0),
+                water: (context.current?.water ?? 0),
+                duration: Double(duration)
+            )
+        )
     }
 }

@@ -22,8 +22,8 @@ extension BrewQueueDTO {
         BrewQueueDTO(stages: [
             .init(action: .putCoffee(.init(amount: 10, type: .gram)), requirement: BrewStageRequirementDTO.none, startMethod: .userInteractive, passMethod: .userInteractive, message: "Put all your 10.0 grams of coffee to brewer"),
             .init(action: .pourWater(.init(amount: 40, type: .millilitre)), requirement: .countdown(10), startMethod: .userInteractive, passMethod: .auto, message: "To bloom, pour 40.0 millilitres of water\nTotal: 40.0 millilitres of water"),
-            .init(action: .pourWater(.init(amount: 40, type: .millilitre)), requirement: BrewStageRequirementDTO.none, startMethod: .auto, passMethod: .userInteractive, message: "To bloom, pour 40.0 millilitres of water\nTotal: 80.0 millilitres of water"),
-            .init(action: .pause, requirement: .countdown(30), startMethod: .auto, passMethod: .auto, message: "Let it bloom for 30.0 seconds")
+            .init(action: .pause, requirement: .countdown(30), startMethod: .auto, passMethod: .auto, message: "Let it bloom for 30.0 seconds"),
+            .init(action: .pourWater(.init(amount: 40, type: .millilitre)), requirement: BrewStageRequirementDTO.none, startMethod: .auto, passMethod: .userInteractive, message: "To bloom, pour 40.0 millilitres of water\nTotal: 80.0 millilitres of water")
         ])
     }
 }
