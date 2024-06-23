@@ -79,14 +79,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 		currentStageViewModel as? BrewStageConstantViewModel
 	}
 
-	@Published private(set) var canProceedToNextStep = true {
-		didSet {
-			if canProceedToNextStep && currentStage?.passMethod == .auto {
-				self.hapticGenerator.heavy()
-				self.nextStage()
-			}
-		}
-	}
+	@Published private(set) var canProceedToNextStep = true
 
 	private var currentStage: BrewStage? {
 		didSet {
@@ -154,7 +147,6 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 	}
 
 	private func nextStage() {
-
 		if isActive {
 			var tempCurrentStageIndex = currentStageIndex + 1
 			if tempCurrentStageIndex >= brewQueue.stages.count {
@@ -167,6 +159,13 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 			currentStageIndex = 0
 		}
 	}
+
+    private func nextStageIfAuto() {
+        if canProceedToNextStep && currentStage?.passMethod == .auto {
+            self.hapticGenerator.heavy()
+            self.nextStage()
+        }
+    }
 
 	private func loadInitialStage() {
 		stageHeader = "Welcome"
@@ -195,7 +194,6 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 		switch currentStage.requirement {
 		case .none:
 			currentStageViewModel = BrewStageConstantViewModel(text: "Done")
-			canProceedToNextStep = true
 		case .countdown(let timeLeft):
 			currentStageViewModel = BrewStageTimerViewModel(
 				timeIntervalLeft: TimeInterval(timeLeft),
@@ -217,7 +215,8 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 	}
 
 	private func didSinkNewTimeInterval(_ timeInterval: TimeInterval) {
-		canProceedToNextStep = timeInterval <= 0
+        canProceedToNextStep = timeInterval <= 0
+        nextStageIfAuto()
 	}
 
 	func showRecipes() {
