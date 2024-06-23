@@ -82,7 +82,7 @@
             },
             "startMethod": "auto",
             "skipMethod": "auto",
-            "message": "Let it bloom for #duration seconds"
+            "message": "Let it bloom for #current.duration seconds"
         }
     ]
 }

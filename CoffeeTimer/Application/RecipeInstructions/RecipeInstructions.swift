@@ -231,9 +231,10 @@ struct InstructionActionContext: Decodable {
         let amount: Double?
         let coffee: Double?
         let water: Double?
+        let duration: Double?
     }
 
-    let current: Context?
+    let current: Context? // TODO: is `current` really needed?
 
     func toDict() -> [String: String] {
         var dict = [String: String]()
@@ -242,6 +243,7 @@ struct InstructionActionContext: Decodable {
             dict["#current.amount"] = String(current.amount)
             dict["#current.coffee"] = String(current.coffee)
             dict["#current.water"] = String(current.water)
+            dict["#current.duration"] = String(current.duration)
         }
 
         return dict
@@ -262,7 +264,7 @@ extension InstructionActionContext {
         )
     }
 
-    func updating(current: Context? = nil) -> InstructionActionContext {
+    func updating(current: Context?) -> InstructionActionContext {
         return InstructionActionContext(
             current: current ?? self.current
         )
@@ -348,13 +350,13 @@ struct PutInstructionAction: InstructionAction {
     }
 
     func updateContext(_ context: InstructionActionContext, input: RecipeInstructionInput) -> InstructionActionContext {
-
         let amount = Double(calculate(amount: amount, input: input).amount)
         return context.updating(
             current: InstructionActionContext.Context(
                 amount: amount,
                 coffee: (context.current?.coffee ?? 0) + (ingredient == .coffee ? amount : 0),
-                water: (context.current?.water ?? 0) + (ingredient == .water ? amount : 0)
+                water: (context.current?.water ?? 0) + (ingredient == .water ? amount : 0),
+                duration: 0
             )
         )
     }
@@ -373,6 +375,10 @@ struct PauseInstructionAction: InstructionAction {
     }
 
     func updateContext(_ context: InstructionActionContext, input: RecipeInstructionInput) -> InstructionActionContext {
-        return InstructionActionContext.empty
+        guard case .countdown(let duration) = requirement else {
+            return context
+        }
+
+        return context.updating(current: .init(amount: 0, coffee: 0, water: 0, duration: Double(duration)))
     }
 }
