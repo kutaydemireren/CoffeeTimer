@@ -41,8 +41,7 @@ struct IngredientAmountDTO: Codable, Equatable {
     let type: IngredientAmountTypeDTO?
 }
 
-enum IngredientAmountTypeDTO: Codable, Equatable {
-    case spoon
+enum IngredientAmountTypeDTO: String, Codable, Equatable {
     case gram
     case millilitre
 }

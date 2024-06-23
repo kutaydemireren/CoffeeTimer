@@ -81,7 +81,7 @@ import Foundation
 
 func loadV60SingleRecipeInstructions() -> RecipeInstructions { // TODO: remove once fetching is possible
     guard let bundleURL = Bundle.main.url(forResource: "instructions_v60_single", withExtension: "json") else {
-        fatalError("Coffee recipe file not found in bundle")
+        fatalError("Instructions file not found in bundle")
     }
 
     do {
@@ -106,7 +106,11 @@ struct RecipeInstructions: Decodable {
 
 extension RecipeInstructions { // TODO: Move to test target
     static var empty: Self {
-        return RecipeInstructions(identifier: "", ingredients: [], steps: [])
+        return RecipeInstructions(
+            identifier: "",
+            ingredients: [],
+            steps: []
+        )
     }
 }
 
@@ -145,7 +149,7 @@ struct RecipeInstructionStep: Decodable {
 //
 
 struct InstructionAmount: Decodable {
-    let type: String?
+    let type: IngredientAmountTypeDTO?
     let factor: Double?
     let factorOf: String?
     let constant: Double?
@@ -189,25 +193,104 @@ enum InstructionInteractionMethod: String, Decodable {
     case userInteractive
 }
 
+// TODO: move
+struct RecipeInstructionInput {
+    let ingredients: [RecipeInstructions.Ingredient: Double]
+}
+
 //
 
-protocol InstructionAction: Decodable {
+extension IngredientAmount {
+    static var zeroGram: Self {
+        return IngredientAmount(
+            amount: 0,
+            type: .gram
+        )
+    }
+}
+
+//
+
+protocol MessageProcessing {
+}
+
+extension MessageProcessing {
+    func process(message: String, with replacements: [String: String]) -> String {
+        var processedMessage = message
+        for (key, value) in replacements {
+            processedMessage = processedMessage.replacingOccurrences(of: key, with: value)
+        }
+        return processedMessage
+    }
+}
+
+//
+
+struct InstructionActionContext: Decodable {
+    struct Context: Decodable {
+        let amount: Double?
+        let coffee: Double?
+        let water: Double?
+        let duration: Double?
+    }
+
+    let current: Context? // TODO: is `current` really needed?
+
+    func toDict() -> [String: String] {
+        var dict = [String: String]()
+
+        if let current {
+            dict["#current.amount"] = String(current.amount)
+            dict["#current.coffee"] = String(current.coffee)
+            dict["#current.water"] = String(current.water)
+            dict["#current.duration"] = String(current.duration)
+        }
+
+        return dict
+    }
+}
+
+extension String {
+    init?(_ doubleVal: Double?) {
+        guard let doubleVal else { return nil }
+        self.init(doubleVal)
+    }
+}
+
+extension InstructionActionContext {
+    static var empty: InstructionActionContext {
+        return InstructionActionContext(
+            current: nil
+        )
+    }
+
+    func updating(current: Context?) -> InstructionActionContext {
+        return InstructionActionContext(
+            current: current ?? self.current
+        )
+    }
+}
+
+//
+
+protocol InstructionAction: Decodable, MessageProcessing {
     var requirement: InstructionRequirement? { get }
     var startMethod: InstructionInteractionMethod? { get }
     var skipMethod: InstructionInteractionMethod? { get }
     var message: String? { get }
 
+    func updateContext(_ context: InstructionActionContext, input: RecipeInstructionInput) -> InstructionActionContext
     func action(for input: RecipeInstructionInput) -> BrewStageAction
 }
 
 extension InstructionAction {
-    func stage(for input: RecipeInstructionInput) -> BrewStage {
+    func stage(for input: RecipeInstructionInput, in context: InstructionActionContext) -> BrewStage {
         return BrewStage(
             action: action(for: input),
             requirement: map(requirement),
             startMethod: map(startMethod),
             passMethod: map(skipMethod),
-            message: message ?? ""
+            message: process(message: message ?? "", with: context.toDict())
         )
     }
 
@@ -232,9 +315,7 @@ extension InstructionAction {
     }
 }
 
-//struct MessageInstructionAction: InstructionAction {
-//    let message: String?
-//}
+//
 
 extension RecipeInstructions.Ingredient {
     static var water: Self { return "water" }
@@ -264,19 +345,24 @@ struct PutInstructionAction: InstructionAction {
 
         return IngredientAmount(
             amount: UInt(factor * valueFactorOf + constant),
-            type: .gram
+            type: amount?.type?.map() ?? .gram // TODO: throw from `calculate` methods?
+        )
+    }
+
+    func updateContext(_ context: InstructionActionContext, input: RecipeInstructionInput) -> InstructionActionContext {
+        let amount = Double(calculate(amount: amount, input: input).amount)
+        return context.updating(
+            current: InstructionActionContext.Context(
+                amount: amount,
+                coffee: (context.current?.coffee ?? 0) + (ingredient == .coffee ? amount : 0),
+                water: (context.current?.water ?? 0) + (ingredient == .water ? amount : 0),
+                duration: 0
+            )
         )
     }
 }
 
-extension IngredientAmount {
-    static var zeroGram: Self {
-        return IngredientAmount(
-            amount: 0,
-            type: .gram
-        )
-    }
-}
+//
 
 struct PauseInstructionAction: InstructionAction {
     let requirement: InstructionRequirement?
@@ -287,10 +373,12 @@ struct PauseInstructionAction: InstructionAction {
     func action(for input: RecipeInstructionInput) -> BrewStageAction {
         return .pause
     }
-}
 
-//
+    func updateContext(_ context: InstructionActionContext, input: RecipeInstructionInput) -> InstructionActionContext {
+        guard case .countdown(let duration) = requirement else {
+            return context
+        }
 
-struct RecipeInstructionInput {
-    let ingredients: [RecipeInstructions.Ingredient: Double]
+        return context.updating(current: .init(amount: 0, coffee: 0, water: 0, duration: Double(duration)))
+    }
 }

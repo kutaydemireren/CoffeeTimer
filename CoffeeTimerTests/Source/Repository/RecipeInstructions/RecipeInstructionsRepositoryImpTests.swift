@@ -107,7 +107,7 @@ final class RecipeInstructionsRepositoryImpTests: XCTestCase {
 
     func test_fetchInstructions_shouldReturnExpectedRecipeInstructions() async throws {
         mockNetworkManager._data = Data()
-        let expectedInstructions = loadV60SingleRecipeInstructions()
+        let expectedInstructions = loadMiniInstructions()
         mockDecoding._decoded = expectedInstructions
 
         let resultedInstructions = try await sut.fetchInstructions(for: .frenchPress)

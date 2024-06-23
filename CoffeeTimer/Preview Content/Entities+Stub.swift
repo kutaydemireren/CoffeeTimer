@@ -53,7 +53,7 @@ extension BrewQueue {
     static var stubSingleV60: BrewQueue {
         let stages = loadV60SingleRecipeInstructions()
             .steps
-            .compactMap { $0.instructionAction?.stage(for: RecipeInstructionInput(ingredients: [.coffee: 15, .water: 250])) }
+            .compactMap { $0.instructionAction?.stage(for: RecipeInstructionInput(ingredients: [.coffee: 15, .water: 250]), in: .empty) }
 
         return BrewQueue(stages: stages)
     }

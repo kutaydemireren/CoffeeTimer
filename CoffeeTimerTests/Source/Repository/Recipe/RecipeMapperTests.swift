@@ -19,11 +19,9 @@ extension RecipeDTO {
 			),
 			ingredients: [
 				.init(ingredientType: .coffee, amount: .init(amount: 10, type: .gram)),
-				.init(ingredientType: .water, amount: .init(amount: 15, type: .millilitre)),
-				.init(ingredientType: .coffee, amount: .init(amount: 20, type: .spoon))
+				.init(ingredientType: .water, amount: .init(amount: 15, type: .millilitre))
 			],
 			brewQueue: .init(stages: [
-				.init(action: .pourWater(.init(amount: 10, type: .spoon)), requirement: BrewStageRequirementDTO.none, startMethod: .auto, passMethod: .userInteractive),
 				.init(action: .pause, requirement: .countdown(10), startMethod: .userInteractive, passMethod: .auto),
 				.init(action: .swirl, requirement: BrewStageRequirementDTO.none, startMethod: .auto, passMethod: .auto)
 			])

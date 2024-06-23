@@ -32,8 +32,6 @@ extension IngredientAmount {
 			return "\(amount) gr"
 		case .millilitre:
 			return "\(amount) ml"
-		case .spoon:
-			return "\(amount) spoon"
 		}
 	}
 }
