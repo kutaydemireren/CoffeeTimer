@@ -17,7 +17,7 @@
 				"factorOf": "coffee",
 				"constant": 0
 			},
-			"message": "Boil all #amount of water"
+			"message": "Boil all #current.amount of water"
 		},
 		{
 			"action": "message",
@@ -45,7 +45,7 @@
 				"factorOf": "water",
 				"constant": 0
 			},
-			"message": "To bloom, pour #amount of water\nTotal: #currentTotalWater of water"
+			"message": "To bloom, pour #current.amount of water\nTotal: #current.water of water"
 		},
 		{
 			"action": "message",
@@ -65,7 +65,7 @@
 			},
 			"startMethod": "auto",
 			"skipMethod": "auto",
-			"message": "Let it bloom for #duration"
+			"message": "Let it bloom for #current.duration"
 		},
 		{
 			"action": "put",
@@ -79,7 +79,7 @@
 				"factorOf": "water",
 				"constant": 0
 			},
-			"message": "Pour #amount of water\nTotal: #currentTotalWater of water"
+			"message": "Pour #current.amount of water\nTotal: #current.water of water"
 		},
 		{
 			"action": "pause",
@@ -92,7 +92,7 @@
 			},
 			"startMethod": "auto",
 			"skipMethod": "auto",
-			"message": "Pause for #duration"
+			"message": "Pause for #current.duration"
 		},
 		{
 			"action": "put",
@@ -106,7 +106,7 @@
 				"factorOf": "water",
 				"constant": 0
 			},
-			"message": "Pour #amount of water\nTotal: #currentTotalWater of water"
+			"message": "Pour #current.amount of water\nTotal: #current.water of water"
 		},
 		{
 			"action": "pause",
@@ -119,7 +119,7 @@
 			},
 			"startMethod": "auto",
 			"skipMethod": "auto",
-			"message": "Pause for #duration"
+			"message": "Pause for #current.duration"
 		},
 		{
 			"action": "put",
@@ -133,7 +133,7 @@
 				"factorOf": "water",
 				"constant": 0
 			},
-			"message": "Pour #amount of water\nTotal: #currentTotalWater of water"
+			"message": "Pour #current.amount of water\nTotal: #current.water of water"
 		},
 		{
 			"action": "pause",
@@ -146,7 +146,7 @@
 			},
 			"startMethod": "auto",
 			"skipMethod": "auto",
-			"message": "Pause for #duration"
+			"message": "Pause for #current.duration"
 		},
 		{
 			"action": "put",
@@ -160,7 +160,7 @@
 				"factorOf": "water",
 				"constant": 0
 			},
-			"message": "Pour #amount of water\nTotal: #currentTotalWater of water"
+			"message": "Pour #current.amount of water\nTotal: #current.water of water"
 		}
 	]
 }
