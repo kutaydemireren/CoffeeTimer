@@ -34,14 +34,14 @@ extension CoffeeToWaterRatio {
     }
 
     static var ratio17: Self {
-        return CoffeeToWaterRatio(id: "1:17", value: 16, title: "1 - 17")
+        return CoffeeToWaterRatio(id: "1:17", value: 17, title: "1 - 17")
     }
 
     static var ratio18: Self {
-        return CoffeeToWaterRatio(id: "1:18", value: 16, title: "1 - 18")
+        return CoffeeToWaterRatio(id: "1:18", value: 18, title: "1 - 18")
     }
 
     static var ratio20: Self {
-        return CoffeeToWaterRatio(id: "1:20", value: 16, title: "1 - 20")
+        return CoffeeToWaterRatio(id: "1:20", value: 20, title: "1 - 20")
     }
 }

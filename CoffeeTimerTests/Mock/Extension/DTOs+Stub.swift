@@ -9,11 +9,21 @@
 
 extension BrewMethodDTO {
     static var v60Single: Self {
-        return BrewMethodDTO(id: "v60-single", title: "V60 Single", path: "/v60-single", ratios: [.ratio16, .ratio18, .ratio20])
+        return BrewMethodDTO(id: "v60-single", title: "V60 Single", path: "/v60-single", cupsCount: .v60Single, ratios: [.ratio16, .ratio18, .ratio20])
     }
 
     static var frenchPress: Self {
-        return BrewMethodDTO(id: "french-press", title: "French Press", path: "/french-press", ratios: [.ratio17, .ratio18, .ratio20])
+        return BrewMethodDTO(id: "french-press", title: "French Press", path: "/french-press", cupsCount: .frenchPress, ratios: [.ratio17, .ratio18, .ratio20])
+    }
+}
+
+extension CupsCountDTO {
+    static var v60Single: Self {
+        return CupsCountDTO(minimum: 1, maximum: 1)
+    }
+
+    static var frenchPress: Self {
+        return CupsCountDTO(minimum: nil, maximum: nil)
     }
 }
 
@@ -23,15 +33,15 @@ extension CoffeeToWaterRatioDTO {
     }
 
     static var ratio17: Self {
-        return CoffeeToWaterRatioDTO(id: "1:17", value: 16, title: "1 - 17")
+        return CoffeeToWaterRatioDTO(id: "1:17", value: 17, title: "1 - 17")
     }
 
     static var ratio18: Self {
-        return CoffeeToWaterRatioDTO(id: "1:18", value: 16, title: "1 - 18")
+        return CoffeeToWaterRatioDTO(id: "1:18", value: 18, title: "1 - 18")
     }
 
     static var ratio20: Self {
-        return CoffeeToWaterRatioDTO(id: "1:20", value: 16, title: "1 - 20")
+        return CoffeeToWaterRatioDTO(id: "1:20", value: 20, title: "1 - 20")
     }
 }
 
