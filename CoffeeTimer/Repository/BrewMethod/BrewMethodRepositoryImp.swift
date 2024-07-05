@@ -31,8 +31,16 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
                 id: brewMethodDTO.id,
                 title: brewMethodDTO.title,
                 path: brewMethodDTO.path,
-                ratios: brewMethodDTO.ratios.compactMap { CoffeeToWaterRatio(rawValue: $0.id) }
+                ratios: brewMethodDTO.ratios.map(map(ratio:))
             )
         }
+    }
+
+    private func map(ratio: CoffeeToWaterRatioDTO) -> CoffeeToWaterRatio {
+        return CoffeeToWaterRatio(
+            id: ratio.id,
+            value: ratio.value,
+            title: ratio.title
+        )
     }
 }

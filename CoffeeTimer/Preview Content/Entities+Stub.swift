@@ -35,7 +35,7 @@ extension RecipeProfile {
             name: "Single V60 Recipe",
             icon: .stubSingleV60,
             cupsCount: 1,
-            ratio: .ratio15
+            ratio: .ratio16
         )
     }
 }

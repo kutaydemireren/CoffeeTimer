@@ -19,7 +19,7 @@ final class CreateRecipeFromContextUseCaseImpTests: XCTestCase {
         createRecipeContext.selectedBrewMethod = .frenchPress
         createRecipeContext.recipeProfile = .stubMini
         createRecipeContext.cupsCount = 1
-        createRecipeContext.ratio = .ratio15
+        createRecipeContext.ratio = .ratio16
 
         return createRecipeContext
     }

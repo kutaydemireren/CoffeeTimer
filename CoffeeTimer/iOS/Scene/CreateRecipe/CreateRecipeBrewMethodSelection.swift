@@ -69,7 +69,7 @@ extension BrewMethod {
     }
 
     static var v60Iced: Self {
-        return BrewMethod(id: "v60-iced", title: "V60 Iced", path: "/v60-iced", ratios: [.ratio15, .ratio16, .ratio17, .ratio18, .ratio19])
+        return BrewMethod(id: "v60-iced", title: "V60 Iced", path: "/v60-iced", ratios: [.ratio16, .ratio17, .ratio18])
     }
 
     static var frenchPress: Self {

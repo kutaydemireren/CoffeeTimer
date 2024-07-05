@@ -17,7 +17,6 @@
 		CA15528A2C0A5E2E000334FB /* CreateRecipeFromInputUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1552892C0A5E2E000334FB /* CreateRecipeFromInputUseCaseImpTests.swift */; };
 		CA17289429EB4B9F000F867B /* NumericTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289329EB4B9F000F867B /* NumericTextField.swift */; };
 		CA17289629EB4CA8000F867B /* View+Responder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289529EB4CA8000F867B /* View+Responder.swift */; };
-		CA17289929EB4CD1000F867B /* CoffeeToWaterRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289829EB4CD1000F867B /* CoffeeToWaterRatio.swift */; };
 		CA17289D29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289C29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift */; };
 		CA17289F29EB58F1000F867B /* CreateRecipeProfileSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA17289E29EB58F1000F867B /* CreateRecipeProfileSelection.swift */; };
 		CA1B52B02C0B97B300C4B923 /* BrewMethodRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B52AF2C0B97B300C4B923 /* BrewMethodRepository.swift */; };
@@ -118,7 +117,6 @@
 		CA1552892C0A5E2E000334FB /* CreateRecipeFromInputUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeFromInputUseCaseImpTests.swift; sourceTree = "<group>"; };
 		CA17289329EB4B9F000F867B /* NumericTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericTextField.swift; sourceTree = "<group>"; };
 		CA17289529EB4CA8000F867B /* View+Responder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Responder.swift"; sourceTree = "<group>"; };
-		CA17289829EB4CD1000F867B /* CoffeeToWaterRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeToWaterRatio.swift; sourceTree = "<group>"; };
 		CA17289C29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeCoffeeWaterSelection.swift; sourceTree = "<group>"; };
 		CA17289E29EB58F1000F867B /* CreateRecipeProfileSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeProfileSelection.swift; sourceTree = "<group>"; };
 		CA1B52AF2C0B97B300C4B923 /* BrewMethodRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewMethodRepository.swift; sourceTree = "<group>"; };
@@ -258,7 +256,6 @@
 		CA17289729EB4CC9000F867B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				CA17289829EB4CD1000F867B /* CoffeeToWaterRatio.swift */,
 				CAF42CE629EC9561004D7788 /* Completable.swift */,
 				CAF42CE429EC9548004D7788 /* Navigable.swift */,
 			);
@@ -885,7 +882,6 @@
 				CA5CA81929EB662F001E384D /* View+Background.swift in Sources */,
 				CA367D3229A2B0370095B1B8 /* CoffeeTimerApp.swift in Sources */,
 				CA7B804D29BFBD8C007D3DFC /* BrewQueueView.swift in Sources */,
-				CA17289929EB4CD1000F867B /* CoffeeToWaterRatio.swift in Sources */,
 				CA2A00CA2C0B65E10040B50D /* Errors.swift in Sources */,
 				CAF42CDF29EC907F004D7788 /* View+ClearButton.swift in Sources */,
 				CA1552882C0A5DEB000334FB /* FetchRecipeInstructionsUseCase.swift in Sources */,

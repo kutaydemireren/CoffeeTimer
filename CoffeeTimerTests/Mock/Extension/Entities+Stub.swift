@@ -23,7 +23,7 @@ extension RecipeProfile {
             name: "My Recipe Mini",
             icon: .stubMini,
             cupsCount: 1,
-            ratio: .ratio15
+            ratio: .ratio16
         )
     }
 }
