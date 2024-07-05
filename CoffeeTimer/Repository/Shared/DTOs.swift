@@ -47,16 +47,16 @@ enum IngredientAmountTypeDTO: String, Codable, Equatable {
 }
 
 struct BrewMethodDTO: Codable, Equatable {
-    let id: String
-    let title: String
-    let path: String
+    let id: String?
+    let title: String?
+    let path: String?
     let ratios: [CoffeeToWaterRatioDTO]
 }
 
 struct CoffeeToWaterRatioDTO: Codable, Equatable {
-    let id: String
-    let value: Double
-    let title: String
+    let id: String?
+    let value: Double?
+    let title: String?
 }
 
 struct BrewQueueDTO: Codable, Equatable {

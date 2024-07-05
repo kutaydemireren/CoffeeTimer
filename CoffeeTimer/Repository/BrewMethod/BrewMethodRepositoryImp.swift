@@ -28,9 +28,9 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
     private func map(brewMethodDTOs: [BrewMethodDTO]) -> [BrewMethod] {
         brewMethodDTOs.map { brewMethodDTO in
             BrewMethod(
-                id: brewMethodDTO.id,
-                title: brewMethodDTO.title,
-                path: brewMethodDTO.path,
+                id: brewMethodDTO.id ?? "",
+                title: brewMethodDTO.title ?? "",
+                path: brewMethodDTO.path ?? "",
                 ratios: brewMethodDTO.ratios.map(map(ratio:))
             )
         }
@@ -38,9 +38,9 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
 
     private func map(ratio: CoffeeToWaterRatioDTO) -> CoffeeToWaterRatio {
         return CoffeeToWaterRatio(
-            id: ratio.id,
-            value: ratio.value,
-            title: ratio.title
+            id: ratio.id ?? "",
+            value: ratio.value ?? 0,
+            title: ratio.title ?? ""
         )
     }
 }
