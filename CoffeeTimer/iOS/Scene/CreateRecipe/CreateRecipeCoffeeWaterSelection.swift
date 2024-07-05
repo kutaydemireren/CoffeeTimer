@@ -22,17 +22,6 @@ struct CreateRecipeCoffeeWaterSelection: View {
     @Binding var selectedRatio: CoffeeToWaterRatio?
     @Binding var allRatios: [CoffeeToWaterRatio]
 
-    private var selectedRatioBinding: Binding<CoffeeToWaterRatio> {
-        Binding<CoffeeToWaterRatio>(
-            get: {
-                selectedRatio ?? allRatios.first ?? .ratio16
-            },
-            set: {
-                selectedRatio = $0
-            }
-        )
-    }
-
     var body: some View {
         VStack {
 
@@ -64,9 +53,10 @@ struct CreateRecipeCoffeeWaterSelection: View {
 
         TitledContent(title: "How strong would you like?") {
             Menu {
-                Picker(selection: selectedRatioBinding, label: EmptyView()) {
+                Picker(selection: $selectedRatio, label: EmptyView()) {
                     ForEach(allRatios) { ratio in
                         Text(ratio.title)
+                            .tag(ratio as CoffeeToWaterRatio?)
                     }
                 }
             } label: {
