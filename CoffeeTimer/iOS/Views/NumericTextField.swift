@@ -23,16 +23,20 @@ struct NumericTextField: View {
         }
     }
 
+    struct Range {
+        var minimum: Int = 1
+        var maximum: Int = .max
+    }
+
     let title: String
     let placeholder: String
     var keyboardType: KeyboardType = .decimal
+    var range = Range()
+
     @FocusState private var isFocused: Bool
 
     @Binding var input: Double
-
     @State private var displayText: String = ""
-
-    var didUpdate: ((Double) -> Void)?
 
     var body: some View {
 
@@ -45,21 +49,25 @@ struct NumericTextField: View {
             .keyboardType(keyboardType.uiKeyboardType)
             .focused($isFocused)
             .foregroundColor(Color("foregroundPrimary"))
-            .onChange(of: displayText, perform: filterNonNumerics(_:))
+            .onChange(of: displayText, perform: didUpdate(displayText:))
             .onChange(of: input, perform: setDisplayText(_:))
             .padding()
             .backgroundSecondary()
         }
     }
 
-    private func filterNonNumerics(_ newValue: String) {
-        guard isFocused else {
+    private func didUpdate(displayText newValue: String) {
+        guard isFocused else { return }
+
+        guard let newInput = Double(newValue.filteringNonNumerics()), inRange(input: newInput)else {
+            setDisplayText(0)
             return
         }
+        input = newInput
+    }
 
-        let input = Double(newValue.filteringNonNumerics()) ?? 0.0
-        self.input = input
-        didUpdate?(input)
+    private func inRange(input: Double) -> Bool {
+        return input >= Double(range.minimum) && input <= Double(range.maximum)
     }
 
     private func setDisplayText(_ newValue: Double) {
@@ -76,13 +84,13 @@ struct NumericTextField_Previews: PreviewProvider {
             NumericTextField(
                 title: "",
                 placeholder: "placeholder",
-                input: .constant(2.0)) { _ in }
+                input: .constant(2.0))
                 .padding()
 
             NumericTextField(
                 title: "How many cups?",
                 placeholder: "placeholder",
-                input: .constant(2.0)) { _ in }
+                input: .constant(2.0))
                 .padding()
             Spacer()
         }

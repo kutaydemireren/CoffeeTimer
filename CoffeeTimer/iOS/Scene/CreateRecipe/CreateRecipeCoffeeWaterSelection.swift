@@ -22,6 +22,8 @@ struct CreateRecipeCoffeeWaterSelection: View {
     @Binding var selectedRatio: CoffeeToWaterRatio?
     @Binding var allRatios: [CoffeeToWaterRatio]
 
+    @EnvironmentObject var context: CreateRecipeContext
+
     var body: some View {
         VStack {
 
@@ -45,6 +47,10 @@ struct CreateRecipeCoffeeWaterSelection: View {
             title: "How many cups are you brewing?",
             placeholder: "1",
             keyboardType: .number,
+            range: .init(
+                minimum: context.selectedBrewMethod?.cupsCount.minimum ?? 0,
+                maximum: context.selectedBrewMethod?.cupsCount.maximum ?? .max
+            ),
             input: $cupsCountAmount
         )
     }
