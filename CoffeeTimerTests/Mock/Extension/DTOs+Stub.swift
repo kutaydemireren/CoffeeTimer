@@ -23,7 +23,7 @@ extension CupsCountDTO {
     }
 
     static var frenchPress: Self {
-        return CupsCountDTO(minimum: nil, maximum: nil)
+        return CupsCountDTO(minimum: nil, maximum: 5)
     }
 }
 

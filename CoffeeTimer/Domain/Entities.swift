@@ -11,6 +11,7 @@ struct BrewMethod: Equatable {
     let id: String
     let title: String
     let path: String
+    let cupsCount: CupsCount
     let ratios: [CoffeeToWaterRatio]
 }
 
@@ -18,6 +19,15 @@ struct CoffeeToWaterRatio: Equatable, Hashable, Identifiable {
     let id: String
     let value: Double
     let title: String
+}
+
+struct CupsCount: Equatable {
+    let minimum: Int
+    let maximum: Int?
+
+    static var unlimited: CupsCount {
+        return CupsCount(minimum: 1, maximum: nil)
+    }
 }
 
 struct Recipe: Equatable {

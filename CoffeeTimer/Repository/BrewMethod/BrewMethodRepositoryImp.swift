@@ -30,10 +30,19 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
             BrewMethod(
                 id: brewMethodDTO.id ?? "",
                 title: brewMethodDTO.title ?? "",
-                path: brewMethodDTO.path ?? "",
+                path: brewMethodDTO.path ?? "", 
+                cupsCount: map(cupsCountDTO: brewMethodDTO.cupsCount),
                 ratios: brewMethodDTO.ratios.map(map(ratio:))
             )
         }
+    }
+
+    private func map(cupsCountDTO: CupsCountDTO?) -> CupsCount {
+        guard let cupsCountDTO else { return CupsCount.unlimited }
+        return CupsCount(
+            minimum: cupsCountDTO.minimum ?? CupsCount.unlimited.minimum,
+            maximum: cupsCountDTO.maximum ?? CupsCount.unlimited.maximum
+        )
     }
 
     private func map(ratio: CoffeeToWaterRatioDTO) -> CoffeeToWaterRatio {
