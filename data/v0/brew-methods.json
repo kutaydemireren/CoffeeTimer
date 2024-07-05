@@ -3,6 +3,10 @@
         "id": "v60-single",
         "title": "V60 Single",
         "path": "/kutaydemireren/CoffeeTimer/main/data/v0/brew-instructions/v60-single.json",
+        "cupsCount": {
+            "minimum": 1,
+            "maximum": 1
+        },
         "ratios": [
             {
                 "id": "1:16",
