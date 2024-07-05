@@ -9,11 +9,29 @@
 
 extension BrewMethodDTO {
     static var v60Single: Self {
-        return BrewMethodDTO(id: "v60-single", title: "V60 Single", path: "/v60-single", ratios: ["1:16", "1:17", "1:18", "1:19", "1:20"])
+        return BrewMethodDTO(id: "v60-single", title: "V60 Single", path: "/v60-single", ratios: .v60Single)
     }
 
     static var frenchPress: Self {
-        return BrewMethodDTO(id: "french-press", title: "French Press", path: "/french-press", ratios: ["1:17", "1:18", "1:19", "1:20"])
+        return BrewMethodDTO(id: "french-press", title: "French Press", path: "/french-press", ratios: .frenchPress)
+    }
+}
+
+extension Array where Element == CoffeeToWaterRatioDTO {
+    static var v60Single: Self {
+        return [
+            CoffeeToWaterRatioDTO(id: "1:16", value: 16, title: "1 - 16"),
+            CoffeeToWaterRatioDTO(id: "1:18", value: 16, title: "1 - 18"),
+            CoffeeToWaterRatioDTO(id: "1:20", value: 16, title: "1 - 20")
+        ]
+    }
+
+    static var frenchPress: Self {
+        return [
+            CoffeeToWaterRatioDTO(id: "1:17", value: 16, title: "1 - 17"),
+            CoffeeToWaterRatioDTO(id: "1:18", value: 16, title: "1 - 18"),
+            CoffeeToWaterRatioDTO(id: "1:20", value: 16, title: "1 - 20")
+        ]
     }
 }
 

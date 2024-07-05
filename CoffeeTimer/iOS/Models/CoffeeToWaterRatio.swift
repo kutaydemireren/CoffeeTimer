@@ -7,6 +7,12 @@
 
 import Foundation
 
+struct NewCoffeeToWaterRatio: Identifiable {
+    let id: String
+    let value: Double
+    let title: String
+}
+
 enum CoffeeToWaterRatio: String, CaseIterable, Identifiable {
 	case ratio15 = "1:15"
 	case ratio16 = "1:16"

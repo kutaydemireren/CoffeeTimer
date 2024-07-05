@@ -50,7 +50,13 @@ struct BrewMethodDTO: Codable, Equatable {
     let id: String
     let title: String
     let path: String
-    let ratios: [String]
+    let ratios: [CoffeeToWaterRatioDTO]
+}
+
+struct CoffeeToWaterRatioDTO: Codable, Equatable {
+    let id: String
+    let value: Double
+    let title: String
 }
 
 struct BrewQueueDTO: Codable, Equatable {
