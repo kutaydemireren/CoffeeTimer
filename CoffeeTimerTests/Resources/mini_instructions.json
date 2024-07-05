@@ -58,6 +58,13 @@
             "message": "To bloom, pour #current.amount millilitres of water\nTotal: #current.water millilitres of water"
         },
         {
+            "action": "unknown-action",
+            "requirement": null,
+            "startMethod": "auto",
+            "skipMethod": "auto",
+            "message": "This is a test action expected to be ignored. Ignoring it must not cause any issue."
+        },
+        {
             "action": "pause",
             "requirement": {
                 "type": "countdown",
