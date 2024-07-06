@@ -33,6 +33,10 @@ struct NumericTextField: View {
     var keyboardType: KeyboardType = .decimal
     var range = Range()
 
+    private var isSingleValue: Bool {
+        return range.minimum == range.maximum
+    }
+
     @FocusState private var isFocused: Bool
 
     @Binding var input: Double
@@ -41,10 +45,11 @@ struct NumericTextField: View {
     var body: some View {
 
         TitledContent(title: title) {
-            TextField(text: $displayText) {
+            TextField(text: isSingleValue ? .constant("\(range.minimum)") : $displayText) {
                 Text(placeholder)
                     .foregroundColor(Color("foregroundPrimary").opacity(0.5))
             }
+            .disabled(isSingleValue)
             .textFieldStyle(.plain)
             .keyboardType(keyboardType.uiKeyboardType)
             .focused($isFocused)
@@ -53,6 +58,11 @@ struct NumericTextField: View {
             .onChange(of: input, perform: setDisplayText(_:))
             .padding()
             .backgroundSecondary()
+            .onAppear {
+                if isSingleValue {
+                    input = Double(range.minimum)
+                }
+            }
         }
     }
 
