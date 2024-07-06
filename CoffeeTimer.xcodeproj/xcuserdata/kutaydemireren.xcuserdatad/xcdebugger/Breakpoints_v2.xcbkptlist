@@ -7,16 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B9984150-A123-48DB-9F9B-849C04DBD713"
-            shouldBeEnabled = "No"
+            uuid = "24CC8D67-A921-48C1-932F-119A250AE69A"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CoffeeTimer/iOS/Scene/CreateRecipe/CreateRecipeView.swift"
+            filePath = "CoffeeTimer/iOS/Scene/BrewQueue/BrewQueueView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
-            landmarkName = "didUpdate(_:)"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "primaryAction()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CF31A0EC-7CF3-4D23-8C9C-4FA32CFF1A8B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoffeeTimer/iOS/Scene/BrewQueue/BrewQueueView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
+            landmarkName = "primaryAction()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

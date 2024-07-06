@@ -29,7 +29,7 @@ extension IngredientAmount {
     var toRepresentableString: String {
         switch type {
         case .gram:
-            return "\(amount) gr"
+            return "\(amount) g"
         case .millilitre:
             return "\(amount) ml"
         }
@@ -206,6 +206,8 @@ final class BrewQueueViewModel: ObservableObject, Completable {
         if currentStage.startMethod == .auto {
             currentStageTimerViewModel?.startOrStop()
         }
+
+        canProceedToNextStep = true
     }
 
     private func observeTimeIntervalLeft() {
