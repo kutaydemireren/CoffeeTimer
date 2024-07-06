@@ -66,7 +66,7 @@ final class CreateContextToInputMapperImpTests: XCTestCase {
     private func createValidContext() -> CreateRecipeContext {
         let context = CreateRecipeContext()
         context.recipeProfile = .stubSingleV60
-        context.ratio = .ratio19
+        context.ratio = .ratio16
         return context
     }
 }

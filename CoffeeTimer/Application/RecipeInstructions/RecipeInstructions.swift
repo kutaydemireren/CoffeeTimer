@@ -278,6 +278,7 @@ protocol InstructionAction: Decodable, MessageProcessing {
     var startMethod: InstructionInteractionMethod? { get }
     var skipMethod: InstructionInteractionMethod? { get }
     var message: String? { get }
+    var details: String? { get }
 
     func updateContext(_ context: InstructionActionContext, input: RecipeInstructionInput) -> InstructionActionContext
     func action(for input: RecipeInstructionInput) -> BrewStageAction
@@ -290,8 +291,14 @@ extension InstructionAction {
             requirement: map(requirement),
             startMethod: map(startMethod),
             passMethod: map(skipMethod),
-            message: process(message: message ?? "", with: context.toDict())
+            message: process(message: message ?? "", with: context.toDict()),
+            details: process(details: details, with: context.toDict())
         )
+    }
+
+    private func process(details: String?, with contextDict: [String: String]) -> String? {
+        guard let details else { return nil }
+        return process(message: details, with: contextDict)
     }
 
     private func map(_ requirement: InstructionRequirement?) -> BrewStageRequirement {
@@ -327,6 +334,7 @@ struct PutInstructionAction: InstructionAction {
     let startMethod: InstructionInteractionMethod?
     let skipMethod: InstructionInteractionMethod?
     let message: String?
+    let details: String?
 
     let ingredient: RecipeInstructions.Ingredient?
     let amount: InstructionAmount?
@@ -369,6 +377,7 @@ struct PauseInstructionAction: InstructionAction {
     let startMethod: InstructionInteractionMethod?
     let skipMethod: InstructionInteractionMethod?
     let message: String?
+    let details: String?
 
     func action(for input: RecipeInstructionInput) -> BrewStageAction {
         return .pause

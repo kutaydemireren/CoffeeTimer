@@ -9,21 +9,49 @@
 
 extension BrewMethodDTO {
     static var v60Single: Self {
-        return BrewMethodDTO(id: "v60-single", title: "V60 Single", path: "/v60-single", ratios: ["1:16", "1:17", "1:18", "1:19", "1:20"])
+        return BrewMethodDTO(id: "v60-single", title: "V60 Single", path: "/v60-single", cupsCount: .v60Single, ratios: [.ratio16, .ratio18, .ratio20])
     }
 
     static var frenchPress: Self {
-        return BrewMethodDTO(id: "french-press", title: "French Press", path: "/french-press", ratios: ["1:17", "1:18", "1:19", "1:20"])
+        return BrewMethodDTO(id: "french-press", title: "French Press", path: "/french-press", cupsCount: .frenchPress, ratios: [.ratio17, .ratio18, .ratio20])
+    }
+}
+
+extension CupsCountDTO {
+    static var v60Single: Self {
+        return CupsCountDTO(minimum: 1, maximum: 1)
+    }
+
+    static var frenchPress: Self {
+        return CupsCountDTO(minimum: nil, maximum: 5)
+    }
+}
+
+extension CoffeeToWaterRatioDTO {
+    static var ratio16: Self {
+        return CoffeeToWaterRatioDTO(id: "1:16", value: 16, title: "1 - 16")
+    }
+
+    static var ratio17: Self {
+        return CoffeeToWaterRatioDTO(id: "1:17", value: 17, title: "1 - 17")
+    }
+
+    static var ratio18: Self {
+        return CoffeeToWaterRatioDTO(id: "1:18", value: 18, title: "1 - 18")
+    }
+
+    static var ratio20: Self {
+        return CoffeeToWaterRatioDTO(id: "1:20", value: 20, title: "1 - 20")
     }
 }
 
 extension BrewQueueDTO {
     static var stubMini: BrewQueueDTO {
         BrewQueueDTO(stages: [
-            .init(action: .putCoffee(.init(amount: 10, type: .gram)), requirement: BrewStageRequirementDTO.none, startMethod: .userInteractive, passMethod: .userInteractive, message: "Put all your 10.0 grams of coffee to brewer"),
-            .init(action: .pourWater(.init(amount: 40, type: .millilitre)), requirement: .countdown(10), startMethod: .userInteractive, passMethod: .auto, message: "To bloom, pour 40.0 millilitres of water\nTotal: 40.0 millilitres of water"),
-            .init(action: .pause, requirement: .countdown(30), startMethod: .auto, passMethod: .auto, message: "Let it bloom for 30.0 seconds"),
-            .init(action: .pourWater(.init(amount: 40, type: .millilitre)), requirement: BrewStageRequirementDTO.none, startMethod: .auto, passMethod: .userInteractive, message: "To bloom, pour 40.0 millilitres of water\nTotal: 80.0 millilitres of water")
+            .init(action: .putCoffee(.init(amount: 10, type: .gram)), requirement: BrewStageRequirementDTO.none, startMethod: .userInteractive, passMethod: .userInteractive, message: "Put all your 10.0 grams of coffee to brewer", details: nil),
+            .init(action: .pourWater(.init(amount: 40, type: .millilitre)), requirement: .countdown(10), startMethod: .userInteractive, passMethod: .auto, message: "To bloom, pour 40.0 millilitres of water\nTotal: 40.0 millilitres of water", details: nil),
+            .init(action: .pause, requirement: .countdown(30), startMethod: .auto, passMethod: .auto, message: "Let it bloom for 30.0 seconds", details: nil),
+            .init(action: .pourWater(.init(amount: 40, type: .millilitre)), requirement: BrewStageRequirementDTO.none, startMethod: .auto, passMethod: .userInteractive, message: "To bloom, pour 40.0 millilitres of water", details: "Total: 80.0 millilitres of water")
         ])
     }
 }
@@ -114,7 +142,7 @@ extension RecipeDTO {
             recipeProfile: recipeProfile,
             ingredients: ingredients,
             brewQueue: .init(stages: [
-                .init(action: nil, requirement: nil, startMethod: nil, passMethod: nil)
+                .init(action: nil, requirement: nil, startMethod: nil, passMethod: nil, message: nil, details: nil)
             ])
         )
     }
@@ -124,7 +152,7 @@ extension RecipeDTO {
             recipeProfile: recipeProfile,
             ingredients: ingredients,
             brewQueue: .init(stages: [
-                .init(action: .pause, requirement: nil, startMethod: nil, passMethod: nil)
+                .init(action: .pause, requirement: nil, startMethod: nil, passMethod: nil, message: nil, details: nil)
             ])
         )
     }
@@ -136,7 +164,7 @@ extension RecipeProfileDTO {
             name: "My Recipe Mini",
             icon: .stubMini,
             cupsCount: 1,
-            ratio: "1:15"
+            ratio: "1:16"
         )
     }
 }

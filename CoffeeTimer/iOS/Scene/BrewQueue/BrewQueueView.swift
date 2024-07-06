@@ -29,7 +29,7 @@ extension IngredientAmount {
     var toRepresentableString: String {
         switch type {
         case .gram:
-            return "\(amount) gr"
+            return "\(amount) g"
         case .millilitre:
             return "\(amount) ml"
         }
@@ -47,6 +47,7 @@ extension Array {
 
 extension String {
     struct BrewQueue {
+        // TODO: rmv if not needed
         func stageHeader(for action: BrewStageAction) -> String {
             return "It is time to"
         }
@@ -64,8 +65,7 @@ extension BrewQueue {
 final class BrewQueueViewModel: ObservableObject, Completable {
     let didComplete = PassthroughSubject<BrewQueueViewModel, Never>()
 
-    var stageHeader = "Welcome"
-    var stageTitle = "All set to go!"
+    var stageHeader = StageHeader.welcome
 
     @Published var currentStageViewModel: any BrewStageViewModel = BrewStageConstantViewModel(text: "")
 
@@ -167,8 +167,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     }
 
     private func loadInitialStage() {
-        stageHeader = "Welcome"
-        stageTitle = "All set to go!"
+        stageHeader = .welcome
 
         currentStageViewModel = BrewStageConstantViewModel(text: "Begin", subtext: subtextIfExists)
         canProceedToNextStep = true
@@ -186,8 +185,11 @@ final class BrewQueueViewModel: ObservableObject, Completable {
             return
         }
 
-        stageHeader = .brewQueue.stageHeader(for: currentStage.action)
-        stageTitle = currentStage.message
+        stageHeader = StageHeader(
+            lightTitle: .brewQueue.stageHeader(for: currentStage.action),
+            title: currentStage.message,
+            subtext: currentStage.details
+        )
 
         switch currentStage.requirement {
         case .none:
@@ -204,6 +206,8 @@ final class BrewQueueViewModel: ObservableObject, Completable {
         if currentStage.startMethod == .auto {
             currentStageTimerViewModel?.startOrStop()
         }
+
+        canProceedToNextStep = true
     }
 
     private func observeTimeIntervalLeft() {
@@ -252,31 +256,13 @@ struct BrewQueueView: View {
             Spacer()
 
             VStack {
-
-                headerGroup
-
+                StageHeaderView(header: viewModel.stageHeader)
                 Spacer()
-
                 actionButton()
             }
 
             Spacer()
         }
-    }
-
-    private var headerGroup: some View {
-        Group {
-            Text(viewModel.stageHeader)
-                .foregroundColor(Color("foregroundPrimary").opacity(0.8))
-                .font(.title3)
-
-            Text(viewModel.stageTitle)
-                .foregroundColor(Color("foregroundPrimary"))
-                .font(.title)
-                .minimumScaleFactor(0.5)
-        }
-        .shadow(color: .black.opacity(0.2), radius: 16)
-        .multilineTextAlignment(.center)
     }
 
     // TODO: must move this to remove recipe dependency.

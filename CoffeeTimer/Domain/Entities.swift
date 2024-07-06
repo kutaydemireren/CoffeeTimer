@@ -11,7 +11,23 @@ struct BrewMethod: Equatable {
     let id: String
     let title: String
     let path: String
+    let cupsCount: CupsCount
     let ratios: [CoffeeToWaterRatio]
+}
+
+struct CoffeeToWaterRatio: Equatable, Hashable, Identifiable {
+    let id: String
+    let value: Double
+    let title: String
+}
+
+struct CupsCount: Equatable {
+    let minimum: Int
+    let maximum: Int?
+
+    static var unlimited: CupsCount {
+        return CupsCount(minimum: 1, maximum: nil)
+    }
 }
 
 struct Recipe: Equatable {
@@ -69,20 +85,7 @@ struct BrewStage: Equatable {
     let startMethod: BrewStageActionMethod
     let passMethod: BrewStageActionMethod
     let message: String
-
-    init(
-        action: BrewStageAction,
-        requirement: BrewStageRequirement,
-        startMethod: BrewStageActionMethod,
-        passMethod: BrewStageActionMethod,
-        message: String = "" // TODO: process instr msg -> remove default
-    ) {
-        self.action = action
-        self.requirement = requirement
-        self.startMethod = startMethod
-        self.passMethod = passMethod
-        self.message = message
-    }
+    let details: String?
 }
 
 enum BrewStageActionMethod: Equatable {

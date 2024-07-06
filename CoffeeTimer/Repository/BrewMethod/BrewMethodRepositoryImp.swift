@@ -20,9 +20,6 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
     }
 
     func fetchBrewMethods() async throws -> [BrewMethod] {
-        // TODO: temp, revert
-        // return [.v60Single]
-
         let data = try await networkManager.perform(request: FetchBrewMethodsRequest())
         let brewMethodDTOs = try decoding.decode([BrewMethodDTO].self, from: data)
         return map(brewMethodDTOs: brewMethodDTOs)
@@ -31,11 +28,28 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
     private func map(brewMethodDTOs: [BrewMethodDTO]) -> [BrewMethod] {
         brewMethodDTOs.map { brewMethodDTO in
             BrewMethod(
-                id: brewMethodDTO.id,
-                title: brewMethodDTO.title,
-                path: brewMethodDTO.path,
-                ratios: brewMethodDTO.ratios.compactMap { CoffeeToWaterRatio(rawValue: $0) }
+                id: brewMethodDTO.id ?? "",
+                title: brewMethodDTO.title ?? "",
+                path: brewMethodDTO.path ?? "", 
+                cupsCount: map(cupsCountDTO: brewMethodDTO.cupsCount),
+                ratios: brewMethodDTO.ratios.map(map(ratio:))
             )
         }
+    }
+
+    private func map(cupsCountDTO: CupsCountDTO?) -> CupsCount {
+        guard let cupsCountDTO else { return CupsCount.unlimited }
+        return CupsCount(
+            minimum: cupsCountDTO.minimum ?? CupsCount.unlimited.minimum,
+            maximum: cupsCountDTO.maximum ?? CupsCount.unlimited.maximum
+        )
+    }
+
+    private func map(ratio: CoffeeToWaterRatioDTO) -> CoffeeToWaterRatio {
+        return CoffeeToWaterRatio(
+            id: ratio.id ?? "",
+            value: ratio.value ?? 0,
+            title: ratio.title ?? ""
+        )
     }
 }

@@ -17,7 +17,7 @@
                 "factorOf": "coffee",
                 "constant": 0
             },
-            "message": "Put all your #current.amount grams of coffee to brewer"
+            "message": "Put all your #current.amount g of coffee to brewer"
         },
         {
             "action": "message",
@@ -25,13 +25,6 @@
             "startMethod": "userInteractive",
             "skipMethod": "userInteractive",
             "message": "Wet filter on hot tap water"
-        },
-        {
-            "action": "message",
-            "requirement": null,
-            "startMethod": "userInteractive",
-            "skipMethod": "userInteractive",
-            "message": "Put all your coffee to brewer"
         },
         {
             "action": "put",
@@ -45,7 +38,7 @@
                 "factorOf": "water",
                 "constant": 0
             },
-            "message": "To bloom, pour #current.amount of water\nTotal: #current.water of water"
+            "message": "To bloom, pour #current.amount ml of water"
         },
         {
             "action": "message",
@@ -65,7 +58,7 @@
             },
             "startMethod": "auto",
             "skipMethod": "auto",
-            "message": "Let it bloom for #current.duration"
+            "message": "Let it bloom for #current.duration seconds"
         },
         {
             "action": "put",
@@ -79,61 +72,8 @@
                 "factorOf": "water",
                 "constant": 0
             },
-            "message": "Pour #current.amount of water\nTotal: #current.water of water"
-        },
-        {
-            "action": "pause",
-            "requirement": {
-                "type": "countdown",
-                "duration": {
-                    "type": "second",
-                    "length": 10
-                }
-            },
-            "startMethod": "auto",
-            "skipMethod": "auto",
-            "message": "Pause for #current.duration"
-        },
-        {
-            "action": "put",
-            "requirement": null,
-            "startMethod": "userInteractive",
-            "skipMethod": "userInteractive",
-            "ingredient": "water",
-            "amount": {
-                "type": "gram",
-                "factor": 0.2,
-                "factorOf": "water",
-                "constant": 0
-            },
-            "message": "Pour #current.amount of water\nTotal: #current.water of water"
-        },
-        {
-            "action": "pause",
-            "requirement": {
-                "type": "countdown",
-                "duration": {
-                    "type": "second",
-                    "length": 10
-                }
-            },
-            "startMethod": "auto",
-            "skipMethod": "auto",
-            "message": "Pause for #current.duration"
-        },
-        {
-            "action": "put",
-            "requirement": null,
-            "startMethod": "userInteractive",
-            "skipMethod": "userInteractive",
-            "ingredient": "water",
-            "amount": {
-                "type": "gram",
-                "factor": 0.2,
-                "factorOf": "water",
-                "constant": 0
-            },
-            "message": "Pour #current.amount of water\nTotal: #current.water of water"
+            "message": "Pour #current.amount ml of water",
+            "details": "Total: #current.water ml of water"
         },
         {
             "action": "pause",
@@ -160,7 +100,64 @@
                 "factorOf": "water",
                 "constant": 0
             },
-            "message": "Pour #current.amount of water\nTotal: #current.water of water"
+            "message": "Pour #current.amount ml of water",
+            "details": "Total: #current.water ml of water"
+        },
+        {
+            "action": "pause",
+            "requirement": {
+                "type": "countdown",
+                "duration": {
+                    "type": "second",
+                    "length": 10
+                }
+            },
+            "startMethod": "auto",
+            "skipMethod": "auto",
+            "message": "Pause for #current.duration seconds"
+        },
+        {
+            "action": "put",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "ingredient": "water",
+            "amount": {
+                "type": "gram",
+                "factor": 0.2,
+                "factorOf": "water",
+                "constant": 0
+            },
+            "message": "Pour #current.amount ml of water",
+            "details": "Total: #current.water ml of water"
+        },
+        {
+            "action": "pause",
+            "requirement": {
+                "type": "countdown",
+                "duration": {
+                    "type": "second",
+                    "length": 10
+                }
+            },
+            "startMethod": "auto",
+            "skipMethod": "auto",
+            "message": "Pause for #current.duration seconds"
+        },
+        {
+            "action": "put",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "ingredient": "water",
+            "amount": {
+                "type": "gram",
+                "factor": 0.2,
+                "factorOf": "water",
+                "constant": 0
+            },
+            "message": "Pour #current.amount ml of water",
+            "details": "Total: #current.water ml of water"
         }
     ]
 }

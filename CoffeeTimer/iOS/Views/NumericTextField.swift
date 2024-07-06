@@ -9,83 +9,101 @@ import SwiftUI
 
 struct NumericTextField: View {
 
-	enum KeyboardType {
-		case decimal
-		case number
+    enum KeyboardType {
+        case decimal
+        case number
 
-		var uiKeyboardType: UIKeyboardType {
-			switch self {
-			case .decimal:
-				return .decimalPad
-			case .number:
-				return .numberPad
-			}
-		}
-	}
+        var uiKeyboardType: UIKeyboardType {
+            switch self {
+            case .decimal:
+                return .decimalPad
+            case .number:
+                return .numberPad
+            }
+        }
+    }
 
-	let title: String
-	let placeholder: String
-	var keyboardType: KeyboardType = .decimal
-	@FocusState private var isFocused: Bool
+    struct Range {
+        var minimum: Int = 1
+        var maximum: Int = .max
+    }
 
-	@Binding var input: Double
+    let title: String
+    let placeholder: String
+    var keyboardType: KeyboardType = .decimal
+    var range = Range()
 
-	@State private var displayText: String = ""
+    private var isSingleValue: Bool {
+        return range.minimum == range.maximum
+    }
 
-	var didUpdate: ((Double) -> Void)?
+    @FocusState private var isFocused: Bool
 
-	var body: some View {
+    @Binding var input: Double
+    @State private var displayText: String = ""
 
-		TitledContent(title: title) {
-			TextField(text: $displayText) {
-				Text(placeholder)
-					.foregroundColor(Color("foregroundPrimary").opacity(0.5))
-			}
-			.textFieldStyle(.plain)
-			.keyboardType(keyboardType.uiKeyboardType)
-			.focused($isFocused)
-			.foregroundColor(Color("foregroundPrimary"))
-			.onChange(of: displayText, perform: filterNonNumerics(_:))
-			.onChange(of: input, perform: setDisplayText(_:))
-			.padding()
-			.backgroundSecondary()
-		}
-	}
+    var body: some View {
 
-	private func filterNonNumerics(_ newValue: String) {
-		guard isFocused else {
-			return
-		}
+        TitledContent(title: title) {
+            TextField(text: isSingleValue ? .constant("\(range.minimum)") : $displayText) {
+                Text(placeholder)
+                    .foregroundColor(Color("foregroundPrimary").opacity(0.5))
+            }
+            .disabled(isSingleValue)
+            .textFieldStyle(.plain)
+            .keyboardType(keyboardType.uiKeyboardType)
+            .focused($isFocused)
+            .foregroundColor(Color("foregroundPrimary"))
+            .onChange(of: displayText, perform: didUpdate(displayText:))
+            .onChange(of: input, perform: setDisplayText(_:))
+            .padding()
+            .backgroundSecondary()
+            .onAppear {
+                if isSingleValue {
+                    input = Double(range.minimum)
+                }
+            }
+        }
+    }
 
-		let input = Double(newValue.filteringNonNumerics()) ?? 0.0
-		self.input = input
-		didUpdate?(input)
-	}
+    private func didUpdate(displayText newValue: String) {
+        guard isFocused else { return }
 
-	private func setDisplayText(_ newValue: Double) {
-		if Double(displayText) != newValue {
-			displayText = newValue == 0 ? "" : "\(newValue)"
-		}
-	}
+        guard let newInput = Double(newValue.filteringNonNumerics()), inRange(input: newInput)else {
+            setDisplayText(0)
+            return
+        }
+        input = newInput
+    }
+
+    private func inRange(input: Double) -> Bool {
+        return input >= Double(range.minimum) && input <= Double(range.maximum)
+    }
+
+    private func setDisplayText(_ newValue: Double) {
+        if Double(displayText) != newValue {
+            displayText = newValue == 0 ? "" : "\(newValue)"
+        }
+    }
 }
 
 struct NumericTextField_Previews: PreviewProvider {
-	static var previews: some View {
-		VStack {
-			Spacer()
-			NumericTextField(
-				title: "",
-				placeholder: "placeholder",
-				input: .constant(2.0)) { _ in }
-				.padding()
+    static var previews: some View {
+        VStack {
+            Spacer()
+            NumericTextField(
+                title: "",
+                placeholder: "placeholder",
+                input: .constant(2.0))
+                .padding()
 
-			NumericTextField(
-				title: "How many cups?",
-				placeholder: "placeholder",
-				input: .constant(2.0)) { _ in }
-				.padding()
-			Spacer()
-		}
-		.background(Color.black)
-	}
+            NumericTextField(
+                title: "How many cups?",
+                placeholder: "placeholder",
+                input: .constant(2.0))
+                .padding()
+            Spacer()
+        }
+        .background(Color.black)
+    }
 }
