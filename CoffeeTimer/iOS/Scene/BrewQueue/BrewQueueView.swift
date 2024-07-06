@@ -47,6 +47,7 @@ extension Array {
 
 extension String {
     struct BrewQueue {
+        // TODO: rmv if not needed
         func stageHeader(for action: BrewStageAction) -> String {
             return "It is time to"
         }
@@ -61,11 +62,19 @@ extension BrewQueue {
     }
 }
 
+struct StageHeader {
+    let lightTitle: String
+    let title: String
+
+    static var welcome: StageHeader {
+        return StageHeader(lightTitle: "Welcome", title: "All set to go!")
+    }
+}
+
 final class BrewQueueViewModel: ObservableObject, Completable {
     let didComplete = PassthroughSubject<BrewQueueViewModel, Never>()
 
-    var stageHeader = "Welcome"
-    var stageTitle = "All set to go!"
+    var stageHeader = StageHeader.welcome
 
     @Published var currentStageViewModel: any BrewStageViewModel = BrewStageConstantViewModel(text: "")
 
@@ -167,8 +176,12 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     }
 
     private func loadInitialStage() {
-        stageHeader = "Welcome"
-        stageTitle = "All set to go!"
+        stageHeader = .welcome
+        // TODO: temp, rmv
+        stageHeader = .init(
+            lightTitle: stageHeader.lightTitle,
+            title: "To bloom, pour 50 ml of water\nTotal: 150 ml of water"
+        )
 
         currentStageViewModel = BrewStageConstantViewModel(text: "Begin", subtext: subtextIfExists)
         canProceedToNextStep = true
@@ -186,8 +199,10 @@ final class BrewQueueViewModel: ObservableObject, Completable {
             return
         }
 
-        stageHeader = .brewQueue.stageHeader(for: currentStage.action)
-        stageTitle = currentStage.message
+        stageHeader = StageHeader(
+            lightTitle: .brewQueue.stageHeader(for: currentStage.action),
+            title: currentStage.message
+        )
 
         switch currentStage.requirement {
         case .none:
@@ -266,11 +281,11 @@ struct BrewQueueView: View {
 
     private var headerGroup: some View {
         Group {
-            Text(viewModel.stageHeader)
+            Text(viewModel.stageHeader.lightTitle)
                 .foregroundColor(Color("foregroundPrimary").opacity(0.8))
                 .font(.title3)
 
-            Text(viewModel.stageTitle)
+            Text(viewModel.stageHeader.title)
                 .foregroundColor(Color("foregroundPrimary"))
                 .font(.title)
                 .minimumScaleFactor(0.5)
