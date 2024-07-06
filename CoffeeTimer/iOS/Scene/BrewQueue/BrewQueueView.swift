@@ -168,11 +168,6 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
     private func loadInitialStage() {
         stageHeader = .welcome
-        // TODO: temp, rmv
-        stageHeader = .init(
-            lightTitle: stageHeader.lightTitle,
-            title: "To bloom, pour 50 ml of water\nTotal: 150 ml of water"
-        )
 
         currentStageViewModel = BrewStageConstantViewModel(text: "Begin", subtext: subtextIfExists)
         canProceedToNextStep = true
@@ -258,7 +253,7 @@ struct BrewQueueView: View {
             Spacer()
 
             VStack {
-                StageHeaderView(stageHeader: viewModel.stageHeader)
+                StageHeaderView(header: viewModel.stageHeader)
                 Spacer()
                 actionButton()
             }
