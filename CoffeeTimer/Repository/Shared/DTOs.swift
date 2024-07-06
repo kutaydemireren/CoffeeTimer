@@ -75,20 +75,7 @@ struct BrewStageDTO: Codable, Equatable {
     let startMethod: BrewStageActionMethodDTO?
     let passMethod: BrewStageActionMethodDTO?
     let message: String?
-    
-    init(
-        action: BrewStageActionDTO?,
-        requirement: BrewStageRequirementDTO?,
-        startMethod: BrewStageActionMethodDTO?,
-        passMethod: BrewStageActionMethodDTO?,
-        message: String? = ""
-    ) {
-        self.action = action
-        self.requirement = requirement
-        self.startMethod = startMethod
-        self.passMethod = passMethod
-        self.message = message
-    }
+    let details: String?
 }
 
 enum BrewStageActionDTO: Codable, Equatable {

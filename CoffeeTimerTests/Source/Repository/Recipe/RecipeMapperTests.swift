@@ -9,24 +9,6 @@ import XCTest
 @testable import CoffeeTimer
 
 extension RecipeDTO {
-    static var stub: RecipeDTO {
-        return .init(
-            recipeProfile: .init(
-                name: "an arbitrary name",
-                icon: .init(title: "icon title", colorHex: "color hex", imageName: "image name"),
-                cupsCount: 1,
-                ratio: "1:16"
-            ),
-            ingredients: [
-                .init(ingredientType: .coffee, amount: .init(amount: 10, type: .gram)),
-                .init(ingredientType: .water, amount: .init(amount: 15, type: .millilitre))
-            ],
-            brewQueue: .init(stages: [
-                .init(action: .pause, requirement: .countdown(10), startMethod: .userInteractive, passMethod: .auto),
-                .init(action: .swirl, requirement: BrewStageRequirementDTO.none, startMethod: .auto, passMethod: .auto)
-            ])
-        )
-    }
 }
 
 final class RecipeMapperTests: XCTestCase {

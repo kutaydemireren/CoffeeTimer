@@ -133,14 +133,14 @@ extension RecipeMapperImp {
         let requirement = try mapToBrewStageRequirement(brewStageRequirementDTO: brewStageDTO.requirement)
         let startMethod = brewStageDTO.startMethod ?? .userInteractive
         let passMethod = brewStageDTO.passMethod ?? .userInteractive
-        let message = brewStageDTO.message
-        
+
         return BrewStage(
             action: action,
             requirement: requirement,
             startMethod: mapToMethod(brewStageActionMethodDTO: startMethod),
             passMethod: mapToMethod(brewStageActionMethodDTO: passMethod),
-            message: message ?? ""
+            message: brewStageDTO.message ?? "",
+            details: brewStageDTO.details
         )
     }
     
@@ -276,7 +276,8 @@ extension RecipeMapperImp {
             requirement: mapToBrewStageRequirementDTO(brewStageRequirement: brewStage.requirement),
             startMethod: mapToMethodDTO(brewStageActionMethod: brewStage.startMethod),
             passMethod: mapToMethodDTO(brewStageActionMethod: brewStage.passMethod),
-            message: brewStage.message
+            message: brewStage.message,
+            details: brewStage.details
         )
     }
     

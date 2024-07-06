@@ -85,20 +85,7 @@ struct BrewStage: Equatable {
     let startMethod: BrewStageActionMethod
     let passMethod: BrewStageActionMethod
     let message: String
-
-    init(
-        action: BrewStageAction,
-        requirement: BrewStageRequirement,
-        startMethod: BrewStageActionMethod,
-        passMethod: BrewStageActionMethod,
-        message: String = "" // TODO: process instr msg -> remove default
-    ) {
-        self.action = action
-        self.requirement = requirement
-        self.startMethod = startMethod
-        self.passMethod = passMethod
-        self.message = message
-    }
+    let details: String?
 }
 
 enum BrewStageActionMethod: Equatable {

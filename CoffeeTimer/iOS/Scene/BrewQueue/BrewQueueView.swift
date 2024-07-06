@@ -187,7 +187,8 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
         stageHeader = StageHeader(
             lightTitle: .brewQueue.stageHeader(for: currentStage.action),
-            title: currentStage.message
+            title: currentStage.message,
+            subtext: currentStage.details
         )
 
         switch currentStage.requirement {

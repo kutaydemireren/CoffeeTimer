@@ -45,7 +45,7 @@
                 "factorOf": "water",
                 "constant": 0
             },
-            "message": "To bloom, pour #current.amount of water\nTotal: #current.water of water"
+            "message": "To bloom, pour #current.amount of water"
         },
         {
             "action": "message",
@@ -79,7 +79,8 @@
                 "factorOf": "water",
                 "constant": 0
             },
-            "message": "Pour #current.amount of water\nTotal: #current.water of water"
+            "message": "Pour #current.amount of water",
+            "details": "Total: #current.water of water"
         },
         {
             "action": "pause",
@@ -106,7 +107,8 @@
                 "factorOf": "water",
                 "constant": 0
             },
-            "message": "Pour #current.amount of water\nTotal: #current.water of water"
+            "message": "Pour #current.amount of water",
+            "details": "Total: #current.water of water"
         },
         {
             "action": "pause",
@@ -133,7 +135,8 @@
                 "factorOf": "water",
                 "constant": 0
             },
-            "message": "Pour #current.amount of water\nTotal: #current.water of water"
+            "message": "Pour #current.amount of water",
+            "details": "Total: #current.water of water"
         },
         {
             "action": "pause",
@@ -160,7 +163,8 @@
                 "factorOf": "water",
                 "constant": 0
             },
-            "message": "Pour #current.amount of water\nTotal: #current.water of water"
+            "message": "Pour #current.amount of water",
+            "details": "Total: #current.water of water"
         }
     ]
 }

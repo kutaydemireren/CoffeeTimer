@@ -48,10 +48,10 @@ extension CoffeeToWaterRatioDTO {
 extension BrewQueueDTO {
     static var stubMini: BrewQueueDTO {
         BrewQueueDTO(stages: [
-            .init(action: .putCoffee(.init(amount: 10, type: .gram)), requirement: BrewStageRequirementDTO.none, startMethod: .userInteractive, passMethod: .userInteractive, message: "Put all your 10.0 grams of coffee to brewer"),
-            .init(action: .pourWater(.init(amount: 40, type: .millilitre)), requirement: .countdown(10), startMethod: .userInteractive, passMethod: .auto, message: "To bloom, pour 40.0 millilitres of water\nTotal: 40.0 millilitres of water"),
-            .init(action: .pause, requirement: .countdown(30), startMethod: .auto, passMethod: .auto, message: "Let it bloom for 30.0 seconds"),
-            .init(action: .pourWater(.init(amount: 40, type: .millilitre)), requirement: BrewStageRequirementDTO.none, startMethod: .auto, passMethod: .userInteractive, message: "To bloom, pour 40.0 millilitres of water\nTotal: 80.0 millilitres of water")
+            .init(action: .putCoffee(.init(amount: 10, type: .gram)), requirement: BrewStageRequirementDTO.none, startMethod: .userInteractive, passMethod: .userInteractive, message: "Put all your 10.0 grams of coffee to brewer", details: nil),
+            .init(action: .pourWater(.init(amount: 40, type: .millilitre)), requirement: .countdown(10), startMethod: .userInteractive, passMethod: .auto, message: "To bloom, pour 40.0 millilitres of water\nTotal: 40.0 millilitres of water", details: nil),
+            .init(action: .pause, requirement: .countdown(30), startMethod: .auto, passMethod: .auto, message: "Let it bloom for 30.0 seconds", details: nil),
+            .init(action: .pourWater(.init(amount: 40, type: .millilitre)), requirement: BrewStageRequirementDTO.none, startMethod: .auto, passMethod: .userInteractive, message: "To bloom, pour 40.0 millilitres of water", details: "Total: 80.0 millilitres of water")
         ])
     }
 }
@@ -142,7 +142,7 @@ extension RecipeDTO {
             recipeProfile: recipeProfile,
             ingredients: ingredients,
             brewQueue: .init(stages: [
-                .init(action: nil, requirement: nil, startMethod: nil, passMethod: nil)
+                .init(action: nil, requirement: nil, startMethod: nil, passMethod: nil, message: nil, details: nil)
             ])
         )
     }
@@ -152,7 +152,7 @@ extension RecipeDTO {
             recipeProfile: recipeProfile,
             ingredients: ingredients,
             brewQueue: .init(stages: [
-                .init(action: .pause, requirement: nil, startMethod: nil, passMethod: nil)
+                .init(action: .pause, requirement: nil, startMethod: nil, passMethod: nil, message: nil, details: nil)
             ])
         )
     }
