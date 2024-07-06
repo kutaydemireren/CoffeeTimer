@@ -102,8 +102,6 @@ struct CreateRecipeView: View {
     @EnvironmentObject var context: CreateRecipeContext
     var closeRequest: () -> Void
 
-    let gridCache = GridCache(title: TitleStorage.randomFunTitle, recipeProfileIcons: ProfileIconStorage.recipeProfileIcons)
-
     @State private var canCreate = false
 
     var body: some View {
@@ -134,7 +132,7 @@ struct CreateRecipeView: View {
                 CreateRecipeBrewMethodSelection(brewMethods: $viewModel.brewMethods, selectedBrewMethod: $context.selectedBrewMethod)
                     .tag(1)
 
-                CreateRecipeProfileSelection(recipeProfile: $context.recipeProfile, gridCache: gridCache)
+                CreateRecipeProfileSelection(recipeProfile: $context.recipeProfile)
                     .tag(2)
 
                 CreateRecipeCoffeeWaterSelection(cupsCountAmount: $context.cupsCount, selectedRatio: $context.ratio, allRatios: $viewModel.allRatios)
