@@ -258,21 +258,13 @@ struct BrewQueueView: View {
             Spacer()
 
             VStack {
-
-                headerGroup
-
+                StageHeaderView(stageHeader: viewModel.stageHeader)
                 Spacer()
-
                 actionButton()
             }
 
             Spacer()
         }
-    }
-
-    private var headerGroup: some View {
-        // TODO: use new stage header view
-        EmptyView()
     }
 
     // TODO: must move this to remove recipe dependency.
