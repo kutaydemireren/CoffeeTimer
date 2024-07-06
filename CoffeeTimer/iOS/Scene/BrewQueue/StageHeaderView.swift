@@ -35,8 +35,8 @@ struct StageHeaderView: View {
 
             if let subtext = header.subtext {
                 Text(subtext)
-                    .foregroundColor(foregroundColor.opacity(0.8))
-                    .font(.subheadline)
+                    .foregroundColor(foregroundColor)
+                    .font(.title3)
             }
         }
         .shadow(color: .black.opacity(0.2), radius: 16)
