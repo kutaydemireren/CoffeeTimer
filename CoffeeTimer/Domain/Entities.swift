@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BrewMethod: Equatable {
+struct BrewMethod: Equatable, Identifiable {
     let id: String
     let title: String
     let path: String
@@ -30,29 +30,21 @@ struct CupsCount: Equatable {
     }
 }
 
-struct Recipe: Equatable {
+struct Recipe: Equatable, Identifiable {
+    let id = UUID()
     let recipeProfile: RecipeProfile
     let ingredients: [Ingredient]
     let brewQueue: BrewQueue
+
+    static func ==(lhs: Recipe, rhs: Recipe) -> Bool {
+        return lhs.recipeProfile == rhs.recipeProfile && lhs.ingredients == rhs.ingredients && lhs.brewQueue == rhs.brewQueue
+    }
 }
 
 struct RecipeProfile: Equatable {
     let name: String
-    let icon: RecipeProfileIcon
     let cupsCount: Double
     let ratio: CoffeeToWaterRatio
-}
-
-struct RecipeProfileIcon: Equatable {
-    let title: String
-    let color: String
-    let imageName: String
-
-    init(title: String, color: String) {
-        self.title = title
-        self.color = color
-        self.imageName = "recipe-profile-\(title.split(separator: " ").first ?? "")"
-    }
 }
 
 struct Ingredient: Equatable {

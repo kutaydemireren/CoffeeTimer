@@ -7,28 +7,11 @@
 
 import SwiftUI
 
-struct RecipeProfileIconView: View {
-    let recipeProfileIcon: RecipeProfileIcon
-    var isSelected = false
-
-    var body: some View {
-        if !recipeProfileIcon.imageName.isEmpty {
-            Image(recipeProfileIcon.imageName)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .foregroundColor(Color("foregroundPrimary"))
-                .opacity(isSelected ? 1.0 : 0.4)
-        }
-    }
-}
-
 struct RecipeProfileView: View {
     let recipeProfile: RecipeProfile
 
     var body: some View {
         HStack {
-            RecipeProfileIconView(recipeProfileIcon: recipeProfile.icon, isSelected: true)
-                .frame(maxHeight: 25)
             Text(recipeProfile.name)
                 .foregroundColor(Color("foregroundPrimary"))
                 .bold()

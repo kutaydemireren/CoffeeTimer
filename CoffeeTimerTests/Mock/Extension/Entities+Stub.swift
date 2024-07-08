@@ -21,16 +21,9 @@ extension RecipeProfile {
     static var stubMini: RecipeProfile {
         return RecipeProfile(
             name: "My Recipe Mini",
-            icon: .stubMini,
             cupsCount: 1,
             ratio: .ratio16
         )
-    }
-}
-
-extension RecipeProfileIcon {
-    static var stubMini: RecipeProfileIcon {
-        return RecipeProfileIcon(title: "rocket-mini", color: "#200020")
     }
 }
 

@@ -11,20 +11,13 @@ extension RecipeProfile {
     static var empty: RecipeProfile {
         RecipeProfile(
             name: "",
-            icon: .init(
-                title: "",
-                color: ""
-            ),
             cupsCount: 0,
             ratio: .ratio16
         )
     }
 
     var hasContent: Bool {
-        self != .empty &&
-        !name.isEmpty &&
-        !icon.title.isEmpty &&
-        !icon.color.isEmpty
+        self != .empty && !name.isEmpty
     }
 }
 

@@ -53,21 +53,9 @@ extension RecipeMapperImp {
         
         return RecipeProfile(
             name: dto.name ?? "",
-            icon: try mapToRecipeProfileIcon(recipeProfileIconDTO: dto.icon),
             cupsCount: 1,
             ratio: .ratio16
         )
-    }
-    
-    private func mapToRecipeProfileIcon(recipeProfileIconDTO: RecipeProfileIconDTO?) throws -> RecipeProfileIcon {
-        guard let dto = recipeProfileIconDTO else {
-            throw RecipeMapperError.missingRecipeProfileIcon
-        }
-        
-        let title = dto.title ?? ""
-        let color = dto.colorHex ?? ""
-        
-        return RecipeProfileIcon(title: title, color: color)
     }
     
     private func mapToIngredients(ingredientDTOs: [IngredientDTO]?) throws -> [Ingredient] {
@@ -208,21 +196,11 @@ extension RecipeMapperImp {
     
     private func mapToRecipeProfileDTO(recipeProfile: RecipeProfile) -> RecipeProfileDTO {
         let name = recipeProfile.name
-        let icon = mapToRecipeProfileIconDTO(recipeProfileIcon: recipeProfile.icon)
-        
+
         return RecipeProfileDTO(
             name: name,
-            icon: icon,
             cupsCount: 1,
             ratio: CoffeeToWaterRatio.ratio16.id
-        )
-    }
-    
-    private func mapToRecipeProfileIconDTO(recipeProfileIcon: RecipeProfileIcon) -> RecipeProfileIconDTO {
-        return RecipeProfileIconDTO(
-            title: recipeProfileIcon.title,
-            colorHex: recipeProfileIcon.color,
-            imageName: recipeProfileIcon.imageName
         )
     }
     

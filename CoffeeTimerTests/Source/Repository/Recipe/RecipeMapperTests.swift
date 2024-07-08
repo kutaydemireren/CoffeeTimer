@@ -35,12 +35,6 @@ extension RecipeMapperTests {
         }
     }
 
-    func test_mapToRecipe_whenRecipeProfileIconDTOIsNil_shouldThrowMissingProfileIconError() throws {
-        XCTAssertThrowsError(try sut.mapToRecipe(recipeDTO: .stubMini.excludingProfileIcon)) { error in
-            XCTAssertEqual(error as? RecipeMapperError, RecipeMapperError.missingRecipeProfileIcon)
-        }
-    }
-
     func test_mapToRecipe_whenIngredientTypeDTOIsNil_shouldThrowMissingProfileIconError() throws {
         XCTAssertThrowsError(try sut.mapToRecipe(recipeDTO: .stubMini.excludingIngredientType)) { error in
             XCTAssertEqual(error as? RecipeMapperError, RecipeMapperError.missingIngredientType)

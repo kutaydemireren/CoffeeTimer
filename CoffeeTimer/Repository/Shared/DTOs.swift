@@ -15,15 +15,8 @@ struct RecipeDTO: Codable, Equatable {
 
 struct RecipeProfileDTO: Codable, Equatable {
     let name: String?
-    let icon: RecipeProfileIconDTO?
     let cupsCount: Double?
     let ratio: String?
-}
-
-struct RecipeProfileIconDTO: Codable, Equatable {
-    let title: String?
-    let colorHex: String?
-    let imageName: String?
 }
 
 struct IngredientDTO: Codable, Equatable {

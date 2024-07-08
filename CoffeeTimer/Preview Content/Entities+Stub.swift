@@ -23,17 +23,10 @@ extension CreateRecipeInput {
     }
 }
 
-extension RecipeProfileIcon {
-    static var stubSingleV60: RecipeProfileIcon {
-        return RecipeProfileIcon(title: "rocket", color: "#800080")
-    }
-}
-
 extension RecipeProfile {
     static var stubSingleV60: RecipeProfile {
         return RecipeProfile(
             name: "Single V60 Recipe",
-            icon: .stubSingleV60,
             cupsCount: 1,
             ratio: .ratio16
         )
