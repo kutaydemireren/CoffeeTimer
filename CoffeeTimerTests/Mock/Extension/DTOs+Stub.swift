@@ -75,14 +75,6 @@ extension RecipeDTO {
         )
     }
 
-    var excludingProfileIcon: Self {
-        return RecipeDTO(
-            recipeProfile: .init(name: nil, cupsCount: 0, ratio: ""),
-            ingredients: ingredients,
-            brewQueue: brewQueue
-        )
-    }
-
     var excludingCupsCount: Self {
         return RecipeDTO(
             recipeProfile: .init(name: nil, cupsCount: nil, ratio: ""),

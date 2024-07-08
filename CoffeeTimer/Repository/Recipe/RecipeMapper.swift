@@ -9,7 +9,6 @@ import Foundation
 
 enum RecipeMapperError: Error {
     case missingRecipeProfile
-    case missingRecipeProfileIcon
     case missingIngredientType
     case missingIngredientAmount
     case missingIngredientAmountType

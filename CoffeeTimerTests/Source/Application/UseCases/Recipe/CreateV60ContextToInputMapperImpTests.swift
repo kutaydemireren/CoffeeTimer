@@ -25,7 +25,7 @@ final class CreateContextToInputMapperImpTests: XCTestCase {
         }
     }
     
-    func test_map_whenNonEmptyRecipeProfile_shouldReturnExpectedProfileIcon() throws {
+    func test_map_whenNonEmptyRecipeProfile_shouldReturnExpectedProfile() throws {
         let context = createValidContext()
         let expectedRecipeProfile = RecipeProfile.stubMini
         context.recipeProfile = expectedRecipeProfile

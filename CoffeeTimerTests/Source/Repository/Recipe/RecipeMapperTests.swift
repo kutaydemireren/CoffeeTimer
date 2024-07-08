@@ -35,37 +35,37 @@ extension RecipeMapperTests {
         }
     }
 
-    func test_mapToRecipe_whenIngredientTypeDTOIsNil_shouldThrowMissingProfileIconError() throws {
+    func test_mapToRecipe_whenIngredientTypeDTOIsNil_shouldThrowMissingIngredientTypeError() throws {
         XCTAssertThrowsError(try sut.mapToRecipe(recipeDTO: .stubMini.excludingIngredientType)) { error in
             XCTAssertEqual(error as? RecipeMapperError, RecipeMapperError.missingIngredientType)
         }
     }
 
-    func test_mapToRecipe_whenIngredientAmountDTOIsNil_shouldThrowMissingProfileIconError() throws {
+    func test_mapToRecipe_whenIngredientAmountDTOIsNil_shouldThrowMissingIngredientAmountError() throws {
         XCTAssertThrowsError(try sut.mapToRecipe(recipeDTO: .stubMini.excludingIngredientAmount)) { error in
             XCTAssertEqual(error as? RecipeMapperError, RecipeMapperError.missingIngredientAmount)
         }
     }
 
-    func test_mapToRecipe_whenIngredientAmountTypeDTOIsNil_shouldThrowMissingProfileIconError() throws {
+    func test_mapToRecipe_whenIngredientAmountTypeDTOIsNil_shouldThrowMissingIngredientAmountTypeError() throws {
         XCTAssertThrowsError(try sut.mapToRecipe(recipeDTO: .stubMini.excludingIngredientAmountType)) { error in
             XCTAssertEqual(error as? RecipeMapperError, RecipeMapperError.missingIngredientAmountType)
         }
     }
 
-    func test_mapToRecipe_whenBrewQueueDTOIsNil_shouldThrowMissingProfileIconError() throws {
+    func test_mapToRecipe_whenBrewQueueDTOIsNil_shouldThrowMissingBrewQueueError() throws {
         XCTAssertThrowsError(try sut.mapToRecipe(recipeDTO: .stubMini.excludingBrewQueue)) { error in
             XCTAssertEqual(error as? RecipeMapperError, RecipeMapperError.missingBrewQueue)
         }
     }
 
-    func test_mapToRecipe_whenBrewStageActionDTOIsNil_shouldThrowMissingProfileIconError() throws {
+    func test_mapToRecipe_whenBrewStageActionDTOIsNil_shouldThrowMissingBrewStageActionError() throws {
         XCTAssertThrowsError(try sut.mapToRecipe(recipeDTO: .stubMini.excludingBrewStageAction)) { error in
             XCTAssertEqual(error as? RecipeMapperError, RecipeMapperError.missingBrewStageAction)
         }
     }
 
-    func test_mapToRecipe_whenBrewStageRequirementDTOIsNil_shouldThrowMissingProfileIconError() throws {
+    func test_mapToRecipe_whenBrewStageRequirementDTOIsNil_shouldThrowMissingBrewStageRequirementError() throws {
         XCTAssertThrowsError(try sut.mapToRecipe(recipeDTO: .stubMini.excludingBrewStageRequirement)) { error in
             XCTAssertEqual(error as? RecipeMapperError, RecipeMapperError.missingBrewStageRequirement)
         }
