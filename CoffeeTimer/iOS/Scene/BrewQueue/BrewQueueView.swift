@@ -52,7 +52,7 @@ extension String {
             return "It is time to"
         }
     }
-
+    
     static let brewQueue = BrewQueue()
 }
 
@@ -64,33 +64,33 @@ extension BrewQueue {
 
 final class BrewQueueViewModel: ObservableObject, Completable {
     let didComplete = PassthroughSubject<BrewQueueViewModel, Never>()
-
+    
     var stageHeader = StageHeader.welcome
-
+    
     @Published var currentStageViewModel: any BrewStageViewModel = BrewStageConstantViewModel(text: "")
-
+    
     // TODO: Unify VMs for a single source
     var currentStageTimerViewModel: BrewStageTimerViewModel? {
         currentStageViewModel as? BrewStageTimerViewModel
     }
-
+    
     var currentStageConstantViewModel: BrewStageConstantViewModel? {
         currentStageViewModel as? BrewStageConstantViewModel
     }
-
+    
     @Published private(set) var canProceedToNextStep = true
-
+    
     private var currentStage: BrewStage? {
         didSet {
             hapticGenerator.medium()
             loadStage()
         }
     }
-
+    
     private(set) var isActive = false
-
+    
     private var cancellables: [AnyCancellable] = []
-
+    
     // TODO: Create a real queue data structure for getting the next stage from.
     // The 'play' around the stages[] is tedious & dangerous. That better is encapsulated.
     private var currentStageIndex: UInt = 0 {
@@ -98,36 +98,36 @@ final class BrewQueueViewModel: ObservableObject, Completable {
             currentStage = brewQueue.stages[safe: Int(currentStageIndex)]
         }
     }
-
+    
     var brewQueue: BrewQueue {
         selectedRecipe?.brewQueue ?? .empty
     }
-
+    
     var selectedRecipe: Recipe? {
         recipeRepository.getSelectedRecipe()
     }
-
+    
     private var subtextIfExists: String? {
         guard let selectedRecipe = selectedRecipe else {
             return nil
         }
-
+        
         return selectedRecipe.ingredients.toRepresentableString
     }
-
+    
     private var recipeRepository: RecipeRepository
     private var hapticGenerator: HapticGenerator
-
+    
     init(
         recipeRepository: RecipeRepository = RecipeRepositoryImp.shared, // TODO: use case - no repo in vm!
         hapticGenerator: HapticGenerator = HapticGeneratorImp()
     ) {
         self.recipeRepository = recipeRepository
         self.hapticGenerator = hapticGenerator
-
+        
         loadInitialStage()
     }
-
+    
     func primaryAction() {
         if canProceedToNextStep {
             nextStage()
@@ -135,16 +135,16 @@ final class BrewQueueViewModel: ObservableObject, Completable {
             currentStageTimerViewModel?.startOrStop()
         }
     }
-
+    
     func skipAction() {
         nextStage()
     }
-
+    
     func endAction() {
         isActive = false
         currentStageIndex = 0
     }
-
+    
     private func nextStage() {
         if isActive {
             var tempCurrentStageIndex = currentStageIndex + 1
@@ -158,39 +158,39 @@ final class BrewQueueViewModel: ObservableObject, Completable {
             currentStageIndex = 0
         }
     }
-
+    
     private func nextStageIfAuto() {
         if canProceedToNextStep && currentStage?.passMethod == .auto {
             self.hapticGenerator.heavy()
             self.nextStage()
         }
     }
-
+    
     private func loadInitialStage() {
         stageHeader = .welcome
-
+        
         currentStageViewModel = BrewStageConstantViewModel(text: "Begin", subtext: subtextIfExists)
         canProceedToNextStep = true
     }
-
+    
     private func loadStage() {
         guard let currentStage = currentStage else {
             return
         }
-
+        
         currentStageTimerViewModel?.stop()
-
+        
         guard isActive else {
             loadInitialStage()
             return
         }
-
+        
         stageHeader = StageHeader(
             lightTitle: .brewQueue.stageHeader(for: currentStage.action),
             title: currentStage.message,
             subtext: currentStage.details
         )
-
+        
         switch currentStage.requirement {
         case .none:
             currentStageViewModel = BrewStageConstantViewModel(text: "Done")
@@ -200,27 +200,27 @@ final class BrewQueueViewModel: ObservableObject, Completable {
                 countdownTimer: CountdownTimerImp(timeLeft: TimeInterval(timeLeft))
             )
         }
-
+        
         observeTimeIntervalLeft()
-
+        
         if currentStage.startMethod == .auto {
             currentStageTimerViewModel?.startOrStop()
         }
-
+        
         canProceedToNextStep = true
     }
-
+    
     private func observeTimeIntervalLeft() {
         currentStageTimerViewModel?.$timeIntervalLeft
             .sink(receiveValue: didSinkNewTimeInterval(_:))
             .store(in: &cancellables)
     }
-
+    
     private func didSinkNewTimeInterval(_ timeInterval: TimeInterval) {
         canProceedToNextStep = timeInterval <= 0
         nextStageIfAuto()
     }
-
+    
     func showRecipes() {
         didComplete.send(self)
     }
@@ -228,15 +228,15 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
 struct BrewQueueView: View {
     @ObservedObject var viewModel: BrewQueueViewModel
-
+    
     var body: some View {
-
+        
         GeometryReader { proxy in
             ZStack {
-
+                
                 backgroundView
                     .padding(24)
-
+                
                 Group {
                     brewStageView()
                         .shadow(color: .black.opacity(0.2), radius: 16)
@@ -250,21 +250,21 @@ struct BrewQueueView: View {
             .backgroundPrimary()
         }
     }
-
+    
     private var backgroundView: some View {
         HStack {
             Spacer()
-
+            
             VStack {
                 StageHeaderView(header: viewModel.stageHeader)
                 Spacer()
                 actionButton()
             }
-
+            
             Spacer()
         }
     }
-
+    
     // TODO: must move this to remove recipe dependency.
     // `BrewQueue` and `Recipe` will be decoupled (atm, `Recipe` has a `BrewQueue`).
     @ViewBuilder
@@ -284,7 +284,7 @@ struct BrewQueueView: View {
         .backgroundSecondary()
         .shadow(color: .blue.opacity(0.2), radius: 8, x: -2, y: -2)
     }
-
+    
     private var skipButton: some View {
         Button {
             viewModel.skipAction()
@@ -294,7 +294,7 @@ struct BrewQueueView: View {
         .padding()
         .foregroundColor(Color("foregroundPrimary").opacity(0.8))
     }
-
+    
     private var endButton: some View {
         Button {
             viewModel.endAction()
@@ -304,10 +304,10 @@ struct BrewQueueView: View {
         .padding()
         .foregroundColor(Color("foregroundPrimary").opacity(0.8))
     }
-
+    
     @ViewBuilder
     private func actionButton() -> some View {
-
+        
         if !viewModel.isActive {
             recipesButton
         } else {
@@ -320,7 +320,7 @@ struct BrewQueueView: View {
             }
         }
     }
-
+    
     @ViewBuilder
     private func brewStageView() -> some View {
         if let currentStageTimerViewModel = viewModel.currentStageTimerViewModel {

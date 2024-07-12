@@ -8,5 +8,5 @@
 import Combine
 
 protocol Completable {
-	var didComplete: PassthroughSubject<Self, Never> { get }
+    var didComplete: PassthroughSubject<Self, Never> { get }
 }

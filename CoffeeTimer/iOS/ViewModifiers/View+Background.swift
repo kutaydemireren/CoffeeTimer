@@ -8,48 +8,48 @@
 import SwiftUI
 
 struct BackgroundPrimaryViewModifier: ViewModifier {
-	func body(content: Content) -> some View {
-		content
-			.background(BackgroundPrimary())
-	}
+    func body(content: Content) -> some View {
+        content
+            .background(BackgroundPrimary())
+    }
 }
 
 struct BackgroundPrimary: View {
-	var body: some View {
-		Rectangle()
-			.fill(
-				Color("backgroundPrimary")
-			)
-			.ignoresSafeArea()
-	}
+    var body: some View {
+        Rectangle()
+            .fill(
+                Color("backgroundPrimary")
+            )
+            .ignoresSafeArea()
+    }
 }
 
 struct BackgroundSecondaryViewModifier: ViewModifier {
-	func body(content: Content) -> some View {
-		content
-			.background(BackgroundSecondary())
-	}
+    func body(content: Content) -> some View {
+        content
+            .background(BackgroundSecondary())
+    }
 }
 
 struct BackgroundSecondary: View {
-	var body: some View {
-		RoundedRectangle(cornerRadius: 24)
-			.fill(LinearGradient(
-				colors: [
-					Color("backgroundSecondary").opacity(0.8)
-				],
-				startPoint: .leading,
-				endPoint: .trailing
-			))
-	}
+    var body: some View {
+        RoundedRectangle(cornerRadius: 24)
+            .fill(LinearGradient(
+                colors: [
+                    Color("backgroundSecondary").opacity(0.8)
+                ],
+                startPoint: .leading,
+                endPoint: .trailing
+            ))
+    }
 }
 
 extension View {
-	func backgroundPrimary() -> some View {
-		modifier(BackgroundPrimaryViewModifier())
-	}
-
-	func backgroundSecondary() -> some View {
-		modifier(BackgroundSecondaryViewModifier())
-	}
+    func backgroundPrimary() -> some View {
+        modifier(BackgroundPrimaryViewModifier())
+    }
+    
+    func backgroundSecondary() -> some View {
+        modifier(BackgroundSecondaryViewModifier())
+    }
 }

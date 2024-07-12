@@ -8,16 +8,16 @@
 import Foundation
 
 extension String {
-	func filteringNonNumerics() -> String {
-		var newValue = ""
-
-		if Double(self) != nil {
-			newValue = self
-		} else {
-			let trimmed = trimmingCharacters(in: CharacterSet(charactersIn: "."))
-			newValue = trimmed.filter { "0123456789.".contains($0) }
-		}
-
-		return newValue
-	}
+    func filteringNonNumerics() -> String {
+        var newValue = ""
+        
+        if Double(self) != nil {
+            newValue = self
+        } else {
+            let trimmed = trimmingCharacters(in: CharacterSet(charactersIn: "."))
+            newValue = trimmed.filter { "0123456789.".contains($0) }
+        }
+        
+        return newValue
+    }
 }

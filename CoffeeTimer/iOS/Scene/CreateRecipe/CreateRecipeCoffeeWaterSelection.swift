@@ -17,22 +17,22 @@ struct Separator: View {
 }
 
 struct CreateRecipeCoffeeWaterSelection: View {
-
+    
     @Binding var cupsCountAmount: Double
     @Binding var selectedRatio: CoffeeToWaterRatio?
     @Binding var allRatios: [CoffeeToWaterRatio]
-
+    
     @EnvironmentObject var context: CreateRecipeContext
-
+    
     var body: some View {
         VStack {
-
+            
             cupsCountField
-
+            
             Separator()
-
+            
             picker
-
+            
             Spacer()
         }
         .padding(.horizontal, 32)
@@ -41,7 +41,7 @@ struct CreateRecipeCoffeeWaterSelection: View {
             hideKeyboard()
         }
     }
-
+    
     private var cupsCountField: some View {
         NumericTextField(
             title: "How many cups are you brewing?",
@@ -54,9 +54,9 @@ struct CreateRecipeCoffeeWaterSelection: View {
             input: $cupsCountAmount
         )
     }
-
+    
     private var picker: some View {
-
+        
         TitledContent(title: "How strong would you like?") {
             Menu {
                 Picker(selection: $selectedRatio, label: EmptyView()) {
@@ -70,7 +70,7 @@ struct CreateRecipeCoffeeWaterSelection: View {
             }
         }
     }
-
+    
     private var pickerLabel: some View {
         Text(selectedRatio?.title ?? "Choose preferred ratio")
             .foregroundColor(Color("foregroundPrimary").opacity(0.8))

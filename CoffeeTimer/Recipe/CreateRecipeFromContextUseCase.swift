@@ -22,7 +22,8 @@ protocol CreateRecipeFromContextUseCase {
 /*
  TODO: removing context dependency
  `context` used here is essentially a UI component.
- this needs to be addressed so that needs it can be scoped to only presentation layer.
+ this needs to be addressed so that it can be scoped to only presentation layer.
+ (use CreateRecipeInput instead?)
  */
 struct CreateRecipeFromContextUseCaseImp: CreateRecipeFromContextUseCase {
     private let createContextToInputMapper: CreateContextToInputMapper

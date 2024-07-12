@@ -11,8 +11,8 @@ import SwiftUI
 struct CoffeeTimerApp: App {
     var body: some Scene {
         WindowGroup {
-			AppFlowView(viewModel: .init())
-				.preferredColorScheme(.light)
-		}
+            AppFlowView(viewModel: .init())
+                .preferredColorScheme(.light)
+        }
     }
 }

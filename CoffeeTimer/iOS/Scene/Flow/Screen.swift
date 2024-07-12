@@ -8,8 +8,8 @@
 import Foundation
 
 enum Screen: Hashable {
-
-	case brewQueue
-	case createRecipe
-	case recipesFlowView
+    
+    case brewQueue
+    case createRecipe
+    case recipesFlowView
 }

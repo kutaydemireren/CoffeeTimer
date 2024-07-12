@@ -8,23 +8,23 @@
 import SwiftUI
 
 struct TitledContent<Content: View>: View {
-
-	var title: String
-	var content: () -> Content
-
-	var body: some View {
-
-		VStack(spacing: 24) {
-
-			if !title.isEmpty {
-				LeadingText(title)
-					.font(.headline)
-			}
-
-			content()
-		}
-		.foregroundColor(Color("foregroundPrimary"))
-		.padding()
-		.backgroundSecondary()
-	}
+    
+    var title: String
+    var content: () -> Content
+    
+    var body: some View {
+        
+        VStack(spacing: 24) {
+            
+            if !title.isEmpty {
+                LeadingText(title)
+                    .font(.headline)
+            }
+            
+            content()
+        }
+        .foregroundColor(Color("foregroundPrimary"))
+        .padding()
+        .backgroundSecondary()
+    }
 }

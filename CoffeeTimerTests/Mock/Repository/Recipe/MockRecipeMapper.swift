@@ -8,35 +8,35 @@
 @testable import CoffeeTimer
 
 final class MockRecipeMapper: RecipeMapper {
-	var mapToRecipeReceivedRecipeDTO: RecipeDTO?
+    var mapToRecipeReceivedRecipeDTO: RecipeDTO?
 
-	var recipesDict: [Int: Recipe] = [:]
-	var recipeDTOsDict: [Int: RecipeDTO] = [:]
+    var recipesDict: [Int: Recipe] = [:]
+    var recipeDTOsDict: [Int: RecipeDTO] = [:]
 
-	var mapToRecipeDTOReceivedRecipe: Recipe?
+    var mapToRecipeDTOReceivedRecipe: Recipe?
 
-	func mapToRecipe(recipeDTO: RecipeDTO) throws -> Recipe {
-		mapToRecipeReceivedRecipeDTO = recipeDTO
+    func mapToRecipe(recipeDTO: RecipeDTO) throws -> Recipe {
+        mapToRecipeReceivedRecipeDTO = recipeDTO
 
-		let firstMatchingIndex = recipeDTOsDict.filter { (_, value) in
-			return value == recipeDTO
-		}.keys.first
+        let firstMatchingIndex = recipeDTOsDict.filter { (_, value) in
+            return value == recipeDTO
+        }.keys.first
 
-		guard let firstMatchingIndex = firstMatchingIndex else {
-			throw RecipeMapperError.missingBrewQueue
-		}
+        guard let firstMatchingIndex = firstMatchingIndex else {
+            throw RecipeMapperError.missingBrewQueue
+        }
 
-		return recipesDict[firstMatchingIndex]!
-	}
+        return recipesDict[firstMatchingIndex]!
+    }
 
-	func mapToRecipeDTO(recipe: Recipe) -> RecipeDTO {
-		mapToRecipeDTOReceivedRecipe = recipe
+    func mapToRecipeDTO(recipe: Recipe) -> RecipeDTO {
+        mapToRecipeDTOReceivedRecipe = recipe
 
-		let firstMatchingIndex = recipesDict.filter { (_, value) in
-			return value == recipe
+        let firstMatchingIndex = recipesDict.filter { (_, value) in
+            return value == recipe
 
-		}.keys.first!
+        }.keys.first!
 
-		return recipeDTOsDict[firstMatchingIndex]!
-	}
+        return recipeDTOsDict[firstMatchingIndex]!
+    }
 }

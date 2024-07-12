@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct LeadingText: View {
-	let text: String
-
-	init(_ text: String) {
-		self.text = text
-	}
-
-	var body: some View {
-		HStack {
-			Text(text)
-			Spacer()
-		}
-	}
+    let text: String
+    
+    init(_ text: String) {
+        self.text = text
+    }
+    
+    var body: some View {
+        HStack {
+            Text(text)
+            Spacer()
+        }
+    }
 }
