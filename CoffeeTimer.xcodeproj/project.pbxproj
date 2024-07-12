@@ -54,7 +54,7 @@
 		CA77909B2A06F35A00BEA142 /* CreateContextToInputMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77909A2A06F35A00BEA142 /* CreateContextToInputMapper.swift */; };
 		CA77909D2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77909C2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift */; };
 		CA7790A12A06F3BB00BEA142 /* Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790A02A06F3BB00BEA142 /* Equatable.swift */; };
-		CA7790A82A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790A72A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputMapper.swift */; };
+		CA7790A82A06F40F00BEA142 /* MockCreateContextToInputMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790A72A06F40F00BEA142 /* MockCreateContextToInputMapper.swift */; };
 		CA7B804529BFA9E7007D3DFC /* CountdownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804429BFA9E6007D3DFC /* CountdownTimer.swift */; };
 		CA7B804729BFAA21007D3DFC /* CountdownTimerImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804629BFAA21007D3DFC /* CountdownTimerImpTests.swift */; };
 		CA7B804B29BFABBB007D3DFC /* StageTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804A29BFABBB007D3DFC /* StageTimerView.swift */; };
@@ -154,7 +154,7 @@
 		CA77909A2A06F35A00BEA142 /* CreateContextToInputMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContextToInputMapper.swift; sourceTree = "<group>"; };
 		CA77909C2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeFromContextUseCase.swift; sourceTree = "<group>"; };
 		CA7790A02A06F3BB00BEA142 /* Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equatable.swift; sourceTree = "<group>"; };
-		CA7790A72A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCreateV60SingleCupContextToInputMapper.swift; sourceTree = "<group>"; };
+		CA7790A72A06F40F00BEA142 /* MockCreateContextToInputMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCreateContextToInputMapper.swift; sourceTree = "<group>"; };
 		CA7B804429BFA9E6007D3DFC /* CountdownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimer.swift; sourceTree = "<group>"; };
 		CA7B804629BFAA21007D3DFC /* CountdownTimerImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimerImpTests.swift; sourceTree = "<group>"; };
 		CA7B804A29BFABBB007D3DFC /* StageTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageTimerView.swift; sourceTree = "<group>"; };
@@ -367,15 +367,6 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		CA5E907629D61A6B00A78CF2 /* Application */ = {
-			isa = PBXGroup;
-			children = (
-				CA9BDA232A2CE9CA0068DFF7 /* UseCases */,
-				CA9BDA222A2CE9C30068DFF7 /* Timer */,
-			);
-			path = Application;
-			sourceTree = "<group>";
-		};
 		CA5E907829D61AA400A78CF2 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -434,8 +425,10 @@
 		CA7790A22A06F3D500BEA142 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				CA9BDA222A2CE9C30068DFF7 /* Timer */,
+				CA711D402A64302A00C21E41 /* Recipe */,
+				CA2A00CF2C0B908E0040B50D /* BrewMethods */,
 				CAB1925B2A0D6B4400043837 /* Repository */,
-				CA5E907629D61A6B00A78CF2 /* Application */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -443,21 +436,12 @@
 		CA7790A32A06F3DD00BEA142 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
+				CAAB27CA2C41CA3900E3997E /* RecipeInstructions */,
+				CAAB27C92C41CA0900E3997E /* Recipe */,
 				CA02D0D62A255A360012EE87 /* Repository */,
 				CA6263B92A2548F9003E167D /* Extension */,
-				CA7790A42A06F3F100BEA142 /* Application */,
 			);
 			path = Mock;
-			sourceTree = "<group>";
-		};
-		CA7790A42A06F3F100BEA142 /* Application */ = {
-			isa = PBXGroup;
-			children = (
-				CA1552812C0A5D71000334FB /* MockCreateRecipeFromInputUseCase.swift */,
-				CA7790A72A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputMapper.swift */,
-				CA1552832C0A5D9A000334FB /* MockFetchRecipeInstructionsUseCase.swift */,
-			);
-			path = Application;
 			sourceTree = "<group>";
 		};
 		CA7B804929BFABA8007D3DFC /* Scene */ = {
@@ -577,15 +561,6 @@
 			path = Timer;
 			sourceTree = "<group>";
 		};
-		CA9BDA232A2CE9CA0068DFF7 /* UseCases */ = {
-			isa = PBXGroup;
-			children = (
-				CA2A00CF2C0B908E0040B50D /* BrewMethods */,
-				CA711D402A64302A00C21E41 /* Recipe */,
-			);
-			path = UseCases;
-			sourceTree = "<group>";
-		};
 		CAAB27C72C41C66200E3997E /* BrewMethod */ = {
 			isa = PBXGroup;
 			children = (
@@ -593,6 +568,23 @@
 				CA1B52AF2C0B97B300C4B923 /* BrewMethodRepository.swift */,
 			);
 			path = BrewMethod;
+			sourceTree = "<group>";
+		};
+		CAAB27C92C41CA0900E3997E /* Recipe */ = {
+			isa = PBXGroup;
+			children = (
+				CA7790A72A06F40F00BEA142 /* MockCreateContextToInputMapper.swift */,
+				CA1552812C0A5D71000334FB /* MockCreateRecipeFromInputUseCase.swift */,
+			);
+			path = Recipe;
+			sourceTree = "<group>";
+		};
+		CAAB27CA2C41CA3900E3997E /* RecipeInstructions */ = {
+			isa = PBXGroup;
+			children = (
+				CA1552832C0A5D9A000334FB /* MockFetchRecipeInstructionsUseCase.swift */,
+			);
+			path = RecipeInstructions;
 			sourceTree = "<group>";
 		};
 		CAB1925B2A0D6B4400043837 /* Repository */ = {
@@ -883,7 +875,7 @@
 				CA8B41B52C0CB0CC00C0DA86 /* loadInstructions.swift in Sources */,
 				CA3CA4B12A1AA22600C76E28 /* RecipeMapperTests.swift in Sources */,
 				CA7790A12A06F3BB00BEA142 /* Equatable.swift in Sources */,
-				CA7790A82A06F40F00BEA142 /* MockCreateV60SingleCupContextToInputMapper.swift in Sources */,
+				CA7790A82A06F40F00BEA142 /* MockCreateContextToInputMapper.swift in Sources */,
 				CA6263BC2A254955003E167D /* Entities+Stub.swift in Sources */,
 				CA7790992A06F34100BEA142 /* CreateV60ContextToInputMapperImpTests.swift in Sources */,
 				CA1552842C0A5D9A000334FB /* MockFetchRecipeInstructionsUseCase.swift in Sources */,
