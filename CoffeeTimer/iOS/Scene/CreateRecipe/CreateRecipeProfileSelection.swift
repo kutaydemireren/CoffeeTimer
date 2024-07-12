@@ -11,14 +11,18 @@ extension RecipeProfile {
 	func updating(name: String) -> RecipeProfile {
 		return RecipeProfile(
 			name: name,
-			icon: icon
+			icon: icon,
+			cupsCount: cupsCount,
+			ratio: ratio
 		)
 	}
 
 	func updating(icon: RecipeProfileIcon) -> RecipeProfile {
 		return RecipeProfile(
 			name: name,
-			icon: icon
+			icon: icon,
+			cupsCount: cupsCount,
+			ratio: ratio
 		)
 	}
 }

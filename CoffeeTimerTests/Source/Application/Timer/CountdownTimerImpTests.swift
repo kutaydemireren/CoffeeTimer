@@ -46,14 +46,9 @@ final class CountdownTimerImpTests: XCTestCase {
 	func test_start_whenRunning_shouldNotStartSecondTime() {
 		try? sut.start()
 
-		var thrownError: Error?
-		do {
-			try sut.start()
-		} catch {
-			thrownError = error
-		}
-
-		XCTAssertEqual(thrownError?.localizedDescription, CountdownTimerError.alreadyRunning.localizedDescription)
+        XCTAssertThrowsError(try sut.start()) { error in
+            XCTAssertEqual(error as? CountdownTimerError, .alreadyRunning)
+        }
 	}
 
 	func test_start_shouldCountdownByOneInterval() {

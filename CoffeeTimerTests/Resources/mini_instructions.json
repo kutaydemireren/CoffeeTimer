@@ -1,0 +1,96 @@
+{
+    "identifier": "mini-instructions",
+    "ingredients": [
+        "water",
+        "coffee"
+    ],
+    "context": {
+        "current": {
+            "amount": 0,
+            "coffee": 0,
+            "water": 0
+        },
+        "total": {
+            "water": 0,
+            "coffee": 0
+        }
+    },
+    "steps": [
+        {
+            "action": "put",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "ingredient": "coffee",
+            "amount": {
+                "type": "gram",
+                "factor": 1,
+                "factorOf": "coffee",
+                "constant": 0
+            },
+            "message": "Put all your #current.amount grams of coffee to brewer"
+        },
+        {
+            "action": "message",
+            "requirement": null,
+            "startMethod": "auto",
+            "skipMethod": "userInteractive",
+            "message": "Wet filter on hot tap water"
+        },
+        {
+            "action": "put",
+            "requirement": {
+                "type": "countdown",
+                "duration": {
+                    "type": "second",
+                    "length": 10
+                }
+            },
+            "startMethod": "userInteractive",
+            "skipMethod": "auto",
+            "ingredient": "water",
+            "amount": {
+                "type": "millilitre",
+                "factor": 0.2,
+                "factorOf": "water",
+                "constant": 0
+            },
+            "message": "To bloom, pour #current.amount millilitres of water\nTotal: #current.water millilitres of water"
+        },
+        {
+            "action": "unknown-action",
+            "requirement": null,
+            "startMethod": "auto",
+            "skipMethod": "auto",
+            "message": "This is a test action expected to be ignored. Ignoring it must not cause any issue."
+        },
+        {
+            "action": "pause",
+            "requirement": {
+                "type": "countdown",
+                "duration": {
+                    "type": "second",
+                    "length": 30
+                }
+            },
+            "startMethod": "auto",
+            "skipMethod": "auto",
+            "message": "Let it bloom for #current.duration seconds"
+        },
+        {
+            "action": "put",
+            "requirement": null,
+            "startMethod": "auto",
+            "skipMethod": "userInteractive",
+            "ingredient": "water",
+            "amount": {
+                "type": "millilitre",
+                "factor": 0.2,
+                "factorOf": "water",
+                "constant": 0
+            },
+            "message": "To bloom, pour #current.amount millilitres of water",
+            "details": "Total: #current.water millilitres of water"
+        }
+    ]
+}
