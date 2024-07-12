@@ -310,7 +310,7 @@
 				CA852F232BD5551900FEF144 /* Recipe */,
 				CA8C9AEC2C0B5074000A71AC /* RecipeInstructions */,
 				CAAB27C72C41C66200E3997E /* BrewMethod */,
-				CA5E907829D61AA400A78CF2 /* Domain */,
+				CA5E907829D61AA400A78CF2 /* Entities */,
 				CA981F822A2695D8000254CD /* iOS */,
 				CA367D3729A2B0380095B1B8 /* Preview Content */,
 				CAF42CEE29EC98BF004D7788 /* Repository */,
@@ -367,12 +367,12 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		CA5E907829D61AA400A78CF2 /* Domain */ = {
+		CA5E907829D61AA400A78CF2 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 				CA5E907C29D61AED00A78CF2 /* Entities.swift */,
 			);
-			path = Domain;
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		CA6263B62A250EDD003E167D /* Storage */ = {
