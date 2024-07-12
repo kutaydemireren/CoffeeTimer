@@ -258,14 +258,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		CA1B52AE2C0B97A700C4B923 /* BrewMethod */ = {
-			isa = PBXGroup;
-			children = (
-				CA1B52AF2C0B97B300C4B923 /* BrewMethodRepository.swift */,
-			);
-			path = BrewMethod;
-			sourceTree = "<group>";
-		};
 		CA1B52B12C0B97DA00C4B923 /* BrewMethod */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,22 +273,6 @@
 				CA1B52B92C0B98D000C4B923 /* BrewMethodRepositoryImpTests.swift */,
 			);
 			path = BrewMethod;
-			sourceTree = "<group>";
-		};
-		CA2A00CB2C0B8FA20040B50D /* RecipeInstructions */ = {
-			isa = PBXGroup;
-			children = (
-				CA1552872C0A5DEB000334FB /* FetchRecipeInstructionsUseCase.swift */,
-			);
-			path = RecipeInstructions;
-			sourceTree = "<group>";
-		};
-		CA2A00CC2C0B8FB90040B50D /* BrewMethods */ = {
-			isa = PBXGroup;
-			children = (
-				CA2A00CD2C0B8FF10040B50D /* GetBrewMethodsUseCase.swift */,
-			);
-			path = BrewMethods;
 			sourceTree = "<group>";
 		};
 		CA2A00CF2C0B908E0040B50D /* BrewMethods */ = {
@@ -330,7 +306,10 @@
 			isa = PBXGroup;
 			children = (
 				CAA325892BD438B1008440D0 /* instructions_v60_single.json */,
-				CA5E907529D61A5F00A78CF2 /* Application */,
+				CA9BDA1D2A2CDC9E0068DFF7 /* Timer */,
+				CA852F232BD5551900FEF144 /* Recipe */,
+				CA8C9AEC2C0B5074000A71AC /* RecipeInstructions */,
+				CAAB27C72C41C66200E3997E /* BrewMethod */,
 				CA5E907829D61AA400A78CF2 /* Domain */,
 				CA981F822A2695D8000254CD /* iOS */,
 				CA367D3729A2B0380095B1B8 /* Preview Content */,
@@ -386,18 +365,6 @@
 				CA2A00C92C0B65E10040B50D /* Errors.swift */,
 			);
 			path = Shared;
-			sourceTree = "<group>";
-		};
-		CA5E907529D61A5F00A78CF2 /* Application */ = {
-			isa = PBXGroup;
-			children = (
-				CA1B52AE2C0B97A700C4B923 /* BrewMethod */,
-				CA8C9AEC2C0B5074000A71AC /* RecipeInstructions */,
-				CA852F232BD5551900FEF144 /* Recipe */,
-				CA9BDA1E2A2CDCA30068DFF7 /* UseCases */,
-				CA9BDA1D2A2CDC9E0068DFF7 /* Timer */,
-			);
-			path = Application;
 			sourceTree = "<group>";
 		};
 		CA5E907629D61A6B00A78CF2 /* Application */ = {
@@ -507,6 +474,10 @@
 		CA852F232BD5551900FEF144 /* Recipe */ = {
 			isa = PBXGroup;
 			children = (
+				CA77909A2A06F35A00BEA142 /* CreateContextToInputMapper.swift */,
+				CA77909C2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift */,
+				CA15527F2C0A5D3F000334FB /* CreateRecipeFromInputUseCase.swift */,
+				CA9BDA282A2CFD290068DFF7 /* CreateRecipeInput.swift */,
 				CAF42CF229EC9906004D7788 /* RecipeRepository.swift */,
 			);
 			path = Recipe;
@@ -523,6 +494,7 @@
 		CA8C9AEC2C0B5074000A71AC /* RecipeInstructions */ = {
 			isa = PBXGroup;
 			children = (
+				CA1552872C0A5DEB000334FB /* FetchRecipeInstructionsUseCase.swift */,
 				CA852F242BD5552D00FEF144 /* RecipeInstructions.swift */,
 				CA8C9AED2C0B5081000A71AC /* RecipeInstructionsRepository.swift */,
 			);
@@ -597,16 +569,6 @@
 			path = Timer;
 			sourceTree = "<group>";
 		};
-		CA9BDA1E2A2CDCA30068DFF7 /* UseCases */ = {
-			isa = PBXGroup;
-			children = (
-				CA2A00CC2C0B8FB90040B50D /* BrewMethods */,
-				CA2A00CB2C0B8FA20040B50D /* RecipeInstructions */,
-				CAF54BF02A3651D00033A43F /* Recipe */,
-			);
-			path = UseCases;
-			sourceTree = "<group>";
-		};
 		CA9BDA222A2CE9C30068DFF7 /* Timer */ = {
 			isa = PBXGroup;
 			children = (
@@ -622,6 +584,15 @@
 				CA711D402A64302A00C21E41 /* Recipe */,
 			);
 			path = UseCases;
+			sourceTree = "<group>";
+		};
+		CAAB27C72C41C66200E3997E /* BrewMethod */ = {
+			isa = PBXGroup;
+			children = (
+				CA2A00CD2C0B8FF10040B50D /* GetBrewMethodsUseCase.swift */,
+				CA1B52AF2C0B97B300C4B923 /* BrewMethodRepository.swift */,
+			);
+			path = BrewMethod;
 			sourceTree = "<group>";
 		};
 		CAB1925B2A0D6B4400043837 /* Repository */ = {
@@ -693,17 +664,6 @@
 			children = (
 				CAF42CF029EC98E4004D7788 /* RecipeRepositoryImp.swift */,
 				CA3CA4AE2A1AA20B00C76E28 /* RecipeMapper.swift */,
-			);
-			path = Recipe;
-			sourceTree = "<group>";
-		};
-		CAF54BF02A3651D00033A43F /* Recipe */ = {
-			isa = PBXGroup;
-			children = (
-				CA77909A2A06F35A00BEA142 /* CreateContextToInputMapper.swift */,
-				CA77909C2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift */,
-				CA15527F2C0A5D3F000334FB /* CreateRecipeFromInputUseCase.swift */,
-				CA9BDA282A2CFD290068DFF7 /* CreateRecipeInput.swift */,
 			);
 			path = Recipe;
 			sourceTree = "<group>";
