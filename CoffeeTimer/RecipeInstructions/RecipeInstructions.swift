@@ -359,13 +359,13 @@ struct PutInstructionAction: InstructionAction {
         }
     }
 
-    private func calculate(amount: InstructionAmount?, input: RecipeInstructionInput) -> IngredientAmount {
+    private func calculate(amount: InstructionAmount?, input: RecipeInstructionInput) -> IngredientAmount { // TODO: throw?
         guard let factor = amount?.factor, let factorOf = amount?.factorOf, let constant = amount?.constant else { return .zeroGram }
         guard let valueFactorOf = input.ingredients[factorOf] else { return .zeroGram }
 
         return IngredientAmount(
             amount: UInt(factor * valueFactorOf + constant),
-            type: amount?.type?.map() ?? .gram // TODO: throw from `calculate` methods?
+            type: amount?.type?.map() ?? .gram
         )
     }
 }
