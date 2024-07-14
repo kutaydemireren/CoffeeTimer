@@ -2,7 +2,7 @@
     {
         "id": "v60-single",
         "title": "V60 Single",
-        "path": "/kutaydemireren/CoffeeTimer/blob/epic/remote-recipes/data/v0/brew-instructions/v60-single.json",
+        "path": "/kutaydemireren/CoffeeTimer/epic/remote-recipes/data/v0/brew-instructions/v60-single.json",
         "cupsCount": {
             "minimum": 1,
             "maximum": 1
