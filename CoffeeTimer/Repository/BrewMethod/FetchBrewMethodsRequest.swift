@@ -9,5 +9,5 @@ import Foundation
 
 struct FetchBrewMethodsRequest: Request {
     let host: String = "raw.githubusercontent.com"
-    let path: String = "/kutaydemireren/CoffeeTimer/main/data/v0/brew-methods.json"
+    let path: String = "/kutaydemireren/CoffeeTimer/blob/epic/remote-recipes/data/v0/brew-methods.json"
 }
