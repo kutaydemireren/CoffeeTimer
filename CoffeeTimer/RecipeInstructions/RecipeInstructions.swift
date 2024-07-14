@@ -413,7 +413,6 @@ struct MessageInstructionAction: InstructionAction {
     }
 
     func action(for input: RecipeInstructionInput) -> BrewStageAction {
-        // TODO: message - return message action
-        return .finish
+        return .message
     }
 }
