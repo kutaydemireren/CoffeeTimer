@@ -82,6 +82,7 @@ enum BrewStageActionDTO: Codable, Equatable {
     case pause
     case finish
     case finishIced
+    case message
 }
 
 enum BrewStageActionMethodDTO: Codable, Equatable {
