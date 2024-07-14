@@ -50,7 +50,7 @@
 		CA77908F2A06DB3C00BEA142 /* LeadingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77908E2A06DB3C00BEA142 /* LeadingText.swift */; };
 		CA7790932A06DB5300BEA142 /* TitledContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790922A06DB5300BEA142 /* TitledContent.swift */; };
 		CA7790952A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790942A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift */; };
-		CA7790992A06F34100BEA142 /* CreateV60ContextToInputMapperImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790982A06F34100BEA142 /* CreateV60ContextToInputMapperImpTests.swift */; };
+		CA7790992A06F34100BEA142 /* CreateContextToInputMapperImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790982A06F34100BEA142 /* CreateContextToInputMapperImpTests.swift */; };
 		CA77909B2A06F35A00BEA142 /* CreateContextToInputMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77909A2A06F35A00BEA142 /* CreateContextToInputMapper.swift */; };
 		CA77909D2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77909C2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift */; };
 		CA7790A12A06F3BB00BEA142 /* Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790A02A06F3BB00BEA142 /* Equatable.swift */; };
@@ -75,6 +75,7 @@
 		CAB1925F2A0D6B6500043837 /* RecipeRepositoryImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB1925E2A0D6B6500043837 /* RecipeRepositoryImpTests.swift */; };
 		CAD01B4F2C395B5B004A1EFF /* StageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD01B4E2C395B5B004A1EFF /* StageHeaderView.swift */; };
 		CAE3944229DE13C0007611F1 /* CreateRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3944129DE13C0007611F1 /* CreateRecipeView.swift */; };
+		CAEE2F702C42A03F00D7D61E /* button-click.wav in Resources */ = {isa = PBXBuildFile; fileRef = CAEE2F6F2C42A03F00D7D61E /* button-click.wav */; };
 		CAF42CDF29EC907F004D7788 /* View+ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CDE29EC907F004D7788 /* View+ClearButton.swift */; };
 		CAF42CE129EC90CA004D7788 /* AlphanumericTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CE029EC90CA004D7788 /* AlphanumericTextField.swift */; };
 		CAF42CE329EC9524004D7788 /* CreateRecipeFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CE229EC9524004D7788 /* CreateRecipeFlowView.swift */; };
@@ -150,7 +151,7 @@
 		CA77908E2A06DB3C00BEA142 /* LeadingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingText.swift; sourceTree = "<group>"; };
 		CA7790922A06DB5300BEA142 /* TitledContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledContent.swift; sourceTree = "<group>"; };
 		CA7790942A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeFromContextUseCaseImpTests.swift; sourceTree = "<group>"; };
-		CA7790982A06F34100BEA142 /* CreateV60ContextToInputMapperImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateV60ContextToInputMapperImpTests.swift; sourceTree = "<group>"; };
+		CA7790982A06F34100BEA142 /* CreateContextToInputMapperImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContextToInputMapperImpTests.swift; sourceTree = "<group>"; };
 		CA77909A2A06F35A00BEA142 /* CreateContextToInputMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContextToInputMapper.swift; sourceTree = "<group>"; };
 		CA77909C2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeFromContextUseCase.swift; sourceTree = "<group>"; };
 		CA7790A02A06F3BB00BEA142 /* Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equatable.swift; sourceTree = "<group>"; };
@@ -176,6 +177,7 @@
 		CAD01B4E2C395B5B004A1EFF /* StageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageHeaderView.swift; sourceTree = "<group>"; };
 		CAD071E629DCCB000010E561 /* Entities+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entities+Stub.swift"; sourceTree = "<group>"; };
 		CAE3944129DE13C0007611F1 /* CreateRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeView.swift; sourceTree = "<group>"; };
+		CAEE2F6F2C42A03F00D7D61E /* button-click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "button-click.wav"; sourceTree = "<group>"; };
 		CAF42CDE29EC907F004D7788 /* View+ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ClearButton.swift"; sourceTree = "<group>"; };
 		CAF42CE029EC90CA004D7788 /* AlphanumericTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphanumericTextField.swift; sourceTree = "<group>"; };
 		CAF42CE229EC9524004D7788 /* CreateRecipeFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeFlowView.swift; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 		CA367D3029A2B0370095B1B8 /* CoffeeTimer */ = {
 			isa = PBXGroup;
 			children = (
+				CAEE2F6F2C42A03F00D7D61E /* button-click.wav */,
 				CAA325892BD438B1008440D0 /* instructions_v60_single.json */,
 				CA9BDA1D2A2CDC9E0068DFF7 /* Timer */,
 				CA852F232BD5551900FEF144 /* Recipe */,
@@ -396,7 +399,7 @@
 			isa = PBXGroup;
 			children = (
 				CA7790942A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift */,
-				CA7790982A06F34100BEA142 /* CreateV60ContextToInputMapperImpTests.swift */,
+				CA7790982A06F34100BEA142 /* CreateContextToInputMapperImpTests.swift */,
 				CA1552892C0A5E2E000334FB /* CreateRecipeFromInputUseCaseImpTests.swift */,
 				CA8C9AEA2C0B4339000A71AC /* FetchRecipeInstructionsUseCaseImpTests.swift */,
 			);
@@ -773,6 +776,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA8B44432A2563780003EE57 /* Colors.xcassets in Resources */,
+				CAEE2F702C42A03F00D7D61E /* button-click.wav in Resources */,
 				CA852F262BD557A800FEF144 /* instructions_v60_single.json in Resources */,
 				CA367D3929A2B0380095B1B8 /* Preview Assets.xcassets in Resources */,
 				CA367D3629A2B0380095B1B8 /* Assets.xcassets in Resources */,
@@ -877,7 +881,7 @@
 				CA7790A12A06F3BB00BEA142 /* Equatable.swift in Sources */,
 				CA7790A82A06F40F00BEA142 /* MockCreateContextToInputMapper.swift in Sources */,
 				CA6263BC2A254955003E167D /* Entities+Stub.swift in Sources */,
-				CA7790992A06F34100BEA142 /* CreateV60ContextToInputMapperImpTests.swift in Sources */,
+				CA7790992A06F34100BEA142 /* CreateContextToInputMapperImpTests.swift in Sources */,
 				CA1552842C0A5D9A000334FB /* MockFetchRecipeInstructionsUseCase.swift in Sources */,
 				CA02D0D82A255A440012EE87 /* MockRecipeMapper.swift in Sources */,
 				CA1552822C0A5D71000334FB /* MockCreateRecipeFromInputUseCase.swift in Sources */,
