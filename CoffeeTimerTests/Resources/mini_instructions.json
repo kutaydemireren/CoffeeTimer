@@ -91,6 +91,20 @@
             },
             "message": "To bloom, pour #current.amount millilitres of water",
             "details": "Total: #current.water millilitres of water"
+        },
+        {
+            "action": "put",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "ingredient": "water",
+            "amount": {
+                "type": "millilitre",
+                "factor": 1,
+                "factorOf": "#remaining.water",
+                "constant": 0
+            },
+            "message": "Use all remaining #current.amount millilitres of water"
         }
     ]
 }

@@ -44,9 +44,10 @@ extension Array where Element == Ingredient {
 
 extension BrewQueue {
     static var stubSingleV60: BrewQueue {
+        var context = InstructionActionContext(current: nil, total: nil)
         let stages = loadV60SingleRecipeInstructions()
             .steps
-            .compactMap { $0.instructionAction?.stage(for: RecipeInstructionInput(ingredients: [.coffee: 15, .water: 250]), in: .empty) }
+            .compactMap { $0.instructionAction?.stage(for: RecipeInstructionInput(ingredients: [.coffee: 15, .water: 250]), in: &context) }
 
         return BrewQueue(stages: stages)
     }
