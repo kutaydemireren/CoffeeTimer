@@ -157,6 +157,8 @@ extension RecipeMapperImp {
             return .finish
         case .finishIced:
             return .finishIced
+        case .message:
+            return .message
         }
     }
     
@@ -280,6 +282,8 @@ extension RecipeMapperImp {
             return .finish
         case .finishIced:
             return .finishIced
+        case .message:
+            return .message
         }
     }
     

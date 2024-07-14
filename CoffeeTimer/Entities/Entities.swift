@@ -96,6 +96,7 @@ enum BrewStageAction: Equatable {
     case pause
     case finish
     case finishIced
+    case message
 }
 
 enum BrewStageRequirement: Equatable {

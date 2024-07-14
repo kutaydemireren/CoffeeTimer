@@ -136,7 +136,7 @@ struct RecipeInstructionStep: Decodable {
         case .put:
             instructionAction = try? PutInstructionAction(from: decoder)
         case .message:
-            instructionAction = nil // try? MessageInstructionAction(from: decoder)
+            instructionAction = try? MessageInstructionAction(from: decoder)
         case .pause:
             instructionAction = try? PauseInstructionAction(from: decoder)
         case .unknown:
@@ -339,6 +339,18 @@ struct PutInstructionAction: InstructionAction {
     let ingredient: RecipeInstructions.Ingredient?
     let amount: InstructionAmount?
 
+    func updateContext(_ context: InstructionActionContext, input: RecipeInstructionInput) -> InstructionActionContext {
+        let amount = Double(calculate(amount: amount, input: input).amount)
+        return context.updating(
+            current: InstructionActionContext.Context(
+                amount: amount,
+                coffee: (context.current?.coffee ?? 0) + (ingredient == .coffee ? amount : 0),
+                water: (context.current?.water ?? 0) + (ingredient == .water ? amount : 0),
+                duration: 0
+            )
+        )
+    }
+
     func action(for input: RecipeInstructionInput) -> BrewStageAction {
         switch ingredient {
         case .some(.coffee): return .putCoffee(calculate(amount: amount, input: input))
@@ -356,18 +368,6 @@ struct PutInstructionAction: InstructionAction {
             type: amount?.type?.map() ?? .gram // TODO: throw from `calculate` methods?
         )
     }
-
-    func updateContext(_ context: InstructionActionContext, input: RecipeInstructionInput) -> InstructionActionContext {
-        let amount = Double(calculate(amount: amount, input: input).amount)
-        return context.updating(
-            current: InstructionActionContext.Context(
-                amount: amount,
-                coffee: (context.current?.coffee ?? 0) + (ingredient == .coffee ? amount : 0),
-                water: (context.current?.water ?? 0) + (ingredient == .water ? amount : 0),
-                duration: 0
-            )
-        )
-    }
 }
 
 //
@@ -378,10 +378,6 @@ struct PauseInstructionAction: InstructionAction {
     let skipMethod: InstructionInteractionMethod?
     let message: String?
     let details: String?
-
-    func action(for input: RecipeInstructionInput) -> BrewStageAction {
-        return .pause
-    }
 
     func updateContext(_ context: InstructionActionContext, input: RecipeInstructionInput) -> InstructionActionContext {
         guard case .countdown(let duration) = requirement else {
@@ -396,5 +392,27 @@ struct PauseInstructionAction: InstructionAction {
                 duration: Double(duration)
             )
         )
+    }
+
+    func action(for input: RecipeInstructionInput) -> BrewStageAction {
+        return .pause
+    }
+}
+
+//
+
+struct MessageInstructionAction: InstructionAction {
+    let requirement: InstructionRequirement?
+    let startMethod: InstructionInteractionMethod?
+    let skipMethod: InstructionInteractionMethod?
+    let message: String?
+    let details: String?
+
+    func updateContext(_ context: InstructionActionContext, input: RecipeInstructionInput) -> InstructionActionContext {
+        return context
+    }
+
+    func action(for input: RecipeInstructionInput) -> BrewStageAction {
+        return .message
     }
 }
