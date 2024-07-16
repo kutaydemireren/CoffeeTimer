@@ -23,3 +23,19 @@ func loadMiniInstructions() -> RecipeInstructions {
         fatalError("Error decoding instructions: \(error)")
     }
 }
+
+func loadMiniIcedInstructions() -> RecipeInstructions {
+    final class ClassForBundle { }
+    guard let bundleURL = Bundle(for: ClassForBundle.self).url(forResource: "mini_iced_instructions", withExtension: "json") else {
+        fatalError("Instructions file not found in test bundle")
+    }
+
+    do {
+        let data = try Data(contentsOf: bundleURL)
+        let decoder = JSONDecoder()
+        let recipe = try decoder.decode(RecipeInstructions.self, from: data)
+        return recipe
+    } catch {
+        fatalError("Error decoding instructions: \(error)")
+    }
+}

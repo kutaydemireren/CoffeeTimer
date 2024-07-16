@@ -73,6 +73,7 @@
 		CA91CEF729E5FA9100E9F5D1 /* AppFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CEF629E5FA9100E9F5D1 /* AppFlowView.swift */; };
 		CA9BDA292A2CFD290068DFF7 /* CreateRecipeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9BDA282A2CFD290068DFF7 /* CreateRecipeInput.swift */; };
 		CAB1925F2A0D6B6500043837 /* RecipeRepositoryImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB1925E2A0D6B6500043837 /* RecipeRepositoryImpTests.swift */; };
+		CAC59D882C47137900301A43 /* mini_iced_instructions.json in Resources */ = {isa = PBXBuildFile; fileRef = CAC59D872C47137900301A43 /* mini_iced_instructions.json */; };
 		CAD01B4F2C395B5B004A1EFF /* StageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD01B4E2C395B5B004A1EFF /* StageHeaderView.swift */; };
 		CAE3944229DE13C0007611F1 /* CreateRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3944129DE13C0007611F1 /* CreateRecipeView.swift */; };
 		CAEE2F702C42A03F00D7D61E /* button-click.wav in Resources */ = {isa = PBXBuildFile; fileRef = CAEE2F6F2C42A03F00D7D61E /* button-click.wav */; };
@@ -174,6 +175,7 @@
 		CA9BDA282A2CFD290068DFF7 /* CreateRecipeInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeInput.swift; sourceTree = "<group>"; };
 		CAA325892BD438B1008440D0 /* instructions_v60_single.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = instructions_v60_single.json; sourceTree = "<group>"; };
 		CAB1925E2A0D6B6500043837 /* RecipeRepositoryImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRepositoryImpTests.swift; sourceTree = "<group>"; };
+		CAC59D872C47137900301A43 /* mini_iced_instructions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mini_iced_instructions.json; sourceTree = "<group>"; };
 		CAD01B4E2C395B5B004A1EFF /* StageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageHeaderView.swift; sourceTree = "<group>"; };
 		CAD071E629DCCB000010E561 /* Entities+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entities+Stub.swift"; sourceTree = "<group>"; };
 		CAE3944129DE13C0007611F1 /* CreateRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeView.swift; sourceTree = "<group>"; };
@@ -474,6 +476,7 @@
 			isa = PBXGroup;
 			children = (
 				CA8B41B22C0CAC9800C0DA86 /* mini_instructions.json */,
+				CAC59D872C47137900301A43 /* mini_iced_instructions.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -787,6 +790,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAC59D882C47137900301A43 /* mini_iced_instructions.json in Resources */,
 				CA8B41B32C0CAC9800C0DA86 /* mini_instructions.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

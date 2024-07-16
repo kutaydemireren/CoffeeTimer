@@ -54,4 +54,19 @@ final class CreateRecipeFromInputUseCaseImpTests: XCTestCase {
 
         XCTAssertEqual(resultedRecipe.brewQueue, .stubMini)
     }
+
+    func test_create_iced_shouldRecipeHasExpectedBrewQueue() {
+        let ingredients: [Ingredient] = .stubMini
+
+        let resultedRecipe = sut.create(
+            from: CreateRecipeInput(
+                recipeProfile: .empty,
+                coffee: ingredients[0].amount,
+                water: ingredients[1].amount
+            ),
+            instructions: loadMiniIcedInstructions()
+        )
+
+        XCTAssertEqual(resultedRecipe.brewQueue, .stubMiniIced)
+    }
 }

@@ -27,6 +27,14 @@
             "message": "Put all #current.amount g of coffee to brewer"
         },
         {
+            "action": "message",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "message": "Boil water in your kettle",
+            "details": "Boil more than #total.water ml of water"
+        },        
+        {
             "action": "put",
             "requirement": null,
             "startMethod": "userInteractive",

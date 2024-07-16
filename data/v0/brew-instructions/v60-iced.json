@@ -2,7 +2,8 @@
     "identifier": "v60-iced",
     "ingredients": [
         "water",
-        "coffee"
+        "coffee",
+        "ice"
     ],
     "steps": [
         {
@@ -17,6 +18,20 @@
             "requirement": null,
             "startMethod": "userInteractive",
             "skipMethod": "userInteractive",
+            "ingredient": "ice",
+            "amount": {
+                "type": "gram",
+                "factor": 1,
+                "factorOf": "ice",
+                "constant": 0
+            },
+            "message": "Put #current.amount g of ice into the vessel"
+        },
+        {
+            "action": "put",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
             "ingredient": "coffee",
             "amount": {
                 "type": "gram",
@@ -24,7 +39,7 @@
                 "factorOf": "coffee",
                 "constant": 0
             },
-            "message": "Put all #current.amount g of coffee to brewer",
+            "message": "Put #current.amount g of coffee to brewer",
             "details": "Make a small hole at center with your finger"
         },
         {
