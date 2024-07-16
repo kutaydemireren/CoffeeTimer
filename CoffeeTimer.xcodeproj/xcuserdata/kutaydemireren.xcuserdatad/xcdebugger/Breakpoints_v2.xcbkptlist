@@ -14,8 +14,8 @@
             filePath = "CoffeeTimer/Recipe/CreateRecipeFromInputUseCase.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
             landmarkName = "getBrew(input:instructions:)"
             landmarkType = "7">
          </BreakpointContent>
