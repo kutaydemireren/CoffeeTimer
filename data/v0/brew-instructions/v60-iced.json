@@ -88,7 +88,7 @@
                 "constant": 0
             },
             "message": "Pour the remaining #current.amount ml of water in ~60 seconds.",
-            "details": "Total: #current.water ml of water\nRemember to pour gently in cycles."
+            "details": "Remember to pour gently in cycles.\nTotal: #current.water ml of water"
         },
         {
             "action": "pause",
