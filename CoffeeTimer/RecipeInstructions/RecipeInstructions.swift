@@ -282,6 +282,7 @@ extension InstructionAction {
 extension RecipeInstructions.Ingredient {
     static var water: Self { return "water" }
     static var coffee: Self { return "coffee" }
+    static var ice: Self { return "ice" }
 }
 
 struct PutInstructionAction: InstructionAction {
@@ -303,6 +304,8 @@ struct PutInstructionAction: InstructionAction {
             action = .putCoffee(ingredientAmount)
         case .water:
             action = .pourWater(ingredientAmount)
+        case .ice:
+            action = .putIce(ingredientAmount)
         case .some, .none:
             action = .pourWater(.zeroGram)
         }
