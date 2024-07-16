@@ -197,6 +197,11 @@ struct InstructionActionContext {
             dict["#current.duration"] = String(current.duration)
         }
 
+        if let total {
+            dict["#total.coffee"] = String(total.coffee)
+            dict["#total.water"] = String(total.water)
+        }
+
         if let remaining {
             dict["#remaining.coffee"] = String(remaining.coffee)
             dict["#remaining.water"] = String(remaining.water)
