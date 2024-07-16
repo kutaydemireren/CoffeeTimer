@@ -24,17 +24,20 @@ struct CreateRecipeFromInputUseCaseImp: CreateRecipeFromInputUseCase {
     }
     
     private func getBrew(input: CreateRecipeInput, instructions: RecipeInstructions) -> BrewQueue {
+
+        var context = InstructionActionContext(
+            totalCoffee: Double(input.coffee.amount),
+            totalWater: Double(input.water.amount)
+        )
         let input = RecipeInstructionInput(
             ingredients: [
-                "water": Double(input.water.amount),
-                "coffee": Double(input.coffee.amount)
+                "coffee": Double(input.coffee.amount),
+                "water": Double(input.water.amount)
             ]
         )
 
-        var context = InstructionActionContext.empty
         let stages = instructions.steps.compactMap { recipeInstructionStep -> BrewStage? in
-            context = recipeInstructionStep.instructionAction?.updateContext(context, input: input) ?? context
-            return recipeInstructionStep.instructionAction?.stage(for: input, in: context)
+            return recipeInstructionStep.instructionAction?.stage(for: input, in: &context)
         }
 
         return BrewQueue(stages: stages)

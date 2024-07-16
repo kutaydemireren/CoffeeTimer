@@ -226,15 +226,38 @@ extension MessageProcessing {
 
 //
 
-struct InstructionActionContext: Decodable {
-    struct Context: Decodable {
+struct InstructionActionContext {
+    struct Context {
         let amount: Double?
         let coffee: Double?
         let water: Double?
         let duration: Double?
     }
 
-    let current: Context? // TODO: is `current` really needed?
+    let current: Context?
+    let total: Context?
+
+    init(current: Context?, total: Context?) {
+        self.current = current
+        self.total = total
+    }
+
+    init(totalCoffee: Double, totalWater: Double) {
+        current = nil
+        total = .init(amount: nil, coffee: totalCoffee, water: totalWater, duration: nil)
+    }
+
+    var remaining: Context? {
+        guard let totalCoffee = total?.coffee, let totalWater = total?.water else { return nil }
+        let remainingCoffee = totalCoffee - (current?.coffee ?? 0)
+        let remainingWater = totalWater - (current?.water ?? 0)
+        return Context(
+            amount: nil,
+            coffee: remainingCoffee,
+            water: remainingWater,
+            duration: nil
+        )
+    }
 
     func toDict() -> [String: String] {
         var dict = [String: String]()
@@ -244,6 +267,11 @@ struct InstructionActionContext: Decodable {
             dict["#current.coffee"] = String(current.coffee)
             dict["#current.water"] = String(current.water)
             dict["#current.duration"] = String(current.duration)
+        }
+
+        if let remaining {
+            dict["#remaining.coffee"] = String(remaining.coffee)
+            dict["#remaining.water"] = String(remaining.water)
         }
 
         return dict
@@ -258,15 +286,10 @@ extension String {
 }
 
 extension InstructionActionContext {
-    static var empty: InstructionActionContext {
-        return InstructionActionContext(
-            current: nil
-        )
-    }
-
     func updating(current: Context?) -> InstructionActionContext {
         return InstructionActionContext(
-            current: current ?? self.current
+            current: current ?? self.current,
+            total: total
         )
     }
 }
@@ -280,14 +303,13 @@ protocol InstructionAction: Decodable, MessageProcessing {
     var message: String? { get }
     var details: String? { get }
 
-    func updateContext(_ context: InstructionActionContext, input: RecipeInstructionInput) -> InstructionActionContext
-    func action(for input: RecipeInstructionInput) -> BrewStageAction
+    func action(for input: RecipeInstructionInput, in context: inout InstructionActionContext) -> BrewStageAction
 }
 
 extension InstructionAction {
-    func stage(for input: RecipeInstructionInput, in context: InstructionActionContext) -> BrewStage {
+    func stage(for input: RecipeInstructionInput, in context: inout InstructionActionContext) -> BrewStage {
         return BrewStage(
-            action: action(for: input),
+            action: action(for: input, in: &context),
             requirement: map(requirement),
             startMethod: map(startMethod),
             passMethod: map(skipMethod),
@@ -339,29 +361,40 @@ struct PutInstructionAction: InstructionAction {
     let ingredient: RecipeInstructions.Ingredient?
     let amount: InstructionAmount?
 
-    func updateContext(_ context: InstructionActionContext, input: RecipeInstructionInput) -> InstructionActionContext {
-        let amount = Double(calculate(amount: amount, input: input).amount)
-        return context.updating(
+    func action(for input: RecipeInstructionInput, in context: inout InstructionActionContext) -> BrewStageAction {
+        let ingredientAmount = calculate(amount: amount, input: input, in: context)
+
+        let action: BrewStageAction
+        switch ingredient {
+        case .coffee:
+            action = .putCoffee(ingredientAmount)
+        case .water:
+            action = .pourWater(ingredientAmount)
+        case .some, .none:
+            action = .pourWater(.zeroGram)
+        }
+
+        let contextAmount = Double(ingredientAmount.amount)
+        context = context.updating(
             current: InstructionActionContext.Context(
-                amount: amount,
-                coffee: (context.current?.coffee ?? 0) + (ingredient == .coffee ? amount : 0),
-                water: (context.current?.water ?? 0) + (ingredient == .water ? amount : 0),
-                duration: 0
+                amount: contextAmount,
+                coffee: (context.current?.coffee ?? 0) + (ingredient == .coffee ? contextAmount : 0),
+                water: (context.current?.water ?? 0) + (ingredient == .water ? contextAmount : 0),
+                duration: nil
             )
         )
+
+        return action
     }
 
-    func action(for input: RecipeInstructionInput) -> BrewStageAction {
-        switch ingredient {
-        case .some(.coffee): return .putCoffee(calculate(amount: amount, input: input))
-        case .some(.water): return .pourWater(calculate(amount: amount, input: input))
-        case .some, .none: return .pourWater(.zeroGram)
-        }
-    }
-
-    private func calculate(amount: InstructionAmount?, input: RecipeInstructionInput) -> IngredientAmount { // TODO: throw?
+    private func calculate(amount: InstructionAmount?, input: RecipeInstructionInput, in context: InstructionActionContext) -> IngredientAmount { // TODO: throw?
         guard let factor = amount?.factor, let factorOf = amount?.factorOf, let constant = amount?.constant else { return .zeroGram }
-        guard let valueFactorOf = input.ingredients[factorOf] else { return .zeroGram }
+        
+        var valueFactorOf = input.ingredients[factorOf]
+        if valueFactorOf == nil {
+            valueFactorOf = Double(process(message: factorOf, with: context.toDict()))
+        }
+        guard let valueFactorOf else { return .zeroGram }
 
         return IngredientAmount(
             amount: UInt(factor * valueFactorOf + constant),
@@ -379,22 +412,18 @@ struct PauseInstructionAction: InstructionAction {
     let message: String?
     let details: String?
 
-    func updateContext(_ context: InstructionActionContext, input: RecipeInstructionInput) -> InstructionActionContext {
-        guard case .countdown(let duration) = requirement else {
-            return context
+    func action(for input: RecipeInstructionInput, in context: inout InstructionActionContext) -> BrewStageAction {
+        if case .countdown(let duration) = requirement {
+            context = context.updating(
+                current: InstructionActionContext.Context(
+                    amount: context.current?.amount ?? 0,
+                    coffee: (context.current?.coffee ?? 0),
+                    water: (context.current?.water ?? 0),
+                    duration: Double(duration)
+                )
+            )
         }
 
-        return context.updating(
-            current: InstructionActionContext.Context(
-                amount: context.current?.amount ?? 0,
-                coffee: (context.current?.coffee ?? 0),
-                water: (context.current?.water ?? 0),
-                duration: Double(duration)
-            )
-        )
-    }
-
-    func action(for input: RecipeInstructionInput) -> BrewStageAction {
         return .pause
     }
 }
@@ -408,11 +437,7 @@ struct MessageInstructionAction: InstructionAction {
     let message: String?
     let details: String?
 
-    func updateContext(_ context: InstructionActionContext, input: RecipeInstructionInput) -> InstructionActionContext {
-        return context
-    }
-
-    func action(for input: RecipeInstructionInput) -> BrewStageAction {
+    func action(for input: RecipeInstructionInput, in context: inout InstructionActionContext) -> BrewStageAction {
         return .message
     }
 }
