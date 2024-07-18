@@ -23,6 +23,21 @@ extension BrewMethodDTO {
         )
     }
 
+    static var v60Iced: Self {
+        return BrewMethodDTO(
+            id: "v60-iced",
+            title: "V60 Iced",
+            path: "/v60-iced",
+            isIcedBrew: true,
+            cupsCount: .unlimited,
+            ratios: [
+                .ratio16,
+                .ratio17,
+                .ratio18
+            ]
+        )
+    }
+
     static var frenchPress: Self {
         return BrewMethodDTO(
             id: "french-press",
@@ -42,6 +57,10 @@ extension BrewMethodDTO {
 extension CupsCountDTO {
     static var v60Single: Self {
         return CupsCountDTO(minimum: 1, maximum: 1)
+    }
+
+    static var unlimited: Self {
+        return CupsCountDTO(minimum: 1, maximum: nil)
     }
 
     static var frenchPress: Self {
@@ -119,17 +138,17 @@ extension RecipeDTO {
         )
     }
 
-    var excludingCupsCount: Self {
+    var excludingProfileName: Self {
         return RecipeDTO(
-            recipeProfile: .init(name: nil),
+            recipeProfile: .init(name: nil, brewMethod: nil),
             ingredients: ingredients,
             brewQueue: brewQueue
         )
     }
 
-    var excludingRatio: Self {
+    var excludingBrewMethod: Self {
         return RecipeDTO(
-            recipeProfile: .init(name: nil),
+            recipeProfile: .init(name: "", brewMethod: nil),
             ingredients: ingredients,
             brewQueue: brewQueue
         )
@@ -197,13 +216,15 @@ extension RecipeDTO {
 extension RecipeProfileDTO {
     static var stubMini: RecipeProfileDTO {
         return RecipeProfileDTO(
-            name: "My Recipe Mini"
+            name: "My Recipe Mini", 
+            brewMethod: .v60Single
         )
     }
 
     static var stubMiniIced: RecipeProfileDTO {
         return RecipeProfileDTO(
-            name: "My Recipe Mini Iced"
+            name: "My Recipe Mini Iced", 
+            brewMethod: .v60Iced
         )
     }
 }

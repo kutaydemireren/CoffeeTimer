@@ -10,12 +10,19 @@ import Foundation
 extension RecipeProfile {
     static var empty: RecipeProfile {
         RecipeProfile(
-            name: ""
+            name: "", 
+            brewMethod: .none
         )
     }
     
     var hasContent: Bool {
         !name.isEmpty
+    }
+}
+
+extension BrewMethod {
+    static var none: BrewMethod {
+        BrewMethod(id: "", title: "", path: "", isIcedBrew: false, cupsCount: .unlimited, ratios: [])
     }
 }
 

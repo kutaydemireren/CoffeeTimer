@@ -9,6 +9,8 @@ import Foundation
 
 enum RecipeMapperError: Error {
     case missingRecipeProfile
+    case missingProfileName
+    case missingBrewMethod
     case missingIngredientType
     case missingIngredientAmount
     case missingIngredientAmountType
@@ -46,15 +48,28 @@ extension RecipeMapperImp {
     }
     
     private func mapToRecipeProfile(recipeProfileDTO: RecipeProfileDTO?) throws -> RecipeProfile {
-        guard let dto = recipeProfileDTO else {
-            throw RecipeMapperError.missingRecipeProfile
-        }
-        
+        guard let dto = recipeProfileDTO else { throw RecipeMapperError.missingRecipeProfile }
+        guard let name = dto.name else { throw RecipeMapperError.missingProfileName }
+
         return RecipeProfile(
-            name: dto.name ?? ""
+            name: name,
+            brewMethod: try mapToBrewMethod(brewMethodDTO: dto.brewMethod)
         )
     }
-    
+
+    private func mapToBrewMethod(brewMethodDTO: BrewMethodDTO?) throws -> BrewMethod {
+        guard let brewMethodDTO else { throw RecipeMapperError.missingBrewMethod }
+
+        return BrewMethod(
+            id: brewMethodDTO.id ?? "",
+            title: brewMethodDTO.title ?? "",
+            path: brewMethodDTO.path ?? "",
+            isIcedBrew: brewMethodDTO.isIcedBrew ?? false,
+            cupsCount: CupsCount(minimum: brewMethodDTO.cupsCount?.minimum ?? 1, maximum: brewMethodDTO.cupsCount?.maximum),
+            ratios: brewMethodDTO.ratios.map { CoffeeToWaterRatio(id: $0.id ?? "", value: $0.value ?? 0, title: $0.title ?? "" ) }
+        )
+    }
+
     private func mapToIngredients(ingredientDTOs: [IngredientDTO]?) throws -> [Ingredient] {
         guard let dtos = ingredientDTOs else {
             return []
@@ -196,13 +211,23 @@ extension RecipeMapperImp {
     }
     
     private func mapToRecipeProfileDTO(recipeProfile: RecipeProfile) -> RecipeProfileDTO {
-        let name = recipeProfile.name
-
         return RecipeProfileDTO(
-            name: name
+            name: recipeProfile.name,
+            brewMethod: mapToBrewMethodDTO(brewMethod: recipeProfile.brewMethod)
         )
     }
-    
+
+    private func mapToBrewMethodDTO(brewMethod: BrewMethod) -> BrewMethodDTO {
+        return BrewMethodDTO(
+            id: brewMethod.id,
+            title: brewMethod.title,
+            path: brewMethod.path,
+            isIcedBrew: brewMethod.isIcedBrew,
+            cupsCount: CupsCountDTO(minimum: brewMethod.cupsCount.minimum, maximum: brewMethod.cupsCount.maximum),
+            ratios: brewMethod.ratios.map { CoffeeToWaterRatioDTO(id: $0.id, value: $0.value, title: $0.title) }
+        )
+    }
+
     private func mapToIngredientDTOs(ingredients: [Ingredient]) -> [IngredientDTO] {
         return ingredients.map { mapToIngredientDTO(ingredient: $0) }
     }

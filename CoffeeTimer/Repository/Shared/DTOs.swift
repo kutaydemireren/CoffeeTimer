@@ -15,6 +15,7 @@ struct RecipeDTO: Codable, Equatable {
 
 struct RecipeProfileDTO: Codable, Equatable {
     let name: String?
+    let brewMethod: BrewMethodDTO?
 }
 
 struct IngredientDTO: Codable, Equatable {

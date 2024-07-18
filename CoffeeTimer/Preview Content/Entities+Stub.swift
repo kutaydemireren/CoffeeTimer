@@ -26,7 +26,8 @@ extension CreateRecipeInput {
 extension RecipeProfile {
     static var stubSingleV60: RecipeProfile {
         return RecipeProfile(
-            name: "Single V60 Recipe"
+            name: "Single V60 Recipe", 
+            brewMethod: .v60Single
         )
     }
 }
