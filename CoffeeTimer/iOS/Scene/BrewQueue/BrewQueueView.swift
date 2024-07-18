@@ -207,7 +207,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
             currentStageTimerViewModel?.startOrStop()
         }
         
-        canProceedToNextStep = true
+        canProceedToNextStep = currentStage.requirement == .none
     }
     
     private func observeTimeIntervalLeft() {
