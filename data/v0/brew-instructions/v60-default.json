@@ -77,8 +77,8 @@
                     "length": 30
                 }
             },
-            "startMethod": "userInteractive",
-            "skipMethod": "userInteractive",
+            "startMethod": "userInteractive`",
+            "skipMethod": "auto",
             "ingredient": "water",
             "amount": {
                 "type": "millilitre",
