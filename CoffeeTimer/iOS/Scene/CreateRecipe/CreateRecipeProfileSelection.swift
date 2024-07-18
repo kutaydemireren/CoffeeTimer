@@ -14,6 +14,13 @@ extension RecipeProfile {
             brewMethod: brewMethod
         )
     }
+
+    func updating(brewMethod: BrewMethod) -> RecipeProfile {
+        return RecipeProfile(
+            name: name, 
+            brewMethod: brewMethod
+        )
+    }
 }
 
 struct CreateRecipeProfileSelection: View {

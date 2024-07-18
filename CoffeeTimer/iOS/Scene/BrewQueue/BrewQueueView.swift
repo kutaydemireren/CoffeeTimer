@@ -275,7 +275,7 @@ struct BrewQueueView: View {
             viewModel.showRecipes()
         } label: {
             if let selectedRecipe = viewModel.selectedRecipe {
-                RecipeProfileView(recipeProfile: selectedRecipe.recipeProfile)
+                RecipeProfileView(alignment: .center, recipeProfile: selectedRecipe.recipeProfile)
             } else {
                 Text("Create Recipe")
                     .font(.title3)

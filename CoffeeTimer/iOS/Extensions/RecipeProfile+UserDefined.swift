@@ -16,7 +16,7 @@ extension RecipeProfile {
     }
     
     var hasContent: Bool {
-        !name.isEmpty
+        !name.isEmpty && brewMethod != .none
     }
 }
 
