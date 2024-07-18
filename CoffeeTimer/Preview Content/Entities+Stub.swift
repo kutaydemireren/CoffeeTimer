@@ -26,9 +26,7 @@ extension CreateRecipeInput {
 extension RecipeProfile {
     static var stubSingleV60: RecipeProfile {
         return RecipeProfile(
-            name: "Single V60 Recipe",
-            cupsCount: 1,
-            ratio: .ratio16
+            name: "Single V60 Recipe"
         )
     }
 }

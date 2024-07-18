@@ -10,14 +10,12 @@ import Foundation
 extension RecipeProfile {
     static var empty: RecipeProfile {
         RecipeProfile(
-            name: "",
-            cupsCount: 0,
-            ratio: .ratio16
+            name: ""
         )
     }
     
     var hasContent: Bool {
-        self != .empty && !name.isEmpty
+        !name.isEmpty
     }
 }
 

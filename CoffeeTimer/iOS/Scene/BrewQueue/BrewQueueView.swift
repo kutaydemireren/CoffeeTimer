@@ -21,6 +21,8 @@ extension Ingredient {
             return "Coffee: \(amount.toRepresentableString)"
         case .water:
             return "Water: \(amount.toRepresentableString)"
+        case .ice:
+            return "Ice: \(amount.toRepresentableString)"
         }
     }
 }

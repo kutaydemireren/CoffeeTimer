@@ -15,8 +15,6 @@ struct RecipeDTO: Codable, Equatable {
 
 struct RecipeProfileDTO: Codable, Equatable {
     let name: String?
-    let cupsCount: Double?
-    let ratio: String?
 }
 
 struct IngredientDTO: Codable, Equatable {
@@ -27,6 +25,7 @@ struct IngredientDTO: Codable, Equatable {
 enum IngredientTypeDTO: Codable, Equatable {
     case coffee
     case water
+    case ice
 }
 
 struct IngredientAmountDTO: Codable, Equatable {

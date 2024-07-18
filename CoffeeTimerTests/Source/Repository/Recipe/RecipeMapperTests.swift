@@ -26,7 +26,19 @@ extension RecipeMapperTests {
 
         let resultedRecipe = try sut.mapToRecipe(recipeDTO: .stubMini)
 
-        XCTAssertEqual(resultedRecipe, expectedRecipe)
+        XCTAssertEqual(resultedRecipe.recipeProfile, expectedRecipe.recipeProfile)
+        XCTAssertEqual(resultedRecipe.ingredients, expectedRecipe.ingredients)
+        XCTAssertEqual(resultedRecipe.brewQueue, expectedRecipe.brewQueue)
+    }
+
+    func test_mapToRecipe_whenIcedRecipe_shouldMapAsExpected() {
+        let expectedRecipe = RecipeDTO.stubMiniIced
+
+        let resultedRecipe = sut.mapToRecipeDTO(recipe: .stubMiniIced)
+
+        XCTAssertEqual(resultedRecipe.recipeProfile, expectedRecipe.recipeProfile)
+        XCTAssertEqual(resultedRecipe.ingredients, expectedRecipe.ingredients)
+        XCTAssertEqual(resultedRecipe.brewQueue, expectedRecipe.brewQueue)
     }
 
     func test_mapToRecipe_whenRecipeProfileDTOIsNil_shouldThrowMissingProfileError() throws {
@@ -75,11 +87,22 @@ extension RecipeMapperTests {
 // MARK: RecipeDTO to Recipe
 extension RecipeMapperTests {
     func test_mapToRecipeDTO_shouldMapAsExpected() {
-        let recipe = Recipe.stubMini
         let expectedRecipeDTO = RecipeDTO.stubMini
 
-        let resultedRecipeDTO = sut.mapToRecipeDTO(recipe: recipe)
+        let resultedRecipeDTO = sut.mapToRecipeDTO(recipe: .stubMini)
 
-        XCTAssertEqual(resultedRecipeDTO, expectedRecipeDTO)
+        XCTAssertEqual(resultedRecipeDTO.recipeProfile, expectedRecipeDTO.recipeProfile)
+        XCTAssertEqual(resultedRecipeDTO.ingredients, expectedRecipeDTO.ingredients)
+        XCTAssertEqual(resultedRecipeDTO.brewQueue, expectedRecipeDTO.brewQueue)
+    }
+
+    func test_mapToRecipeDTO_whenIcedRecipe_shouldMapAsExpected() {
+        let expectedRecipeDTO = RecipeDTO.stubMiniIced
+
+        let resultedRecipeDTO = sut.mapToRecipeDTO(recipe: .stubMiniIced)
+
+        XCTAssertEqual(resultedRecipeDTO.recipeProfile, expectedRecipeDTO.recipeProfile)
+        XCTAssertEqual(resultedRecipeDTO.ingredients, expectedRecipeDTO.ingredients)
+        XCTAssertEqual(resultedRecipeDTO.brewQueue, expectedRecipeDTO.brewQueue)
     }
 }

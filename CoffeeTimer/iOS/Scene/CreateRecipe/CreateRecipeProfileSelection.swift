@@ -10,9 +10,7 @@ import SwiftUI
 extension RecipeProfile {
     func updating(name: String) -> RecipeProfile {
         return RecipeProfile(
-            name: name,
-            cupsCount: cupsCount,
-            ratio: ratio
+            name: name
         )
     }
 }
