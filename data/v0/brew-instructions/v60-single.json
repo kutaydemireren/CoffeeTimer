@@ -79,7 +79,7 @@
                 "factorOf": "water"
             },
             "message": "Pour #current.amount ml of water",
-            "details": "Total: #current.water ml of water\nRemember to pour gently in cycles."
+            "details": "Remember to pour gently in cycles\nTotal: #current.water ml of water"
         },
         {
             "action": "pause",
@@ -106,7 +106,7 @@
                 "factorOf": "water"
             },
             "message": "Pour #current.amount ml of water",
-            "details": "Total: #current.water ml of water\nRemember to pour gently in cycles."
+            "details": "Remember to pour gently in cycles\nTotal: #current.water ml of water"
         },
         {
             "action": "pause",
@@ -133,7 +133,7 @@
                 "factorOf": "water"
             },
             "message": "Pour #current.amount ml of water",
-            "details": "Total: #current.water ml of water\nRemember to pour gently in cycles."
+            "details": "Remember to pour gently in cycles\nTotal: #current.water ml of water"
         },
         {
             "action": "pause",
@@ -160,7 +160,7 @@
                 "factorOf": "water"
             },
             "message": "Pour #current.amount ml of water",
-            "details": "Total: #current.water ml of water\nRemember to pour gently in cycles."
+            "details": "Remember to pour gently in cycles\nTotal: #current.water ml of water"
         },
         {
             "action": "message",

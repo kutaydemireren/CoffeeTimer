@@ -70,7 +70,13 @@
         },
         {
             "action": "put",
-            "requirement": null,
+            "requirement": {
+                "type": "countdown",
+                "duration": {
+                    "type": "second",
+                    "length": 30
+                }
+            },
             "startMethod": "userInteractive",
             "skipMethod": "userInteractive",
             "ingredient": "water",
@@ -83,8 +89,8 @@
                     "factorOf": "#current.water"
                 }
             },
-            "message": "Pour #current.amount ml of water",
-            "details": "Total: #current.water ml of water\nRemember to pour gently in cycles."
+            "message": "Pour #current.amount ml of water in ~30 seconds",
+            "details": "Remember to pour gently in cycles\nTotal: #current.water ml of water"
         },
         {
             "action": "pause",
@@ -101,71 +107,23 @@
         },
         {
             "action": "put",
-            "requirement": null,
-            "startMethod": "userInteractive",
-            "skipMethod": "userInteractive",
-            "ingredient": "water",
-            "amount": {
-                "type": "millilitre",
-                "factor": 0.2,
-                "factorOf": "water"
-            },
-            "message": "Pour #current.amount ml of water",
-            "details": "Total: #current.water ml of water\nRemember to pour gently in cycles."
-        },
-        {
-            "action": "pause",
             "requirement": {
                 "type": "countdown",
                 "duration": {
                     "type": "second",
-                    "length": 10
+                    "length": 30
                 }
             },
             "startMethod": "auto",
             "skipMethod": "auto",
-            "message": "Pause for #current.duration seconds"
-        },
-        {
-            "action": "put",
-            "requirement": null,
-            "startMethod": "userInteractive",
-            "skipMethod": "userInteractive",
             "ingredient": "water",
             "amount": {
                 "type": "millilitre",
-                "factor": 0.2,
-                "factorOf": "water"
+                "factor": 1.0,
+                "factorOf": "#remaining.water"
             },
-            "message": "Pour #current.amount ml of water",
-            "details": "Total: #current.water ml of water\nRemember to pour gently in cycles."
-        },
-        {
-            "action": "pause",
-            "requirement": {
-                "type": "countdown",
-                "duration": {
-                    "type": "second",
-                    "length": 10
-                }
-            },
-            "startMethod": "auto",
-            "skipMethod": "auto",
-            "message": "Pause for #current.duration seconds"
-        },
-        {
-            "action": "put",
-            "requirement": null,
-            "startMethod": "userInteractive",
-            "skipMethod": "userInteractive",
-            "ingredient": "water",
-            "amount": {
-                "type": "millilitre",
-                "factor": 0.2,
-                "factorOf": "water"
-            },
-            "message": "Pour #current.amount ml of water",
-            "details": "Total: #current.water ml of water\nRemember to pour gently in cycles."
+            "message": "Pour the remaining #current.amount ml of water in ~30 seconds",
+            "details": "Pour in slower cycles during this phase\nTotal: #current.water ml of water"
         },
         {
             "action": "message",

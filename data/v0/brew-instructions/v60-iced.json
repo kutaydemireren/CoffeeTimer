@@ -98,8 +98,8 @@
                 "factor": 1.0,
                 "factorOf": "#remaining.water"
             },
-            "message": "Pour the remaining #current.amount ml of water in ~60 seconds.",
-            "details": "Remember to pour gently in cycles.\nTotal: #current.water ml of water"
+            "message": "Pour the remaining #current.amount ml of water in ~60 seconds",
+            "details": "Remember to pour gently in cycles\nTotal: #current.water ml of water"
         },
         {
             "action": "pause",
