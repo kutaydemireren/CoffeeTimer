@@ -21,11 +21,10 @@ protocol BrewStageViewModel: ObservableObject {
 }
 
 final class BrewStageConstantViewModel: BrewStageViewModel {
-    
     @Published var text: String
     @Published var subtext: String?
     let progress = 1.0
-    
+
     init(text: String, subtext: String? = nil) {
         self.text = text
         self.subtext = subtext
@@ -33,7 +32,6 @@ final class BrewStageConstantViewModel: BrewStageViewModel {
 }
 
 final class BrewStageTimerViewModel: BrewStageViewModel {
-    
     @Published var text: String = ""
     @Published var subtext: String? = nil
     @Published var progress: Double = 0.0
@@ -44,11 +42,11 @@ final class BrewStageTimerViewModel: BrewStageViewModel {
         }
     }
     private let duration: TimeInterval
-    
+
     private var cancellables: [AnyCancellable] = []
-    
+
     private var countdownTimer: CountdownTimer
-    
+
     init(
         timeIntervalLeft: TimeInterval,
         countdownTimer: CountdownTimer
@@ -56,14 +54,14 @@ final class BrewStageTimerViewModel: BrewStageViewModel {
         self.duration = timeIntervalLeft
         self.timeIntervalLeft = timeIntervalLeft
         self.countdownTimer = countdownTimer
-        
+
         countdownTimer.timeLeftPublisher
             .sink { timeIntervalLeft in
                 self.timeIntervalLeft = timeIntervalLeft
             }
             .store(in: &cancellables)
     }
-    
+
     func startOrStop() {
         if countdownTimer.isRunning {
             countdownTimer.stop()
@@ -71,24 +69,23 @@ final class BrewStageTimerViewModel: BrewStageViewModel {
             try? countdownTimer.start()
         }
     }
-    
+
     func stop() {
         countdownTimer.stop()
     }
 }
 
 struct BrewStageView<ViewModel>: View where ViewModel: BrewStageViewModel {
-    
     @ObservedObject var viewModel: ViewModel
-    
+
     var body: some View {
-        
+
         ZStack {
             Circle()
                 .trim(from: 0, to: viewModel.progress)
                 .stroke(Color("backgroundSecondary"), style: .init(lineWidth: 4))
                 .contentShape(Circle())
-            
+
             Circle()
                 .trim(from: viewModel.progress, to: 1.0)
                 .stroke(Color("backgroundSecondary").opacity(0.3), style: .init(lineWidth: 4))
@@ -106,6 +103,7 @@ struct BrewStageView<ViewModel>: View where ViewModel: BrewStageViewModel {
                         .foregroundColor(.init("backgroundSecondary"))
                 }
             }
+            .multilineTextAlignment(.center)
         }
     }
 }
