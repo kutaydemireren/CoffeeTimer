@@ -50,8 +50,8 @@ extension Array where Element == Ingredient {
     static var stubMiniIced: [Ingredient] {
         return [
             .init(ingredientType: .coffee, amount: .init(amount: 10, type: .gram)),
-            .init(ingredientType: .water, amount: .init(amount: 200, type: .millilitre)),
-            .init(ingredientType: .ice, amount: .init(amount: 100, type: .gram))
+            .init(ingredientType: .water, amount: .init(amount: 120, type: .millilitre)),
+            .init(ingredientType: .ice, amount: .init(amount: 80, type: .gram))
         ]
     }
 }

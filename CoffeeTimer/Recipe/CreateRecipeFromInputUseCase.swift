@@ -35,13 +35,8 @@ struct CreateRecipeFromInputUseCaseImp: CreateRecipeFromInputUseCase {
 
     private func getBrew(input: CreateRecipeInput, instructions: RecipeInstructions) -> BrewQueue {
         let coffeeAmount = Double(input.coffee.amount)
-        var waterAmount = Double(input.water.amount)
-        var iceAmount = 0.0
-
-        if instructions.ingredients.contains(.ice) {
-            iceAmount = waterAmount * 0.4
-            waterAmount -= iceAmount
-        }
+        let waterAmount = Double(input.water.amount)
+        let iceAmount = Double(input.ice?.amount ?? 0)
 
         var context = InstructionActionContext(
             totalCoffee: coffeeAmount,

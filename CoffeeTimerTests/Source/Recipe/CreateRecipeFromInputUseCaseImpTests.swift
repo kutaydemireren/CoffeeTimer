@@ -74,14 +74,14 @@ final class CreateRecipeFromInputUseCaseImpTests: XCTestCase {
     }
 
     func test_create_iced_shouldRecipeHasExpectedBrewQueue() {
-        let ingredients: [Ingredient] = .stubMini
+        let ingredients: [Ingredient] = .stubMiniIced
 
         let resultedRecipe = sut.create(
             from: CreateRecipeInput(
                 recipeProfile: .empty,
                 coffee: ingredients[0].amount,
                 water: ingredients[1].amount, 
-                ice: nil
+                ice: ingredients[2].amount
             ),
             instructions: loadMiniIcedInstructions()
         )
