@@ -19,16 +19,14 @@ extension Recipe {
 
 extension CreateRecipeInput {
     static var stubSingleV60: CreateRecipeInput{
-        return CreateRecipeInput(recipeProfile: .stubSingleV60, coffee: .init(amount: 15, type: .gram), water: .init(amount: 250, type: .millilitre))
+        return CreateRecipeInput(recipeProfile: .stubSingleV60, coffee: .init(amount: 15, type: .gram), water: .init(amount: 250, type: .millilitre), ice: nil)
     }
 }
 
 extension RecipeProfile {
     static var stubSingleV60: RecipeProfile {
         return RecipeProfile(
-            name: "Single V60 Recipe",
-            cupsCount: 1,
-            ratio: .ratio16
+            name: "Single V60 Recipe"
         )
     }
 }

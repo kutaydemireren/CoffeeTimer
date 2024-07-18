@@ -11,4 +11,5 @@ struct CreateRecipeInput {
     let recipeProfile: RecipeProfile
     let coffee: IngredientAmount
     let water: IngredientAmount
+    let ice: IngredientAmount?
 }

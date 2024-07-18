@@ -51,9 +51,7 @@ extension RecipeMapperImp {
         }
         
         return RecipeProfile(
-            name: dto.name ?? "",
-            cupsCount: 1,
-            ratio: .ratio16
+            name: dto.name ?? ""
         )
     }
     
@@ -82,6 +80,8 @@ extension RecipeMapperImp {
             return .coffee
         case .water:
             return .water
+        case .ice:
+            return .ice
         }
     }
     
@@ -199,9 +199,7 @@ extension RecipeMapperImp {
         let name = recipeProfile.name
 
         return RecipeProfileDTO(
-            name: name,
-            cupsCount: 1,
-            ratio: CoffeeToWaterRatio.ratio16.id
+            name: name
         )
     }
     
@@ -222,6 +220,8 @@ extension RecipeMapperImp {
             return .coffee
         case .water:
             return .water
+        case .ice:
+            return .ice
         }
     }
     

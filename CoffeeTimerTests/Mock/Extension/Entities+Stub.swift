@@ -15,14 +15,26 @@ extension Recipe {
             brewQueue: .stubMini
         )
     }
+
+    static var stubMiniIced: Recipe {
+        return Recipe(
+            recipeProfile: .stubMiniIced,
+            ingredients: .stubMiniIced,
+            brewQueue: .stubMiniIced
+        )
+    }
 }
 
 extension RecipeProfile {
     static var stubMini: RecipeProfile {
         return RecipeProfile(
-            name: "My Recipe Mini",
-            cupsCount: 1,
-            ratio: .ratio16
+            name: "My Recipe Mini"
+        )
+    }
+
+    static var stubMiniIced: RecipeProfile {
+        return RecipeProfile(
+            name: "My Recipe Mini Iced"
         )
     }
 }
@@ -30,8 +42,16 @@ extension RecipeProfile {
 extension Array where Element == Ingredient {
     static var stubMini: [Ingredient] {
         return [
-            Ingredient(ingredientType: .coffee, amount: .init(amount: 10, type: .gram)),
-            Ingredient(ingredientType: .water, amount: .init(amount: 200, type: .millilitre))
+            .init(ingredientType: .coffee, amount: .init(amount: 10, type: .gram)),
+            .init(ingredientType: .water, amount: .init(amount: 200, type: .millilitre))
+        ]
+    }
+
+    static var stubMiniIced: [Ingredient] {
+        return [
+            .init(ingredientType: .coffee, amount: .init(amount: 10, type: .gram)),
+            .init(ingredientType: .water, amount: .init(amount: 120, type: .millilitre)),
+            .init(ingredientType: .ice, amount: .init(amount: 80, type: .gram))
         ]
     }
 }

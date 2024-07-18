@@ -11,6 +11,7 @@ struct BrewMethod: Equatable, Identifiable {
     let id: String
     let title: String
     let path: String
+    let isIcedBrew: Bool
     let cupsCount: CupsCount
     let ratios: [CoffeeToWaterRatio]
 }
@@ -43,8 +44,6 @@ struct Recipe: Equatable, Identifiable {
 
 struct RecipeProfile: Equatable {
     let name: String
-    let cupsCount: Double
-    let ratio: CoffeeToWaterRatio
 }
 
 struct Ingredient: Equatable {
@@ -55,6 +54,7 @@ struct Ingredient: Equatable {
 enum IngredientType {
     case coffee
     case water
+    case ice
 }
 
 struct IngredientAmount: Equatable {

@@ -39,6 +39,7 @@
         "id": "v60-iced",
         "title": "V60 Iced",
         "path": "/kutaydemireren/CoffeeTimer/epic/remote-recipes/data/v0/brew-instructions/v60-iced.json",
+        "isIcedBrew": true,
         "cupsCount": {
             "minimum": 1,
             "maximum": 5
