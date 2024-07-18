@@ -15,16 +15,25 @@ struct CreateRecipeFromInputUseCaseImp: CreateRecipeFromInputUseCase {
     func create(from input: CreateRecipeInput, instructions: RecipeInstructions) -> Recipe {
         return Recipe(
             recipeProfile: input.recipeProfile,
-            ingredients: [
-                Ingredient(ingredientType: .coffee, amount: input.coffee),
-                Ingredient(ingredientType: .water, amount: input.water)
-            ],
+            ingredients: getIngredients(from: input),
             brewQueue: getBrew(input: input, instructions: instructions)
         )
     }
-    
-    private func getBrew(input: CreateRecipeInput, instructions: RecipeInstructions) -> BrewQueue {
 
+    private func getIngredients(from input: CreateRecipeInput) -> [Ingredient] {
+        var ingredients = [
+            Ingredient(ingredientType: .coffee, amount: input.coffee),
+            Ingredient(ingredientType: .water, amount: input.water),
+        ]
+
+        if let ice = input.ice {
+            ingredients.append(Ingredient(ingredientType: .ice, amount: ice))
+        }
+
+        return ingredients
+    }
+
+    private func getBrew(input: CreateRecipeInput, instructions: RecipeInstructions) -> BrewQueue {
         let coffeeAmount = Double(input.coffee.amount)
         var waterAmount = Double(input.water.amount)
         var iceAmount = 0.0

@@ -68,7 +68,8 @@ extension BrewMethod {
         return BrewMethod(
             id: "v60-single",
             title: "V60 Single",
-            path: "/v60-single",
+            path: "/v60-single", 
+            isIcedBrew: false,
             cupsCount: .init(minimum: 1, maximum: 1),
             ratios: [
                 .ratio16,
@@ -83,6 +84,7 @@ extension BrewMethod {
             id: "v60-iced",
             title: "V60 Iced",
             path: "/v60-iced",
+            isIcedBrew: true,
             cupsCount: .unlimited,
             ratios: [
                 .ratio16,
@@ -97,6 +99,7 @@ extension BrewMethod {
             id: "french-press",
             title: "French Press",
             path: "/french-press",
+            isIcedBrew: false,
             cupsCount: .init(minimum: 1, maximum: 5),
             ratios: [
                 .ratio17,

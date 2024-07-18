@@ -31,6 +31,7 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
                 id: brewMethodDTO.id ?? "",
                 title: brewMethodDTO.title ?? "",
                 path: brewMethodDTO.path ?? "", 
+                isIcedBrew: brewMethodDTO.isIcedBrew ?? false,
                 cupsCount: map(cupsCountDTO: brewMethodDTO.cupsCount),
                 ratios: brewMethodDTO.ratios.map(map(ratio:))
             )

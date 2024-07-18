@@ -9,11 +9,33 @@
 
 extension BrewMethodDTO {
     static var v60Single: Self {
-        return BrewMethodDTO(id: "v60-single", title: "V60 Single", path: "/v60-single", cupsCount: .v60Single, ratios: [.ratio16, .ratio18, .ratio20])
+        return BrewMethodDTO(
+            id: "v60-single",
+            title: "V60 Single",
+            path: "/v60-single",
+            isIcedBrew: false,
+            cupsCount: .v60Single,
+            ratios: [
+                .ratio16,
+                .ratio18,
+                .ratio20
+            ]
+        )
     }
 
     static var frenchPress: Self {
-        return BrewMethodDTO(id: "french-press", title: "French Press", path: "/french-press", cupsCount: .frenchPress, ratios: [.ratio17, .ratio18, .ratio20])
+        return BrewMethodDTO(
+            id: "french-press",
+            title: "French Press",
+            path: "/french-press",
+            isIcedBrew: false,
+            cupsCount: .frenchPress,
+            ratios: [
+                .ratio17,
+                .ratio18,
+                .ratio20
+            ]
+        )
     }
 }
 

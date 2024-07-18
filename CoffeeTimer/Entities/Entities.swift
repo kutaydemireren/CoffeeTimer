@@ -11,6 +11,7 @@ struct BrewMethod: Equatable, Identifiable {
     let id: String
     let title: String
     let path: String
+    let isIcedBrew: Bool
     let cupsCount: CupsCount
     let ratios: [CoffeeToWaterRatio]
 }

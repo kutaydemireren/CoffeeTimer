@@ -42,6 +42,7 @@ struct BrewMethodDTO: Codable, Equatable {
     let id: String?
     let title: String?
     let path: String?
+    let isIcedBrew: Bool?
     let cupsCount: CupsCountDTO?
     let ratios: [CoffeeToWaterRatioDTO]
 }
