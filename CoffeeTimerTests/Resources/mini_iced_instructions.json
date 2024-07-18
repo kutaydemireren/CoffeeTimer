@@ -28,8 +28,7 @@
             "amount": {
                 "type": "gram",
                 "factor": 1,
-                "factorOf": "ice",
-                "constant": 0
+                "factorOf": "ice"
             },
             "message": "Put #current.amount g of ice into the vessel"
         },
@@ -42,8 +41,7 @@
             "amount": {
                 "type": "gram",
                 "factor": 1,
-                "factorOf": "coffee",
-                "constant": 0
+                "factorOf": "coffee"
             },
             "message": "Put all your #current.amount grams of coffee to brewer"
         },
@@ -69,8 +67,7 @@
             "amount": {
                 "type": "millilitre",
                 "factor": 0.2,
-                "factorOf": "water",
-                "constant": 0
+                "factorOf": "water"
             },
             "message": "To bloom, pour #current.amount millilitres of water\nTotal: #current.water millilitres of water"
         },
@@ -103,8 +100,7 @@
             "amount": {
                 "type": "millilitre",
                 "factor": 0.2,
-                "factorOf": "water",
-                "constant": 0
+                "factorOf": "water"
             },
             "message": "To bloom, pour #current.amount millilitres of water",
             "details": "Total: #current.water millilitres of water"
@@ -118,8 +114,7 @@
             "amount": {
                 "type": "millilitre",
                 "factor": 1,
-                "factorOf": "#remaining.water",
-                "constant": 0
+                "factorOf": "#remaining.water"
             },
             "message": "Use all remaining #current.amount millilitres of water"
         }

@@ -77,10 +77,33 @@ struct RecipeInstructionStep: Decodable {
 //
 
 struct InstructionAmount: Decodable {
+    struct Factor: Decodable {
+        let factor: Double?
+        let factorOf: String?
+    }
+
     let type: IngredientAmountTypeDTO?
-    let factor: Double?
-    let factorOf: String?
-    let constant: Double?
+    let mainFactor: Factor?
+    let adjustmentFactor: Factor?
+
+    enum CodingKeys: CodingKey {
+        case type
+        case factor
+        case factorOf
+        case adjustment
+    }
+
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        type = try container.decodeIfPresent(IngredientAmountTypeDTO.self, forKey: .type)
+
+        let factor = try container.decodeIfPresent(Double.self, forKey: .factor)
+        let factorOf = try container.decodeIfPresent(String.self, forKey: .factorOf)
+        mainFactor = Factor(factor: factor, factorOf: factorOf)
+
+        adjustmentFactor = try container.decodeIfPresent(Factor.self, forKey: .adjustment)
+    }
 }
 
 enum InstructionRequirement: Decodable {
@@ -323,19 +346,23 @@ struct PutInstructionAction: InstructionAction {
         return action
     }
 
-    private func calculate(amount: InstructionAmount?, input: RecipeInstructionInput, in context: InstructionActionContext) -> IngredientAmount { // TODO: throw?
-        guard let factor = amount?.factor, let factorOf = amount?.factorOf, let constant = amount?.constant else { return .zeroGram }
-        
+    private func calculate(amount: InstructionAmount?, input: RecipeInstructionInput, in context: InstructionActionContext) -> IngredientAmount {
+        return IngredientAmount(
+            amount: UInt(calculate(factor: amount?.mainFactor, input: input, in: context) + calculate(factor: amount?.adjustmentFactor, input: input, in: context)),
+            type: amount?.type?.map() ?? .gram
+        )
+    }
+
+    private func calculate(factor amountFactor: InstructionAmount.Factor?, input: RecipeInstructionInput, in context: InstructionActionContext) -> Double {
+        guard let factor = amountFactor?.factor, let factorOf = amountFactor?.factorOf else { return 0 }
+
         var valueFactorOf = input.ingredients[factorOf]
         if valueFactorOf == nil {
             valueFactorOf = Double(process(message: factorOf, with: context.toDict()))
         }
-        guard let valueFactorOf else { return .zeroGram }
+        guard let valueFactorOf else { return 0 }
 
-        return IngredientAmount(
-            amount: UInt(factor * valueFactorOf + constant),
-            type: amount?.type?.map() ?? .gram
-        )
+        return factor * valueFactorOf
     }
 }
 
