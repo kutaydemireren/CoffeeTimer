@@ -8,24 +8,45 @@
 import SwiftUI
 
 struct RecipeProfileView: View {
+    let alignment: HorizontalAlignment
     let recipeProfile: RecipeProfile
 
     var body: some View {
-        HStack {
+        VStack(alignment: alignment) {
             Text(recipeProfile.name)
                 .foregroundColor(Color("foregroundPrimary"))
                 .bold()
+
+//            Text("(\(recipeProfile.brewMethod.title))")
+//                .foregroundColor(Color("foregroundPrimary"))
+//
+            Text("(\(recipeProfile.brewMethod.title))")
+                .foregroundColor(Color("foregroundSecondary"))
+//
+//            Text("(\(recipeProfile.brewMethod.title))")
+//                .foregroundColor(Color("foregroundSecondary"))
+//                .bold()
         }
     }
 }
+
+struct RecipeProfileView_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            RecipeProfileView(alignment: .leading, recipeProfile: .stubSingleV60)
+        }
+        .background(Color.orange)
+    }
+}
+
 
 struct RecipeRowView: View {
 
     let recipe: Recipe
 
     var body: some View {
-        VStack {
-            RecipeProfileView(recipeProfile: recipe.recipeProfile)
+        VStack(alignment: .leading) {
+            RecipeProfileView(alignment: .leading, recipeProfile: recipe.recipeProfile)
             Text(recipe.ingredients.toRepresentableString)
                 .foregroundColor(Color("foregroundPrimary"))
                 .padding(.leading)

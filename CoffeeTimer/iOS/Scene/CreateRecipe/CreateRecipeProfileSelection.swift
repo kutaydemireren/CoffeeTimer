@@ -10,7 +10,15 @@ import SwiftUI
 extension RecipeProfile {
     func updating(name: String) -> RecipeProfile {
         return RecipeProfile(
-            name: name
+            name: name, 
+            brewMethod: brewMethod
+        )
+    }
+
+    func updating(brewMethod: BrewMethod) -> RecipeProfile {
+        return RecipeProfile(
+            name: name, 
+            brewMethod: brewMethod
         )
     }
 }

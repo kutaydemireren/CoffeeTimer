@@ -44,6 +44,7 @@ struct Recipe: Equatable, Identifiable {
 
 struct RecipeProfile: Equatable {
     let name: String
+    let brewMethod: BrewMethod
 }
 
 struct Ingredient: Equatable {

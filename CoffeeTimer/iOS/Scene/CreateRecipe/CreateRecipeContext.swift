@@ -8,7 +8,14 @@
 import Foundation
 
 final class CreateRecipeContext: ObservableObject {
-    @Published var selectedBrewMethod: BrewMethod?
+    var selectedBrewMethod: BrewMethod? { // TODO: temp - remove selectedBrewMethod (replace with below instead)
+        get {
+            recipeProfile.brewMethod
+        }
+        set {
+            recipeProfile = recipeProfile.updating(brewMethod: newValue ?? .none)
+        }
+    }
     @Published var recipeProfile: RecipeProfile = .empty
     @Published var cupsCount: Double = 0.0
     @Published var ratio: CoffeeToWaterRatio?

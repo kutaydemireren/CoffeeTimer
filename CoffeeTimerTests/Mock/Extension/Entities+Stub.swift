@@ -28,13 +28,15 @@ extension Recipe {
 extension RecipeProfile {
     static var stubMini: RecipeProfile {
         return RecipeProfile(
-            name: "My Recipe Mini"
+            name: "My Recipe Mini", 
+            brewMethod: .v60Single
         )
     }
 
     static var stubMiniIced: RecipeProfile {
         return RecipeProfile(
-            name: "My Recipe Mini Iced"
+            name: "My Recipe Mini Iced",
+            brewMethod: .v60Iced
         )
     }
 }

@@ -12,7 +12,8 @@ struct MockStore {
         return (0..<3).map { index in
             return Recipe(
                 recipeProfile: .init(
-                    name: "My Recipe - \(index)"
+                    name: "My Recipe - \(index)", 
+                    brewMethod: .none
                 ),
                 ingredients: [
                     .init(ingredientType: .coffee, amount: .init(amount: 2 * index, type: .gram)),
@@ -27,7 +28,8 @@ struct MockStore {
         return (0..<3).map { index in
             return RecipeDTO(
                 recipeProfile: .init(
-                    name: "My Recipe - \(index)"
+                    name: "My Recipe - \(index)",
+                    brewMethod: .none
                 ),
                 ingredients: [
                     .init(ingredientType: .coffee, amount: .init(amount: 2 * index, type: .gram)),

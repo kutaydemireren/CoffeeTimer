@@ -47,6 +47,18 @@ extension RecipeMapperTests {
         }
     }
 
+    func test_mapToRecipe_whenProfileNameIsNil_shouldThrowMissingProfileName() throws {
+        XCTAssertThrowsError(try sut.mapToRecipe(recipeDTO: .stubMini.excludingProfileName)) { error in
+            XCTAssertEqual(error as? RecipeMapperError, RecipeMapperError.missingProfileName)
+        }
+    }
+
+    func test_mapToRecipe_whenBrewMethodIsNil_shouldThrowMissingBrewMethod() throws {
+        XCTAssertThrowsError(try sut.mapToRecipe(recipeDTO: .stubMini.excludingBrewMethod)) { error in
+            XCTAssertEqual(error as? RecipeMapperError, RecipeMapperError.missingBrewMethod)
+        }
+    }
+
     func test_mapToRecipe_whenIngredientTypeDTOIsNil_shouldThrowMissingIngredientTypeError() throws {
         XCTAssertThrowsError(try sut.mapToRecipe(recipeDTO: .stubMini.excludingIngredientType)) { error in
             XCTAssertEqual(error as? RecipeMapperError, RecipeMapperError.missingIngredientType)
