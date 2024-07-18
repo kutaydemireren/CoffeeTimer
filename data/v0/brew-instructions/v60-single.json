@@ -21,10 +21,10 @@
             "amount": {
                 "type": "gram",
                 "factor": 1,
-                "factorOf": "coffee",
-                "constant": 0
+                "factorOf": "coffee"
             },
-            "message": "Put all #current.amount g of coffee to brewer"
+            "message": "Put all #current.amount g of coffee to brewer",
+            "details": "Create a small hole in the middle"
         },
         {
             "action": "message",
@@ -43,10 +43,9 @@
             "amount": {
                 "type": "millilitre",
                 "factor": 0.2,
-                "factorOf": "water",
-                "constant": 0
+                "factorOf": "water"
             },
-            "message": "To bloom, pour #current.amount ml of water"
+            "message": "To bloom, gently pour #current.amount ml of water"
         },
         {
             "action": "message",
@@ -61,7 +60,7 @@
                 "type": "countdown",
                 "duration": {
                     "type": "second",
-                    "length": 40
+                    "length": 30
                 }
             },
             "startMethod": "auto",
@@ -77,8 +76,7 @@
             "amount": {
                 "type": "millilitre",
                 "factor": 0.2,
-                "factorOf": "water",
-                "constant": 0
+                "factorOf": "water"
             },
             "message": "Pour #current.amount ml of water",
             "details": "Total: #current.water ml of water\nRemember to pour gently in cycles."
@@ -105,8 +103,7 @@
             "amount": {
                 "type": "millilitre",
                 "factor": 0.2,
-                "factorOf": "water",
-                "constant": 0
+                "factorOf": "water"
             },
             "message": "Pour #current.amount ml of water",
             "details": "Total: #current.water ml of water\nRemember to pour gently in cycles."
@@ -133,8 +130,7 @@
             "amount": {
                 "type": "millilitre",
                 "factor": 0.2,
-                "factorOf": "water",
-                "constant": 0
+                "factorOf": "water"
             },
             "message": "Pour #current.amount ml of water",
             "details": "Total: #current.water ml of water\nRemember to pour gently in cycles."
@@ -161,8 +157,7 @@
             "amount": {
                 "type": "millilitre",
                 "factor": 0.2,
-                "factorOf": "water",
-                "constant": 0
+                "factorOf": "water"
             },
             "message": "Pour #current.amount ml of water",
             "details": "Total: #current.water ml of water\nRemember to pour gently in cycles."
