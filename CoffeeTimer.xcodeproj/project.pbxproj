@@ -63,6 +63,7 @@
 		CA7D9E2D2C4BEB7600908159 /* TitledPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D9E2C2C4BEB7600908159 /* TitledPicker.swift */; };
 		CA7D9E2F2C4BEB8500908159 /* Titled.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D9E2E2C4BEB8500908159 /* Titled.swift */; };
 		CA7D9E312C4C066800908159 /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D9E302C4C066800908159 /* Separator.swift */; };
+		CA7D9E332C4C153300908159 /* CreateMethodDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D9E322C4C153300908159 /* CreateMethodDetailsView.swift */; };
 		CA852F252BD5552D00FEF144 /* RecipeInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA852F242BD5552D00FEF144 /* RecipeInstructions.swift */; };
 		CA852F262BD557A800FEF144 /* instructions_v60_single.json in Resources */ = {isa = PBXBuildFile; fileRef = CAA325892BD438B1008440D0 /* instructions_v60_single.json */; };
 		CA8B41B32C0CAC9800C0DA86 /* mini_instructions.json in Resources */ = {isa = PBXBuildFile; fileRef = CA8B41B22C0CAC9800C0DA86 /* mini_instructions.json */; };
@@ -169,6 +170,7 @@
 		CA7D9E2C2C4BEB7600908159 /* TitledPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledPicker.swift; sourceTree = "<group>"; };
 		CA7D9E2E2C4BEB8500908159 /* Titled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Titled.swift; sourceTree = "<group>"; };
 		CA7D9E302C4C066800908159 /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
+		CA7D9E322C4C153300908159 /* CreateMethodDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMethodDetailsView.swift; sourceTree = "<group>"; };
 		CA852F242BD5552D00FEF144 /* RecipeInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructions.swift; sourceTree = "<group>"; };
 		CA8B41B22C0CAC9800C0DA86 /* mini_instructions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mini_instructions.json; sourceTree = "<group>"; };
 		CA8B41B42C0CB0CC00C0DA86 /* loadInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loadInstructions.swift; sourceTree = "<group>"; };
@@ -476,6 +478,7 @@
 			isa = PBXGroup;
 			children = (
 				CA7D9E2A2C4BE4A900908159 /* CreateMethodView.swift */,
+				CA7D9E322C4C153300908159 /* CreateMethodDetailsView.swift */,
 			);
 			path = CreateMethod;
 			sourceTree = "<group>";
@@ -836,6 +839,7 @@
 				CA4758E42A0C3C5C0022BC7D /* RecipesFlowView.swift in Sources */,
 				CAE3944229DE13C0007611F1 /* CreateRecipeView.swift in Sources */,
 				CA8C9AFA2C0B609D000A71AC /* Request.swift in Sources */,
+				CA7D9E332C4C153300908159 /* CreateMethodDetailsView.swift in Sources */,
 				CA17289629EB4CA8000F867B /* View+Responder.swift in Sources */,
 				CA77909D2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift in Sources */,
 				CA91CEF729E5FA9100E9F5D1 /* AppFlowView.swift in Sources */,
