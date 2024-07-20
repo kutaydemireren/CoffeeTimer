@@ -24,6 +24,8 @@ struct CreateMethodView: View {
     @Binding var cupsCountLimitMin: Double
     @Binding var cupsCountLimitMax: Double
 
+    @Binding var isIcedBrew: Bool
+
     var body: some View {
         VStack {
             TitledPicker(
@@ -67,6 +69,14 @@ struct CreateMethodView: View {
                     )
                 }
             }
+
+            TitledContent(title: "") {
+                HStack(alignment: .center) {
+                    Spacer()
+                    Toggle(isIcedBrew ? "Iced brew" : "Hot brew", isOn: $isIcedBrew)
+                    Spacer()
+                }
+            }
         }
     }
 }
@@ -77,6 +87,7 @@ struct CreateMethodView: View {
         allMethods: .constant([.v60Iced, .v60Single, .frenchPress]), 
         methodTitle: .constant(""),
         cupsCountLimitMin: .constant(1),
-        cupsCountLimitMax: .constant(10)
+        cupsCountLimitMax: .constant(10), 
+        isIcedBrew: .constant(false)
     )
 }
