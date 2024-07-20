@@ -64,6 +64,7 @@
 		CA7D9E2F2C4BEB8500908159 /* Titled.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D9E2E2C4BEB8500908159 /* Titled.swift */; };
 		CA7D9E312C4C066800908159 /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D9E302C4C066800908159 /* Separator.swift */; };
 		CA7D9E332C4C153300908159 /* CreateMethodDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D9E322C4C153300908159 /* CreateMethodDetailsView.swift */; };
+		CA7D9E352C4C15F500908159 /* CreateMethodInstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D9E342C4C15F500908159 /* CreateMethodInstructionsView.swift */; };
 		CA852F252BD5552D00FEF144 /* RecipeInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA852F242BD5552D00FEF144 /* RecipeInstructions.swift */; };
 		CA852F262BD557A800FEF144 /* instructions_v60_single.json in Resources */ = {isa = PBXBuildFile; fileRef = CAA325892BD438B1008440D0 /* instructions_v60_single.json */; };
 		CA8B41B32C0CAC9800C0DA86 /* mini_instructions.json in Resources */ = {isa = PBXBuildFile; fileRef = CA8B41B22C0CAC9800C0DA86 /* mini_instructions.json */; };
@@ -171,6 +172,7 @@
 		CA7D9E2E2C4BEB8500908159 /* Titled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Titled.swift; sourceTree = "<group>"; };
 		CA7D9E302C4C066800908159 /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
 		CA7D9E322C4C153300908159 /* CreateMethodDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMethodDetailsView.swift; sourceTree = "<group>"; };
+		CA7D9E342C4C15F500908159 /* CreateMethodInstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMethodInstructionsView.swift; sourceTree = "<group>"; };
 		CA852F242BD5552D00FEF144 /* RecipeInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructions.swift; sourceTree = "<group>"; };
 		CA8B41B22C0CAC9800C0DA86 /* mini_instructions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mini_instructions.json; sourceTree = "<group>"; };
 		CA8B41B42C0CB0CC00C0DA86 /* loadInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loadInstructions.swift; sourceTree = "<group>"; };
@@ -479,6 +481,7 @@
 			children = (
 				CA7D9E2A2C4BE4A900908159 /* CreateMethodView.swift */,
 				CA7D9E322C4C153300908159 /* CreateMethodDetailsView.swift */,
+				CA7D9E342C4C15F500908159 /* CreateMethodInstructionsView.swift */,
 			);
 			path = CreateMethod;
 			sourceTree = "<group>";
@@ -873,6 +876,7 @@
 				CA7D9E2D2C4BEB7600908159 /* TitledPicker.swift in Sources */,
 				CAF42CF329EC9906004D7788 /* RecipeRepository.swift in Sources */,
 				CA77908D2A06A39900BEA142 /* String+Filter.swift in Sources */,
+				CA7D9E352C4C15F500908159 /* CreateMethodInstructionsView.swift in Sources */,
 				CA8C9AEE2C0B5081000A71AC /* RecipeInstructionsRepository.swift in Sources */,
 				CAF42CF529EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift in Sources */,
 				CAF42CF129EC98E4004D7788 /* RecipeRepositoryImp.swift in Sources */,
