@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// TODO: move
+
 struct RecipeInstructionStepItem: Identifiable {
     let id = UUID()
     let recipeInstructionStep: RecipeInstructionStep?
@@ -14,56 +16,49 @@ struct RecipeInstructionStepItem: Identifiable {
 
 //
 
-final class CreateMethodInstructionsViewModel: ObservableObject {
-    @Published var instructions: [RecipeInstructionStepItem] = [
-        .init(
-            recipeInstructionStep: RecipeInstructionStep(
-                instructionAction: MessageInstructionAction(
-                    requirement: nil,
-                    startMethod: nil,
-                    skipMethod: nil,
-                    message: "message 1",
-                    details: nil
+extension Array where Element == RecipeInstructionStepItem {
+    static var stub: Self {
+        [
+            .init(
+                recipeInstructionStep: RecipeInstructionStep(
+                    instructionAction: MessageInstructionAction(
+                        requirement: nil,
+                        startMethod: nil,
+                        skipMethod: nil,
+                        message: "message 1",
+                        details: nil
+                    )
                 )
-            )
-        ),
-        .init(
-            recipeInstructionStep: RecipeInstructionStep(
-                instructionAction: MessageInstructionAction(
-                    requirement: nil,
-                    startMethod: nil,
-                    skipMethod: nil,
-                    message: "message 2",
-                    details: nil
+            ),
+            .init(
+                recipeInstructionStep: RecipeInstructionStep(
+                    instructionAction: MessageInstructionAction(
+                        requirement: nil,
+                        startMethod: nil,
+                        skipMethod: nil,
+                        message: "message 2",
+                        details: nil
+                    )
                 )
-            )
-        ),
-        .init(
-            recipeInstructionStep: RecipeInstructionStep(
-                instructionAction: MessageInstructionAction(
-                    requirement: nil,
-                    startMethod: nil,
-                    skipMethod: nil,
-                    message: "message 3",
-                    details: nil
+            ),
+            .init(
+                recipeInstructionStep: RecipeInstructionStep(
+                    instructionAction: MessageInstructionAction(
+                        requirement: nil,
+                        startMethod: nil,
+                        skipMethod: nil,
+                        message: "message 3",
+                        details: nil
+                    )
                 )
-            )
-        ),
-    ]
-
-    func removeInstruction(at indexSet: IndexSet) {
-        instructions.remove(atOffsets: indexSet)
-    }
-
-    func moveInstruction(from source: IndexSet, to destination: Int) {
-        instructions.move(fromOffsets: source, toOffset: destination)
+            ),
+        ]
     }
 }
 
 //
 
 struct CreateMethodInstructionStepView: View {
-
     let step: RecipeInstructionStepItem
 
     var instructionAction: InstructionAction? {
@@ -84,6 +79,25 @@ struct CreateMethodInstructionStepView: View {
     }
 }
 
+//
+
+final class CreateMethodInstructionsViewModel: ObservableObject {
+    @Published var instructions: [RecipeInstructionStepItem]
+
+    init(instructions: [RecipeInstructionStepItem] = .stub) {
+        self.instructions = instructions
+    }
+
+    func removeInstruction(at indexSet: IndexSet) {
+        instructions.remove(atOffsets: indexSet)
+    }
+
+    func moveInstruction(from source: IndexSet, to destination: Int) {
+        instructions.move(fromOffsets: source, toOffset: destination)
+    }
+}
+
+//
 
 #Preview {
     CreateMethodInstructionsView(viewModel: CreateMethodInstructionsViewModel())
@@ -111,5 +125,5 @@ struct CreateMethodInstructionsView: View {
 }
 
 #Preview {
-    CreateMethodInstructionsView(viewModel: CreateMethodInstructionsViewModel())
+    CreateMethodInstructionsView(viewModel: CreateMethodInstructionsViewModel(instructions: .stub))
 }
