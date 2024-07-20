@@ -21,6 +21,9 @@ struct CreateMethodView: View {
 
     @Binding var methodTitle: String
 
+    @Binding var cupsCountLimitMin: Double
+    @Binding var cupsCountLimitMax: Double
+
     var body: some View {
         VStack {
             TitledPicker(
@@ -36,16 +39,35 @@ struct CreateMethodView: View {
 
             Spacer()
         }
+        .padding()
     }
 
     @ViewBuilder
     var methodInputs: some View {
         VStack {
             AlphanumericTextField(
-                title: "Give a name to your method",
+                title: "",
                 placeholder: "My V60, Icy V60",
                 text: $methodTitle
             )
+
+            TitledContent(title: "Cups Count Min - Max") {
+                HStack {
+                    NumericTextField(
+                        title: "",
+                        placeholder: "1",
+                        keyboardType: .number,
+                        input: $cupsCountLimitMin
+                    )
+                    .frame(idealHeight: 50)
+                    NumericTextField(
+                        title: "",
+                        placeholder: "5",
+                        keyboardType: .number,
+                        input: $cupsCountLimitMax
+                    )
+                }
+            }
         }
     }
 }
@@ -54,6 +76,8 @@ struct CreateMethodView: View {
     CreateMethodView(
         selectedMethod: .constant(nil),
         allMethods: .constant([.v60Iced, .v60Single, .frenchPress]), 
-        methodTitle: .constant("")
+        methodTitle: .constant(""),
+        cupsCountLimitMin: .constant(1),
+        cupsCountLimitMax: .constant(10)
     )
 }
