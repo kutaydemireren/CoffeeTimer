@@ -46,7 +46,7 @@ struct CreateMethodView: View {
     var methodInputs: some View {
         VStack {
             AlphanumericTextField(
-                title: "",
+                title: "Title will be used to display within app",
                 placeholder: "My V60, Icy V60",
                 text: $methodTitle
             )
@@ -59,7 +59,6 @@ struct CreateMethodView: View {
                         keyboardType: .number,
                         input: $cupsCountLimitMin
                     )
-                    .frame(idealHeight: 50)
                     NumericTextField(
                         title: "",
                         placeholder: "5",

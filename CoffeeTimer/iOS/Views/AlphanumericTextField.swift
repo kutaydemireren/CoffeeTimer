@@ -14,16 +14,25 @@ struct AlphanumericTextField: View {
     @Binding var text: String
     
     var body: some View {
-        TitledContent(title: title) {
-            TextField(text: $text) {
-                Text(placeholder)
-                    .foregroundColor(Color("foregroundPrimary").opacity(0.3))
+        if !title.isEmpty {
+            TitledContent(title: title) {
+                textField
             }
-            .textFieldStyle(.plain)
-            .foregroundColor(Color("foregroundPrimary"))
-            .padding()
-            .backgroundSecondary()
+        } else {
+            textField
         }
+    }
+
+    @ViewBuilder
+    private var textField: some View {
+        TextField(text: $text) {
+            Text(placeholder)
+                .foregroundColor(Color("foregroundPrimary").opacity(0.3))
+        }
+        .textFieldStyle(.plain)
+        .foregroundColor(Color("foregroundPrimary"))
+        .padding()
+        .backgroundSecondary()
     }
 }
 

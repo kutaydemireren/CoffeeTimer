@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+enum TextFieldType {
+    case `default`
+    case titled(String)
+}
+
 struct NumericTextField: View {
 
     enum KeyboardType {
@@ -44,24 +49,35 @@ struct NumericTextField: View {
 
     var body: some View {
 
-        TitledContent(title: title) {
-            TextField(text: isSingleValue ? .constant("\(range.minimum)") : $displayText) {
-                Text(placeholder)
-                    .foregroundColor(Color("foregroundPrimary").opacity(0.5))
+        if !title.isEmpty {
+            TitledContent(title: title) {
+                textField
             }
-            .disabled(isSingleValue)
-            .textFieldStyle(.plain)
-            .keyboardType(keyboardType.uiKeyboardType)
-            .focused($isFocused)
-            .foregroundColor(Color("foregroundPrimary"))
-            .onChange(of: displayText, perform: didUpdate(displayText:))
-            .onChange(of: input, perform: setDisplayText(_:))
-            .padding()
-            .backgroundSecondary()
-            .onAppear {
-                if isSingleValue {
-                    input = Double(range.minimum)
-                }
+        } else {
+            textField
+        }
+
+    }
+
+    @ViewBuilder
+    private var textField: some View {
+        TextField(text: isSingleValue ? .constant("\(range.minimum)") : $displayText) {
+            Text(placeholder)
+                .foregroundColor(Color("foregroundPrimary").opacity(0.5))
+        }
+        .multilineTextAlignment(.center)
+        .disabled(isSingleValue)
+        .textFieldStyle(.plain)
+        .keyboardType(keyboardType.uiKeyboardType)
+        .focused($isFocused)
+        .foregroundColor(Color("foregroundPrimary"))
+        .onChange(of: displayText, perform: didUpdate(displayText:))
+        .onChange(of: input, perform: setDisplayText(_:))
+        .padding()
+        .backgroundSecondary()
+        .onAppear {
+            if isSingleValue {
+                input = Double(range.minimum)
             }
         }
     }

@@ -7,15 +7,6 @@
 
 import SwiftUI
 
-struct Separator: View {
-    var body: some View {
-        Rectangle()
-            .fill(Color("foregroundPrimary").opacity(0.3))
-            .frame(height: 1)
-            .padding(.vertical)
-    }
-}
-
 struct CreateRecipeCoffeeWaterSelection: View {
     
     @Binding var cupsCountAmount: Double
