@@ -72,6 +72,9 @@ struct RecipeInstructionStep: Decodable {
         }
     }
 
+    init(instructionAction: InstructionAction) {
+        self.instructionAction = instructionAction
+    }
 }
 
 //
