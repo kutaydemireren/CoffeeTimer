@@ -23,6 +23,8 @@ final class CreateMethodContext: ObservableObject {
     @Published var cupsCountMax: Double = 0
 
     @Published var isIcedBrew: Bool = false
+
+    @Published var instructions: [RecipeInstructionStepItem] = []
 }
 
 struct CreateMethodView: View {

@@ -72,7 +72,6 @@ struct CreateMethodInstructionStepView: View {
                 .padding(.leading)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-        .padding(.horizontal)
         .backgroundSecondary()
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
@@ -82,26 +81,16 @@ struct CreateMethodInstructionStepView: View {
 //
 
 final class CreateMethodInstructionsViewModel: ObservableObject {
-    @Published var instructions: [RecipeInstructionStepItem]
-
-    init(instructions: [RecipeInstructionStepItem] = .stub) {
-        self.instructions = instructions
+    func removeInstruction(at indexSet: IndexSet, context: CreateMethodContext) {
+        context.instructions.remove(atOffsets: indexSet)
     }
 
-    func removeInstruction(at indexSet: IndexSet) {
-        instructions.remove(atOffsets: indexSet)
-    }
-
-    func moveInstruction(from source: IndexSet, to destination: Int) {
-        instructions.move(fromOffsets: source, toOffset: destination)
+    func moveInstruction(from source: IndexSet, to destination: Int, context: CreateMethodContext) {
+        context.instructions.move(fromOffsets: source, toOffset: destination)
     }
 }
 
 //
-
-#Preview {
-    CreateMethodInstructionsView(viewModel: CreateMethodInstructionsViewModel())
-}
 
 struct CreateMethodInstructionsView: View {
     @EnvironmentObject var context: CreateMethodContext
@@ -109,14 +98,14 @@ struct CreateMethodInstructionsView: View {
 
     var body: some View {
         List {
-            ForEach(viewModel.instructions) { instruction in
-                CreateMethodInstructionStepView(step: instruction)
+            ForEach($context.instructions) { instruction in
+                CreateMethodInstructionStepView(step: instruction.wrappedValue)
                     .onTapGesture {
                         debugPrint("Handle tap here") // TODO: handle tap action
                     }
             }
-            .onDelete(perform: viewModel.removeInstruction)
-            .onMove(perform: viewModel.moveInstruction)
+            .onDelete { viewModel.removeInstruction(at: $0, context: context) }
+            .onMove{ viewModel.moveInstruction(from: $0, to: $1, context: context)}
         }
         .toolbar {
             EditButton()
@@ -125,5 +114,12 @@ struct CreateMethodInstructionsView: View {
 }
 
 #Preview {
-    CreateMethodInstructionsView(viewModel: CreateMethodInstructionsViewModel(instructions: .stub))
+    previewWithContext
+}
+
+fileprivate var previewWithContext: some View {
+    let context = CreateMethodContext()
+    context.instructions = .stub
+    return CreateMethodInstructionsView(viewModel: CreateMethodInstructionsViewModel())
+        .environmentObject(context)
 }
