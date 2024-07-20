@@ -56,26 +56,12 @@ struct CreateRecipeCoffeeWaterSelection: View {
     }
     
     private var picker: some View {
-        
-        TitledContent(title: "How strong would you like?") {
-            Menu {
-                Picker(selection: $selectedRatio, label: EmptyView()) {
-                    ForEach(allRatios) { ratio in
-                        Text(ratio.title)
-                            .tag(ratio as CoffeeToWaterRatio?)
-                    }
-                }
-            } label: {
-                pickerLabel
-            }
-        }
-    }
-    
-    private var pickerLabel: some View {
-        Text(selectedRatio?.title ?? "Choose preferred ratio")
-            .foregroundColor(Color("foregroundPrimary").opacity(0.8))
-            .padding()
-            .backgroundSecondary()
+        TitledPicker(
+            selectedItem: $selectedRatio,
+            allItems: $allRatios,
+            title: "How strong would you like?",
+            placeholder: "Choose preferred ratio"
+        )
     }
 }
 

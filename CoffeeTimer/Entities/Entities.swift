@@ -16,7 +16,7 @@ struct BrewMethod: Equatable, Identifiable {
     let ratios: [CoffeeToWaterRatio]
 }
 
-struct CoffeeToWaterRatio: Equatable, Hashable, Identifiable {
+struct CoffeeToWaterRatio: Equatable, Hashable, Identifiable, Titled {
     let id: String
     let value: Double
     let title: String

@@ -59,6 +59,9 @@
 		CA7B804729BFAA21007D3DFC /* CountdownTimerImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804629BFAA21007D3DFC /* CountdownTimerImpTests.swift */; };
 		CA7B804B29BFABBB007D3DFC /* StageTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804A29BFABBB007D3DFC /* StageTimerView.swift */; };
 		CA7B804D29BFBD8C007D3DFC /* BrewQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804C29BFBD8C007D3DFC /* BrewQueueView.swift */; };
+		CA7D9E2B2C4BE4A900908159 /* CreateMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D9E2A2C4BE4A900908159 /* CreateMethodView.swift */; };
+		CA7D9E2D2C4BEB7600908159 /* TitledPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D9E2C2C4BEB7600908159 /* TitledPicker.swift */; };
+		CA7D9E2F2C4BEB8500908159 /* Titled.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D9E2E2C4BEB8500908159 /* Titled.swift */; };
 		CA852F252BD5552D00FEF144 /* RecipeInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA852F242BD5552D00FEF144 /* RecipeInstructions.swift */; };
 		CA852F262BD557A800FEF144 /* instructions_v60_single.json in Resources */ = {isa = PBXBuildFile; fileRef = CAA325892BD438B1008440D0 /* instructions_v60_single.json */; };
 		CA8B41B32C0CAC9800C0DA86 /* mini_instructions.json in Resources */ = {isa = PBXBuildFile; fileRef = CA8B41B22C0CAC9800C0DA86 /* mini_instructions.json */; };
@@ -161,6 +164,9 @@
 		CA7B804629BFAA21007D3DFC /* CountdownTimerImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimerImpTests.swift; sourceTree = "<group>"; };
 		CA7B804A29BFABBB007D3DFC /* StageTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageTimerView.swift; sourceTree = "<group>"; };
 		CA7B804C29BFBD8C007D3DFC /* BrewQueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewQueueView.swift; sourceTree = "<group>"; };
+		CA7D9E2A2C4BE4A900908159 /* CreateMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMethodView.swift; sourceTree = "<group>"; };
+		CA7D9E2C2C4BEB7600908159 /* TitledPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledPicker.swift; sourceTree = "<group>"; };
+		CA7D9E2E2C4BEB8500908159 /* Titled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Titled.swift; sourceTree = "<group>"; };
 		CA852F242BD5552D00FEF144 /* RecipeInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructions.swift; sourceTree = "<group>"; };
 		CA8B41B22C0CAC9800C0DA86 /* mini_instructions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mini_instructions.json; sourceTree = "<group>"; };
 		CA8B41B42C0CB0CC00C0DA86 /* loadInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loadInstructions.swift; sourceTree = "<group>"; };
@@ -249,6 +255,7 @@
 				CAF42CE029EC90CA004D7788 /* AlphanumericTextField.swift */,
 				CA77908E2A06DB3C00BEA142 /* LeadingText.swift */,
 				CA7790922A06DB5300BEA142 /* TitledContent.swift */,
+				CA7D9E2C2C4BEB7600908159 /* TitledPicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -258,6 +265,7 @@
 			children = (
 				CAF42CE629EC9561004D7788 /* Completable.swift */,
 				CAF42CE429EC9548004D7788 /* Navigable.swift */,
+				CA7D9E2E2C4BEB8500908159 /* Titled.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -452,12 +460,21 @@
 		CA7B804929BFABA8007D3DFC /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				CA7D9E292C4BE45B00908159 /* CreateMethod */,
 				CA91CEF429E5FA7D00E9F5D1 /* Flow */,
 				CAF42CE929EC9821004D7788 /* BrewQueue */,
 				CAF42CEA29EC9842004D7788 /* CreateRecipe */,
 				CA4758DB2A0C2CF20022BC7D /* Recipes */,
 			);
 			path = Scene;
+			sourceTree = "<group>";
+		};
+		CA7D9E292C4BE45B00908159 /* CreateMethod */ = {
+			isa = PBXGroup;
+			children = (
+				CA7D9E2A2C4BE4A900908159 /* CreateMethodView.swift */,
+			);
+			path = CreateMethod;
 			sourceTree = "<group>";
 		};
 		CA852F232BD5551900FEF144 /* Recipe */ = {
@@ -823,6 +840,7 @@
 				CA5A7D0F2A0EBA7400C7EC04 /* DTOs.swift in Sources */,
 				CA8C9AF12C0B50ED000A71AC /* RecipeInstructionsRepositoryImp.swift in Sources */,
 				CA1B52B52C0B980400C4B923 /* FetchRecipeInstructionsRequest.swift in Sources */,
+				CA7D9E2F2C4BEB8500908159 /* Titled.swift in Sources */,
 				CA9BDA292A2CFD290068DFF7 /* CreateRecipeInput.swift in Sources */,
 				CA5CA81929EB662F001E384D /* View+Background.swift in Sources */,
 				CA367D3229A2B0370095B1B8 /* CoffeeTimerApp.swift in Sources */,
@@ -844,6 +862,7 @@
 				CAF42CE529EC9548004D7788 /* Navigable.swift in Sources */,
 				CA5E907D29D61AED00A78CF2 /* Entities.swift in Sources */,
 				CA77908F2A06DB3C00BEA142 /* LeadingText.swift in Sources */,
+				CA7D9E2D2C4BEB7600908159 /* TitledPicker.swift in Sources */,
 				CAF42CF329EC9906004D7788 /* RecipeRepository.swift in Sources */,
 				CA77908D2A06A39900BEA142 /* String+Filter.swift in Sources */,
 				CA8C9AEE2C0B5081000A71AC /* RecipeInstructionsRepository.swift in Sources */,
@@ -852,6 +871,7 @@
 				CA7790932A06DB5300BEA142 /* TitledContent.swift in Sources */,
 				CA852F252BD5552D00FEF144 /* RecipeInstructions.swift in Sources */,
 				CA1B52B02C0B97B300C4B923 /* BrewMethodRepository.swift in Sources */,
+				CA7D9E2B2C4BE4A900908159 /* CreateMethodView.swift in Sources */,
 				CA8C9AF72C0B6061000A71AC /* NetworkManagerImp.swift in Sources */,
 				CAF42CE129EC90CA004D7788 /* AlphanumericTextField.swift in Sources */,
 				CAF42CE329EC9524004D7788 /* CreateRecipeFlowView.swift in Sources */,
