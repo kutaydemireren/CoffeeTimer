@@ -7,35 +7,38 @@
 
 import SwiftUI
 
-// TODO: move bindings into context
-//struct CreateMethodContext {
-//
-//}
+final class CreateMethodContext: ObservableObject {
+    @Published var selectedMethod: BrewMethod?
+    @Published var allMethods: [BrewMethod] = []
+
+    @Published var methodTitle: String = ""
+
+    var cupsCount: CupsCount {
+        CupsCount(
+            minimum: cupsCountMin > 0 ? Int(cupsCountMin) : 1,
+            maximum: cupsCountMax > 0 ? Int(cupsCountMax) : nil
+        )
+    }
+    @Published var cupsCountMin: Double = 0
+    @Published var cupsCountMax: Double = 0
+
+    @Published var isIcedBrew: Bool = false
+}
 
 struct CreateMethodView: View {
 
-//    @EnvironmentObject var context: CreateRecipeContext
-
-    @Binding var selectedMethod: BrewMethod?
-    @Binding var allMethods: [BrewMethod]
-
-    @Binding var methodTitle: String
-
-    @Binding var cupsCountLimitMin: Double
-    @Binding var cupsCountLimitMax: Double
-
-    @Binding var isIcedBrew: Bool
+    @EnvironmentObject var context: CreateMethodContext
 
     var body: some View {
         VStack {
             TitledPicker(
-                selectedItem: $selectedMethod,
-                allItems: $allMethods,
+                selectedItem: $context.selectedMethod,
+                allItems: $context.allMethods,
                 title: "Choose a method",
                 placeholder: "Custom"
             )
 
-            if selectedMethod == nil {
+            if context.selectedMethod == nil {
                 methodInputs
             }
 
@@ -50,30 +53,40 @@ struct CreateMethodView: View {
             AlphanumericTextField(
                 title: "Title will be used to display within app",
                 placeholder: "My V60, Icy V60",
-                text: $methodTitle
+                text: $context.methodTitle
             )
 
             TitledContent(title: "Cups Count Min - Max") {
                 HStack {
-                    NumericTextField(
-                        title: "",
-                        placeholder: "1",
-                        keyboardType: .number,
-                        input: $cupsCountLimitMin
-                    )
-                    NumericTextField(
-                        title: "",
-                        placeholder: "5",
-                        keyboardType: .number,
-                        input: $cupsCountLimitMax
-                    )
+                    VStack(spacing: 0) {
+                        NumericTextField(
+                            title: "",
+                            placeholder: "1",
+                            keyboardType: .number,
+                            range: .init(minimum: 1),
+                            input: $context.cupsCountMin
+                        )
+                        Text("") // this is (and VStack) needed to align with the neighbour content
+                            .font(.footnote)
+                    }
+                    VStack(spacing: 0) {
+                        NumericTextField(
+                            title: "",
+                            placeholder: "5",
+                            keyboardType: .number,
+                            range: .init(minimum: 0),
+                            input: $context.cupsCountMax
+                        )
+                        Text("0 = no limit")
+                            .font(.footnote)
+                    }
                 }
             }
 
             TitledContent(title: "") {
                 HStack(alignment: .center) {
                     Spacer()
-                    Toggle(isIcedBrew ? "Iced brew" : "Hot brew", isOn: $isIcedBrew)
+                    Toggle(context.isIcedBrew ? "Iced brew" : "Hot brew", isOn: $context.isIcedBrew)
                     Spacer()
                 }
             }
@@ -82,12 +95,6 @@ struct CreateMethodView: View {
 }
 
 #Preview {
-    CreateMethodView(
-        selectedMethod: .constant(nil),
-        allMethods: .constant([.v60Iced, .v60Single, .frenchPress]), 
-        methodTitle: .constant(""),
-        cupsCountLimitMin: .constant(1),
-        cupsCountLimitMax: .constant(10), 
-        isIcedBrew: .constant(false)
-    )
+    CreateMethodView()
+        .environmentObject(CreateMethodContext())
 }

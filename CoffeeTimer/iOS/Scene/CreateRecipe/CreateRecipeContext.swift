@@ -8,7 +8,7 @@
 import Foundation
 
 final class CreateRecipeContext: ObservableObject {
-    var selectedBrewMethod: BrewMethod? { // TODO: temp - remove selectedBrewMethod (replace with below instead)
+    var selectedBrewMethod: BrewMethod? { // TODO: temp - remove selectedBrewMethod (replace with `recipeProfile` instead)
         get {
             recipeProfile.brewMethod
         }
