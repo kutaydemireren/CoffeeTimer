@@ -29,19 +29,28 @@ final class CreateMethodContext: ObservableObject {
 
 //
 
-final class CreateMethodViewModel: ObservableObject {
+import Combine
+
+final class CreateMethodViewModel: ObservableObject, Completable {
+    var didComplete = PassthroughSubject<CreateMethodViewModel, Never>()
+
     @Published var selectedPage = 1
+
+    func close() {
+        didComplete.send(self)
+    }
 }
 
 struct CreateMethodView: View {
     @ObservedObject var viewModel: CreateMethodViewModel
-    var closeRequest: () -> Void
 
     var body: some View {
         VStack {
 
             HStack {
-                Button("Close", action: closeRequest)
+                Button("Close") {
+                    viewModel.close()
+                }
                     .frame(alignment: .topLeading)
 
                 Spacer()
@@ -64,7 +73,7 @@ struct CreateMethodView: View {
 }
 
 #Preview {
-    CreateMethodView(viewModel: CreateMethodViewModel(), closeRequest: { })
+    CreateMethodView(viewModel: CreateMethodViewModel())
         .environmentObject(stubContext())
 }
 

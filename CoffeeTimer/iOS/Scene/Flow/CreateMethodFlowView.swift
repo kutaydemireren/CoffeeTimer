@@ -9,12 +9,26 @@ import SwiftUI
 import Combine
 
 final class CreateMethodFlowViewModel: ObservableObject, Completable {
+    @Published var context = CreateMethodContext()
+
     var didComplete = PassthroughSubject<CreateMethodFlowViewModel, Never>()
 
-    @Published var context = CreateMethodContext()
+    private var cancellables: [AnyCancellable] = []
+
+    func makeCreateMethodVM() -> CreateMethodViewModel {
+        let viewModel = CreateMethodViewModel()
+        viewModel.didComplete
+            .sink(receiveValue: didComplete(_:))
+            .store(in: &cancellables)
+        return viewModel
+    }
 
     func close() {
         didComplete.send(self)
+    }
+
+    func didComplete(_ viewModel: CreateMethodViewModel) {
+        close()
     }
 }
 
@@ -27,11 +41,8 @@ struct CreateMethodFlowView: View {
 
     @ViewBuilder
     var createMethod: some View {
-        CreateMethodView(
-            viewModel: CreateMethodViewModel(),
-            closeRequest: viewModel.close
-        )
-        .environmentObject(viewModel.context)
+        CreateMethodView(viewModel: viewModel.makeCreateMethodVM())
+            .environmentObject(viewModel.context)
     }
 }
 

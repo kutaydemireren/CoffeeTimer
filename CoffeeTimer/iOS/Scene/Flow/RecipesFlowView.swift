@@ -43,14 +43,14 @@ final class RecipesFlowViewModel: ObservableObject, Completable {
     }
 
     private func didComplete(_ recipesViewModel: RecipesViewModel) {
-        self.close()
+        close()
     }
 
     private func didCreate(_ recipesViewModel: RecipesViewModel) {
         navigationPath.append(.createRecipe)
     }
 
-    private func didComplete(viewModel: CreateRecipeFlowViewModel) {
+    private func didComplete(_ viewModel: CreateRecipeFlowViewModel) {
         navigationPath.removeAll { $0 == .createRecipe }
     }
 }
@@ -62,13 +62,13 @@ struct RecipesFlowView: View {
     var body: some View {
         NavigationStack(path: $viewModel.navigationPath) {
             recipes()
-                .navigationDestination(for: RecipesFlowViewModel.Flow.self) { flow in
-                    switch flow {
-                    case .createRecipe:
-                        createRecipe()
-                            .navigationBarBackButtonHidden(true)
-                    }
-                }
+        }
+        .navigationDestination(for: RecipesFlowViewModel.Flow.self) { flow in
+            switch flow {
+            case .createRecipe:
+                createRecipe()
+                    .navigationBarBackButtonHidden(true)
+            }
         }
     }
 

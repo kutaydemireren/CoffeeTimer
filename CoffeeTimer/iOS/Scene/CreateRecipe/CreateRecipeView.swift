@@ -100,7 +100,8 @@ struct CreateRecipeView: View {
 
     @ObservedObject var viewModel: CreateRecipeViewModel
     @EnvironmentObject var context: CreateRecipeContext
-    var closeRequest: () -> Void
+    var close: () -> Void
+    var createMethod: () -> Void // TODO: custom method - invoke this for 'create method' flow
 
     @State private var canCreate = false
 
@@ -108,7 +109,7 @@ struct CreateRecipeView: View {
 
         VStack {
             HStack {
-                Button("Close", action: closeRequest)
+                Button("Close", action: close)
                     .frame(alignment: .topLeading)
 
                 Spacer()
@@ -120,7 +121,7 @@ struct CreateRecipeView: View {
                 } else {
                     Button("Done") {
                         viewModel.create(from: context)
-                        closeRequest()
+                        close()
                     }
                 }
             }
@@ -159,7 +160,7 @@ struct CreateRecipeView: View {
 
 struct CreateRecipeView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateRecipeView(viewModel: .init(), closeRequest: { })
+        CreateRecipeView(viewModel: .init(), close: { }, createMethod: { })
             .environmentObject(CreateRecipeContext())
     }
 }
