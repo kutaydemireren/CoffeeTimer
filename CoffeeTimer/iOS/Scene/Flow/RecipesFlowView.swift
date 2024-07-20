@@ -9,13 +9,17 @@ import SwiftUI
 import Combine
 
 final class RecipesFlowViewModel: ObservableObject, Completable {
-    @Published var navigationPath: [Screen] = []
-    
+    enum Flow: Hashable {
+        case createRecipe
+    }
+
+    @Published var navigationPath: [Flow] = []
+
     var didComplete = PassthroughSubject<RecipesFlowViewModel, Never>()
-    
+
     private var cancellables: [AnyCancellable] = []
-    
-    func makeVM() -> RecipesViewModel {
+
+    func makeRecipesVM() -> RecipesViewModel {
         let viewModel = RecipesViewModel()
         viewModel.didComplete
             .sink(receiveValue: didComplete(_:))
@@ -25,59 +29,55 @@ final class RecipesFlowViewModel: ObservableObject, Completable {
             .store(in: &cancellables)
         return viewModel
     }
-    
-    func make2() -> CreateRecipeFlowViewModel {
+
+    func makeCreateRecipeFlowVM() -> CreateRecipeFlowViewModel {
         let viewModel = CreateRecipeFlowViewModel()
         viewModel.didComplete
             .sink(receiveValue: didComplete)
             .store(in: &cancellables)
         return viewModel
     }
-    
+
     func close() {
         didComplete.send(self)
     }
-    
+
     private func didComplete(_ recipesViewModel: RecipesViewModel) {
         self.close()
     }
-    
+
     private func didCreate(_ recipesViewModel: RecipesViewModel) {
         navigationPath.append(.createRecipe)
     }
-    
+
     private func didComplete(viewModel: CreateRecipeFlowViewModel) {
         navigationPath.removeAll { $0 == .createRecipe }
     }
 }
 
 struct RecipesFlowView: View {
-    
+
     @StateObject var viewModel: RecipesFlowViewModel
-    
+
     var body: some View {
         NavigationStack(path: $viewModel.navigationPath) {
-            recipes
-                .navigationDestination(for: Screen.self) { screen in
-                    switch screen {
-                    case .brewQueue:
-                        EmptyView()
+            recipes()
+                .navigationDestination(for: RecipesFlowViewModel.Flow.self) { flow in
+                    switch flow {
                     case .createRecipe:
                         createRecipe()
                             .navigationBarBackButtonHidden(true)
-                    case .recipesFlowView:
-                        EmptyView()
                     }
                 }
         }
     }
-    
-    var recipes: some View {
-        return RecipesView(viewModel: viewModel.makeVM())
+
+    func recipes() -> some View {
+        return RecipesView(viewModel: viewModel.makeRecipesVM())
     }
     
     func createRecipe() -> some View {
-        CreateRecipeFlowView(viewModel: viewModel.make2())
+        CreateRecipeFlowView(viewModel: viewModel.makeCreateRecipeFlowVM())
     }
 }
 

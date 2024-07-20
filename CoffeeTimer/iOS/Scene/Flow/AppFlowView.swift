@@ -9,86 +9,53 @@ import Foundation
 import Combine
 import SwiftUI
 
-final class FlowViewModel: ObservableObject {
-    
-    @Published var navigationPath: [Screen] = []
+final class AppFlowViewModel: ObservableObject {
     @Published var isRecipesPresented = false
-    
+
     private var cancellables: [AnyCancellable] = []
-    
-    func make1() -> BrewQueueViewModel {
+
+    func makeBrewQueueVM() -> BrewQueueViewModel {
         let viewModel = BrewQueueViewModel()
         viewModel.didComplete
             .sink(receiveValue: didComplete)
             .store(in: &cancellables)
         return viewModel
     }
-    
-    func make2() -> CreateRecipeFlowViewModel {
-        let viewModel = CreateRecipeFlowViewModel()
-        viewModel.didComplete
-            .sink(receiveValue: didComplete)
-            .store(in: &cancellables)
-        return viewModel
-    }
-    
-    func make3() -> RecipesFlowViewModel {
+
+    func makeRecipesFlowVM() -> RecipesFlowViewModel {
         let viewModel = RecipesFlowViewModel()
         viewModel.didComplete
             .sink(receiveValue: didComplete)
             .store(in: &cancellables)
         return viewModel
     }
-    
+
     private func didComplete(viewModel: BrewQueueViewModel) {
         isRecipesPresented = true
     }
-    
-    private func didComplete(viewModel: CreateRecipeFlowViewModel) {
-        isRecipesPresented = false
-    }
-    
+
     private func didComplete(viewModel: RecipesFlowViewModel) {
         isRecipesPresented = false
     }
 }
 
 struct AppFlowView: View {
-    
-    @StateObject var viewModel: FlowViewModel
-    
+
+    @StateObject var viewModel: AppFlowViewModel
+
     var body: some View {
-        NavigationStack(path: $viewModel.navigationPath) {
-            VStack() {
-                brewQueue()
+        brewQueue()
+            .fullScreenCover(isPresented: $viewModel.isRecipesPresented) {
+                recipes()
             }
-            .navigationDestination(for: Screen.self) { screen in
-                switch screen {
-                case .brewQueue:
-                    brewQueue()
-                case .createRecipe:
-                    createRecipe()
-                case .recipesFlowView:
-                    recipes()
-                }
-            }
-        }
-        .textFieldStyle(RoundedBorderTextFieldStyle())
-        .fullScreenCover(isPresented: $viewModel.isRecipesPresented) {
-            recipes()
-        }
     }
-    
+
     func brewQueue() -> some View {
-        BrewQueueView(viewModel: viewModel.make1())
+        BrewQueueView(viewModel: viewModel.makeBrewQueueVM())
     }
-    
-    func createRecipe() -> some View {
-        CreateRecipeFlowView(viewModel: viewModel.make2())
-    }
-    
+
     func recipes() -> some View {
-        RecipesFlowView(viewModel: viewModel.make3())
+        RecipesFlowView(viewModel: viewModel.makeRecipesFlowVM())
     }
 }
 
