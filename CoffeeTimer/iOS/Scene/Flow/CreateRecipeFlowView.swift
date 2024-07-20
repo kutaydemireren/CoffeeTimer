@@ -11,7 +11,7 @@ import Combine
 final class CreateRecipeFlowViewModel: ObservableObject, Completable {
     var didComplete = PassthroughSubject<CreateRecipeFlowViewModel, Never>()
     
-    @Published var context: CreateRecipeContext = CreateRecipeContext()
+    @Published var context = CreateRecipeContext()
     
     func close() {
         didComplete.send(self)
@@ -19,23 +19,22 @@ final class CreateRecipeFlowViewModel: ObservableObject, Completable {
 }
 
 struct CreateRecipeFlowView: View {
-    
     @StateObject var viewModel: CreateRecipeFlowViewModel
     
     var body: some View {
         createRecipe
     }
     
+    @ViewBuilder
     var createRecipe: some View {
         CreateRecipeView(
             viewModel: CreateRecipeViewModel(),
-            closeRequest: viewModel.close)
+            closeRequest: viewModel.close
+        )
         .environmentObject(viewModel.context)
     }
 }
 
-struct CreateRecipeFlowView_Previews: PreviewProvider {
-    static var previews: some View {
-        return CreateRecipeFlowView(viewModel: CreateRecipeFlowViewModel())
-    }
+#Preview {
+    CreateRecipeFlowView(viewModel: CreateRecipeFlowViewModel())
 }

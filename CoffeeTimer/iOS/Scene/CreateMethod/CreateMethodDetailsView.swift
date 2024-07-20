@@ -32,17 +32,17 @@ struct CreateMethodDetailsView: View {
     var methodInputs: some View {
         VStack {
             AlphanumericTextField(
-                title: "Title will be used to display within app",
+                title: "Title",
                 placeholder: "My V60, Icy V60",
                 text: $context.methodTitle
             )
 
-            TitledContent(title: "Cups Count Min - Max") {
+            TitledContent(title: "Cups Count") {
                 HStack {
                     VStack(spacing: 0) {
                         NumericTextField(
                             title: "",
-                            placeholder: "1",
+                            placeholder: "min",
                             keyboardType: .number,
                             range: .init(minimum: 1),
                             input: $context.cupsCountMin
@@ -53,7 +53,7 @@ struct CreateMethodDetailsView: View {
                     VStack(spacing: 0) {
                         NumericTextField(
                             title: "",
-                            placeholder: "5",
+                            placeholder: "max",
                             keyboardType: .number,
                             range: .init(minimum: 0),
                             input: $context.cupsCountMax

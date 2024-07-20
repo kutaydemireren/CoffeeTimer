@@ -94,22 +94,31 @@ final class CreateMethodInstructionsViewModel: ObservableObject {
 
 struct CreateMethodInstructionsView: View {
     @EnvironmentObject var context: CreateMethodContext
-    @ObservedObject var viewModel: CreateMethodInstructionsViewModel
+    @ObservedObject var viewModel = CreateMethodInstructionsViewModel()
 
     var body: some View {
-        List {
-            ForEach($context.instructions) { instruction in
-                CreateMethodInstructionStepView(step: instruction.wrappedValue)
-                    .onTapGesture {
-                        debugPrint("Handle tap here") // TODO: handle tap action
-                    }
+        ZStack(alignment: .top) {
+            content
+        }
+    }
+
+    private var content: some View {
+        VStack {
+            List {
+                ForEach($context.instructions) { instruction in
+                    CreateMethodInstructionStepView(step: instruction.wrappedValue)
+                        .onTapGesture {
+                            debugPrint("Handle tap here") // TODO: handle tap action
+                        }
+                }
+                .onDelete { viewModel.removeInstruction(at: $0, context: context) }
+                .onMove{ viewModel.moveInstruction(from: $0, to: $1, context: context)}
             }
-            .onDelete { viewModel.removeInstruction(at: $0, context: context) }
-            .onMove{ viewModel.moveInstruction(from: $0, to: $1, context: context)}
+            .listStyle(.plain)
+            .scrollIndicators(.hidden)
+            .scrollContentBackground(.hidden)
         }
-        .toolbar {
-            EditButton()
-        }
+        .padding()
     }
 }
 

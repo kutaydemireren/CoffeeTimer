@@ -27,15 +27,49 @@ final class CreateMethodContext: ObservableObject {
     @Published var instructions: [RecipeInstructionStepItem] = []
 }
 
+//
+
+final class CreateMethodViewModel: ObservableObject {
+    @Published var selectedPage = 1
+}
+
 struct CreateMethodView: View {
+    @ObservedObject var viewModel: CreateMethodViewModel
+    var closeRequest: () -> Void
+
     var body: some View {
         VStack {
-            CreateMethodDetailsView()
+
+            HStack {
+                Button("Close", action: closeRequest)
+                    .frame(alignment: .topLeading)
+
+                Spacer()
+            }
+            .padding()
+            .foregroundColor(Color("backgroundSecondary"))
+
+            TabView(selection: $viewModel.selectedPage) {
+                CreateMethodDetailsView()
+                    .tag(1)
+
+                CreateMethodInstructionsView()
+                    .tag(2)
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .ignoresSafeArea()
         }
+        .backgroundPrimary()
     }
 }
 
 #Preview {
-    CreateMethodView()
-        .environmentObject(CreateMethodContext())
+    CreateMethodView(viewModel: CreateMethodViewModel(), closeRequest: { })
+        .environmentObject(stubContext())
+}
+
+fileprivate func stubContext() -> CreateMethodContext {
+    let context = CreateMethodContext()
+    context.instructions = .stub
+    return context
 }

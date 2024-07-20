@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CA02D0D82A255A440012EE87 /* MockRecipeMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA02D0D72A255A440012EE87 /* MockRecipeMapper.swift */; };
 		CA02D0DC2A255A6D0012EE87 /* MockStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA02D0DB2A255A6D0012EE87 /* MockStorage.swift */; };
+		CA0A13F32C4C3A9800453CC9 /* CreateMethodFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0A13F22C4C3A9800453CC9 /* CreateMethodFlowView.swift */; };
 		CA1552802C0A5D3F000334FB /* CreateRecipeFromInputUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA15527F2C0A5D3F000334FB /* CreateRecipeFromInputUseCase.swift */; };
 		CA1552822C0A5D71000334FB /* MockCreateRecipeFromInputUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1552812C0A5D71000334FB /* MockCreateRecipeFromInputUseCase.swift */; };
 		CA1552842C0A5D9A000334FB /* MockFetchRecipeInstructionsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1552832C0A5D9A000334FB /* MockFetchRecipeInstructionsUseCase.swift */; };
@@ -114,6 +115,7 @@
 /* Begin PBXFileReference section */
 		CA02D0D72A255A440012EE87 /* MockRecipeMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecipeMapper.swift; sourceTree = "<group>"; };
 		CA02D0DB2A255A6D0012EE87 /* MockStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStorage.swift; sourceTree = "<group>"; };
+		CA0A13F22C4C3A9800453CC9 /* CreateMethodFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMethodFlowView.swift; sourceTree = "<group>"; };
 		CA15527F2C0A5D3F000334FB /* CreateRecipeFromInputUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeFromInputUseCase.swift; sourceTree = "<group>"; };
 		CA1552812C0A5D71000334FB /* MockCreateRecipeFromInputUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCreateRecipeFromInputUseCase.swift; sourceTree = "<group>"; };
 		CA1552832C0A5D9A000334FB /* MockFetchRecipeInstructionsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchRecipeInstructionsUseCase.swift; sourceTree = "<group>"; };
@@ -546,6 +548,7 @@
 				CA91CEF629E5FA9100E9F5D1 /* AppFlowView.swift */,
 				CAF42CE229EC9524004D7788 /* CreateRecipeFlowView.swift */,
 				CA4758E32A0C3C5C0022BC7D /* RecipesFlowView.swift */,
+				CA0A13F22C4C3A9800453CC9 /* CreateMethodFlowView.swift */,
 			);
 			path = Flow;
 			sourceTree = "<group>";
@@ -865,6 +868,7 @@
 				CA6263C72A254EB3003E167D /* Color+HexString.swift in Sources */,
 				CA6263BF2A25499A003E167D /* Entities+Stub.swift in Sources */,
 				CA4758E12A0C3A200022BC7D /* RecipeRowView.swift in Sources */,
+				CA0A13F32C4C3A9800453CC9 /* CreateMethodFlowView.swift in Sources */,
 				CA17289D29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift in Sources */,
 				CAF42CE529EC9548004D7788 /* Navigable.swift in Sources */,
 				CA5E907D29D61AED00A78CF2 /* Entities.swift in Sources */,

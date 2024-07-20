@@ -115,7 +115,7 @@ struct RecipesView: View {
         ZStack(alignment: .top) {
             content
                 .padding(.top, 20)
-            
+
             HStack {
                 Button("Close") {
                     viewModel.close()
@@ -127,13 +127,10 @@ struct RecipesView: View {
             .foregroundColor(Color("backgroundSecondary"))
             
             VStack {
-                
                 Spacer()
-                
                 HStack {
-                    
                     Spacer()
-                    
+
                     Button() {
                         viewModel.create()
                     } label: {
@@ -150,7 +147,7 @@ struct RecipesView: View {
         }
         .backgroundPrimary()
     }
-    
+
     @ViewBuilder
     var content: some View {
         if viewModel.recipes.isEmpty {
