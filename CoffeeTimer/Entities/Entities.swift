@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BrewMethod: Equatable, Identifiable {
+struct BrewMethod: Equatable, Hashable, Identifiable, Titled {
     let id: String
     let title: String
     let path: String
@@ -22,7 +22,7 @@ struct CoffeeToWaterRatio: Equatable, Hashable, Identifiable, Titled {
     let title: String
 }
 
-struct CupsCount: Equatable {
+struct CupsCount: Equatable, Hashable {
     let minimum: Int
     let maximum: Int?
 
