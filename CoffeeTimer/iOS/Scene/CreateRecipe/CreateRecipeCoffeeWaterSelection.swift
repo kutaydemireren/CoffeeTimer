@@ -87,5 +87,6 @@ struct CreateRecipeCoffeeWaterSelection_Previews: PreviewProvider {
             allRatios: .constant([.ratio16, .ratio17, .ratio18, .ratio20])
         )
         .backgroundPrimary()
+        .environmentObject(CreateRecipeContext())
     }
 }
