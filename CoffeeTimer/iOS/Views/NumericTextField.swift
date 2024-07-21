@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-enum TextFieldType {
-    case `default`
-    case titled(String)
-}
-
 struct NumericTextField: View {
 
     enum KeyboardType {

@@ -91,6 +91,12 @@ struct RecipeInstructionStepItemView: View {
     @State var item: RecipeInstructionStepItem
 
     var body: some View {
+        actionView
+            .padding()
+    }
+
+    @ViewBuilder
+    var actionView: some View {
         switch item.action {
         case .put(let model):
             PutInstructionActionView(model: model)
@@ -103,7 +109,7 @@ struct RecipeInstructionStepItemView: View {
 }
 
 #Preview {
-    RecipeInstructionStepItemView(item: .stubPause)
+    RecipeInstructionStepItemView(item: .stubMessage)
 }
 
 //
@@ -191,7 +197,7 @@ struct PauseInstructionActionView: View {
 //
 
 final class MessageInstructionActionViewModel: ObservableObject {
-    let requirement: InstructionRequirement = .unknown
+    let requirement: InstructionRequirementItem = .none
     let startMethod: InstructionInteractionMethod = .userInteractive
     let skipMethod: InstructionInteractionMethod = .userInteractive
     @Published var message: String
@@ -211,11 +217,41 @@ struct MessageInstructionActionView: View {
 
     var body: some View {
         VStack {
-            Text("requirement: \(String(describing: model.requirement))")
+            TitledPicker(
+                selectedItem: .constant(model.requirement),
+                allItems: .constant(InstructionRequirementItem.allCases),
+                title: "Requirement",
+                placeholder: ""
+            )
+            .disabled(true)
+            .grayscale(0.5)
+
+            TitledPicker(
+                selectedItem: .constant(model.requirement),
+                allItems: .constant(InstructionRequirementItem.allCases),
+                title: "Start Method",
+                placeholder: ""
+            )
+            .disabled(true)
+            .grayscale(0.5)
+
             Text("startMethod: \(String(describing: model.startMethod))")
             Text("skipMethod: \(String(describing: model.skipMethod))")
             Text("message: \(String(describing: model.message))")
             Text("details: \(String(describing: model.details))")
         }
     }
+}
+
+enum InstructionRequirementItem: String, Titled, Hashable, Identifiable, CaseIterable {
+    var id: Self {
+        return self
+    }
+
+    var title: String {
+        return rawValue
+    }
+
+    case `none` = "none"
+    case countknown = "countdown"
 }
