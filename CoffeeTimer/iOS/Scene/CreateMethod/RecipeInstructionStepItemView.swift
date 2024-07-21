@@ -196,28 +196,51 @@ struct PauseInstructionActionView: View {
 
 //
 
-struct InstructionViewBuilder {
-    var requirement: Binding<InstructionRequirementItem?>?
+final class InstructionViewBuilder {
+    private var requirementConstant: Bool = false
+    private var requirement: Binding<InstructionRequirementItem?>?
 
     func with(requirement: InstructionRequirementItem) -> Self {
-        return InstructionViewBuilder(requirement: .constant(requirement))
+        self.requirement = .constant(requirement)
+        requirementConstant = true
+        return self
     }
 
     func with(requirement: Binding<InstructionRequirementItem?>) -> Self {
-        return InstructionViewBuilder(requirement: requirement)
+        self.requirement = requirement
+        return self
+    }
+
+    private var message: Binding<String>?
+
+    func with(message: Binding<String>) -> Self {
+        self.message = message
+        return self
     }
 
     @ViewBuilder
     func build() -> some View {
-        if let requirement {
-            TitledPicker(
-                selectedItem: requirement,
-                allItems: .constant(InstructionRequirementItem.allCases),
-                title: "Requirement",
-                placeholder: ""
-            )
-            .disabled(true)
-            .grayscale(0.5)
+        ScrollView {
+            VStack {
+                if let requirement {
+                    TitledPicker(
+                        selectedItem: requirement,
+                        allItems: .constant(InstructionRequirementItem.allCases),
+                        title: "Requirement",
+                        placeholder: ""
+                    )
+                    .disabled(requirementConstant)
+                    .grayscale(requirementConstant ? 0.5 : 0.0)
+                }
+
+                if let message {
+                    AlphanumericTextField(
+                        title: "Message",
+                        placeholder: "",
+                        text: message
+                    )
+                }
+            }
         }
     }
 }
@@ -247,16 +270,8 @@ struct MessageInstructionActionView: View {
         VStack {
             InstructionViewBuilder()
                 .with(requirement: model.requirement)
+                .with(message: $model.message)
                 .build()
-
-            TitledPicker(
-                selectedItem: .constant(model.requirement),
-                allItems: .constant(InstructionRequirementItem.allCases),
-                title: "Start Method",
-                placeholder: ""
-            )
-            .disabled(true)
-            .grayscale(0.5)
 
             Text("startMethod: \(String(describing: model.startMethod))")
             Text("skipMethod: \(String(describing: model.skipMethod))")
