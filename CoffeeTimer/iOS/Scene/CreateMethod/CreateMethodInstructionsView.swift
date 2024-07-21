@@ -13,6 +13,9 @@ extension Array where Element == RecipeInstructionStepItem {
     static var stub: Self {
         [
             .init(action: .put(.stub)),
+            .init(action: .pause(.stub)),
+            .init(action: .message(.stub)),
+            .init(action: .put(.stub)),
         ]
     }
 }

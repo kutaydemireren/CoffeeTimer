@@ -14,18 +14,49 @@ fileprivate extension RecipeInstructionStepItem {
             action: .put(.stub)
         )
     }
+
+    static var stubPause: RecipeInstructionStepItem {
+        RecipeInstructionStepItem(
+            action: .pause(.stub)
+        )
+    }
+
+    static var stubMessage: RecipeInstructionStepItem {
+        RecipeInstructionStepItem(
+            action: .message(.stub)
+        )
+    }
 }
 
 extension PutInstructionActionViewModel {
     static var stub: PutInstructionActionViewModel {
         PutInstructionActionViewModel(
-            requirement: .none,
+            requirement: .unknown,
             startMethod: .userInteractive,
             skipMethod: .userInteractive,
-            message: "msg",
+            message: "put msg",
             details: "dtl",
             ingredient: .coffee,
             amount: ""
+        )
+    }
+}
+
+extension PauseInstructionActionViewModel {
+    static var stub: PauseInstructionActionViewModel {
+        PauseInstructionActionViewModel(
+            message: "pause msg",
+            details: "dtl",
+            duration: 20
+        )
+    }
+}
+
+extension MessageInstructionActionViewModel {
+    static var stub: MessageInstructionActionViewModel {
+        MessageInstructionActionViewModel(
+            message: "message msg",
+            details: "dtl"
         )
     }
 }
@@ -34,15 +65,17 @@ extension PutInstructionActionViewModel {
 
 enum RecipeInstructionAction {
     case put(PutInstructionActionViewModel)
-    case pause
-    case message
+    case pause(PauseInstructionActionViewModel)
+    case message(MessageInstructionActionViewModel)
 
     var message: String {
         switch self {
         case .put(let model):
             return model.message
-        case .pause, .message:
-            return ""
+        case .pause(let model):
+            return model.message
+        case .message(let model):
+            return model.message
         }
     }
 }
@@ -61,31 +94,33 @@ struct RecipeInstructionStepItemView: View {
         switch item.action {
         case .put(let model):
             PutInstructionActionView(model: model)
-        case .pause, .message:
-            EmptyView()
+        case .pause(let model):
+            PauseInstructionActionView(model: model)
+        case .message(let model):
+            MessageInstructionActionView(model: model)
         }
     }
 }
 
 #Preview {
-    RecipeInstructionStepItemView(item: .stubPut)
+    RecipeInstructionStepItemView(item: .stubPause)
 }
 
 //
 
 final class PutInstructionActionViewModel: ObservableObject {
-    @Published var requirement: BrewStageRequirement
-    @Published var startMethod: BrewStageActionMethod
-    @Published var skipMethod: BrewStageActionMethod
+    @Published var requirement: InstructionRequirement
+    @Published var startMethod: InstructionInteractionMethod
+    @Published var skipMethod: InstructionInteractionMethod
     @Published var message: String
     @Published var details: String
     @Published var ingredient: IngredientType
     @Published var amount: String // TODO: parse
 
     init(
-        requirement: BrewStageRequirement,
-        startMethod: BrewStageActionMethod,
-        skipMethod: BrewStageActionMethod,
+        requirement: InstructionRequirement,
+        startMethod: InstructionInteractionMethod,
+        skipMethod: InstructionInteractionMethod,
         message: String,
         details: String,
         ingredient: IngredientType,
@@ -113,6 +148,74 @@ struct PutInstructionActionView: View {
             Text("details: \(String(describing: model.details))")
             Text("ingredient: \(String(describing: model.ingredient))")
             Text("amount: \(String(describing: model.amount))")
+        }
+    }
+}
+
+//
+
+final class PauseInstructionActionViewModel: ObservableObject {
+    let requirement: InstructionRequirement = .countdown(0)
+    let startMethod: InstructionInteractionMethod = .auto
+    let skipMethod: InstructionInteractionMethod = .auto
+    @Published var message: String
+    @Published var details: String
+    @Published var duration: Double
+
+    init(
+        message: String,
+        details: String,
+        duration: Double
+    ) {
+        self.message = message
+        self.details = details
+        self.duration = duration
+    }
+}
+
+struct PauseInstructionActionView: View {
+    @ObservedObject var model: PauseInstructionActionViewModel
+
+    var body: some View {
+        VStack {
+            Text("requirement: \(String(describing: model.requirement))")
+            Text("startMethod: \(String(describing: model.startMethod))")
+            Text("skipMethod: \(String(describing: model.skipMethod))")
+            Text("message: \(String(describing: model.message))")
+            Text("details: \(String(describing: model.details))")
+            Text("duration: \(String(describing: model.duration))")
+        }
+    }
+}
+
+//
+
+final class MessageInstructionActionViewModel: ObservableObject {
+    let requirement: InstructionRequirement = .unknown
+    let startMethod: InstructionInteractionMethod = .userInteractive
+    let skipMethod: InstructionInteractionMethod = .userInteractive
+    @Published var message: String
+    @Published var details: String
+
+    init(
+        message: String,
+        details: String
+    ) {
+        self.message = message
+        self.details = details
+    }
+}
+
+struct MessageInstructionActionView: View {
+    @ObservedObject var model: MessageInstructionActionViewModel
+
+    var body: some View {
+        VStack {
+            Text("requirement: \(String(describing: model.requirement))")
+            Text("startMethod: \(String(describing: model.startMethod))")
+            Text("skipMethod: \(String(describing: model.skipMethod))")
+            Text("message: \(String(describing: model.message))")
+            Text("details: \(String(describing: model.details))")
         }
     }
 }
