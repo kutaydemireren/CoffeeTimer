@@ -31,7 +31,7 @@ fileprivate extension RecipeInstructionStepItem {
 extension PutInstructionActionViewModel {
     static var stub: PutInstructionActionViewModel {
         PutInstructionActionViewModel(
-            requirement: .unknown,
+            requirement: .none,
             startMethod: .userInteractive,
             skipMethod: .userInteractive,
             message: "put msg",
@@ -109,13 +109,13 @@ struct RecipeInstructionStepItemView: View {
 }
 
 #Preview {
-    RecipeInstructionStepItemView(item: .stubMessage)
+    RecipeInstructionStepItemView(item: .stubPut)
 }
 
 //
 
 final class PutInstructionActionViewModel: ObservableObject {
-    @Published var requirement: InstructionRequirement
+    @Published var requirement: InstructionRequirementItem?
     @Published var startMethod: InstructionInteractionMethod
     @Published var skipMethod: InstructionInteractionMethod
     @Published var message: String
@@ -124,7 +124,7 @@ final class PutInstructionActionViewModel: ObservableObject {
     @Published var amount: String // TODO: parse
 
     init(
-        requirement: InstructionRequirement,
+        requirement: InstructionRequirementItem,
         startMethod: InstructionInteractionMethod,
         skipMethod: InstructionInteractionMethod,
         message: String,
@@ -147,6 +147,12 @@ struct PutInstructionActionView: View {
 
     var body: some View {
         VStack {
+            InstructionViewBuilder()
+                .with(requirement: $model.requirement)
+                .with(message: $model.message)
+                .with(details: $model.details)
+                .build()
+
             Text("requirement: \(String(describing: model.requirement))")
             Text("startMethod: \(String(describing: model.startMethod))")
             Text("skipMethod: \(String(describing: model.skipMethod))")
