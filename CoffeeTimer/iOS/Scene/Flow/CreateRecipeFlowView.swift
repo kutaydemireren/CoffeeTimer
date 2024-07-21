@@ -50,7 +50,7 @@ struct CreateRecipeFlowView: View {
     var createRecipe: some View {
         CreateRecipeView(
             viewModel: CreateRecipeViewModel(),
-            close: viewModel.close, 
+            close: viewModel.close,
             createMethod: viewModel.crateMethod
         )
         .environmentObject(viewModel.context)

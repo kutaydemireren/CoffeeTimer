@@ -56,7 +56,6 @@ final class RecipesFlowViewModel: ObservableObject, Completable {
 }
 
 struct RecipesFlowView: View {
-
     @StateObject var viewModel: RecipesFlowViewModel
 
     var body: some View {
@@ -75,7 +74,7 @@ struct RecipesFlowView: View {
     func recipes() -> some View {
         return RecipesView(viewModel: viewModel.makeRecipesVM())
     }
-    
+
     func createRecipe() -> some View {
         CreateRecipeFlowView(viewModel: viewModel.makeCreateRecipeFlowVM())
     }

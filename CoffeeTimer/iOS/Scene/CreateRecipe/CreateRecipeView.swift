@@ -101,7 +101,7 @@ struct CreateRecipeView: View {
     @ObservedObject var viewModel: CreateRecipeViewModel
     @EnvironmentObject var context: CreateRecipeContext
     var close: () -> Void
-    var createMethod: () -> Void // TODO: apply
+    var createMethod: () -> Void
 
     @State private var canCreate = false
 
@@ -130,8 +130,28 @@ struct CreateRecipeView: View {
 
             TabView(selection: $viewModel.selectedPage) {
 
-                CreateRecipeBrewMethodSelection(brewMethods: $viewModel.brewMethods, selectedBrewMethod: $context.selectedBrewMethod)
-                    .tag(1)
+                ZStack {
+                    CreateRecipeBrewMethodSelection(brewMethods: $viewModel.brewMethods, selectedBrewMethod: $context.selectedBrewMethod)
+
+                    HStack {
+                        VStack {
+                            Spacer()
+
+                            Button(action: createMethod) {
+                                HStack {
+                                    Image(uiImage: .add)
+                                        .renderingMode(.template)
+
+                                    Text("Create your own method")
+                                }
+                                .foregroundColor(Color("foregroundPrimary"))
+                            }
+                            .padding()
+                            .backgroundSecondary(opacity: 0.6)
+                        }
+                    }
+                }
+                .tag(1)
 
                 CreateRecipeProfileSelection(recipeProfile: $context.recipeProfile)
                     .tag(2)

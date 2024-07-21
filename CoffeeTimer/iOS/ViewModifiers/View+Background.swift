@@ -25,18 +25,22 @@ struct BackgroundPrimary: View {
 }
 
 struct BackgroundSecondaryViewModifier: ViewModifier {
+    let opacity: Double
+
     func body(content: Content) -> some View {
         content
-            .background(BackgroundSecondary())
+            .background(BackgroundSecondary(opacity: opacity))
     }
 }
 
 struct BackgroundSecondary: View {
+    let opacity: Double
+
     var body: some View {
         RoundedRectangle(cornerRadius: 24)
             .fill(LinearGradient(
                 colors: [
-                    Color("backgroundSecondary").opacity(0.8)
+                    Color("backgroundSecondary").opacity(opacity)
                 ],
                 startPoint: .leading,
                 endPoint: .trailing
@@ -49,7 +53,7 @@ extension View {
         modifier(BackgroundPrimaryViewModifier())
     }
     
-    func backgroundSecondary() -> some View {
-        modifier(BackgroundSecondaryViewModifier())
+    func backgroundSecondary(opacity: Double = 0.8) -> some View {
+        modifier(BackgroundSecondaryViewModifier(opacity: opacity))
     }
 }
