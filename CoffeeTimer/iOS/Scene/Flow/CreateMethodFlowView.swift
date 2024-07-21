@@ -20,11 +20,18 @@ final class CreateMethodFlowViewModel: ObservableObject, Completable {
         viewModel.didComplete
             .sink(receiveValue: didComplete(_:))
             .store(in: &cancellables)
+        viewModel.didSelect
+            .sink(receiveValue: didSelect(_:))
+            .store(in: &cancellables)
         return viewModel
     }
 
     func didComplete(_ viewModel: CreateMethodViewModel) {
         close()
+    }
+
+    func didSelect(_ item: RecipeInstructionStepItem) {
+        debugPrint("Display edit page on navigation")
     }
 }
 

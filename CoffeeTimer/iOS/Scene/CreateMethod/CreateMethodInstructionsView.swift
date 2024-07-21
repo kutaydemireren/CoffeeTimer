@@ -9,6 +9,16 @@ import SwiftUI
 
 // TODO: move
 
+struct RecipeInstructionStepItemView: View {
+    let item: RecipeInstructionStepItem
+
+    var body: some View {
+        Text("Hello, \(String(describing: item.recipeInstructionStep?.instructionAction?.message))!")
+    }
+}
+
+//
+
 struct RecipeInstructionStepItem: Identifiable {
     let id = UUID()
     let recipeInstructionStep: RecipeInstructionStep?
@@ -96,6 +106,8 @@ struct CreateMethodInstructionsView: View {
     @EnvironmentObject var context: CreateMethodContext
     @ObservedObject var viewModel = CreateMethodInstructionsViewModel()
 
+    var didSelect: ((RecipeInstructionStepItem) -> Void)?
+
     var body: some View {
         ZStack(alignment: .top) {
             content
@@ -108,7 +120,7 @@ struct CreateMethodInstructionsView: View {
                 ForEach($context.instructions) { instruction in
                     RecipeInstructionStepItemRowView(step: instruction.wrappedValue)
                         .onTapGesture {
-                            debugPrint("Handle tap here") // TODO: handle tap action
+                            didSelect?(instruction.wrappedValue)
                         }
                 }
                 .onDelete { viewModel.removeInstruction(at: $0, context: context) }

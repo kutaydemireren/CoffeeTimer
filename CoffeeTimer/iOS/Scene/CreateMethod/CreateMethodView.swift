@@ -33,8 +33,13 @@ import Combine
 
 final class CreateMethodViewModel: ObservableObject, Completable {
     var didComplete = PassthroughSubject<CreateMethodViewModel, Never>()
+    var didSelect = PassthroughSubject<RecipeInstructionStepItem, Never>()
 
     @Published var selectedPage = 1
+
+    func didSelect(_ item: RecipeInstructionStepItem) {
+        didSelect.send(item)
+    }
 }
 
 struct CreateMethodView: View {
@@ -47,7 +52,7 @@ struct CreateMethodView: View {
                 Button("Close") {
                     viewModel.close()
                 }
-                    .frame(alignment: .topLeading)
+                .frame(alignment: .topLeading)
 
                 Spacer()
             }
@@ -58,7 +63,7 @@ struct CreateMethodView: View {
                 CreateMethodDetailsView()
                     .tag(1)
 
-                CreateMethodInstructionsView()
+                CreateMethodInstructionsView(didSelect: viewModel.didSelect(_:))
                     .tag(2)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
