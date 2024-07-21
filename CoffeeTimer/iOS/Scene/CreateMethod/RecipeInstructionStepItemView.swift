@@ -196,6 +196,34 @@ struct PauseInstructionActionView: View {
 
 //
 
+struct InstructionViewBuilder {
+    var requirement: Binding<InstructionRequirementItem?>?
+
+    func with(requirement: InstructionRequirementItem) -> Self {
+        return InstructionViewBuilder(requirement: .constant(requirement))
+    }
+
+    func with(requirement: Binding<InstructionRequirementItem?>) -> Self {
+        return InstructionViewBuilder(requirement: requirement)
+    }
+
+    @ViewBuilder
+    func build() -> some View {
+        if let requirement {
+            TitledPicker(
+                selectedItem: requirement,
+                allItems: .constant(InstructionRequirementItem.allCases),
+                title: "Requirement",
+                placeholder: ""
+            )
+            .disabled(true)
+            .grayscale(0.5)
+        }
+    }
+}
+
+//
+
 final class MessageInstructionActionViewModel: ObservableObject {
     let requirement: InstructionRequirementItem = .none
     let startMethod: InstructionInteractionMethod = .userInteractive
@@ -217,14 +245,9 @@ struct MessageInstructionActionView: View {
 
     var body: some View {
         VStack {
-            TitledPicker(
-                selectedItem: .constant(model.requirement),
-                allItems: .constant(InstructionRequirementItem.allCases),
-                title: "Requirement",
-                placeholder: ""
-            )
-            .disabled(true)
-            .grayscale(0.5)
+            InstructionViewBuilder()
+                .with(requirement: model.requirement)
+                .build()
 
             TitledPicker(
                 selectedItem: .constant(model.requirement),
