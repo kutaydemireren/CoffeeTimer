@@ -12,39 +12,7 @@ import SwiftUI
 extension Array where Element == RecipeInstructionStepItem {
     static var stub: Self {
         [
-            .init(
-                recipeInstructionStep: RecipeInstructionStep(
-                    instructionAction: MessageInstructionAction(
-                        requirement: nil,
-                        startMethod: nil,
-                        skipMethod: nil,
-                        message: "message 1",
-                        details: nil
-                    )
-                )
-            ),
-            .init(
-                recipeInstructionStep: RecipeInstructionStep(
-                    instructionAction: MessageInstructionAction(
-                        requirement: nil,
-                        startMethod: nil,
-                        skipMethod: nil,
-                        message: "message 2",
-                        details: nil
-                    )
-                )
-            ),
-            .init(
-                recipeInstructionStep: RecipeInstructionStep(
-                    instructionAction: MessageInstructionAction(
-                        requirement: nil,
-                        startMethod: nil,
-                        skipMethod: nil,
-                        message: "message 3",
-                        details: nil
-                    )
-                )
-            ),
+            .init(action: .put(.stub)),
         ]
     }
 }
@@ -54,13 +22,9 @@ extension Array where Element == RecipeInstructionStepItem {
 struct RecipeInstructionStepItemRowView: View {
     let step: RecipeInstructionStepItem
 
-    var instructionAction: InstructionAction? {
-        step.recipeInstructionStep?.instructionAction
-    }
-
     var body: some View {
         VStack(alignment: .leading) {
-            Text(instructionAction?.message ?? "")
+            Text(step.action.message)
                 .foregroundColor(Color("foregroundPrimary"))
                 .padding(.leading)
         }

@@ -9,45 +9,110 @@ import SwiftUI
 
 // TODO: move
 fileprivate extension RecipeInstructionStepItem {
-    static var stubPutHalfCoffee: Self {
-        return .init(
-            recipeInstructionStep: RecipeInstructionStep(
-                instructionAction: PutInstructionAction(
-                    requirement: .none,
-                    startMethod: .userInteractive,
-                    skipMethod: .auto,
-                    message: "put coffee main message",
-                    details: "put coffee details",
-                    ingredient: .coffee,
-                    amount: InstructionAmount(
-                        type: .millilitre,
-                        mainFactor: .init(factor: 0.6, factorOf: "coffee"),
-                        adjustmentFactor: .init(factor: -0.1, factorOf: "coffee")
-                    )
-                )
-            )
+    static var stubPut: RecipeInstructionStepItem {
+        RecipeInstructionStepItem(
+            action: .put(.stub)
+        )
+    }
+}
+
+extension PutInstructionActionViewModel {
+    static var stub: PutInstructionActionViewModel {
+        PutInstructionActionViewModel(
+            requirement: .none,
+            startMethod: .userInteractive,
+            skipMethod: .userInteractive,
+            message: "msg",
+            details: "dtl",
+            ingredient: .coffee,
+            amount: ""
         )
     }
 }
 
 //
 
+enum RecipeInstructionAction {
+    case put(PutInstructionActionViewModel)
+    case pause
+    case message
+
+    var message: String {
+        switch self {
+        case .put(let model):
+            return model.message
+        case .pause, .message:
+            return ""
+        }
+    }
+}
+
 struct RecipeInstructionStepItem: Identifiable {
     let id = UUID()
-    let recipeInstructionStep: RecipeInstructionStep?
+    let action: RecipeInstructionAction
 }
 
 //
 
 struct RecipeInstructionStepItemView: View {
-    let item: RecipeInstructionStepItem
+    @State var item: RecipeInstructionStepItem
 
     var body: some View {
-        Text("Hello, \(String(describing: item.recipeInstructionStep?.instructionAction?.message))!")
+        switch item.action {
+        case .put(let model):
+            PutInstructionActionView(model: model)
+        case .pause, .message:
+            EmptyView()
+        }
     }
 }
 
 #Preview {
-    RecipeInstructionStepItemView(item: .stubPutHalfCoffee)
+    RecipeInstructionStepItemView(item: .stubPut)
 }
 
+//
+
+final class PutInstructionActionViewModel: ObservableObject {
+    @Published var requirement: BrewStageRequirement
+    @Published var startMethod: BrewStageActionMethod
+    @Published var skipMethod: BrewStageActionMethod
+    @Published var message: String
+    @Published var details: String
+    @Published var ingredient: IngredientType
+    @Published var amount: String // TODO: parse
+
+    init(
+        requirement: BrewStageRequirement,
+        startMethod: BrewStageActionMethod,
+        skipMethod: BrewStageActionMethod,
+        message: String,
+        details: String,
+        ingredient: IngredientType,
+        amount: String
+    ) {
+        self.requirement = requirement
+        self.startMethod = startMethod
+        self.skipMethod = skipMethod
+        self.message = message
+        self.details = details
+        self.ingredient = ingredient
+        self.amount = amount
+    }
+}
+
+struct PutInstructionActionView: View {
+    @ObservedObject var model: PutInstructionActionViewModel
+
+    var body: some View {
+        VStack {
+            Text("requirement: \(String(describing: model.requirement))")
+            Text("startMethod: \(String(describing: model.startMethod))")
+            Text("skipMethod: \(String(describing: model.skipMethod))")
+            Text("message: \(String(describing: model.message))")
+            Text("details: \(String(describing: model.details))")
+            Text("ingredient: \(String(describing: model.ingredient))")
+            Text("amount: \(String(describing: model.amount))")
+        }
+    }
+}
