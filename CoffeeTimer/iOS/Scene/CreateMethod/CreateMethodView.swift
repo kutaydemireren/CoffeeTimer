@@ -24,6 +24,7 @@ final class CreateMethodContext: ObservableObject {
 
     @Published var isIcedBrew: Bool = false
 
+    @Published var selectedInstruction: RecipeInstructionStepItem?
     @Published var instructions: [RecipeInstructionStepItem] = []
 }
 
@@ -43,7 +44,7 @@ final class CreateMethodViewModel: ObservableObject, Completable {
 }
 
 struct CreateMethodView: View {
-    @ObservedObject var viewModel: CreateMethodViewModel
+    @StateObject var viewModel: CreateMethodViewModel
 
     var body: some View {
         VStack {
