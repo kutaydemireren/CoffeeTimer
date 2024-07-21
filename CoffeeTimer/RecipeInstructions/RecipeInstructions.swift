@@ -107,6 +107,12 @@ struct InstructionAmount: Decodable {
 
         adjustmentFactor = try container.decodeIfPresent(Factor.self, forKey: .adjustment)
     }
+
+    init(type: IngredientAmountTypeDTO?, mainFactor: Factor?, adjustmentFactor: Factor?) {
+        self.type = type
+        self.mainFactor = mainFactor
+        self.adjustmentFactor = adjustmentFactor
+    }
 }
 
 enum InstructionRequirement: Decodable {

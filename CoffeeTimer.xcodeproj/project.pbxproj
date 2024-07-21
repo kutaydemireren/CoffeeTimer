@@ -82,6 +82,7 @@
 		CAB1925F2A0D6B6500043837 /* RecipeRepositoryImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB1925E2A0D6B6500043837 /* RecipeRepositoryImpTests.swift */; };
 		CAC59D882C47137900301A43 /* mini_iced_instructions.json in Resources */ = {isa = PBXBuildFile; fileRef = CAC59D872C47137900301A43 /* mini_iced_instructions.json */; };
 		CAD01B4F2C395B5B004A1EFF /* StageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD01B4E2C395B5B004A1EFF /* StageHeaderView.swift */; };
+		CAD226D62C4D82EA00BD6DAD /* RecipeInstructionStepItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD226D52C4D82EA00BD6DAD /* RecipeInstructionStepItemView.swift */; };
 		CAE3944229DE13C0007611F1 /* CreateRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3944129DE13C0007611F1 /* CreateRecipeView.swift */; };
 		CAEE2F702C42A03F00D7D61E /* button-click.wav in Resources */ = {isa = PBXBuildFile; fileRef = CAEE2F6F2C42A03F00D7D61E /* button-click.wav */; };
 		CAF42CDF29EC907F004D7788 /* View+ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CDE29EC907F004D7788 /* View+ClearButton.swift */; };
@@ -191,6 +192,7 @@
 		CAC59D872C47137900301A43 /* mini_iced_instructions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mini_iced_instructions.json; sourceTree = "<group>"; };
 		CAD01B4E2C395B5B004A1EFF /* StageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageHeaderView.swift; sourceTree = "<group>"; };
 		CAD071E629DCCB000010E561 /* Entities+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entities+Stub.swift"; sourceTree = "<group>"; };
+		CAD226D52C4D82EA00BD6DAD /* RecipeInstructionStepItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructionStepItemView.swift; sourceTree = "<group>"; };
 		CAE3944129DE13C0007611F1 /* CreateRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeView.swift; sourceTree = "<group>"; };
 		CAEE2F6F2C42A03F00D7D61E /* button-click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "button-click.wav"; sourceTree = "<group>"; };
 		CAF42CDE29EC907F004D7788 /* View+ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ClearButton.swift"; sourceTree = "<group>"; };
@@ -482,6 +484,7 @@
 				CA7D9E2A2C4BE4A900908159 /* CreateMethodView.swift */,
 				CA7D9E322C4C153300908159 /* CreateMethodDetailsView.swift */,
 				CA7D9E342C4C15F500908159 /* CreateMethodInstructionsView.swift */,
+				CAD226D52C4D82EA00BD6DAD /* RecipeInstructionStepItemView.swift */,
 			);
 			path = CreateMethod;
 			sourceTree = "<group>";
@@ -848,6 +851,7 @@
 				CA91CEF729E5FA9100E9F5D1 /* AppFlowView.swift in Sources */,
 				CA7B804529BFA9E7007D3DFC /* CountdownTimer.swift in Sources */,
 				CA2A00CE2C0B8FF10040B50D /* GetBrewMethodsUseCase.swift in Sources */,
+				CAD226D62C4D82EA00BD6DAD /* RecipeInstructionStepItemView.swift in Sources */,
 				CA5A7D0F2A0EBA7400C7EC04 /* DTOs.swift in Sources */,
 				CA8C9AF12C0B50ED000A71AC /* RecipeInstructionsRepositoryImp.swift in Sources */,
 				CA1B52B52C0B980400C4B923 /* FetchRecipeInstructionsRequest.swift in Sources */,

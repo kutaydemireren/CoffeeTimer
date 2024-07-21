@@ -9,23 +9,6 @@ import SwiftUI
 
 // TODO: move
 
-struct RecipeInstructionStepItemView: View {
-    let item: RecipeInstructionStepItem
-
-    var body: some View {
-        Text("Hello, \(String(describing: item.recipeInstructionStep?.instructionAction?.message))!")
-    }
-}
-
-//
-
-struct RecipeInstructionStepItem: Identifiable {
-    let id = UUID()
-    let recipeInstructionStep: RecipeInstructionStep?
-}
-
-//
-
 extension Array where Element == RecipeInstructionStepItem {
     static var stub: Self {
         [
