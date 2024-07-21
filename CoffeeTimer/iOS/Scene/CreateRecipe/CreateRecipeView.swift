@@ -98,7 +98,7 @@ final class CreateRecipeViewModel: ObservableObject {
 
 struct CreateRecipeView: View {
 
-    @ObservedObject var viewModel: CreateRecipeViewModel
+    @StateObject var viewModel: CreateRecipeViewModel
     @EnvironmentObject var context: CreateRecipeContext
     var close: () -> Void
     var createMethod: () -> Void
