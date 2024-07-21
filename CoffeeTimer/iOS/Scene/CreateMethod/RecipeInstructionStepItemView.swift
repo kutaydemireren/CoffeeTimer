@@ -218,6 +218,13 @@ final class InstructionViewBuilder {
         return self
     }
 
+    private var details: Binding<String>?
+
+    func with(details: Binding<String>) -> Self {
+        self.details = details
+        return self
+    }
+
     @ViewBuilder
     func build() -> some View {
         ScrollView {
@@ -238,6 +245,14 @@ final class InstructionViewBuilder {
                         title: "Message",
                         placeholder: "",
                         text: message
+                    )
+                }
+
+                if let details {
+                    AlphanumericTextField(
+                        title: "Secondary Message (optional)",
+                        placeholder: "",
+                        text: details
                     )
                 }
             }
@@ -271,6 +286,7 @@ struct MessageInstructionActionView: View {
             InstructionViewBuilder()
                 .with(requirement: model.requirement)
                 .with(message: $model.message)
+                .with(details: $model.details)
                 .build()
 
             Text("startMethod: \(String(describing: model.startMethod))")
