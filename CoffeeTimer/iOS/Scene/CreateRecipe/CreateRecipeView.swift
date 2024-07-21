@@ -101,7 +101,6 @@ struct CreateRecipeView: View {
     @ObservedObject var viewModel: CreateRecipeViewModel
     @EnvironmentObject var context: CreateRecipeContext
     var close: () -> Void
-    var createMethod: () -> Void // TODO: custom method - invoke this for 'create method' flow
 
     @State private var canCreate = false
 
@@ -160,7 +159,7 @@ struct CreateRecipeView: View {
 
 struct CreateRecipeView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateRecipeView(viewModel: .init(), close: { }, createMethod: { })
+        CreateRecipeView(viewModel: .init(), close: { })
             .environmentObject(CreateRecipeContext())
     }
 }

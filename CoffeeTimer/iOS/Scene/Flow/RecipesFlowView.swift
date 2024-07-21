@@ -62,13 +62,13 @@ struct RecipesFlowView: View {
     var body: some View {
         NavigationStack(path: $viewModel.navigationPath) {
             recipes()
-        }
-        .navigationDestination(for: RecipesFlowViewModel.Flow.self) { flow in
-            switch flow {
-            case .createRecipe:
-                createRecipe()
-                    .navigationBarBackButtonHidden(true)
-            }
+                .navigationDestination(for: RecipesFlowViewModel.Flow.self) { flow in
+                    switch flow {
+                    case .createRecipe:
+                        createRecipe()
+                            .navigationBarBackButtonHidden(true)
+                    }
+                }
         }
     }
 
