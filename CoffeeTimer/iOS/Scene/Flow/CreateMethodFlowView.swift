@@ -23,10 +23,6 @@ final class CreateMethodFlowViewModel: ObservableObject, Completable {
         return viewModel
     }
 
-    func close() {
-        didComplete.send(self)
-    }
-
     func didComplete(_ viewModel: CreateMethodViewModel) {
         close()
     }

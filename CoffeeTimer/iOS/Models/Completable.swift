@@ -10,3 +10,9 @@ import Combine
 protocol Completable {
     var didComplete: PassthroughSubject<Self, Never> { get }
 }
+
+extension Completable {
+    func close() {
+        didComplete.send(self)
+    }
+}

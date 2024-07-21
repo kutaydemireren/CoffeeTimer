@@ -58,7 +58,7 @@ extension Array where Element == RecipeInstructionStepItem {
 
 //
 
-struct CreateMethodInstructionStepView: View {
+struct RecipeInstructionStepItemRowView: View {
     let step: RecipeInstructionStepItem
 
     var instructionAction: InstructionAction? {
@@ -106,7 +106,7 @@ struct CreateMethodInstructionsView: View {
         VStack {
             List {
                 ForEach($context.instructions) { instruction in
-                    CreateMethodInstructionStepView(step: instruction.wrappedValue)
+                    RecipeInstructionStepItemRowView(step: instruction.wrappedValue)
                         .onTapGesture {
                             debugPrint("Handle tap here") // TODO: handle tap action
                         }

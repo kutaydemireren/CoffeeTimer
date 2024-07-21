@@ -38,10 +38,6 @@ final class RecipesFlowViewModel: ObservableObject, Completable {
         return viewModel
     }
 
-    func close() {
-        didComplete.send(self)
-    }
-
     private func didComplete(_ recipesViewModel: RecipesViewModel) {
         close()
     }

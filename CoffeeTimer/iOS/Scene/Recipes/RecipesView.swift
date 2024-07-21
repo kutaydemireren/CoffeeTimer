@@ -101,10 +101,6 @@ final class RecipesViewModel: ObservableObject, Completable {
     func create() {
         didCreate.send(self)
     }
-    
-    func close() {
-        didComplete.send(self)
-    }
 }
 
 struct RecipesView: View {

@@ -23,9 +23,6 @@ final class CreateRecipeFlowViewModel: ObservableObject, Completable {
             .store(in: &cancellables)
         return viewModel
     }
-    func close() {
-        didComplete.send(self)
-    }
 
     func crateMethod() {
         isCreateMethodPresented = true

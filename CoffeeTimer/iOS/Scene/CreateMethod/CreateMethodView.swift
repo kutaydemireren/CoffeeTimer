@@ -35,10 +35,6 @@ final class CreateMethodViewModel: ObservableObject, Completable {
     var didComplete = PassthroughSubject<CreateMethodViewModel, Never>()
 
     @Published var selectedPage = 1
-
-    func close() {
-        didComplete.send(self)
-    }
 }
 
 struct CreateMethodView: View {
