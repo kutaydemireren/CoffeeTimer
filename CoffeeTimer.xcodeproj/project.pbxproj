@@ -467,10 +467,10 @@
 		CA7B804929BFABA8007D3DFC /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				CA7D9E292C4BE45B00908159 /* CreateMethod */,
-				CA91CEF429E5FA7D00E9F5D1 /* Flow */,
 				CAF42CE929EC9821004D7788 /* BrewQueue */,
+				CA7D9E292C4BE45B00908159 /* CreateMethod */,
 				CAF42CEA29EC9842004D7788 /* CreateRecipe */,
+				CA91CEF429E5FA7D00E9F5D1 /* Flow */,
 				CA4758DB2A0C2CF20022BC7D /* Recipes */,
 			);
 			path = Scene;
