@@ -109,30 +109,33 @@ struct RecipeInstructionStepItemView: View {
 }
 
 #Preview {
-    RecipeInstructionStepItemView(item: .stubMessage)
+    RecipeInstructionStepItemView(item: .stubPut)
 }
 
 //
 
 final class PutInstructionActionViewModel: ObservableObject {
     @Published var requirement: InstructionRequirementItem?
-    @Published var startMethod: InstructionInteractionMethodItem
-    @Published var skipMethod: InstructionInteractionMethodItem
+    @Published var duration: Double
+    @Published var startMethod: InstructionInteractionMethodItem?
+    @Published var skipMethod: InstructionInteractionMethodItem?
     @Published var message: String
     @Published var details: String
-    @Published var ingredient: IngredientType
+    @Published var ingredient: IngredientTypeItem?
     @Published var amount: String // TODO: parse
 
     init(
         requirement: InstructionRequirementItem,
+        duration: Double = 0,
         startMethod: InstructionInteractionMethodItem,
         skipMethod: InstructionInteractionMethodItem,
         message: String,
         details: String,
-        ingredient: IngredientType,
+        ingredient: IngredientTypeItem,
         amount: String
     ) {
         self.requirement = requirement
+        self.duration = duration
         self.startMethod = startMethod
         self.skipMethod = skipMethod
         self.message = message
@@ -149,17 +152,14 @@ struct PutInstructionActionView: View {
         VStack {
             InstructionActionViewBuilder()
                 .with(requirement: $model.requirement)
+                .with(duration: $model.duration)
+                .with(startMethod: $model.startMethod)
+                .with(skipMethod: $model.skipMethod)
                 .with(message: $model.message)
                 .with(details: $model.details)
+                .with(ingredient: $model.ingredient)
+                .with(amount: $model.amount)
                 .build()
-
-            Text("requirement: \(String(describing: model.requirement))")
-            Text("startMethod: \(String(describing: model.startMethod))")
-            Text("skipMethod: \(String(describing: model.skipMethod))")
-            Text("message: \(String(describing: model.message))")
-            Text("details: \(String(describing: model.details))")
-            Text("ingredient: \(String(describing: model.ingredient))")
-            Text("amount: \(String(describing: model.amount))")
         }
     }
 }
@@ -297,7 +297,7 @@ final class InstructionActionViewBuilder {
 
                 if let duration, requirement?.wrappedValue == .countdown {
                     NumericTextField(
-                        title: "Duration (in seconds - limit to 300 seconds)",
+                        title: "Duration (in seconds - limited to 300 seconds)",
                         placeholder: "",
                         keyboardType: .number,
                         range: .init(minimum: 1, maximum: 5 * 60),
@@ -356,8 +356,8 @@ final class InstructionActionViewBuilder {
 
                 if let amount {
                     AlphanumericTextField(
-                        title: "Amount (23 | 0.4 * #coffee | 0.6 * #current.water | 0.7 * #remaining.water)",
-                        placeholder: "",
+                        title: "Amount (gram) (23 | 0.4 * #coffee | 0.6 * #current.water | 0.7 * #remaining.water)",
+                        placeholder: "0.2 * #current.water",
                         text: amount
                     )
                 }
