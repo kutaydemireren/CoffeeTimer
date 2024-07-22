@@ -147,7 +147,7 @@ struct PutInstructionActionView: View {
 
     var body: some View {
         VStack {
-            InstructionViewBuilder()
+            InstructionActionViewBuilder()
                 .with(requirement: $model.requirement)
                 .with(message: $model.message)
                 .with(details: $model.details)
@@ -202,7 +202,7 @@ struct PauseInstructionActionView: View {
 
 //
 
-final class InstructionViewBuilder {
+final class InstructionActionViewBuilder {
     private var requirementConstant: Bool = false
     private var requirement: Binding<InstructionRequirementItem?>?
 
@@ -289,7 +289,7 @@ struct MessageInstructionActionView: View {
 
     var body: some View {
         VStack {
-            InstructionViewBuilder()
+            InstructionActionViewBuilder()
                 .with(requirement: model.requirement)
                 .with(message: $model.message)
                 .with(details: $model.details)
