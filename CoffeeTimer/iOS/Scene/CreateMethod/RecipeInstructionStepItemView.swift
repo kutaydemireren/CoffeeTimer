@@ -266,6 +266,13 @@ final class InstructionActionViewBuilder {
         return self
     }
 
+    private var amount: Binding<String>?
+
+    func with(amount: Binding<String>) -> Self {
+        self.amount = amount
+        return self
+    }
+
     @ViewBuilder
     func build() -> some View {
         ScrollView {
@@ -328,6 +335,14 @@ final class InstructionActionViewBuilder {
                     )
                     .disabled(startMethodConstant)
                     .grayscale(startMethodConstant ? 0.5 : 0.0)
+                }
+
+                if let amount {
+                    AlphanumericTextField(
+                        title: "Amount (23 | 0.4 * #coffee | 0.6 * #current.water | 0.7 * #remaining.water)",
+                        placeholder: "",
+                        text: amount
+                    )
                 }
             }
         }
