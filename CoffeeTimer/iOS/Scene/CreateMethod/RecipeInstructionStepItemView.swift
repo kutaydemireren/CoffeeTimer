@@ -116,8 +116,8 @@ struct RecipeInstructionStepItemView: View {
 
 final class PutInstructionActionViewModel: ObservableObject {
     @Published var requirement: InstructionRequirementItem?
-    @Published var startMethod: InstructionInteractionMethod
-    @Published var skipMethod: InstructionInteractionMethod
+    @Published var startMethod: InstructionInteractionMethodItem
+    @Published var skipMethod: InstructionInteractionMethodItem
     @Published var message: String
     @Published var details: String
     @Published var ingredient: IngredientType
@@ -125,8 +125,8 @@ final class PutInstructionActionViewModel: ObservableObject {
 
     init(
         requirement: InstructionRequirementItem,
-        startMethod: InstructionInteractionMethod,
-        skipMethod: InstructionInteractionMethod,
+        startMethod: InstructionInteractionMethodItem,
+        skipMethod: InstructionInteractionMethodItem,
         message: String,
         details: String,
         ingredient: IngredientType,
@@ -167,9 +167,9 @@ struct PutInstructionActionView: View {
 //
 
 final class PauseInstructionActionViewModel: ObservableObject {
-    let requirement: InstructionRequirement = .countdown(0)
-    let startMethod: InstructionInteractionMethod = .auto
-    let skipMethod: InstructionInteractionMethod = .auto
+    let requirement: InstructionRequirementItem = .countdown
+    let startMethod: InstructionInteractionMethodItem = .auto
+    let skipMethod: InstructionInteractionMethodItem = .auto
     @Published var message: String
     @Published var details: String
     @Published var duration: Double
@@ -217,6 +217,19 @@ final class InstructionActionViewBuilder {
         return self
     }
 
+    private var startMethodConstant: Bool = false
+    private var startMethod: Binding<InstructionInteractionMethodItem?>?
+
+    private func with(startMethod: InstructionInteractionMethodItem) -> Self {
+        self.startMethod = .constant(startMethod)
+        return self
+    }
+
+    private func with(startMethod: Binding<InstructionInteractionMethodItem?>?) -> Self {
+        self.startMethod = startMethod
+        return self
+    }
+
     private var message: Binding<String>?
 
     func with(message: Binding<String>) -> Self {
@@ -239,6 +252,17 @@ final class InstructionActionViewBuilder {
                     TitledPicker(
                         selectedItem: requirement,
                         allItems: .constant(InstructionRequirementItem.allCases),
+                        title: "Requirement",
+                        placeholder: ""
+                    )
+                    .disabled(requirementConstant)
+                    .grayscale(requirementConstant ? 0.5 : 0.0)
+                }
+
+                if let startMethod {
+                    TitledPicker(
+                        selectedItem: startMethod,
+                        allItems: .constant(InstructionInteractionMethodItem.allCases),
                         title: "Requirement",
                         placeholder: ""
                     )
@@ -270,8 +294,8 @@ final class InstructionActionViewBuilder {
 
 final class MessageInstructionActionViewModel: ObservableObject {
     let requirement: InstructionRequirementItem = .none
-    let startMethod: InstructionInteractionMethod = .userInteractive
-    let skipMethod: InstructionInteractionMethod = .userInteractive
+    let startMethod: InstructionInteractionMethodItem = .userInteractive
+    let skipMethod: InstructionInteractionMethodItem = .userInteractive
     @Published var message: String
     @Published var details: String
 
@@ -297,11 +321,11 @@ struct MessageInstructionActionView: View {
 
             Text("startMethod: \(String(describing: model.startMethod))")
             Text("skipMethod: \(String(describing: model.skipMethod))")
-            Text("message: \(String(describing: model.message))")
-            Text("details: \(String(describing: model.details))")
         }
     }
 }
+
+//
 
 enum InstructionRequirementItem: String, Titled, Hashable, Identifiable, CaseIterable {
     var id: Self {
@@ -313,5 +337,20 @@ enum InstructionRequirementItem: String, Titled, Hashable, Identifiable, CaseIte
     }
 
     case `none` = "none"
-    case countknown = "countdown"
+    case countdown = "countdown"
+}
+
+//
+
+enum InstructionInteractionMethodItem: String, Titled, Hashable, Identifiable, CaseIterable {
+    var id: Self {
+        return self
+    }
+
+    var title: String {
+        return rawValue
+    }
+
+    case auto
+    case userInteractive
 }
