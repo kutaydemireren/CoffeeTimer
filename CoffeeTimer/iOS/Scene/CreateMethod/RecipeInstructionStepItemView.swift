@@ -217,6 +217,13 @@ final class InstructionActionViewBuilder {
         return self
     }
 
+    private var duration: Binding<Double>?
+
+    func with(duration: Binding<Double>) -> Self {
+        self.duration = duration
+        return self
+    }
+
     private var startMethodConstant: Bool = false
     private var startMethod: Binding<InstructionInteractionMethodItem?>?
 
@@ -286,6 +293,16 @@ final class InstructionActionViewBuilder {
                     )
                     .disabled(requirementConstant)
                     .grayscale(requirementConstant ? 0.5 : 0.0)
+                }
+
+                if let duration, requirement?.wrappedValue == .countdown {
+                    NumericTextField(
+                        title: "Duration (in seconds - limit to 300 seconds)",
+                        placeholder: "",
+                        keyboardType: .number,
+                        range: .init(minimum: 1, maximum: 5 * 60),
+                        input: duration
+                    )
                 }
 
                 if let startMethod {
