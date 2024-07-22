@@ -109,7 +109,7 @@ struct RecipeInstructionStepItemView: View {
 }
 
 #Preview {
-    RecipeInstructionStepItemView(item: .stubPut)
+    RecipeInstructionStepItemView(item: .stubMessage)
 }
 
 //
@@ -220,13 +220,28 @@ final class InstructionActionViewBuilder {
     private var startMethodConstant: Bool = false
     private var startMethod: Binding<InstructionInteractionMethodItem?>?
 
-    private func with(startMethod: InstructionInteractionMethodItem) -> Self {
+    func with(startMethod: InstructionInteractionMethodItem) -> Self {
         self.startMethod = .constant(startMethod)
+        startMethodConstant = true
         return self
     }
 
-    private func with(startMethod: Binding<InstructionInteractionMethodItem?>?) -> Self {
+    func with(startMethod: Binding<InstructionInteractionMethodItem?>?) -> Self {
         self.startMethod = startMethod
+        return self
+    }
+
+    private var skipMethodConstant: Bool = false
+    private var skipMethod: Binding<InstructionInteractionMethodItem?>?
+
+    func with(skipMethod: InstructionInteractionMethodItem) -> Self {
+        self.skipMethod = .constant(skipMethod)
+        skipMethodConstant = true
+        return self
+    }
+
+    func with(skipMethod: Binding<InstructionInteractionMethodItem?>?) -> Self {
+        self.skipMethod = skipMethod
         return self
     }
 
@@ -263,11 +278,22 @@ final class InstructionActionViewBuilder {
                     TitledPicker(
                         selectedItem: startMethod,
                         allItems: .constant(InstructionInteractionMethodItem.allCases),
-                        title: "Requirement",
+                        title: "Start Requirement Method",
                         placeholder: ""
                     )
-                    .disabled(requirementConstant)
-                    .grayscale(requirementConstant ? 0.5 : 0.0)
+                    .disabled(startMethodConstant)
+                    .grayscale(startMethodConstant ? 0.5 : 0.0)
+                }
+
+                if let skipMethod {
+                    TitledPicker(
+                        selectedItem: skipMethod,
+                        allItems: .constant(InstructionInteractionMethodItem.allCases),
+                        title: "Skip Step Method",
+                        placeholder: ""
+                    )
+                    .disabled(skipMethodConstant)
+                    .grayscale(skipMethodConstant ? 0.5 : 0.0)
                 }
 
                 if let message {
@@ -315,12 +341,11 @@ struct MessageInstructionActionView: View {
         VStack {
             InstructionActionViewBuilder()
                 .with(requirement: model.requirement)
+                .with(startMethod: model.startMethod)
+                .with(skipMethod: model.skipMethod)
                 .with(message: $model.message)
                 .with(details: $model.details)
                 .build()
-
-            Text("startMethod: \(String(describing: model.startMethod))")
-            Text("skipMethod: \(String(describing: model.skipMethod))")
         }
     }
 }
