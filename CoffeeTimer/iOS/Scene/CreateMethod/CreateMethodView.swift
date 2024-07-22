@@ -24,8 +24,8 @@ final class CreateMethodContext: ObservableObject {
 
     @Published var isIcedBrew: Bool = false
 
-    @Published var selectedInstruction: RecipeInstructionStepItem?
-    @Published var instructions: [RecipeInstructionStepItem] = []
+    @Published var selectedInstruction: RecipeInstructionActionItem?
+    @Published var instructions: [RecipeInstructionActionItem] = []
 }
 
 //
@@ -34,11 +34,11 @@ import Combine
 
 final class CreateMethodViewModel: ObservableObject, Completable {
     var didComplete = PassthroughSubject<CreateMethodViewModel, Never>()
-    var didSelect = PassthroughSubject<RecipeInstructionStepItem, Never>()
+    var didSelect = PassthroughSubject<RecipeInstructionActionItem, Never>()
 
     @Published var selectedPage = 1
 
-    func didSelect(_ item: RecipeInstructionStepItem) {
+    func didSelect(_ item: RecipeInstructionActionItem) {
         didSelect.send(item)
     }
 }

@@ -40,7 +40,7 @@ final class CreateMethodFlowViewModel: ObservableObject, Completable {
         close()
     }
 
-    func didSelect(_ item: RecipeInstructionStepItem) {
+    func didSelect(_ item: RecipeInstructionActionItem) {
         context.selectedInstruction = item
         navigationPath.append(.editInstruction)
     }
@@ -70,7 +70,7 @@ struct CreateMethodFlowView: View {
     @ViewBuilder
     func editInstructionIfSelected() -> some View {
         if let selectedInstruction = viewModel.context.selectedInstruction {
-            RecipeInstructionStepItemView(item: selectedInstruction)
+            RecipeInstructionActionView(item: selectedInstruction)
         } else {
             EmptyView()
         }

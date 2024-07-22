@@ -9,7 +9,7 @@ import SwiftUI
 
 // TODO: move
 
-extension Array where Element == RecipeInstructionStepItem {
+extension Array where Element == RecipeInstructionActionItem {
     static var stub: Self {
         [
             .init(action: .put(.stub)),
@@ -22,8 +22,8 @@ extension Array where Element == RecipeInstructionStepItem {
 
 //
 
-struct RecipeInstructionStepItemRowView: View {
-    let step: RecipeInstructionStepItem
+struct RecipeInstructionActionItemRowView: View {
+    let step: RecipeInstructionActionItem
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -56,7 +56,7 @@ struct CreateMethodInstructionsView: View {
     @EnvironmentObject var context: CreateMethodContext
     @ObservedObject var viewModel = CreateMethodInstructionsViewModel()
 
-    var didSelect: ((RecipeInstructionStepItem) -> Void)?
+    var didSelect: ((RecipeInstructionActionItem) -> Void)?
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -68,7 +68,7 @@ struct CreateMethodInstructionsView: View {
         VStack {
             List {
                 ForEach($context.instructions) { instruction in
-                    RecipeInstructionStepItemRowView(step: instruction.wrappedValue)
+                    RecipeInstructionActionItemRowView(step: instruction.wrappedValue)
                         .onTapGesture {
                             didSelect?(instruction.wrappedValue)
                         }
