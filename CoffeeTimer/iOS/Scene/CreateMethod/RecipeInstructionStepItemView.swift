@@ -109,7 +109,7 @@ struct RecipeInstructionStepItemView: View {
 }
 
 #Preview {
-    RecipeInstructionStepItemView(item: .stubPut)
+    RecipeInstructionStepItemView(item: .stubPause)
 }
 
 //
@@ -190,12 +190,14 @@ struct PauseInstructionActionView: View {
 
     var body: some View {
         VStack {
-            Text("requirement: \(String(describing: model.requirement))")
-            Text("startMethod: \(String(describing: model.startMethod))")
-            Text("skipMethod: \(String(describing: model.skipMethod))")
-            Text("message: \(String(describing: model.message))")
-            Text("details: \(String(describing: model.details))")
-            Text("duration: \(String(describing: model.duration))")
+            InstructionActionViewBuilder()
+                .with(requirement: model.requirement)
+                .with(duration: $model.duration)
+                .with(startMethod: model.startMethod)
+                .with(skipMethod: model.skipMethod)
+                .with(message: $model.message)
+                .with(details: $model.details)
+                .build()
         }
     }
 }
