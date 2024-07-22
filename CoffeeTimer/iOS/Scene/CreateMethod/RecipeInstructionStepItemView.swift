@@ -259,6 +259,13 @@ final class InstructionActionViewBuilder {
         return self
     }
 
+    private var ingredient: Binding<IngredientTypeItem?>?
+
+    func with(ingredient: Binding<IngredientTypeItem?>) -> Self {
+        self.ingredient = ingredient
+        return self
+    }
+
     @ViewBuilder
     func build() -> some View {
         ScrollView {
@@ -310,6 +317,17 @@ final class InstructionActionViewBuilder {
                         placeholder: "",
                         text: details
                     )
+                }
+
+                if let ingredient {
+                    TitledPicker(
+                        selectedItem: ingredient,
+                        allItems: .constant(IngredientTypeItem.allCases),
+                        title: "Start Requirement Method",
+                        placeholder: ""
+                    )
+                    .disabled(startMethodConstant)
+                    .grayscale(startMethodConstant ? 0.5 : 0.0)
                 }
             }
         }
@@ -378,4 +396,20 @@ enum InstructionInteractionMethodItem: String, Titled, Hashable, Identifiable, C
 
     case auto
     case userInteractive
+}
+
+//
+
+enum IngredientTypeItem: String, Titled, Hashable, Identifiable, CaseIterable {
+    var id: Self {
+        return self
+    }
+
+    var title: String {
+        return rawValue
+    }
+
+    case coffee
+    case water
+    case ice
 }
