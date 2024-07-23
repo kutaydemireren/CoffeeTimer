@@ -13,12 +13,12 @@ final class CreateMethodFlowViewModel: ObservableObject, Completable {
         case editInstruction
     }
 
-    // TODO: revert this back to simple init
-    @Published var context: CreateMethodContext = {
-        let context = CreateMethodContext()
-        context.instructions = .stub
-        return context
-    }()
+    private var selectedInstruction: RecipeInstructionActionItem?
+    var selectedInstructionIndex: Int? {
+        return context.instructions.firstIndex(where: { $0.id == selectedInstruction?.id })
+    }
+
+    @Published var context = CreateMethodContext()
     @Published var navigationPath: [Flow] = []
 
     var didComplete = PassthroughSubject<CreateMethodFlowViewModel, Never>()
@@ -33,6 +33,16 @@ final class CreateMethodFlowViewModel: ObservableObject, Completable {
         viewModel.didSelect
             .sink(receiveValue: didSelect(_:))
             .store(in: &cancellables)
+        $navigationPath
+            .sink { flows in
+                if flows.isEmpty {
+                    debugPrint("----- start of CreateMethodFlowView")
+                    self.context.instructions.forEach { debugPrint($0.action.message) }
+                    debugPrint("----- end CreateMethodFlowView -----")
+                    self.context.objectWillChange.send()
+                }
+            }
+            .store(in: &cancellables)
         return viewModel
     }
 
@@ -41,7 +51,7 @@ final class CreateMethodFlowViewModel: ObservableObject, Completable {
     }
 
     func didSelect(_ item: RecipeInstructionActionItem) {
-        context.selectedInstruction = item
+        selectedInstruction = item
         navigationPath.append(.editInstruction)
     }
 }
@@ -69,10 +79,8 @@ struct CreateMethodFlowView: View {
 
     @ViewBuilder
     func editInstructionIfSelected() -> some View {
-        if let selectedInstruction = viewModel.context.selectedInstruction {
-            RecipeInstructionActionView(item: selectedInstruction)
-        } else {
-            EmptyView()
+        if let index = viewModel.selectedInstructionIndex {
+            RecipeInstructionActionView(item: $viewModel.context.instructions[index])
         }
     }
 }

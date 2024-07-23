@@ -152,7 +152,7 @@ final class InstructionActionViewBuilder {
                     TitledPicker(
                         selectedItem: ingredient,
                         allItems: .constant(IngredientTypeItem.allCases),
-                        title: "Start Requirement Method",
+                        title: "Ingredient",
                         placeholder: ""
                     )
                     .disabled(startMethodConstant)

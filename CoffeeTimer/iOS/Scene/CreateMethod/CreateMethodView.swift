@@ -24,7 +24,6 @@ final class CreateMethodContext: ObservableObject {
 
     @Published var isIcedBrew: Bool = false
 
-    @Published var selectedInstruction: RecipeInstructionActionItem?
     @Published var instructions: [RecipeInstructionActionItem] = []
 }
 

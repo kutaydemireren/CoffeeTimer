@@ -13,7 +13,8 @@ struct RecipeInstructionActionItem: Identifiable {
 }
 
 struct RecipeInstructionActionView: View {
-    @State var item: RecipeInstructionActionItem
+
+    @Binding var item: RecipeInstructionActionItem
 
     var body: some View {
         actionView
@@ -34,5 +35,5 @@ struct RecipeInstructionActionView: View {
 }
 
 #Preview {
-    RecipeInstructionActionView(item: .stubPause)
+    RecipeInstructionActionView(item: .constant(.stubPause))
 }

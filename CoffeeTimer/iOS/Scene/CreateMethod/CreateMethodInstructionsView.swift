@@ -41,6 +41,10 @@ struct RecipeInstructionActionItemRowView: View {
 //
 
 final class CreateMethodInstructionsViewModel: ObservableObject {
+    func addNewInstruction(context: CreateMethodContext) {
+        context.instructions.append(.init(action: .message(.init(message: "", details: ""))))
+    }
+
     func removeInstruction(at indexSet: IndexSet, context: CreateMethodContext) {
         context.instructions.remove(atOffsets: indexSet)
     }
@@ -61,9 +65,35 @@ struct CreateMethodInstructionsView: View {
     var body: some View {
         ZStack(alignment: .top) {
             content
+
+            addButtonIfSet
         }
     }
 
+    @ViewBuilder
+    private var addButtonIfSet: some View {
+        HStack {
+            VStack {
+                Spacer()
+
+                Button {
+                    viewModel.addNewInstruction(context: context)
+                } label: {
+                    HStack {
+                        Image(uiImage: .add)
+                            .renderingMode(.template)
+
+                        Text("New Instruction")
+                    }
+                    .foregroundColor(Color("foregroundPrimary"))
+                }
+                .padding()
+                .backgroundSecondary(opacity: 0.6)
+            }
+        }
+    }
+
+    @ViewBuilder
     private var content: some View {
         VStack {
             List {
@@ -79,6 +109,11 @@ struct CreateMethodInstructionsView: View {
             .listStyle(.plain)
             .scrollIndicators(.hidden)
             .scrollContentBackground(.hidden)
+        }
+        .onAppear {
+            debugPrint("----- start of CreateMethodInstructionsView")
+            context.instructions.forEach { debugPrint($0.action.message) }
+            debugPrint("----- end CreateMethodInstructionsView -----")
         }
         .padding()
     }
