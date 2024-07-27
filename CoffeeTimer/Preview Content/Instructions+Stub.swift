@@ -41,12 +41,12 @@ extension PutInstructionActionViewModel {
     }
 }
 
-extension PauseInstructionActionViewModel {
+extension PauseActionModel {
     static var stub: Self {
         .init(
+            duration: 20,
             message: "pause msg",
-            details: "dtl",
-            duration: 20
+            details: "dtl"
         )
     }
 }
