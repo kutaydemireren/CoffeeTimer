@@ -51,7 +51,7 @@ extension PauseInstructionActionViewModel {
     }
 }
 
-extension MessageInstructionActionViewModel {
+extension MessageActionModel {
     static var stub: Self {
         .init(
             message: "message msg",

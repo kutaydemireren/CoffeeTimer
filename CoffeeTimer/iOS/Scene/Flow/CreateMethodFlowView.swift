@@ -33,16 +33,6 @@ final class CreateMethodFlowViewModel: ObservableObject, Completable {
         viewModel.didSelect
             .sink(receiveValue: didSelect(_:))
             .store(in: &cancellables)
-        $navigationPath
-            .sink { flows in
-                if flows.isEmpty {
-                    debugPrint("----- start of CreateMethodFlowView")
-                    self.context.instructions.forEach { debugPrint($0.action.message) }
-                    self.context.objectWillChange.send()
-                    debugPrint("----- end CreateMethodFlowView -----")
-                }
-            }
-            .store(in: &cancellables)
         return viewModel
     }
 

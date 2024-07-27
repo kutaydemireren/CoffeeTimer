@@ -10,7 +10,7 @@ import Foundation
 enum RecipeInstructionAction {
     case put(PutInstructionActionViewModel)
     case pause(PauseInstructionActionViewModel)
-    case message(MessageInstructionActionViewModel)
+    case message(MessageActionModel)
 
     var message: String {
         switch self {

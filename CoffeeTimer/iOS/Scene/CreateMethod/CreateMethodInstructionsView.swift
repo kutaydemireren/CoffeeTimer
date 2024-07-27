@@ -42,7 +42,9 @@ struct RecipeInstructionActionItemRowView: View {
 
 final class CreateMethodInstructionsViewModel: ObservableObject {
     func addNewInstruction(context: CreateMethodContext) {
-        context.instructions.append(.init(action: .message(.init(message: "", details: ""))))
+        context.instructions.append(.init(action: .message(.init(message: "msg", details: ""))))
+
+//            .append(.init(action: .message(.init(message: "", details: ""))))
     }
 
     func removeInstruction(at indexSet: IndexSet, context: CreateMethodContext) {

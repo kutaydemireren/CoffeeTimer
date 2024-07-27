@@ -3,4 +3,100 @@
    uuid = "D8BB661D-B0B9-4AB0-9F08-70AB30A272A0"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CB56626E-472D-42CD-B3BB-551DA6EEBAB8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoffeeTimer/iOS/Scene/CreateMethod/Instructions/MessageInstructionActionView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "64C01F8D-CDFD-4F88-BE56-B2D9877E8C9B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoffeeTimer/iOS/Scene/CreateMethod/Instructions/MessageInstructionActionView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "init?(item:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A677467F-DA0D-48D7-B24D-7556AC0EE146"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoffeeTimer/iOS/Scene/CreateMethod/Instructions/MessageInstructionActionView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "init?(item:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3095A1CB-FC3A-47EE-AA17-84A9FAB21623"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoffeeTimer/iOS/Scene/CreateMethod/Instructions/RecipeInstructionActionView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "actionView"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "3095A1CB-FC3A-47EE-AA17-84A9FAB21623 - e8f2d45c8e388bfc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CoffeeTimer.RecipeInstructionActionView.actionView.getter : some"
+                  moduleName = "CoffeeTimer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kutaydemireren/Documents/projects/CoffeeTimer/CoffeeTimer/iOS/Scene/CreateMethod/Instructions/RecipeInstructionActionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31">
+               </Location>
+               <Location
+                  uuid = "3095A1CB-FC3A-47EE-AA17-84A9FAB21623 - e8f2d45c8e388bfc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CoffeeTimer.RecipeInstructionActionView.actionView.getter : some"
+                  moduleName = "CoffeeTimer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kutaydemireren/Documents/projects/CoffeeTimer/CoffeeTimer/iOS/Scene/CreateMethod/Instructions/RecipeInstructionActionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

@@ -27,8 +27,10 @@ struct RecipeInstructionActionView: View {
             PutInstructionActionView(model: model)
         case .pause(let model):
             PauseInstructionActionView(model: model)
-        case .message(let model):
-            MessageInstructionActionView(model: model)
+        case .message:
+            if let view = MessageInstructionActionView(item: $item) {
+                view
+            }
         }
     }
 }
