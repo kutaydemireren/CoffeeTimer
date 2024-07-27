@@ -25,13 +25,6 @@ struct MessageInstructionActionView: View {
                 .with(startMethod: .userInteractive)
                 .with(skipMethod: .userInteractive)
                 .with(message: $item.messageBinding())
-                .with(message: .init(get: {
-                    guard case .message(let model) = item.action else { return "" }
-                    return model.message
-                }, set: { newValue in
-                    guard case .message(let model) = item.action else { return }
-                    item = item.updating(action: .message(.init(message: newValue, details: model.details)))
-                }))
                 .with(details: .init(get: {
                     guard case .message(let model) = item.action else { return "" }
                     return model.details
@@ -45,27 +38,43 @@ struct MessageInstructionActionView: View {
 }
 
 // TODO: move
+protocol InstructionActionMessage {
+    var message: String { get }
+    func updating(message: String) -> RecipeInstructionAction
+}
+
+extension MessageActionModel: InstructionActionMessage {
+    func updating(message: String) -> RecipeInstructionAction {
+        .message(.init(message: message, details: details))
+    }
+}
+
+extension PauseActionModel: InstructionActionMessage {
+    func updating(message: String) -> RecipeInstructionAction {
+        .pause(.init(duration: duration, message: message, details: details))
+    }
+}
+
+extension RecipeInstructionActionItem {
+    var actionMessage: InstructionActionMessage {
+        switch action {
+        case .message(let model):
+            return model
+        case .pause:
+            fatalError("not implemented")
+        case .put:
+            fatalError("not implemented")
+        }
+    }
+}
+
 extension Binding where Value == RecipeInstructionActionItem {
     func messageBinding() -> Binding<String> {
-        return Binding<String>(get: {
-            switch wrappedValue.action {
-            case .message(let model):
-                return model.message
-            case .pause(let model):
-                return model.message
-            case .put(let model):
-                return model.message
-            }
-        }, set: { newValue in
-            switch wrappedValue.action {
-            case .message(let model):
-                wrappedValue = wrappedValue.updating(action: .message(.init(message: newValue, details: model.details)))
-            case .pause(let model):
-                wrappedValue = wrappedValue.updating(action: .pause(.init(duration: model.duration, message: newValue, details: model.details)))
-            case .put:
-                fatalError("not implemented")
-            }
-        })
+        return .init {
+            wrappedValue.actionMessage.message
+        } set: { newMessage in
+            wrappedValue = wrappedValue.updating(action: wrappedValue.actionMessage.updating(message: newMessage))
+        }
     }
 
     func detailBinding() -> Binding<String> {
