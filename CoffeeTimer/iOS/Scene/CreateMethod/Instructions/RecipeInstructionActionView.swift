@@ -23,11 +23,16 @@ extension RecipeInstructionActionItem {
     }
 }
 
+let builder = InstructionActionViewBuilder()
+
 struct RecipeInstructionActionView: View {
     @Binding var item: RecipeInstructionActionItem
 
     var body: some View {
-        actionView
+//        actionView
+//            .padding()
+        requirementIfNeeded()
+            .build()
             .padding()
     }
 
@@ -47,6 +52,22 @@ struct RecipeInstructionActionView: View {
                 view
             }
         }
+    }
+
+    private func requirementIfNeeded() -> InstructionActionViewBuilder {
+        if let requirement = item.action.requirement {
+            if let updatableRequirement = item.action.updatableRequirement {
+                return builder.with(requirement: .init(get: {
+                    updatableRequirement.requirement
+                }, set: { newValue in
+                    item = item.updating(action: updatableRequirement.updating(requirement: newValue ?? requirement.requirement))
+                }))
+            } else {
+                return builder.with(requirement: requirement.requirement)
+            }
+        }
+
+        return builder
     }
 }
 

@@ -90,8 +90,11 @@ extension PutActionModel: UpdatableInstructionActionDuration {
 
 //
 
-protocol UpdatableInstructionActionRequirement {
+protocol InstructionActionRequirement {
     var requirement: InstructionRequirementItem { get }
+}
+
+protocol UpdatableInstructionActionRequirement: InstructionActionRequirement {
     func updating(requirement: InstructionRequirementItem) -> RecipeInstructionAction
 }
 
@@ -165,6 +168,10 @@ extension RecipeInstructionAction {
         case .put(let model):
             return model
         }
+    }
+
+    var requirement: InstructionActionRequirement? {
+        return unsafeModel as? InstructionActionRequirement
     }
 
     var updatableRequirement: UpdatableInstructionActionRequirement? {
