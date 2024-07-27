@@ -141,6 +141,20 @@ extension PutActionModel: UpdatableInstructionActionIngredient {
 
 //
 
+/* TODO: custom method - convenient instruction views to work with
+ Apply below logic to `RecipeInstructionActionView` and remove separated views (`MessageInstructionActionView`)
+ This will remove view constraints in the logic, and make single `RecipeInstructionActionView` to rely on the model (e.g. MessageActionModel).
+
+ (e.g. X = requirement)
+ -> model is X
+   -> model is updatable X
+      -> add to builder as binding
+   -> model is plain X
+      -> add to builder as constant
+ -> model is not X
+    -> do not display X
+ */
+
 extension RecipeInstructionAction {
     private var unsafeModel: Any {
         switch self {
