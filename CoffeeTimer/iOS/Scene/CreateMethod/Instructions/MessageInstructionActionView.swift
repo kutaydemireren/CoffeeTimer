@@ -55,25 +55,53 @@ extension PauseActionModel: InstructionActionMessage {
     }
 }
 
-extension RecipeInstructionActionItem {
-    var actionMessage: InstructionActionMessage {
-        switch action {
+//
+
+protocol InstructionActionDuration {
+    var duration: Double { get }
+    func updating(duration: Double) -> RecipeInstructionAction
+}
+
+extension PauseActionModel: InstructionActionDuration {
+    func updating(duration: Double) -> RecipeInstructionAction {
+        return .pause(.init(duration: duration, message: message, details: details))
+    }
+}
+
+//
+
+extension RecipeInstructionAction {
+    var message: InstructionActionMessage {
+        switch self {
         case .message(let model):
             return model
-        case .pause:
+        case .pause(let model):
+            return model
+        case .put:
             fatalError("not implemented")
+        }
+    }
+
+    var duration: InstructionActionDuration? {
+        switch self {
+        case .message(let model):
+            return nil
+        case .pause(let model):
+            return model
         case .put:
             fatalError("not implemented")
         }
     }
 }
 
+//
+
 extension Binding where Value == RecipeInstructionActionItem {
     func messageBinding() -> Binding<String> {
         return .init {
-            wrappedValue.actionMessage.message
+            wrappedValue.action.message.message
         } set: { newMessage in
-            wrappedValue = wrappedValue.updating(action: wrappedValue.actionMessage.updating(message: newMessage))
+            wrappedValue = wrappedValue.updating(action: wrappedValue.action.message.updating(message: newMessage))
         }
     }
 
@@ -100,24 +128,14 @@ extension Binding where Value == RecipeInstructionActionItem {
     }
 
     func durationBinding() -> Binding<Double> {
-        return .init(get: {
-            switch wrappedValue.action {
-            case .message:
-                return 0
-            case .pause(let model):
-                return model.duration
-            case .put(let model):
-                return model.duration
-            }
-        }, set: { newValue in
-            switch wrappedValue.action {
-            case .message:
-                return
-            case .pause(let model):
-                wrappedValue = wrappedValue.updating(action: .pause(.init(duration: newValue, message: model.message, details: model.details)))
-            case .put:
-                fatalError("not implemented")
-            }
-        })
+        guard let actionDuration = wrappedValue.action.duration else {
+            return .constant(0)
+        }
+
+        return .init {
+            actionDuration.duration
+        } set: { newValue in
+            wrappedValue = wrappedValue.updating(action: actionDuration.updating(duration: newValue))
+        }
     }
 }

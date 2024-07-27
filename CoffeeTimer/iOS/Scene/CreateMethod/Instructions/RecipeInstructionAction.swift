@@ -11,17 +11,6 @@ enum RecipeInstructionAction {
     case put(PutInstructionActionViewModel)
     case pause(PauseActionModel)
     case message(MessageActionModel)
-
-    var message: String {
-        switch self {
-        case .put(let model):
-            return model.message
-        case .pause(let model):
-            return model.message
-        case .message(let model):
-            return model.message
-        }
-    }
 }
 
 struct MessageActionModel: Equatable {
