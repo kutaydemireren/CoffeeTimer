@@ -13,7 +13,6 @@ struct RecipeInstructionActionItem: Identifiable {
 }
 
 struct RecipeInstructionActionView: View {
-
     @Binding var item: RecipeInstructionActionItem
 
     var body: some View {

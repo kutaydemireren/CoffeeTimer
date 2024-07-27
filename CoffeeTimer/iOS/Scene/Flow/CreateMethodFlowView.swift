@@ -38,8 +38,8 @@ final class CreateMethodFlowViewModel: ObservableObject, Completable {
                 if flows.isEmpty {
                     debugPrint("----- start of CreateMethodFlowView")
                     self.context.instructions.forEach { debugPrint($0.action.message) }
-                    debugPrint("----- end CreateMethodFlowView -----")
                     self.context.objectWillChange.send()
+                    debugPrint("----- end CreateMethodFlowView -----")
                 }
             }
             .store(in: &cancellables)

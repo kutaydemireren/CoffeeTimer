@@ -66,12 +66,12 @@ struct CreateMethodInstructionsView: View {
         ZStack(alignment: .top) {
             content
 
-            addButtonIfSet
+            addNewButton
         }
     }
 
     @ViewBuilder
-    private var addButtonIfSet: some View {
+    private var addNewButton: some View {
         HStack {
             VStack {
                 Spacer()
