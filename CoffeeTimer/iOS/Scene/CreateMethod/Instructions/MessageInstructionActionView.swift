@@ -62,13 +62,35 @@ extension Binding where Value == RecipeInstructionActionItem {
                 wrappedValue = wrappedValue.updating(action: .message(.init(message: newValue, details: model.details)))
             case .pause(let model):
                 wrappedValue = wrappedValue.updating(action: .pause(.init(duration: model.duration, message: newValue, details: model.details)))
-            case .put(let model):
+            case .put:
                 fatalError("not implemented")
             }
         })
     }
 
-    func amountBinding() -> Binding<Double> {
+    func detailBinding() -> Binding<String> {
+        return Binding<String>(get: {
+            switch wrappedValue.action {
+            case .message(let model):
+                return model.details
+            case .pause(let model):
+                return model.details
+            case .put(let model):
+                return model.details
+            }
+        }, set: { newValue in
+            switch wrappedValue.action {
+            case .message(let model):
+                wrappedValue = wrappedValue.updating(action: .message(.init(message: model.message, details: newValue)))
+            case .pause(let model):
+                wrappedValue = wrappedValue.updating(action: .pause(.init(duration: model.duration, message: model.message, details: newValue)))
+            case .put:
+                fatalError("not implemented")
+            }
+        })
+    }
+
+    func durationBinding() -> Binding<Double> {
         return .init(get: {
             switch wrappedValue.action {
             case .message:
@@ -84,7 +106,7 @@ extension Binding where Value == RecipeInstructionActionItem {
                 return
             case .pause(let model):
                 wrappedValue = wrappedValue.updating(action: .pause(.init(duration: newValue, message: model.message, details: model.details)))
-            case .put(let model):
+            case .put:
                 fatalError("not implemented")
             }
         })
