@@ -27,10 +27,11 @@ extension RecipeInstructionActionItem {
     }
 }
 
-extension PutInstructionActionViewModel {
+extension PutActionModel {
     static var stub: Self {
         .init(
             requirement: .none,
+            duration: 0,
             startMethod: .userInteractive,
             skipMethod: .userInteractive,
             message: "put msg",

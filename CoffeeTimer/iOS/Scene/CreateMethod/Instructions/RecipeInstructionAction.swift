@@ -8,12 +8,23 @@
 import Foundation
 
 enum RecipeInstructionAction {
-    case put(PutInstructionActionViewModel)
+    case put(PutActionModel)
     case pause(PauseActionModel)
     case message(MessageActionModel)
 }
 
-struct MessageActionModel: Equatable {
+struct PutActionModel {
+    let requirement: InstructionRequirementItem
+    let duration: Double
+    let startMethod: InstructionInteractionMethodItem
+    let skipMethod: InstructionInteractionMethodItem
+    let message: String
+    let details: String
+    let ingredient: IngredientTypeItem
+    let amount: String // TODO: parse
+}
+
+struct MessageActionModel {
     let requirement: InstructionRequirementItem = .none
     let startMethod: InstructionInteractionMethodItem = .userInteractive
     let skipMethod: InstructionInteractionMethodItem = .userInteractive
@@ -21,7 +32,7 @@ struct MessageActionModel: Equatable {
     let details: String
 }
 
-struct PauseActionModel: Equatable {
+struct PauseActionModel {
     let requirement: InstructionRequirementItem = .countdown
     let duration: Double
     let startMethod: InstructionInteractionMethodItem = .auto

@@ -35,7 +35,9 @@ struct RecipeInstructionActionView: View {
     var actionView: some View {
         switch item.action {
         case .put(let model):
-            PutInstructionActionView(model: model)
+            if let view = PutInstructionActionView(item: $item) {
+                view
+            }
         case .pause:
             if let view = PauseInstructionActionView(item: $item) {
                 view

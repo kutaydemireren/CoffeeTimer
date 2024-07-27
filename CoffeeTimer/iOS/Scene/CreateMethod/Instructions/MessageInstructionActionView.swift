@@ -59,6 +59,16 @@ extension PauseActionModel: UpdatableInstructionActionMessage {
     }
 }
 
+extension PutActionModel: UpdatableInstructionActionMessage {
+    func updating(message: String) -> RecipeInstructionAction {
+        .pause(.init(duration: duration, message: message, details: details))
+    }
+
+    func updating(details: String) -> RecipeInstructionAction {
+        .pause(.init(duration: duration, message: message, details: details))
+    }
+}
+
 //
 
 protocol UpdatableInstructionActionDuration {
@@ -67,6 +77,12 @@ protocol UpdatableInstructionActionDuration {
 }
 
 extension PauseActionModel: UpdatableInstructionActionDuration {
+    func updating(duration: Double) -> RecipeInstructionAction {
+        return .pause(.init(duration: duration, message: message, details: details))
+    }
+}
+
+extension PutActionModel: UpdatableInstructionActionDuration {
     func updating(duration: Double) -> RecipeInstructionAction {
         return .pause(.init(duration: duration, message: message, details: details))
     }
