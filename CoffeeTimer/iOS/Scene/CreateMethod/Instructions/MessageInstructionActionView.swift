@@ -57,7 +57,7 @@ struct MessageInstructionActionView: View {
             viewModel.actionModel = .init(message: newValue, details: viewModel.actionModel.details)
         }
         .onChange(of: viewModel.actionModel) { newValue in
-            item = .init(action: .message(newValue))
+            item = item.updating(action: .message(newValue))
         }
     }
 }
