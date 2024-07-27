@@ -10,7 +10,7 @@ import Foundation
 final class CreateRecipeContext: ObservableObject {
     var selectedBrewMethod: BrewMethod? { // TODO: temp - remove selectedBrewMethod (replace with `recipeProfile` instead)
         get {
-            recipeProfile.brewMethod
+            recipeProfile.brewMethod == .none ? nil : recipeProfile.brewMethod
         }
         set {
             recipeProfile = recipeProfile.updating(brewMethod: newValue ?? .none)
