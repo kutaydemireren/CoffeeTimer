@@ -27,7 +27,7 @@ struct RecipeInstructionActionItemRowView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(step.action.message)
+            Text(step.action.updatableMessage.message)
                 .foregroundColor(Color("foregroundPrimary"))
                 .padding(.leading)
         }
@@ -114,7 +114,7 @@ struct CreateMethodInstructionsView: View {
         }
         .onAppear {
             debugPrint("----- start of CreateMethodInstructionsView")
-            context.instructions.forEach { debugPrint($0.action.message) }
+            context.instructions.forEach { debugPrint($0.action.updatableMessage.message) }
             debugPrint("----- end CreateMethodInstructionsView -----")
         }
         .padding()

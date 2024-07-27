@@ -88,7 +88,7 @@ extension RecipeInstructionAction {
 
     var updatableDuration: UpdatableInstructionActionDuration? {
         switch self {
-        case .message(let model):
+        case .message:
             return nil
         case .pause(let model):
             return model
@@ -118,14 +118,14 @@ extension Binding where Value == RecipeInstructionActionItem {
     }
 
     func durationBinding() -> Binding<Double> {
-        guard let actionDuration = wrappedValue.action.updatableDuration else {
+        guard let updatableDuration = wrappedValue.action.updatableDuration else {
             return .constant(0)
         }
 
         return .init {
-            actionDuration.duration
+            updatableDuration.duration
         } set: { newValue in
-            wrappedValue = wrappedValue.updating(action: actionDuration.updating(duration: newValue))
+            wrappedValue = wrappedValue.updating(action: updatableDuration.updating(duration: newValue))
         }
     }
 }
