@@ -18,18 +18,17 @@ struct PutInstructionActionView: View {
         _item = item
     }
 
-
     var body: some View {
         VStack {
             InstructionActionViewBuilder()
-//                .with(requirement: $item.requirement)
+                .with(requirement: Binding($item.requirementBinding()))
                 .with(duration: $item.durationBinding())
-//                .with(startMethod: $item.startMethod)
-//                .with(skipMethod: $item.skipMethod)
+                .with(startMethod: Binding($item.startMethodBinding()))
+                .with(skipMethod: Binding($item.skipMethodBinding()))
                 .with(message: $item.messageBinding())
                 .with(details: $item.detailsBinding())
-//                .with(ingredient: $item.ingredient)
-//                .with(amount: $item.amount)
+                .with(ingredient: Binding($item.ingredientBinding()))
+                .with(amount: $item.amountBinding())
                 .build()
         }
     }

@@ -61,11 +61,11 @@ extension PauseActionModel: UpdatableInstructionActionMessage {
 
 extension PutActionModel: UpdatableInstructionActionMessage {
     func updating(message: String) -> RecipeInstructionAction {
-        .pause(.init(duration: duration, message: message, details: details))
+        .put(updating(message: message))
     }
 
     func updating(details: String) -> RecipeInstructionAction {
-        .pause(.init(duration: duration, message: message, details: details))
+        .put(updating(details: details))
     }
 }
 
@@ -78,58 +78,138 @@ protocol UpdatableInstructionActionDuration {
 
 extension PauseActionModel: UpdatableInstructionActionDuration {
     func updating(duration: Double) -> RecipeInstructionAction {
-        return .pause(.init(duration: duration, message: message, details: details))
+        .pause(.init(duration: duration, message: message, details: details))
     }
 }
 
 extension PutActionModel: UpdatableInstructionActionDuration {
     func updating(duration: Double) -> RecipeInstructionAction {
-        return .pause(.init(duration: duration, message: message, details: details))
+        .put(updating(duration: duration))
+    }
+}
+
+//
+
+protocol UpdatableInstructionActionRequirement {
+    var requirement: InstructionRequirementItem { get }
+    func updating(requirement: InstructionRequirementItem) -> RecipeInstructionAction
+}
+
+extension PutActionModel: UpdatableInstructionActionRequirement {
+    func updating(requirement: InstructionRequirementItem) -> RecipeInstructionAction {
+        .put(updating(requirement: requirement))
+    }
+}
+
+//
+
+protocol UpdatableInstructionActionMethod {
+    var startMethod: InstructionInteractionMethodItem { get }
+    var skipMethod: InstructionInteractionMethodItem { get }
+    func updating(startMethod: InstructionInteractionMethodItem) -> RecipeInstructionAction
+    func updating(skipMethod: InstructionInteractionMethodItem) -> RecipeInstructionAction
+}
+
+extension PutActionModel: UpdatableInstructionActionMethod {
+    func updating(startMethod: InstructionInteractionMethodItem) -> RecipeInstructionAction {
+        .put(updating(startMethod: startMethod))
+    }
+    
+    func updating(skipMethod: InstructionInteractionMethodItem) -> RecipeInstructionAction {
+        .put(updating(skipMethod: skipMethod))
+    }
+}
+
+//
+
+protocol UpdatableInstructionActionIngredient {
+    var ingredient: IngredientTypeItem { get }
+    var amount: String { get }
+    func updating(ingredient: IngredientTypeItem) -> RecipeInstructionAction
+    func updating(amount: String) -> RecipeInstructionAction
+}
+
+extension PutActionModel: UpdatableInstructionActionIngredient {
+    func updating(ingredient: IngredientTypeItem) -> RecipeInstructionAction {
+        .put(updating(ingredient: ingredient))
+    }
+
+    func updating(amount: String) -> RecipeInstructionAction {
+        .put(updating(amount: amount))
     }
 }
 
 //
 
 extension RecipeInstructionAction {
-    var updatableMessage: UpdatableInstructionActionMessage {
+    private var unsafeModel: Any {
         switch self {
         case .message(let model):
             return model
         case .pause(let model):
             return model
-        case .put:
-            fatalError("not implemented")
+        case .put(let model):
+            return model
         }
     }
 
+    var updatableRequirement: UpdatableInstructionActionRequirement? {
+        return unsafeModel as? UpdatableInstructionActionRequirement
+    }
+
     var updatableDuration: UpdatableInstructionActionDuration? {
-        switch self {
-        case .message:
-            return nil
-        case .pause(let model):
-            return model
-        case .put:
-            fatalError("not implemented")
-        }
+        return unsafeModel as? UpdatableInstructionActionDuration
+    }
+
+    var updatableMessage: UpdatableInstructionActionMessage? {
+        return unsafeModel as? UpdatableInstructionActionMessage
+    }
+
+    var updatableMethod: UpdatableInstructionActionMethod? {
+        return unsafeModel as? UpdatableInstructionActionMethod
+    }
+
+    var updatableIngredient: UpdatableInstructionActionIngredient? {
+        return unsafeModel as? UpdatableInstructionActionIngredient
     }
 }
 
 //
 
 extension Binding where Value == RecipeInstructionActionItem {
-    func messageBinding() -> Binding<String> {
+    func requirementBinding() -> Binding<InstructionRequirementItem> {
+        guard let updatableRequirement = wrappedValue.action.updatableRequirement else {
+            return .constant(.none)
+        }
+
         return .init {
-            wrappedValue.action.updatableMessage.message
+            updatableRequirement.requirement
         } set: { newValue in
-            wrappedValue = wrappedValue.updating(action: wrappedValue.action.updatableMessage.updating(message: newValue))
+            wrappedValue = wrappedValue.updating(action: updatableRequirement.updating(requirement: newValue))
+        }
+    }
+
+    func messageBinding() -> Binding<String> {
+        guard let updatableMessage = wrappedValue.action.updatableMessage else {
+            return .constant("")
+        }
+
+        return .init {
+            updatableMessage.message
+        } set: { newValue in
+            wrappedValue = wrappedValue.updating(action: updatableMessage.updating(message: newValue))
         }
     }
 
     func detailsBinding() -> Binding<String> {
+        guard let updatableMessage = wrappedValue.action.updatableMessage else {
+            return .constant("")
+        }
+
         return .init {
-            wrappedValue.action.updatableMessage.details
+            updatableMessage.details
         } set: { newValue in
-            wrappedValue = wrappedValue.updating(action: wrappedValue.action.updatableMessage.updating(details: newValue))
+            wrappedValue = wrappedValue.updating(action: updatableMessage.updating(details: newValue))
         }
     }
 
@@ -142,6 +222,54 @@ extension Binding where Value == RecipeInstructionActionItem {
             updatableDuration.duration
         } set: { newValue in
             wrappedValue = wrappedValue.updating(action: updatableDuration.updating(duration: newValue))
+        }
+    }
+
+    func startMethodBinding() -> Binding<InstructionInteractionMethodItem> {
+        guard let updatableMethod = wrappedValue.action.updatableMethod else {
+            return .constant(.userInteractive)
+        }
+
+        return .init {
+            updatableMethod.startMethod
+        } set: { newValue in
+            wrappedValue = wrappedValue.updating(action: updatableMethod.updating(startMethod: newValue))
+        }
+    }
+
+    func skipMethodBinding() -> Binding<InstructionInteractionMethodItem> {
+        guard let updatableMethod = wrappedValue.action.updatableMethod else {
+            return .constant(.userInteractive)
+        }
+
+        return .init {
+            updatableMethod.skipMethod
+        } set: { newValue in
+            wrappedValue = wrappedValue.updating(action: updatableMethod.updating(skipMethod: newValue))
+        }
+    }
+
+    func ingredientBinding() -> Binding<IngredientTypeItem> {
+        guard let updatableIngredient = wrappedValue.action.updatableIngredient else {
+            return .constant(.coffee)
+        }
+
+        return .init {
+            updatableIngredient.ingredient
+        } set: { newValue in
+            wrappedValue = wrappedValue.updating(action: updatableIngredient.updating(ingredient: newValue))
+        }
+    }
+
+    func amountBinding() -> Binding<String> {
+        guard let updatableIngredient = wrappedValue.action.updatableIngredient else {
+            return .constant("")
+        }
+
+        return .init {
+            updatableIngredient.amount
+        } set: { newValue in
+            wrappedValue = wrappedValue.updating(action: updatableIngredient.updating(amount: newValue))
         }
     }
 }

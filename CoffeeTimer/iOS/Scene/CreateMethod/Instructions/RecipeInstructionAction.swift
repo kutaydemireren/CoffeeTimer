@@ -22,6 +22,28 @@ struct PutActionModel {
     let details: String
     let ingredient: IngredientTypeItem
     let amount: String // TODO: parse
+
+    func updating(
+        requirement: InstructionRequirementItem? = nil,
+        duration: Double? = nil,
+        startMethod: InstructionInteractionMethodItem? = nil,
+        skipMethod: InstructionInteractionMethodItem? = nil,
+        message: String? = nil,
+        details: String? = nil,
+        ingredient: IngredientTypeItem? = nil,
+        amount: String? = nil // TODO: parse
+    ) -> Self {
+        .init(
+            requirement: requirement ?? self.requirement,
+            duration: duration ?? self.duration,
+            startMethod: startMethod ?? self.startMethod,
+            skipMethod: skipMethod ?? self.skipMethod,
+            message: message ?? self.message,
+            details: details ?? self.details,
+            ingredient: ingredient ?? self.ingredient,
+            amount: amount ?? self.amount
+        )
+    }
 }
 
 struct MessageActionModel {
