@@ -19,15 +19,16 @@ struct PauseInstructionActionView: View {
     }
 
     var body: some View {
-        VStack {
-            InstructionActionViewBuilder()
-                .with(requirement: .countdown)
-                .with(duration: $item.durationBinding())
-                .with(startMethod: .auto)
-                .with(skipMethod: .auto)
-                .with(message: $item.messageBinding())
-                .with(details: $item.detailsBinding())
-                .build()
-        }
+        EmptyView()
+//        VStack {
+//            InstructionActionViewBuilder()
+//                .with(requirement: .countdown)
+//                .with(duration: $item.durationBinding())
+//                .with(startMethod: .auto)
+//                .with(skipMethod: .auto)
+//                .with(message: $item.messageBinding())
+//                .with(details: $item.detailsBinding())
+//                .build()
+//        }
     }
 }

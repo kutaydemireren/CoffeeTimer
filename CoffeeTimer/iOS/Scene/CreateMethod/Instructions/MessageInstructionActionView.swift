@@ -11,21 +11,24 @@ struct MessageInstructionActionView: View {
     /// The input and output source of the view
     @Binding var item: RecipeInstructionActionItem
 
+    private let model: MessageActionModel
+
     init?(item: Binding<RecipeInstructionActionItem>) {
-        guard case .message = item.wrappedValue.action else {
+        guard case .message(let model) = item.wrappedValue.action else {
             return nil
         }
         _item = item
+        self.model = model
     }
 
     var body: some View {
         VStack {
             InstructionActionViewBuilder()
-                .with(requirement: .none)
-                .with(startMethod: .userInteractive)
-                .with(skipMethod: .userInteractive)
-                .with(message: $item.messageBinding())
-                .with(details: $item.detailsBinding())
+                .with(requirement: model.requirement)
+                .with(startMethod: model.startMethod)
+                .with(skipMethod: model.skipMethod)
+                .with(message:  model.messageBinding(to: $item))
+                .with(details: model.detailsBinding(to: $item))
                 .build()
         }
     }
@@ -90,11 +93,8 @@ extension PutActionModel: UpdatableInstructionActionDuration {
 
 //
 
-protocol InstructionActionRequirement {
+protocol UpdatableInstructionActionRequirement {
     var requirement: InstructionRequirementItem { get }
-}
-
-protocol UpdatableInstructionActionRequirement: InstructionActionRequirement {
     func updating(requirement: InstructionRequirementItem) -> RecipeInstructionAction
 }
 
@@ -144,153 +144,76 @@ extension PutActionModel: UpdatableInstructionActionIngredient {
 
 //
 
-/* TODO: custom method - convenient instruction views to work with
- Apply below logic to `RecipeInstructionActionView` and remove separated views (`MessageInstructionActionView`)
- This will remove view constraints in the logic, and make single `RecipeInstructionActionView` to rely on the model (e.g. MessageActionModel).
-
- (e.g. X = requirement)
- -> model is X
-   -> model is updatable X
-      -> add to builder as binding
-   -> model is plain X
-      -> add to builder as constant
- -> model is not X
-    -> do not display X
- */
-
-extension RecipeInstructionAction {
-    private var unsafeModel: Any {
-        switch self {
-        case .message(let model):
-            return model
-        case .pause(let model):
-            return model
-        case .put(let model):
-            return model
+extension UpdatableInstructionActionRequirement {
+    func binding(to item: Binding<RecipeInstructionActionItem>) -> Binding<InstructionRequirementItem> {
+        return .init {
+            requirement
+        } set: { newValue in
+            item.wrappedValue = item.wrappedValue.updating(action: updating(requirement: newValue))
         }
-    }
-
-    var requirement: InstructionActionRequirement? {
-        return unsafeModel as? InstructionActionRequirement
-    }
-
-    var updatableRequirement: UpdatableInstructionActionRequirement? {
-        return unsafeModel as? UpdatableInstructionActionRequirement
-    }
-
-    var updatableDuration: UpdatableInstructionActionDuration? {
-        return unsafeModel as? UpdatableInstructionActionDuration
-    }
-
-    var updatableMessage: UpdatableInstructionActionMessage? {
-        return unsafeModel as? UpdatableInstructionActionMessage
-    }
-
-    var updatableMethod: UpdatableInstructionActionMethod? {
-        return unsafeModel as? UpdatableInstructionActionMethod
-    }
-
-    var updatableIngredient: UpdatableInstructionActionIngredient? {
-        return unsafeModel as? UpdatableInstructionActionIngredient
     }
 }
 
-//
-
-extension Binding where Value == RecipeInstructionActionItem {
-    func requirementBinding() -> Binding<InstructionRequirementItem> {
-        guard let updatableRequirement = wrappedValue.action.updatableRequirement else {
-            return .constant(.none)
-        }
-
+extension UpdatableInstructionActionDuration {
+    func binding(to item: Binding<RecipeInstructionActionItem>) -> Binding<Double> {
         return .init {
-            updatableRequirement.requirement
+            duration
         } set: { newValue in
-            wrappedValue = wrappedValue.updating(action: updatableRequirement.updating(requirement: newValue))
+            item.wrappedValue = item.wrappedValue.updating(action: updating(duration: newValue))
+        }
+    }
+}
+
+extension UpdatableInstructionActionMethod {
+    func startMethodBinding(to item: Binding<RecipeInstructionActionItem>) -> Binding<InstructionInteractionMethodItem> {
+        return .init {
+            startMethod
+        } set: { newValue in
+            item.wrappedValue = item.wrappedValue.updating(action: updating(startMethod: newValue))
         }
     }
 
-    func messageBinding() -> Binding<String> {
-        guard let updatableMessage = wrappedValue.action.updatableMessage else {
-            return .constant("")
-        }
-
+    func skipMethodBinding(to item: Binding<RecipeInstructionActionItem>) -> Binding<InstructionInteractionMethodItem> {
         return .init {
-            updatableMessage.message
+            skipMethod
         } set: { newValue in
-            wrappedValue = wrappedValue.updating(action: updatableMessage.updating(message: newValue))
+            item.wrappedValue = item.wrappedValue.updating(action: updating(skipMethod: newValue))
+        }
+    }
+}
+
+extension UpdatableInstructionActionMessage {
+    func messageBinding(to item: Binding<RecipeInstructionActionItem>) -> Binding<String> {
+        return .init {
+            message
+        } set: { newValue in
+            item.wrappedValue = item.wrappedValue.updating(action: updating(message: newValue))
         }
     }
 
-    func detailsBinding() -> Binding<String> {
-        guard let updatableMessage = wrappedValue.action.updatableMessage else {
-            return .constant("")
-        }
-
+    func detailsBinding(to item: Binding<RecipeInstructionActionItem>) -> Binding<String> {
         return .init {
-            updatableMessage.details
+            details
         } set: { newValue in
-            wrappedValue = wrappedValue.updating(action: updatableMessage.updating(details: newValue))
+            item.wrappedValue = item.wrappedValue.updating(action: updating(details: newValue))
+        }
+    }
+}
+
+extension UpdatableInstructionActionIngredient {
+    func ingredientBinding(to item: Binding<RecipeInstructionActionItem>) -> Binding<IngredientTypeItem> {
+        return .init {
+            ingredient
+        } set: { newValue in
+            item.wrappedValue = item.wrappedValue.updating(action: updating(ingredient: newValue))
         }
     }
 
-    func durationBinding() -> Binding<Double> {
-        guard let updatableDuration = wrappedValue.action.updatableDuration else {
-            return .constant(0)
-        }
-
+    func amountBinding(to item: Binding<RecipeInstructionActionItem>) -> Binding<String> {
         return .init {
-            updatableDuration.duration
+            amount
         } set: { newValue in
-            wrappedValue = wrappedValue.updating(action: updatableDuration.updating(duration: newValue))
-        }
-    }
-
-    func startMethodBinding() -> Binding<InstructionInteractionMethodItem> {
-        guard let updatableMethod = wrappedValue.action.updatableMethod else {
-            return .constant(.userInteractive)
-        }
-
-        return .init {
-            updatableMethod.startMethod
-        } set: { newValue in
-            wrappedValue = wrappedValue.updating(action: updatableMethod.updating(startMethod: newValue))
-        }
-    }
-
-    func skipMethodBinding() -> Binding<InstructionInteractionMethodItem> {
-        guard let updatableMethod = wrappedValue.action.updatableMethod else {
-            return .constant(.userInteractive)
-        }
-
-        return .init {
-            updatableMethod.skipMethod
-        } set: { newValue in
-            wrappedValue = wrappedValue.updating(action: updatableMethod.updating(skipMethod: newValue))
-        }
-    }
-
-    func ingredientBinding() -> Binding<IngredientTypeItem> {
-        guard let updatableIngredient = wrappedValue.action.updatableIngredient else {
-            return .constant(.coffee)
-        }
-
-        return .init {
-            updatableIngredient.ingredient
-        } set: { newValue in
-            wrappedValue = wrappedValue.updating(action: updatableIngredient.updating(ingredient: newValue))
-        }
-    }
-
-    func amountBinding() -> Binding<String> {
-        guard let updatableIngredient = wrappedValue.action.updatableIngredient else {
-            return .constant("")
-        }
-
-        return .init {
-            updatableIngredient.amount
-        } set: { newValue in
-            wrappedValue = wrappedValue.updating(action: updatableIngredient.updating(amount: newValue))
+            item.wrappedValue = item.wrappedValue.updating(action: updating(amount: newValue))
         }
     }
 }

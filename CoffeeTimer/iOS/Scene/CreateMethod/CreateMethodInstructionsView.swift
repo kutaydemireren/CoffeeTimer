@@ -23,11 +23,11 @@ extension Array where Element == RecipeInstructionActionItem {
 //
 
 struct RecipeInstructionActionItemRowView: View {
-    let step: RecipeInstructionActionItem
+    let item: RecipeInstructionActionItem
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(step.action.updatableMessage?.message ?? "")
+            Text(message(for: item.action))
                 .foregroundColor(Color("foregroundPrimary"))
                 .padding(.leading)
         }
@@ -35,6 +35,17 @@ struct RecipeInstructionActionItemRowView: View {
         .backgroundSecondary()
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
+    }
+
+    private func message(for action: RecipeInstructionAction) -> String {
+        switch action {
+        case .message(let model):
+            return model.message
+        case .pause(let model):
+            return model.message
+        case .put(let model):
+            return model.message
+        }
     }
 }
 
@@ -100,7 +111,7 @@ struct CreateMethodInstructionsView: View {
         VStack {
             List {
                 ForEach($context.instructions) { instruction in
-                    RecipeInstructionActionItemRowView(step: instruction.wrappedValue)
+                    RecipeInstructionActionItemRowView(item: instruction.wrappedValue)
                         .onTapGesture {
                             didSelect?(instruction.wrappedValue)
                         }
@@ -111,11 +122,6 @@ struct CreateMethodInstructionsView: View {
             .listStyle(.plain)
             .scrollIndicators(.hidden)
             .scrollContentBackground(.hidden)
-        }
-        .onAppear {
-            debugPrint("----- start of CreateMethodInstructionsView")
-            context.instructions.forEach { debugPrint($0.action.updatableMessage?.message ?? "-") }
-            debugPrint("----- end CreateMethodInstructionsView -----")
         }
         .padding()
     }

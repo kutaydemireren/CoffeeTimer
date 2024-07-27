@@ -46,7 +46,7 @@ struct PutActionModel {
     }
 }
 
-struct MessageActionModel: InstructionActionRequirement {
+struct MessageActionModel {
     let requirement: InstructionRequirementItem = .none
     let startMethod: InstructionInteractionMethodItem = .userInteractive
     let skipMethod: InstructionInteractionMethodItem = .userInteractive
