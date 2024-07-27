@@ -32,14 +32,14 @@ struct MessageInstructionActionView: View {
 }
 
 // TODO: move
-protocol InstructionActionMessage {
+protocol UpdatableInstructionActionMessage {
     var message: String { get }
     var details: String { get }
     func updating(message: String) -> RecipeInstructionAction
     func updating(details: String) -> RecipeInstructionAction
 }
 
-extension MessageActionModel: InstructionActionMessage {
+extension MessageActionModel: UpdatableInstructionActionMessage {
     func updating(message: String) -> RecipeInstructionAction {
         .message(.init(message: message, details: details))
     }
@@ -49,7 +49,7 @@ extension MessageActionModel: InstructionActionMessage {
     }
 }
 
-extension PauseActionModel: InstructionActionMessage {
+extension PauseActionModel: UpdatableInstructionActionMessage {
     func updating(message: String) -> RecipeInstructionAction {
         .pause(.init(duration: duration, message: message, details: details))
     }
@@ -61,12 +61,12 @@ extension PauseActionModel: InstructionActionMessage {
 
 //
 
-protocol InstructionActionDuration {
+protocol UpdatableInstructionActionDuration {
     var duration: Double { get }
     func updating(duration: Double) -> RecipeInstructionAction
 }
 
-extension PauseActionModel: InstructionActionDuration {
+extension PauseActionModel: UpdatableInstructionActionDuration {
     func updating(duration: Double) -> RecipeInstructionAction {
         return .pause(.init(duration: duration, message: message, details: details))
     }
@@ -75,7 +75,7 @@ extension PauseActionModel: InstructionActionDuration {
 //
 
 extension RecipeInstructionAction {
-    var message: InstructionActionMessage {
+    var updatableMessage: UpdatableInstructionActionMessage {
         switch self {
         case .message(let model):
             return model
@@ -86,7 +86,7 @@ extension RecipeInstructionAction {
         }
     }
 
-    var duration: InstructionActionDuration? {
+    var updatableDuration: UpdatableInstructionActionDuration? {
         switch self {
         case .message(let model):
             return nil
@@ -103,22 +103,22 @@ extension RecipeInstructionAction {
 extension Binding where Value == RecipeInstructionActionItem {
     func messageBinding() -> Binding<String> {
         return .init {
-            wrappedValue.action.message.message
+            wrappedValue.action.updatableMessage.message
         } set: { newValue in
-            wrappedValue = wrappedValue.updating(action: wrappedValue.action.message.updating(message: newValue))
+            wrappedValue = wrappedValue.updating(action: wrappedValue.action.updatableMessage.updating(message: newValue))
         }
     }
 
     func detailsBinding() -> Binding<String> {
         return .init {
-            wrappedValue.action.message.details
+            wrappedValue.action.updatableMessage.details
         } set: { newValue in
-            wrappedValue = wrappedValue.updating(action: wrappedValue.action.message.updating(details: newValue))
+            wrappedValue = wrappedValue.updating(action: wrappedValue.action.updatableMessage.updating(details: newValue))
         }
     }
 
     func durationBinding() -> Binding<Double> {
-        guard let actionDuration = wrappedValue.action.duration else {
+        guard let actionDuration = wrappedValue.action.updatableDuration else {
             return .constant(0)
         }
 
