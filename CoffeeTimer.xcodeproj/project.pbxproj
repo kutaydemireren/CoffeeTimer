@@ -88,7 +88,11 @@
 		CABD239D2C4EEBAB005C599F /* IngredientTypeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABD239C2C4EEBAB005C599F /* IngredientTypeItem.swift */; };
 		CABD239F2C4EEBB9005C599F /* InstructionInteractionMethodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABD239E2C4EEBB9005C599F /* InstructionInteractionMethodItem.swift */; };
 		CABD23A12C4EEBE2005C599F /* Instructions+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABD23A02C4EEBE2005C599F /* Instructions+Stub.swift */; };
-		CABD23A32C4EEC13005C599F /* RecipeInstructionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABD23A22C4EEC13005C599F /* RecipeInstructionAction.swift */; };
+		CABD23A32C4EEC13005C599F /* RecipeInstructionActionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABD23A22C4EEC13005C599F /* RecipeInstructionActionItem.swift */; };
+		CAC371E72C558608004D7659 /* PauseActionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC371E62C558608004D7659 /* PauseActionModel.swift */; };
+		CAC371E92C558662004D7659 /* MessageActionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC371E82C558662004D7659 /* MessageActionModel.swift */; };
+		CAC371EB2C558687004D7659 /* PutActionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC371EA2C558687004D7659 /* PutActionModel.swift */; };
+		CAC371ED2C5586EF004D7659 /* Updatables.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC371EC2C5586EF004D7659 /* Updatables.swift */; };
 		CAC59D882C47137900301A43 /* mini_iced_instructions.json in Resources */ = {isa = PBXBuildFile; fileRef = CAC59D872C47137900301A43 /* mini_iced_instructions.json */; };
 		CAD01B4F2C395B5B004A1EFF /* StageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD01B4E2C395B5B004A1EFF /* StageHeaderView.swift */; };
 		CAD226D62C4D82EA00BD6DAD /* RecipeInstructionActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD226D52C4D82EA00BD6DAD /* RecipeInstructionActionView.swift */; };
@@ -206,7 +210,11 @@
 		CABD239C2C4EEBAB005C599F /* IngredientTypeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientTypeItem.swift; sourceTree = "<group>"; };
 		CABD239E2C4EEBB9005C599F /* InstructionInteractionMethodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionInteractionMethodItem.swift; sourceTree = "<group>"; };
 		CABD23A02C4EEBE2005C599F /* Instructions+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Instructions+Stub.swift"; sourceTree = "<group>"; };
-		CABD23A22C4EEC13005C599F /* RecipeInstructionAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructionAction.swift; sourceTree = "<group>"; };
+		CABD23A22C4EEC13005C599F /* RecipeInstructionActionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructionActionItem.swift; sourceTree = "<group>"; };
+		CAC371E62C558608004D7659 /* PauseActionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseActionModel.swift; sourceTree = "<group>"; };
+		CAC371E82C558662004D7659 /* MessageActionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageActionModel.swift; sourceTree = "<group>"; };
+		CAC371EA2C558687004D7659 /* PutActionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutActionModel.swift; sourceTree = "<group>"; };
+		CAC371EC2C5586EF004D7659 /* Updatables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatables.swift; sourceTree = "<group>"; };
 		CAC59D872C47137900301A43 /* mini_iced_instructions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mini_iced_instructions.json; sourceTree = "<group>"; };
 		CAD01B4E2C395B5B004A1EFF /* StageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageHeaderView.swift; sourceTree = "<group>"; };
 		CAD071E629DCCB000010E561 /* Entities+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entities+Stub.swift"; sourceTree = "<group>"; };
@@ -655,12 +663,12 @@
 		CABD238F2C4EEAFE005C599F /* Instructions */ = {
 			isa = PBXGroup;
 			children = (
+				CAC371E12C5585D1004D7659 /* Models */,
 				CAD226D52C4D82EA00BD6DAD /* RecipeInstructionActionView.swift */,
 				CABD23902C4EEB12005C599F /* InstructionActionViewBuilder.swift */,
 				CABD23922C4EEB2F005C599F /* MessageInstructionActionView.swift */,
 				CABD23942C4EEB47005C599F /* PauseInstructionActionView.swift */,
 				CABD23962C4EEB63005C599F /* PutInstructionActionView.swift */,
-				CABD23A22C4EEC13005C599F /* RecipeInstructionAction.swift */,
 			);
 			path = Instructions;
 			sourceTree = "<group>";
@@ -673,6 +681,18 @@
 				CABD239C2C4EEBAB005C599F /* IngredientTypeItem.swift */,
 			);
 			path = Items;
+			sourceTree = "<group>";
+		};
+		CAC371E12C5585D1004D7659 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CAC371EC2C5586EF004D7659 /* Updatables.swift */,
+				CABD23A22C4EEC13005C599F /* RecipeInstructionActionItem.swift */,
+				CAC371E62C558608004D7659 /* PauseActionModel.swift */,
+				CAC371E82C558662004D7659 /* MessageActionModel.swift */,
+				CAC371EA2C558687004D7659 /* PutActionModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		CAD071E329DCCAD60010E561 /* Extensions */ = {
@@ -881,6 +901,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAC371ED2C5586EF004D7659 /* Updatables.swift in Sources */,
 				CAF42CE729EC9561004D7788 /* Completable.swift in Sources */,
 				CA3CA4AF2A1AA20B00C76E28 /* RecipeMapper.swift in Sources */,
 				CA4758DF2A0C2D440022BC7D /* RecipesView.swift in Sources */,
@@ -896,6 +917,7 @@
 				CA7B804529BFA9E7007D3DFC /* CountdownTimer.swift in Sources */,
 				CA2A00CE2C0B8FF10040B50D /* GetBrewMethodsUseCase.swift in Sources */,
 				CAD226D62C4D82EA00BD6DAD /* RecipeInstructionActionView.swift in Sources */,
+				CAC371EB2C558687004D7659 /* PutActionModel.swift in Sources */,
 				CA5A7D0F2A0EBA7400C7EC04 /* DTOs.swift in Sources */,
 				CABD23912C4EEB12005C599F /* InstructionActionViewBuilder.swift in Sources */,
 				CA8C9AF12C0B50ED000A71AC /* RecipeInstructionsRepositoryImp.swift in Sources */,
@@ -914,6 +936,7 @@
 				CA17289429EB4B9F000F867B /* NumericTextField.swift in Sources */,
 				CABD23A12C4EEBE2005C599F /* Instructions+Stub.swift in Sources */,
 				CA7B804B29BFABBB007D3DFC /* StageTimerView.swift in Sources */,
+				CAC371E92C558662004D7659 /* MessageActionModel.swift in Sources */,
 				CA6263B82A250F00003E167D /* Storage.swift in Sources */,
 				CA1B52B32C0B97E700C4B923 /* BrewMethodRepositoryImp.swift in Sources */,
 				CA1B52BC2C0BA30500C4B923 /* FetchBrewMethodsRequest.swift in Sources */,
@@ -929,6 +952,7 @@
 				CA7D9E2D2C4BEB7600908159 /* TitledPicker.swift in Sources */,
 				CAF42CF329EC9906004D7788 /* RecipeRepository.swift in Sources */,
 				CA77908D2A06A39900BEA142 /* String+Filter.swift in Sources */,
+				CAC371E72C558608004D7659 /* PauseActionModel.swift in Sources */,
 				CA7D9E352C4C15F500908159 /* CreateMethodInstructionsView.swift in Sources */,
 				CA8C9AEE2C0B5081000A71AC /* RecipeInstructionsRepository.swift in Sources */,
 				CAF42CF529EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift in Sources */,
@@ -941,7 +965,7 @@
 				CA8C9AF72C0B6061000A71AC /* NetworkManagerImp.swift in Sources */,
 				CAF42CE129EC90CA004D7788 /* AlphanumericTextField.swift in Sources */,
 				CAF42CE329EC9524004D7788 /* CreateRecipeFlowView.swift in Sources */,
-				CABD23A32C4EEC13005C599F /* RecipeInstructionAction.swift in Sources */,
+				CABD23A32C4EEC13005C599F /* RecipeInstructionActionItem.swift in Sources */,
 				CA77909B2A06F35A00BEA142 /* CreateContextToInputMapper.swift in Sources */,
 				CABD239B2C4EEB8E005C599F /* InstructionRequirementItem.swift in Sources */,
 				CAFCF54B2A6F0A1700875CB7 /* HapticGenerator.swift in Sources */,
