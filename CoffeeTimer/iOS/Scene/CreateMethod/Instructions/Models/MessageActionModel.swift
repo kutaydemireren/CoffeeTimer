@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MessageActionModel {
+struct MessageActionModel: Hashable, Equatable {
     let requirement: InstructionRequirementItem = .none
     let startMethod: InstructionInteractionMethodItem = .userInteractive
     let skipMethod: InstructionInteractionMethodItem = .userInteractive

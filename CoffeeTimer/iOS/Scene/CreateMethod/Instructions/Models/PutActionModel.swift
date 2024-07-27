@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PutActionModel {
+struct PutActionModel: Hashable, Equatable {
     let requirement: InstructionRequirementItem
     let duration: Double
     let startMethod: InstructionInteractionMethodItem

@@ -27,7 +27,7 @@ struct RecipeInstructionActionItemRowView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(message(for: item.action))
+            Text("\(item.action.title) - \(item.action.message)")
                 .foregroundColor(Color("foregroundPrimary"))
                 .padding(.leading)
         }
@@ -35,17 +35,6 @@ struct RecipeInstructionActionItemRowView: View {
         .backgroundSecondary()
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
-    }
-
-    private func message(for action: RecipeInstructionAction) -> String {
-        switch action {
-        case .message(let model):
-            return model.message
-        case .pause(let model):
-            return model.message
-        case .put(let model):
-            return model.message
-        }
     }
 }
 

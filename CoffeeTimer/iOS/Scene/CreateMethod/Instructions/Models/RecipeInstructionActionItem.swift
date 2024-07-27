@@ -23,7 +23,31 @@ extension RecipeInstructionActionItem {
     }
 }
 
-enum RecipeInstructionAction {
+enum RecipeInstructionAction: Titled, Hashable, Identifiable, Equatable {
+    var title: String {
+        switch self {
+        case .message:
+            return "Message"
+        case .pause:
+            return "Pause"
+        case .put:
+            return "Put"
+        }
+    }
+
+    var message: String {
+        switch self {
+        case .message(let model):
+            return model.message
+        case .pause(let model):
+            return model.message
+        case .put(let model):
+            return model.message
+        }
+    }
+
+    var id: Self { return self }
+
     case put(PutActionModel)
     case pause(PauseActionModel)
     case message(MessageActionModel)

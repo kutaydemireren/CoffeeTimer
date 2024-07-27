@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PauseActionModel {
+struct PauseActionModel: Hashable, Equatable {
     let requirement: InstructionRequirementItem = .countdown
     let duration: Double
     let startMethod: InstructionInteractionMethodItem = .auto
