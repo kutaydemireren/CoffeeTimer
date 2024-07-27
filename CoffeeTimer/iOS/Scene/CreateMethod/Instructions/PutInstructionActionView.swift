@@ -23,17 +23,17 @@ struct PutInstructionActionView: View {
 
     var body: some View {
         EmptyView()
-//        VStack {
-//            InstructionActionViewBuilder()
-//                .with(requirement: Binding(model.binding(to: $item)))
-//                .with(duration: $item.durationBinding())
-//                .with(startMethod: Binding($item.startMethodBinding()))
-//                .with(skipMethod: Binding($item.skipMethodBinding()))
-//                .with(message: $item.messageBinding())
-//                .with(details: $item.detailsBinding())
-//                .with(ingredient: Binding($item.ingredientBinding()))
-//                .with(amount: $item.amountBinding())
-//                .build()
-//        }
+        VStack {
+            InstructionActionViewBuilder()
+                .with(requirement: Binding(model.requirementBinding(to: $item)))
+                .with(duration: model.durationBinding(to: $item))
+                .with(startMethod: Binding(model.startMethodBinding(to: $item)))
+                .with(skipMethod: Binding(model.skipMethodBinding(to: $item)))
+                .with(message: model.messageBinding(to: $item))
+                .with(details: model.detailsBinding(to: $item))
+                .with(ingredient: Binding(model.ingredientBinding(to: $item)))
+                .with(amount: model.amountBinding(to: $item))
+                .build()
+        }
     }
 }

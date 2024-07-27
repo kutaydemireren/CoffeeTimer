@@ -11,24 +11,26 @@ struct PauseInstructionActionView: View {
     /// The input and output source of the view
     @Binding var item: RecipeInstructionActionItem
 
+    private let model: PauseActionModel
+
     init?(item: Binding<RecipeInstructionActionItem>) {
-        guard case .pause = item.wrappedValue.action else {
+        guard case .pause(let model) = item.wrappedValue.action else {
             return nil
         }
         _item = item
+        self.model = model
     }
 
     var body: some View {
-        EmptyView()
-//        VStack {
-//            InstructionActionViewBuilder()
-//                .with(requirement: .countdown)
-//                .with(duration: $item.durationBinding())
-//                .with(startMethod: .auto)
-//                .with(skipMethod: .auto)
-//                .with(message: $item.messageBinding())
-//                .with(details: $item.detailsBinding())
-//                .build()
-//        }
+        VStack {
+            InstructionActionViewBuilder()
+                .with(requirement: model.requirement)
+                .with(duration: model.durationBinding(to: $item))
+                .with(startMethod: model.startMethod)
+                .with(skipMethod: model.skipMethod)
+                .with(message: model.messageBinding(to: $item))
+                .with(details: model.detailsBinding(to: $item))
+                .build()
+        }
     }
 }

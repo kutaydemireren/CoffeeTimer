@@ -145,7 +145,7 @@ extension PutActionModel: UpdatableInstructionActionIngredient {
 //
 
 extension UpdatableInstructionActionRequirement {
-    func binding(to item: Binding<RecipeInstructionActionItem>) -> Binding<InstructionRequirementItem> {
+    func requirementBinding(to item: Binding<RecipeInstructionActionItem>) -> Binding<InstructionRequirementItem> {
         return .init {
             requirement
         } set: { newValue in
@@ -155,7 +155,7 @@ extension UpdatableInstructionActionRequirement {
 }
 
 extension UpdatableInstructionActionDuration {
-    func binding(to item: Binding<RecipeInstructionActionItem>) -> Binding<Double> {
+    func durationBinding(to item: Binding<RecipeInstructionActionItem>) -> Binding<Double> {
         return .init {
             duration
         } set: { newValue in
