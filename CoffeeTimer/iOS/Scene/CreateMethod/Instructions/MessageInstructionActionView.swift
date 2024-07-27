@@ -12,22 +12,11 @@ final class MessageInstructionActionViewModel: ObservableObject {
     @Published var message: String
     @Published var details: String
 
-    init(
-        message: String,
-        details: String
-    ) {
-        self.actionModel = .init(message: message, details: details)
-        self.message = message
-        self.details = details
+    init(actionModel: MessageActionModel) {
+        self.actionModel = actionModel
+        self.message = actionModel.message
+        self.details = actionModel.details
     }
-}
-
-struct MessageActionModel: Equatable {
-    let requirement: InstructionRequirementItem = .none
-    let startMethod: InstructionInteractionMethodItem = .userInteractive
-    let skipMethod: InstructionInteractionMethodItem = .userInteractive
-    let message: String
-    let details: String
 }
 
 struct MessageInstructionActionView: View {
@@ -40,15 +29,15 @@ struct MessageInstructionActionView: View {
             return nil
         }
         _item = item
-        self.viewModel = .init(message: model.message, details: model.details)
+        viewModel = .init(actionModel: model)
     }
 
     var body: some View {
         VStack {
             InstructionActionViewBuilder()
-                .with(requirement: .none)
-                .with(startMethod: .userInteractive)
-                .with(skipMethod: .userInteractive)
+                .with(requirement: viewModel.actionModel.requirement)
+                .with(startMethod: viewModel.actionModel.startMethod)
+                .with(skipMethod: viewModel.actionModel.skipMethod)
                 .with(message: $viewModel.message)
                 .with(details: $viewModel.details)
                 .build()
