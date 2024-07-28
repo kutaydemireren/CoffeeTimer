@@ -59,6 +59,7 @@ struct CreateMethodFlowView: View {
                     }
                 }
         }
+        .tint(Color("backgroundSecondary"))
     }
 
     @ViewBuilder
