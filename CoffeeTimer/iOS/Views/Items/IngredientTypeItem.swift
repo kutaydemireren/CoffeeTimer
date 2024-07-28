@@ -16,7 +16,7 @@ enum IngredientTypeItem: String, Titled, Hashable, Identifiable, CaseIterable {
         return rawValue
     }
 
-    case coffee
-    case water
-    case ice
+    case coffee = "Coffee"
+    case water = "Water"
+    case ice = "Ice"
 }

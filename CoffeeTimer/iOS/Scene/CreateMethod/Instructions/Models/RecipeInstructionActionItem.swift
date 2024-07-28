@@ -35,6 +35,17 @@ enum RecipeInstructionAction: Titled, Hashable, Identifiable, Equatable {
         }
     }
 
+    var detailedTitle: String {
+        switch self {
+        case .message:
+            return "Message"
+        case .pause(let model):
+            return "Pause \("\(model.duration)".dashIfEmpty) seconds"
+        case .put(let model):
+            return "Put \(model.amount.dashIfEmpty) g of \(model.ingredient.title)"
+        }
+    }
+
     var message: String {
         switch self {
         case .message(let model):

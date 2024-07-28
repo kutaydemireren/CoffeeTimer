@@ -8,6 +8,11 @@
 import SwiftUI
 
 // TODO: move
+extension String {
+    var dashIfEmpty: String {
+        isEmpty ? "-" : self
+    }
+}
 
 extension Array where Element == RecipeInstructionActionItem {
     static var stub: Self {
@@ -27,14 +32,15 @@ struct RecipeInstructionActionItemRowView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("\(item.action.title) - \(item.action.message)")
-                .foregroundColor(Color("foregroundPrimary"))
-                .padding(.leading)
+            Text("\(item.action.detailedTitle.dashIfEmpty)")
+                .bold()
+            Text("\(item.action.message.dashIfEmpty)")
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-        .backgroundSecondary()
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
+        .padding()
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .backgroundSecondary()
     }
 }
 
@@ -42,9 +48,7 @@ struct RecipeInstructionActionItemRowView: View {
 
 final class CreateMethodInstructionsViewModel: ObservableObject {
     func addNewInstruction(context: CreateMethodContext) {
-        context.instructions.append(.init(action: .message(.init(message: "msg", details: ""))))
-
-//            .append(.init(action: .message(.init(message: "", details: ""))))
+        context.instructions.append(.init(action: .message(.init(message: "", details: ""))))
     }
 
     func removeInstruction(at indexSet: IndexSet, context: CreateMethodContext) {
