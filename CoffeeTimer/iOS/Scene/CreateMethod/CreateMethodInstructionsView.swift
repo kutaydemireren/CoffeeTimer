@@ -37,10 +37,11 @@ struct RecipeInstructionActionItemRowView: View {
             Text("\(item.action.message.dashIfEmpty)")
         }
         .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
-        .padding()
+        .listRowBackground(
+            BackgroundSecondary(opacity: 0.8)
+        )
+        .padding(.horizontal)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .backgroundSecondary()
     }
 }
 
@@ -112,6 +113,7 @@ struct CreateMethodInstructionsView: View {
                 .onMove { viewModel.moveInstruction(from: $0, to: $1, context: context) }
             }
             .listStyle(.plain)
+            .listRowSpacing(12)
             .scrollIndicators(.hidden)
             .scrollContentBackground(.hidden)
         }
