@@ -87,85 +87,83 @@ final class InstructionActionViewBuilder {
 
     @ViewBuilder
     func build() -> some View {
-        ScrollView {
-            VStack {
-                if let requirement {
-                    TitledPicker(
-                        selectedItem: requirement,
-                        allItems: .constant(InstructionRequirementItem.allCases),
-                        title: "Requirement",
-                        placeholder: ""
-                    )
-                    .disabled(requirementConstant)
-                    .grayscale(requirementConstant ? 0.5 : 0.0)
-                }
-
-                if let duration, requirement?.wrappedValue == .countdown {
-                    NumericTextField(
-                        title: "Duration (in seconds - limited to 300 seconds)",
-                        placeholder: "",
-                        keyboardType: .number,
-                        range: .init(minimum: 1, maximum: 5 * 60),
-                        input: duration
-                    )
-                }
-
-                if let startMethod {
-                    TitledPicker(
-                        selectedItem: startMethod,
-                        allItems: .constant(InstructionInteractionMethodItem.allCases),
-                        title: "Start Requirement Method",
-                        placeholder: ""
-                    )
-                    .disabled(startMethodConstant)
-                    .grayscale(startMethodConstant ? 0.5 : 0.0)
-                }
-
-                if let skipMethod {
-                    TitledPicker(
-                        selectedItem: skipMethod,
-                        allItems: .constant(InstructionInteractionMethodItem.allCases),
-                        title: "Skip Step Method",
-                        placeholder: ""
-                    )
-                    .disabled(skipMethodConstant)
-                    .grayscale(skipMethodConstant ? 0.5 : 0.0)
-                }
-
-                if let message {
-                    AlphanumericTextField(
-                        title: "Message",
-                        placeholder: "",
-                        text: message
-                    )
-                }
-
-                if let details {
-                    AlphanumericTextField(
-                        title: "Secondary Message (optional)",
-                        placeholder: "",
-                        text: details
-                    )
-                }
-
-                if let ingredient {
-                    TitledPicker(
-                        selectedItem: ingredient,
-                        allItems: .constant(IngredientTypeItem.allCases),
-                        title: "Ingredient",
-                        placeholder: ""
-                    )
-                    .disabled(startMethodConstant)
-                    .grayscale(startMethodConstant ? 0.5 : 0.0)
-                }
-
-                if let amount {
-                    AlphanumericTextField(
-                        title: "Amount (gram) (23 | 0.4 * #coffee | 0.6 * #current.water | 0.7 * #remaining.water)",
-                        placeholder: "0.2 * #current.water",
-                        text: amount
-                    )
-                }
+        VStack {
+            if let requirement {
+                TitledPicker(
+                    selectedItem: requirement,
+                    allItems: .constant(InstructionRequirementItem.allCases),
+                    title: "Requirement",
+                    placeholder: ""
+                )
+                .disabled(requirementConstant)
+                .grayscale(requirementConstant ? 0.5 : 0.0)
+            }
+            
+            if let duration, requirement?.wrappedValue == .countdown {
+                NumericTextField(
+                    title: "Duration (in seconds - limited to 300 seconds)",
+                    placeholder: "",
+                    keyboardType: .number,
+                    range: .init(minimum: 1, maximum: 5 * 60),
+                    input: duration
+                )
+            }
+            
+            if let startMethod {
+                TitledPicker(
+                    selectedItem: startMethod,
+                    allItems: .constant(InstructionInteractionMethodItem.allCases),
+                    title: "Start Requirement Method",
+                    placeholder: ""
+                )
+                .disabled(startMethodConstant)
+                .grayscale(startMethodConstant ? 0.5 : 0.0)
+            }
+            
+            if let skipMethod {
+                TitledPicker(
+                    selectedItem: skipMethod,
+                    allItems: .constant(InstructionInteractionMethodItem.allCases),
+                    title: "Skip Step Method",
+                    placeholder: ""
+                )
+                .disabled(skipMethodConstant)
+                .grayscale(skipMethodConstant ? 0.5 : 0.0)
+            }
+            
+            if let message {
+                AlphanumericTextField(
+                    title: "Message",
+                    placeholder: "",
+                    text: message
+                )
+            }
+            
+            if let details {
+                AlphanumericTextField(
+                    title: "Secondary Message (optional)",
+                    placeholder: "",
+                    text: details
+                )
+            }
+            
+            if let ingredient {
+                TitledPicker(
+                    selectedItem: ingredient,
+                    allItems: .constant(IngredientTypeItem.allCases),
+                    title: "Ingredient",
+                    placeholder: ""
+                )
+                .disabled(startMethodConstant)
+                .grayscale(startMethodConstant ? 0.5 : 0.0)
+            }
+            
+            if let amount {
+                AlphanumericTextField(
+                    title: "Amount (gram) (23 | 0.4 * #coffee | 0.6 * #current.water | 0.7 * #remaining.water)",
+                    placeholder: "0.2 * #current.water",
+                    text: amount
+                )
             }
         }
     }

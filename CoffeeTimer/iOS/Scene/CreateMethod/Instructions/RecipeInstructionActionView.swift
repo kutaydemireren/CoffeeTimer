@@ -25,36 +25,39 @@ struct RecipeInstructionActionView: View {
     var body: some View {
         actionView
             .padding()
+            .backgroundPrimary()
     }
 
     @ViewBuilder
     var actionView: some View {
-        VStack {
-            
-            TitledPicker(
-                selectedItem: .init(
-                    get: {
-                        item.action
-                    },
-                    set: { newValue in
-                        guard let newValue else { return }
-                        item = item.updating(action: newValue)
-                    }
-                ) ,
-                allItems: $allActions,
-                title: "Action Type",
-                placeholder: ""
-            )
+        ScrollView {
+            VStack {
+                TitledPicker(
+                    selectedItem: .init(
+                        get: {
+                            item.action
+                        },
+                        set: { newValue in
+                            guard let newValue else { return }
+                            item = item.updating(action: newValue)
+                        }
+                    ) ,
+                    allItems: $allActions,
+                    title: "Action Type",
+                    placeholder: ""
+                )
 
-            switch item.action {
-            case .put:
-                PutInstructionActionView(item: $item)
-            case .pause:
-                PauseInstructionActionView(item: $item)
-            case .message:
-                MessageInstructionActionView(item: $item)
+                switch item.action {
+                case .put:
+                    PutInstructionActionView(item: $item)
+                case .pause:
+                    PauseInstructionActionView(item: $item)
+                case .message:
+                    MessageInstructionActionView(item: $item)
+                }
             }
         }
+        .scrollIndicators(.hidden)
     }
 }
 
