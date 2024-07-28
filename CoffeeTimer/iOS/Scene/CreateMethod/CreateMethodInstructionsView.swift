@@ -71,7 +71,6 @@ struct CreateMethodInstructionsView: View {
     var body: some View {
         ZStack(alignment: .top) {
             content
-
             addNewButton
         }
     }
@@ -110,7 +109,7 @@ struct CreateMethodInstructionsView: View {
                         }
                 }
                 .onDelete { viewModel.removeInstruction(at: $0, context: context) }
-                .onMove{ viewModel.moveInstruction(from: $0, to: $1, context: context)}
+                .onMove { viewModel.moveInstruction(from: $0, to: $1, context: context) }
             }
             .listStyle(.plain)
             .scrollIndicators(.hidden)

@@ -55,6 +55,10 @@ struct CreateMethodView: View {
                 .frame(alignment: .topLeading)
 
                 Spacer()
+
+                if viewModel.selectedPage == 2 {
+                    EditButton()
+                }
             }
             .padding()
             .foregroundColor(Color("backgroundSecondary"))
