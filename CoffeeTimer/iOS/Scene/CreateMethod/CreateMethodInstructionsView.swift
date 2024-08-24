@@ -42,6 +42,7 @@ struct RecipeInstructionActionItemRowView: View {
         )
         .padding(.horizontal)
         .frame(maxWidth: .infinity, alignment: .leading)
+        .contentShape(Rectangle())
     }
 }
 
