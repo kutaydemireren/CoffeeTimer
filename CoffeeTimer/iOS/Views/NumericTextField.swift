@@ -74,6 +74,7 @@ struct NumericTextField: View {
             if isSingleValue {
                 input = Double(range.minimum)
             }
+            setDisplayText(input)
         }
     }
 
