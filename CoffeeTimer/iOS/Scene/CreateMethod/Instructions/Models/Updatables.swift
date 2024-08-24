@@ -14,11 +14,11 @@ protocol UpdatableInstructionActionRequirement {
 }
 
 extension UpdatableInstructionActionRequirement {
-    func requirementBinding(to item: Binding<RecipeInstructionActionItem>) -> Binding<InstructionRequirementItem> {
+    func requirementBinding(to item: Binding<RecipeInstructionAction>) -> Binding<InstructionRequirementItem> {
         return .init {
             requirement
         } set: { newValue in
-            item.wrappedValue = item.wrappedValue.updating(action: updating(requirement: newValue))
+            item.wrappedValue = updating(requirement: newValue)
         }
     }
 }
@@ -30,11 +30,11 @@ protocol UpdatableInstructionActionDuration {
 }
 
 extension UpdatableInstructionActionDuration {
-    func durationBinding(to item: Binding<RecipeInstructionActionItem>) -> Binding<Double> {
+    func durationBinding(to item: Binding<RecipeInstructionAction>) -> Binding<Double> {
         return .init {
             duration
         } set: { newValue in
-            item.wrappedValue = item.wrappedValue.updating(action: updating(duration: newValue))
+            item.wrappedValue = updating(duration: newValue)
         }
     }
 }
@@ -48,19 +48,19 @@ protocol UpdatableInstructionActionMethod {
 }
 
 extension UpdatableInstructionActionMethod {
-    func startMethodBinding(to item: Binding<RecipeInstructionActionItem>) -> Binding<InstructionInteractionMethodItem> {
+    func startMethodBinding(to item: Binding<RecipeInstructionAction>) -> Binding<InstructionInteractionMethodItem> {
         return .init {
             startMethod
         } set: { newValue in
-            item.wrappedValue = item.wrappedValue.updating(action: updating(startMethod: newValue))
+            item.wrappedValue = updating(startMethod: newValue)
         }
     }
 
-    func skipMethodBinding(to item: Binding<RecipeInstructionActionItem>) -> Binding<InstructionInteractionMethodItem> {
+    func skipMethodBinding(to item: Binding<RecipeInstructionAction>) -> Binding<InstructionInteractionMethodItem> {
         return .init {
             skipMethod
         } set: { newValue in
-            item.wrappedValue = item.wrappedValue.updating(action: updating(skipMethod: newValue))
+            item.wrappedValue = updating(skipMethod: newValue)
         }
     }
 }
@@ -79,15 +79,14 @@ extension UpdatableInstructionActionMessage {
             message
         } set: { newValue in
             item.wrappedValue = updating(message: newValue)
-//            item.wrappedValue = item.wrappedValue.updating(action: updating(message: newValue))
         }
     }
 
-    func detailsBinding(to item: Binding<RecipeInstructionActionItem>) -> Binding<String> {
+    func detailsBinding(to item: Binding<RecipeInstructionAction>) -> Binding<String> {
         return .init {
             details
         } set: { newValue in
-            item.wrappedValue = item.wrappedValue.updating(action: updating(details: newValue))
+            item.wrappedValue = updating(details: newValue)
         }
     }
 }
@@ -101,19 +100,19 @@ protocol UpdatableInstructionActionIngredient {
 }
 
 extension UpdatableInstructionActionIngredient {
-    func ingredientBinding(to item: Binding<RecipeInstructionActionItem>) -> Binding<IngredientTypeItem> {
+    func ingredientBinding(to item: Binding<RecipeInstructionAction>) -> Binding<IngredientTypeItem> {
         return .init {
             ingredient
         } set: { newValue in
-            item.wrappedValue = item.wrappedValue.updating(action: updating(ingredient: newValue))
+            item.wrappedValue = updating(ingredient: newValue)
         }
     }
 
-    func amountBinding(to item: Binding<RecipeInstructionActionItem>) -> Binding<String> {
+    func amountBinding(to item: Binding<RecipeInstructionAction>) -> Binding<String> {
         return .init {
             amount
         } set: { newValue in
-            item.wrappedValue = item.wrappedValue.updating(action: updating(amount: newValue))
+            item.wrappedValue = updating(amount: newValue)
         }
     }
 }

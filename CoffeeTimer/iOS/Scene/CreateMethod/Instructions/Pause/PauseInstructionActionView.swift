@@ -25,11 +25,11 @@ struct PauseInstructionActionView: View {
         VStack {
             InstructionActionViewBuilder()
                 .with(requirement: model.requirement)
-//                .with(duration: model.durationBinding(to: $item))
+                .with(duration: model.durationBinding(to: $action))
                 .with(startMethod: model.startMethod)
                 .with(skipMethod: model.skipMethod)
                 .with(message: model.messageBinding(to: $action))
-//                .with(details: model.detailsBinding(to: $item))
+                .with(details: model.detailsBinding(to: $action))
                 .build()
         }
     }

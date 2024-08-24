@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MessageInstructionActionView: View {
-    /// The input and output source of the view
     @Binding var action: RecipeInstructionAction
 
     private let model: MessageActionModel
@@ -28,7 +27,7 @@ struct MessageInstructionActionView: View {
                 .with(startMethod: model.startMethod)
                 .with(skipMethod: model.skipMethod)
                 .with(message:  model.messageBinding(to: $action))
-//                .with(details: model.detailsBinding(to: $item))
+                .with(details: model.detailsBinding(to: $action))
                 .build()
         }
     }

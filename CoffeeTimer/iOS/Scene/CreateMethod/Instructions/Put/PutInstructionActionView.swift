@@ -25,14 +25,14 @@ struct PutInstructionActionView: View {
         EmptyView()
         VStack {
             InstructionActionViewBuilder()
-//                .with(requirement: Binding(model.requirementBinding(to: $item)))
-//                .with(duration: model.durationBinding(to: $item))
-//                .with(startMethod: Binding(model.startMethodBinding(to: $item)))
-//                .with(skipMethod: Binding(model.skipMethodBinding(to: $item)))
+                .with(requirement: Binding(model.requirementBinding(to: $action)))
+                .with(duration: model.durationBinding(to: $action))
+                .with(startMethod: Binding(model.startMethodBinding(to: $action)))
+                .with(skipMethod: Binding(model.skipMethodBinding(to: $action)))
                 .with(message: model.messageBinding(to: $action))
-//                .with(details: model.detailsBinding(to: $item))
-//                .with(ingredient: Binding(model.ingredientBinding(to: $item)))
-//                .with(amount: model.amountBinding(to: $item))
+                .with(details: model.detailsBinding(to: $action))
+                .with(ingredient: Binding(model.ingredientBinding(to: $action)))
+                .with(amount: model.amountBinding(to: $action))
                 .build()
         }
     }
