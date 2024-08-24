@@ -323,6 +323,33 @@
 			path = BrewMethod;
 			sourceTree = "<group>";
 		};
+		CA1BCC6F2C7A491700AAE107 /* Put */ = {
+			isa = PBXGroup;
+			children = (
+				CABD23962C4EEB63005C599F /* PutInstructionActionView.swift */,
+				CAC371EA2C558687004D7659 /* PutActionModel.swift */,
+			);
+			path = Put;
+			sourceTree = "<group>";
+		};
+		CA1BCC702C7A491D00AAE107 /* Pause */ = {
+			isa = PBXGroup;
+			children = (
+				CAC371E62C558608004D7659 /* PauseActionModel.swift */,
+				CABD23942C4EEB47005C599F /* PauseInstructionActionView.swift */,
+			);
+			path = Pause;
+			sourceTree = "<group>";
+		};
+		CA1BCC712C7A492100AAE107 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				CAC371E82C558662004D7659 /* MessageActionModel.swift */,
+				CABD23922C4EEB2F005C599F /* MessageInstructionActionView.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
 		CA2A00CF2C0B908E0040B50D /* BrewMethods */ = {
 			isa = PBXGroup;
 			children = (
@@ -663,12 +690,12 @@
 		CABD238F2C4EEAFE005C599F /* Instructions */ = {
 			isa = PBXGroup;
 			children = (
-				CAC371E12C5585D1004D7659 /* Models */,
-				CAD226D52C4D82EA00BD6DAD /* RecipeInstructionActionView.swift */,
 				CABD23902C4EEB12005C599F /* InstructionActionViewBuilder.swift */,
-				CABD23922C4EEB2F005C599F /* MessageInstructionActionView.swift */,
-				CABD23942C4EEB47005C599F /* PauseInstructionActionView.swift */,
-				CABD23962C4EEB63005C599F /* PutInstructionActionView.swift */,
+				CAD226D52C4D82EA00BD6DAD /* RecipeInstructionActionView.swift */,
+				CA1BCC712C7A492100AAE107 /* Message */,
+				CAC371E12C5585D1004D7659 /* Models */,
+				CA1BCC702C7A491D00AAE107 /* Pause */,
+				CA1BCC6F2C7A491700AAE107 /* Put */,
 			);
 			path = Instructions;
 			sourceTree = "<group>";
@@ -686,11 +713,8 @@
 		CAC371E12C5585D1004D7659 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				CAC371EC2C5586EF004D7659 /* Updatables.swift */,
 				CABD23A22C4EEC13005C599F /* RecipeInstructionActionItem.swift */,
-				CAC371E62C558608004D7659 /* PauseActionModel.swift */,
-				CAC371E82C558662004D7659 /* MessageActionModel.swift */,
-				CAC371EA2C558687004D7659 /* PutActionModel.swift */,
+				CAC371EC2C5586EF004D7659 /* Updatables.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";

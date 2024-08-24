@@ -74,11 +74,12 @@ protocol UpdatableInstructionActionMessage {
 }
 
 extension UpdatableInstructionActionMessage {
-    func messageBinding(to item: Binding<RecipeInstructionActionItem>) -> Binding<String> {
+    func messageBinding(to item: Binding<RecipeInstructionAction>) -> Binding<String> {
         return .init {
             message
         } set: { newValue in
-            item.wrappedValue = item.wrappedValue.updating(action: updating(message: newValue))
+            item.wrappedValue = updating(message: newValue)
+//            item.wrappedValue = item.wrappedValue.updating(action: updating(message: newValue))
         }
     }
 

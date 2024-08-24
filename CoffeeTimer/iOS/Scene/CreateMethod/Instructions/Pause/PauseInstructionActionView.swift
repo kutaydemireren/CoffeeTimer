@@ -9,15 +9,15 @@ import SwiftUI
 
 struct PauseInstructionActionView: View {
     /// The input and output source of the view
-    @Binding var item: RecipeInstructionActionItem
+    @Binding var action: RecipeInstructionAction
 
     private let model: PauseActionModel
 
-    init?(item: Binding<RecipeInstructionActionItem>) {
-        guard case .pause(let model) = item.wrappedValue.action else {
+    init?(action: Binding<RecipeInstructionAction>) {
+        guard case .pause(let model) = action.wrappedValue else {
             return nil
         }
-        _item = item
+        _action = action
         self.model = model
     }
 
@@ -25,11 +25,11 @@ struct PauseInstructionActionView: View {
         VStack {
             InstructionActionViewBuilder()
                 .with(requirement: model.requirement)
-                .with(duration: model.durationBinding(to: $item))
+//                .with(duration: model.durationBinding(to: $item))
                 .with(startMethod: model.startMethod)
                 .with(skipMethod: model.skipMethod)
-                .with(message: model.messageBinding(to: $item))
-                .with(details: model.detailsBinding(to: $item))
+                .with(message: model.messageBinding(to: $action))
+//                .with(details: model.detailsBinding(to: $item))
                 .build()
         }
     }

@@ -9,15 +9,15 @@ import SwiftUI
 
 struct MessageInstructionActionView: View {
     /// The input and output source of the view
-    @Binding var item: RecipeInstructionActionItem
+    @Binding var action: RecipeInstructionAction
 
     private let model: MessageActionModel
 
-    init?(item: Binding<RecipeInstructionActionItem>) {
-        guard case .message(let model) = item.wrappedValue.action else {
+    init?(action: Binding<RecipeInstructionAction>) {
+        guard case .message(let model) = action.wrappedValue else {
             return nil
         }
-        _item = item
+        _action = action
         self.model = model
     }
 
@@ -27,8 +27,8 @@ struct MessageInstructionActionView: View {
                 .with(requirement: model.requirement)
                 .with(startMethod: model.startMethod)
                 .with(skipMethod: model.skipMethod)
-                .with(message:  model.messageBinding(to: $item))
-                .with(details: model.detailsBinding(to: $item))
+                .with(message:  model.messageBinding(to: $action))
+//                .with(details: model.detailsBinding(to: $item))
                 .build()
         }
     }

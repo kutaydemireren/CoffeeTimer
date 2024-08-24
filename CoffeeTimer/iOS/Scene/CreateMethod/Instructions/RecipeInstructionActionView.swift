@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct RecipeInstructionActionView: View {
+    /// The input and the output source of this view.
+    ///
+    /// `item` is updated only initially and once the view is disappeared.
+    /// Separating i/o prevents not updating the actual data source until it is confirmed, where the confirmation is assumed to be dismissing the view.
     @Binding var item: RecipeInstructionActionItem
-    @State var allActions: [RecipeInstructionAction]
+    @State private var selectedAction: RecipeInstructionAction
+    @State private var allActions: [RecipeInstructionAction]
 
     init(item: Binding<RecipeInstructionActionItem>) {
         _item = item
+        selectedAction = item.wrappedValue.action
         allActions = [item.wrappedValue.action] + [
             .message(.init(message: "", details: "")),
             .pause(.init(duration: 0, message: "", details: "")),
@@ -33,31 +39,31 @@ struct RecipeInstructionActionView: View {
         ScrollView {
             VStack {
                 TitledPicker(
-                    selectedItem: .init(
-                        get: {
-                            item.action
-                        },
-                        set: { newValue in
-                            guard let newValue else { return }
-                            item = item.updating(action: newValue)
-                        }
-                    ) ,
+                    selectedItem: Binding($selectedAction),
                     allItems: $allActions,
                     title: "Action Type",
                     placeholder: ""
                 )
 
-                switch item.action {
+                switch selectedAction {
                 case .put:
-                    PutInstructionActionView(item: $item)
+                    PutInstructionActionView(action: $selectedAction)
                 case .pause:
-                    PauseInstructionActionView(item: $item)
+                    PauseInstructionActionView(action: $selectedAction)
                 case .message:
-                    MessageInstructionActionView(item: $item)
+                    MessageInstructionActionView(action: $selectedAction)
                 }
             }
         }
+        .onChange(of: selectedAction, perform: didUpdate(selectionAction:))
         .scrollIndicators(.hidden)
+        .onDisappear {
+            item = item.updating(action: selectedAction)
+        }
+    }
+
+    private func didUpdate(selectionAction: RecipeInstructionAction) {
+        allActions[allActions.map { $0.title }.firstIndex(of: selectionAction.title)!] = selectionAction
     }
 }
 
