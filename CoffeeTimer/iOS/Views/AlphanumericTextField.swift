@@ -8,18 +8,48 @@
 import SwiftUI
 
 struct AlphanumericTextField: View {
-    
-    let title: String
-    var placeholder: String
+
+    enum Style {
+        case plain
+        case titled(String)
+    }
+
+    init(
+        text: Binding<String>,
+        placeholder: String,
+        style: Style
+    ) {
+        _text = text
+        self.style = style
+        self.placeholder = placeholder
+    }
+
+    // TODO: remove
+    /// Temporary (legacy) initialiser. Will be removed
+    init(
+        title: String,
+        placeholder: String,
+        text: Binding<String>
+    ) {
+        _text = text
+        self.style = title.isEmpty ? .plain : .titled(title)
+        self.placeholder = placeholder
+    }
+
+    /// The text to display and edit.
     @Binding var text: String
-    
+
+    let style: Style
+    let placeholder: String
+
     var body: some View {
-        if !title.isEmpty {
+        switch style {
+        case .plain:
+            textField
+        case .titled(let title):
             TitledContent(title: title) {
                 textField
             }
-        } else {
-            textField
         }
     }
 
@@ -40,7 +70,10 @@ struct AlphanumericTextField_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
             Spacer()
-            AlphanumericTextField(title: "How u doin?", placeholder: "placeholder", text: .constant(""))
+            AlphanumericTextField(text: .constant(""), placeholder: "placeholder", style: .titled("titled"))
+                .padding()
+            Spacer()
+            AlphanumericTextField(text: .constant(""), placeholder: "placeholder", style: .plain)
                 .padding()
             Spacer()
         }

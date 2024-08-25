@@ -68,5 +68,5 @@ struct RecipeInstructionActionView: View {
 }
 
 #Preview {
-    RecipeInstructionActionView(item: .constant(.stubPause))
+    RecipeInstructionActionView(item: .constant(.stubPut))
 }

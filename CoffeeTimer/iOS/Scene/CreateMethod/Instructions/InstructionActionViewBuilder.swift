@@ -159,12 +159,70 @@ final class InstructionActionViewBuilder {
             }
             
             if let amount {
-                AlphanumericTextField(
-                    title: "Amount (gram) (23 | 0.4 * #coffee | 0.6 * #current.water | 0.7 * #remaining.water)",
-                    placeholder: "0.2 * #current.water",
-                    text: amount
-                )
+                VStack {
+                    TitledContent(title: "Amount (gram)") {
+                        AlphanumericTextField(
+                            text: amount,
+                            placeholder: "0.2 * #current.water",
+                            style: .plain
+                        )
+                    } infoContent: {
+                        ScrollView {
+                            Spacer()
+
+                            Text("... Title TBD ... ")
+                                .lineLimit(nil)
+                                .font(.title3)
+
+                            Spacer()
+
+                            Text(informativeAmountDescription)
+                                .lineLimit(nil)
+                                .font(.body)
+
+                            Spacer()
+                        }
+                        .padding()
+                        .backgroundPrimary()
+                        .foregroundColor(Color("foregroundPrimary"))
+                        .ignoresSafeArea()
+                        .toAnyView()
+                    }
+                }
             }
         }
     }
 }
+
+// TODO: move
+fileprivate let informativeAmountDescription: String = """
+... TBD ...
+- TODO: Write informative text explaining how this field can be used
+
+e.g.:
+You can use a constant amount or can express the amount relatively.
+
+- Expressions are calculated per stage. Each keyword represent a value that is available in the context of the stage.
+- Some values are constant (total amounts) and some others differs in each stage (eg. remainig water amount).
+
+For example, followings would be accepted:
+- 23 (23 gram of water)
+- 0.4 * #coffee (40% of the total coffee amount)
+- 0.6 * #current.water (60% of the water amount used so far)
+- 0.7 * #remaining.water + 0.5 * #current.water (70% of the water amount left to pour)
+- 245 * #current.coffee (yes - there is no limit to the multiplier (number), however, the outcome will be obviously bizarre)
+
+However, followings would _not_ be accepted:
+- 23asd: it contains alphanumeric values of 'asd'.
+- 0.4 * coffee: keywords ('coffee' here) without '#' does not yield as keyword to the application.
+- (0.6 * #current.water) * (0.5 * #remaining.coffee): multi-step expressions are not supported. Only a single expression can be used at a time.
+- 0.7 / #remaining.water:
+
+The known keywords you can use are:
+#coffee: representing the total coffee amount
+#water: representing the total water amount
+#current.water: representing the water amount used/brewed so far
+#current.coffee: repreesnting the coffee amount used so far
+#remaining.water: representing the remaining water amount that still will be used
+#remaining.coffee: representing the remaining coffee amont that will be used in later stages
+"""

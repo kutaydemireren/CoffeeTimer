@@ -48,7 +48,6 @@
 		CA6263CF2A2551B5003E167D /* MockStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263CE2A2551B5003E167D /* MockStore.swift */; };
 		CA6263D12A255266003E167D /* RecipeProfile+UserDefined.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6263D02A255266003E167D /* RecipeProfile+UserDefined.swift */; };
 		CA77908D2A06A39900BEA142 /* String+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77908C2A06A39900BEA142 /* String+Filter.swift */; };
-		CA77908F2A06DB3C00BEA142 /* LeadingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA77908E2A06DB3C00BEA142 /* LeadingText.swift */; };
 		CA7790932A06DB5300BEA142 /* TitledContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790922A06DB5300BEA142 /* TitledContent.swift */; };
 		CA7790952A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790942A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift */; };
 		CA7790992A06F34100BEA142 /* CreateContextToInputMapperImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7790982A06F34100BEA142 /* CreateContextToInputMapperImpTests.swift */; };
@@ -170,7 +169,6 @@
 		CA6263CE2A2551B5003E167D /* MockStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStore.swift; sourceTree = "<group>"; };
 		CA6263D02A255266003E167D /* RecipeProfile+UserDefined.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecipeProfile+UserDefined.swift"; sourceTree = "<group>"; };
 		CA77908C2A06A39900BEA142 /* String+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Filter.swift"; sourceTree = "<group>"; };
-		CA77908E2A06DB3C00BEA142 /* LeadingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingText.swift; sourceTree = "<group>"; };
 		CA7790922A06DB5300BEA142 /* TitledContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledContent.swift; sourceTree = "<group>"; };
 		CA7790942A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeFromContextUseCaseImpTests.swift; sourceTree = "<group>"; };
 		CA7790982A06F34100BEA142 /* CreateContextToInputMapperImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContextToInputMapperImpTests.swift; sourceTree = "<group>"; };
@@ -288,7 +286,6 @@
 				CABD23992C4EEB82005C599F /* Items */,
 				CA17289329EB4B9F000F867B /* NumericTextField.swift */,
 				CAF42CE029EC90CA004D7788 /* AlphanumericTextField.swift */,
-				CA77908E2A06DB3C00BEA142 /* LeadingText.swift */,
 				CA7790922A06DB5300BEA142 /* TitledContent.swift */,
 				CA7D9E2C2C4BEB7600908159 /* TitledPicker.swift */,
 				CA7D9E302C4C066800908159 /* Separator.swift */,
@@ -971,7 +968,6 @@
 				CA17289D29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift in Sources */,
 				CAF42CE529EC9548004D7788 /* Navigable.swift in Sources */,
 				CA5E907D29D61AED00A78CF2 /* Entities.swift in Sources */,
-				CA77908F2A06DB3C00BEA142 /* LeadingText.swift in Sources */,
 				CABD239F2C4EEBB9005C599F /* InstructionInteractionMethodItem.swift in Sources */,
 				CA7D9E2D2C4BEB7600908159 /* TitledPicker.swift in Sources */,
 				CAF42CF329EC9906004D7788 /* RecipeRepository.swift in Sources */,

@@ -8,23 +8,79 @@
 import SwiftUI
 
 struct TitledContent<Content: View>: View {
-    
+
+    @State private var isInfoPresented = false
+
     var title: String
     var content: () -> Content
-    
+    var infoContent: (() -> AnyView)?
+
     var body: some View {
-        
+
         VStack(spacing: 16) {
-            
-            if !title.isEmpty {
-                LeadingText(title)
-                    .font(.headline)
+
+            HStack {
+                Text(title)
+
+                if let infoContent {
+                    Button {
+                        isInfoPresented = true
+                    } label: {
+                        Image(systemName: "info.circle")
+                    }
+                    .popover(isPresented: $isInfoPresented) {
+                        infoContent()
+                    }
+                } else {
+                }
             }
-            
+            .font(.headline)
+            .frame(maxWidth: .infinity, alignment: .leading)
+
             content()
         }
         .foregroundColor(Color("foregroundPrimary"))
         .padding()
         .backgroundSecondary()
+    }
+}
+
+#Preview {
+    VStack {
+        Spacer()
+
+        TitledContent(title: "Some Title") {
+            VStack {
+                Text("first text as content")
+                Text("second text as content")
+            }
+        }
+
+        Spacer()
+
+        TitledContent(title: "Some Title") {
+            VStack {
+                Text("text as content")
+                Text("text as content")
+            }
+        } infoContent: {
+                VStack {
+                    Text("longer text as content because the text is expected to be a bit more descriptive")
+                    Spacer()
+                    Text("can be even a whole another view of its own")
+                        .backgroundSecondary()
+                }
+                .padding()
+                .toAnyView()
+        }
+
+        Spacer()
+    }
+}
+
+// TODO: move
+extension View {
+    func toAnyView() -> AnyView {
+        AnyView(self)
     }
 }
