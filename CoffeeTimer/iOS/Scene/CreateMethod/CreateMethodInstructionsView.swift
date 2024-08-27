@@ -66,6 +66,7 @@ final class CreateMethodInstructionsViewModel: ObservableObject {
 
 struct CreateMethodInstructionsView: View {
     @EnvironmentObject var context: CreateMethodContext
+    @Environment(\.editMode) private var editMode
     @ObservedObject var viewModel = CreateMethodInstructionsViewModel()
 
     var didSelect: ((RecipeInstructionActionItem) -> Void)?
@@ -73,15 +74,16 @@ struct CreateMethodInstructionsView: View {
     var body: some View {
         ZStack(alignment: .top) {
             content
-            addNewButton
+            addListActions
         }
     }
 
     @ViewBuilder
-    private var addNewButton: some View {
-        HStack {
-            VStack {
-                Spacer()
+    private var addListActions: some View {
+        VStack {
+            Spacer()
+
+            HStack {
 
                 Button {
                     viewModel.addNewInstruction(context: context)
@@ -91,11 +93,29 @@ struct CreateMethodInstructionsView: View {
                             .renderingMode(.template)
 
                         Text("New Instruction")
+                            .font(.callout)
                     }
-                    .foregroundColor(Color("foregroundPrimary"))
+                    .foregroundColor(Color("backgroundSecondary"))
                 }
                 .padding()
-                .backgroundSecondary(opacity: 0.6)
+                Spacer()
+
+                Button {
+                    withAnimation {
+                        editMode?.wrappedValue = editMode?.wrappedValue == .active ? .inactive : .active
+                    }
+                } label: {
+                    HStack {
+                        Text(editMode?.wrappedValue == .active ? "Done" : "Edit List")
+                            .animation(nil, value: editMode?.wrappedValue)
+                            .font(.callout)
+
+                        Image(systemName: "pencil")
+                            .renderingMode(.template)
+                    }
+                    .foregroundColor(Color("backgroundSecondary"))
+                }
+                .padding()
             }
         }
     }

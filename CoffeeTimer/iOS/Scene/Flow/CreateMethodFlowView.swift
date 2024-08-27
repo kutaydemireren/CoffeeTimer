@@ -10,7 +10,7 @@ import Combine
 
 final class CreateMethodFlowViewModel: ObservableObject, Completable {
     enum Flow: Hashable {
-        case editInstruction
+        case updateInstruction
     }
 
     private var selectedInstruction: RecipeInstructionActionItem?
@@ -42,7 +42,7 @@ final class CreateMethodFlowViewModel: ObservableObject, Completable {
 
     func didSelect(_ item: RecipeInstructionActionItem) {
         selectedInstruction = item
-        navigationPath.append(.editInstruction)
+        navigationPath.append(.updateInstruction)
     }
 }
 
@@ -54,7 +54,7 @@ struct CreateMethodFlowView: View {
             createMethod
                 .navigationDestination(for: CreateMethodFlowViewModel.Flow.self) { flow in
                     switch flow {
-                    case .editInstruction:
+                    case .updateInstruction:
                         editInstructionIfSelected()
                     }
                 }
