@@ -72,7 +72,7 @@ struct CreateMethodInstructionsView: View {
     var didSelect: ((RecipeInstructionActionItem) -> Void)?
 
     var body: some View {
-        ZStack(alignment: .top) {
+        VStack {
             content
             addListActions
         }
@@ -81,7 +81,6 @@ struct CreateMethodInstructionsView: View {
     @ViewBuilder
     private var addListActions: some View {
         VStack {
-            Spacer()
 
             HStack {
 
@@ -97,7 +96,9 @@ struct CreateMethodInstructionsView: View {
                     }
                     .foregroundColor(Color("backgroundSecondary"))
                 }
-                .padding()
+                .padding(.horizontal)
+                .padding(.bottom)
+
                 Spacer()
 
                 Button {
@@ -107,38 +108,56 @@ struct CreateMethodInstructionsView: View {
                 } label: {
                     HStack {
                         Text(editMode?.wrappedValue == .active ? "Done" : "Edit List")
-                            .animation(nil, value: editMode?.wrappedValue)
                             .font(.callout)
+                            .animation(nil, value: editMode?.wrappedValue)
 
                         Image(systemName: "pencil")
                             .renderingMode(.template)
                     }
                     .foregroundColor(Color("backgroundSecondary"))
                 }
-                .padding()
+                .padding(.horizontal)
+                .padding(.bottom)
             }
         }
     }
 
     @ViewBuilder
     private var content: some View {
-        VStack {
-            List {
-                ForEach($context.instructions) { instruction in
-                    RecipeInstructionActionItemRowView(item: instruction.wrappedValue)
-                        .onTapGesture {
-                            didSelect?(instruction.wrappedValue)
+        ScrollViewReader { proxy in
+            if #available(iOS 17.0, *) { // It is in the plan to upgrade to 17. Can simply remain without any fallback.
+                VStack {
+                    List {
+                        ForEach($context.instructions) { instruction in
+                            RecipeInstructionActionItemRowView(item: instruction.wrappedValue)
+                                .onTapGesture {
+                                    didSelect?(instruction.wrappedValue)
+                                }
+                                .id(instruction.id)
                         }
+                        .onDelete { viewModel.removeInstruction(at: $0, context: context) }
+                        .onMove { viewModel.moveInstruction(from: $0, to: $1, context: context) }
+                    }
+                    .listStyle(.plain)
+                    .listRowSpacing(12)
+                    .scrollIndicators(.hidden)
+                    .scrollContentBackground(.hidden)
                 }
-                .onDelete { viewModel.removeInstruction(at: $0, context: context) }
-                .onMove { viewModel.moveInstruction(from: $0, to: $1, context: context) }
+                .padding()
+                .onChange(of: $context.instructions.map { $0.id }) { oldValue, newValue in
+                    guard newValue.count > oldValue.count else { return }
+                    withAnimation {
+                        proxy.scrollTo(newValue.last)
+                    }
+                }
+            } else {
+                // Fallback on earlier versions
             }
-            .listStyle(.plain)
-            .listRowSpacing(12)
-            .scrollIndicators(.hidden)
-            .scrollContentBackground(.hidden)
         }
-        .padding()
+    }
+
+    private func didInstructionsChange(oldValue: RecipeInstructionActionItem, newValue: RecipeInstructionActionItem) {
+
     }
 }
 
