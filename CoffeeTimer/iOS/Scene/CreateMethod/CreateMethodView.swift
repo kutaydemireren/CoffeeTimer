@@ -32,13 +32,22 @@ final class CreateMethodContext: ObservableObject {
 import Combine
 
 final class CreateMethodViewModel: ObservableObject, Completable {
+    private let pageCount = 2
+
     var didComplete = PassthroughSubject<CreateMethodViewModel, Never>()
     var didSelect = PassthroughSubject<RecipeInstructionActionItem, Never>()
 
     @Published var selectedPage = 1
+    // TODO: `canCreate` is not properly handled atm!
+    // check if user can create upon each update to data model
+    @Published var canCreate: Bool = false
 
     func didSelect(_ item: RecipeInstructionActionItem) {
         didSelect.send(item)
+    }
+
+    func nextPage() {
+        selectedPage = (selectedPage % pageCount) + 1
     }
 }
 
@@ -52,9 +61,21 @@ struct CreateMethodView: View {
                 Button("Close") {
                     viewModel.close()
                 }
-                .frame(alignment: .topLeading)
 
                 Spacer()
+
+                // TODO: update `next` | `save` to align with CreateRecipe
+                // aka, show 'next' if not 'save'able, ow/ show `save`
+                if viewModel.canCreate {
+                    Button("Save") {
+                        // TODO: 'save' functionality missing
+                        viewModel.close()
+                    }
+                } else {
+                    Button("Next") {
+                        withAnimation { viewModel.nextPage() }
+                    }
+                }
             }
             .padding()
             .foregroundColor(Color("backgroundSecondary"))
