@@ -21,6 +21,14 @@ extension Array where Element == RecipeInstructionActionItem {
             .init(action: .pause(.stub)),
             .init(action: .message(.stub)),
             .init(action: .put(.stub)),
+            .init(action: .put(.stub)),
+            .init(action: .pause(.stub)),
+            .init(action: .message(.stub)),
+            .init(action: .put(.stub)),
+            .init(action: .put(.stub)),
+            .init(action: .pause(.stub)),
+            .init(action: .message(.stub)),
+            .init(action: .put(.stub)),
         ]
     }
 }
@@ -72,60 +80,61 @@ struct CreateMethodInstructionsView: View {
     var didSelect: ((RecipeInstructionActionItem) -> Void)?
 
     var body: some View {
-        VStack {
+        ZStack {
             content
-            addListActions
+                .safeAreaInset(edge: .bottom, spacing: 0) {
+                    addListActions
+                        .background(
+                            Color("backgroundPrimary")
+                                .ignoresSafeArea()
+                                .opacity(0.9)
+                        )
+                }
         }
     }
 
     @ViewBuilder
     private var addListActions: some View {
-        VStack {
+        HStack {
 
-            HStack {
+            Button {
+                viewModel.addNewInstruction(context: context)
+            } label: {
+                HStack {
+                    Image(uiImage: .add)
+                        .renderingMode(.template)
 
-                Button {
-                    viewModel.addNewInstruction(context: context)
-                } label: {
-                    HStack {
-                        Image(uiImage: .add)
-                            .renderingMode(.template)
-
-                        Text("New Instruction")
-                            .font(.callout)
-                    }
-                    .foregroundColor(Color("backgroundSecondary"))
+                    Text("New Instruction")
+                        .font(.callout)
                 }
-                .padding(.horizontal)
-                .padding(.bottom)
+                .foregroundColor(Color("backgroundSecondary"))
+            }
 
-                Spacer()
+            Spacer()
 
-                Button {
-                    withAnimation {
-                        editMode?.wrappedValue = editMode?.wrappedValue == .active ? .inactive : .active
-                    }
-                } label: {
-                    HStack {
-                        Text(editMode?.wrappedValue == .active ? "Done" : "Edit List")
-                            .font(.callout)
-                            .animation(nil, value: editMode?.wrappedValue)
-
-                        Image(systemName: "pencil")
-                            .renderingMode(.template)
-                    }
-                    .foregroundColor(Color("backgroundSecondary"))
+            Button {
+                withAnimation {
+                    editMode?.wrappedValue = editMode?.wrappedValue == .active ? .inactive : .active
                 }
-                .padding(.horizontal)
-                .padding(.bottom)
+            } label: {
+                HStack {
+                    Text(editMode?.wrappedValue == .active ? "Done" : "Edit List")
+                        .font(.callout)
+                        .animation(nil, value: editMode?.wrappedValue)
+
+                    Image(systemName: "pencil")
+                        .renderingMode(.template)
+                }
+                .foregroundColor(Color("backgroundSecondary"))
             }
         }
+        .padding()
     }
 
     @ViewBuilder
     private var content: some View {
         ScrollViewReader { proxy in
-            if #available(iOS 17.0, *) { // It is in the plan to upgrade to 17. Can simply remain without any fallback.
+            if #available(iOS 17.0, *) {
                 VStack {
                     List {
                         ForEach($context.instructions) { instruction in
@@ -143,15 +152,16 @@ struct CreateMethodInstructionsView: View {
                     .scrollIndicators(.hidden)
                     .scrollContentBackground(.hidden)
                 }
-                .padding()
                 .onChange(of: $context.instructions.map { $0.id }) { oldValue, newValue in
                     guard newValue.count > oldValue.count else { return }
                     withAnimation {
                         proxy.scrollTo(newValue.last)
                     }
                 }
+                .padding(.horizontal)
             } else {
-                // Fallback on earlier versions
+                // It is in the plan to upgrade to 17.
+                // Can simply remain without any fallback.
             }
         }
     }
@@ -169,5 +179,6 @@ fileprivate var previewWithContext: some View {
     let context = CreateMethodContext()
     context.instructions = .stub
     return CreateMethodInstructionsView(viewModel: CreateMethodInstructionsViewModel())
+        .backgroundPrimary()
         .environmentObject(context)
 }

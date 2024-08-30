@@ -21,7 +21,8 @@ struct CreateRecipeCoffeeWaterSelection: View {
             cupsCountField
             
             Separator()
-            
+                .padding(.vertical)
+
             picker
             
             Spacer()

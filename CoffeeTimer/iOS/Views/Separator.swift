@@ -12,6 +12,5 @@ struct Separator: View {
         Rectangle()
             .fill(Color("foregroundPrimary").opacity(0.3))
             .frame(height: 1)
-            .padding(.vertical)
     }
 }
