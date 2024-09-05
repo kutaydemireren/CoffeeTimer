@@ -133,23 +133,7 @@ struct CreateRecipeView: View {
                 ZStack {
                     CreateRecipeBrewMethodSelection(brewMethods: $viewModel.brewMethods, selectedBrewMethod: $context.selectedBrewMethod)
 
-                    HStack {
-                        VStack {
-                            Spacer()
-
-                            Button(action: createMethod) {
-                                HStack {
-                                    Image(uiImage: .add)
-                                        .renderingMode(.template)
-
-                                    Text("Create your own method")
-                                }
-                                .foregroundColor(Color("foregroundPrimary"))
-                            }
-                            .padding()
-                            .backgroundSecondary(opacity: 0.6)
-                        }
-                    }
+                    customMethodAction()
                 }
                 .tag(1)
 
@@ -167,6 +151,28 @@ struct CreateRecipeView: View {
         .onChange(of: context.cupsCount, perform: didUpdate(_:))
         .onChange(of: context.ratio, perform: didUpdate(_:))
         .backgroundPrimary()
+    }
+
+    @ViewBuilder
+    private func customMethodAction() -> some View {
+
+        HStack {
+            VStack {
+                Spacer()
+
+                Button(action: createMethod) {
+                    HStack {
+                        Image(uiImage: .add)
+                            .renderingMode(.template)
+
+                        Text("Create your own method")
+                    }
+                    .foregroundColor(Color("foregroundPrimary"))
+                }
+                .padding()
+                .backgroundSecondary(opacity: 0.6)
+            }
+        }
     }
 
     private func didUpdate<T>(_ context: T?) {
