@@ -63,14 +63,6 @@ struct CreateMethodDetailsView: View {
                     }
                 }
             }
-
-            TitledContent(title: "") {
-                HStack(alignment: .center) {
-                    Spacer()
-                    Toggle(context.isIcedBrew ? "Iced brew" : "Hot brew", isOn: $context.isIcedBrew)
-                    Spacer()
-                }
-            }
         }
     }
 }
