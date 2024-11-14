@@ -9,7 +9,6 @@ import SwiftUI
 
 final class CreateMethodContext: ObservableObject {
     @Published var selectedMethod: BrewMethod?
-    @Published var allMethods: [BrewMethod] = []
 
     @Published var methodTitle: String = ""
 
