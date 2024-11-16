@@ -93,7 +93,7 @@ extension BrewQueueDTO {
             .init(action: .message, requirement: BrewStageRequirementDTO.none, startMethod: .auto, passMethod: .userInteractive, message: "Wet filter on hot tap water", details: nil),
             .init(action: .pourWater(.init(amount: 40, type: .millilitre)), requirement: .countdown(10), startMethod: .userInteractive, passMethod: .auto, message: "To bloom, pour 40.0 millilitres of water\nTotal: 40.0 millilitres of water", details: nil),
             .init(action: .pause, requirement: .countdown(30), startMethod: .auto, passMethod: .auto, message: "Let it bloom for 30.0 seconds", details: nil),
-            .init(action: .pourWater(.init(amount: 40, type: .millilitre)), requirement: BrewStageRequirementDTO.none, startMethod: .auto, passMethod: .userInteractive, message: "To bloom, pour 40.0 millilitres of water", details: "Total: 80.0 millilitres of water"),
+            .init(action: .pourWater(.init(amount: 40, type: .millilitre)), requirement: BrewStageRequirementDTO.none, startMethod: .auto, passMethod: .userInteractive, message: "Pour 40.0 millilitres of water", details: "Total: 80.0 millilitres of water"),
             .init(action: .pourWater(.init(amount: 120, type: .millilitre)), requirement: BrewStageRequirementDTO.none, startMethod: .userInteractive, passMethod: .userInteractive, message: "Use all remaining 120.0 millilitres of water", details: nil)
         ])
     }
@@ -105,7 +105,7 @@ extension BrewQueueDTO {
             .init(action: .message, requirement: BrewStageRequirementDTO.none, startMethod: .auto, passMethod: .userInteractive, message: "Wet filter on hot tap water", details: nil),
             .init(action: .pourWater(.init(amount: 24, type: .millilitre)), requirement: .countdown(10), startMethod: .userInteractive, passMethod: .auto, message: "To bloom, pour 24.0 millilitres of water\nTotal: 24.0 millilitres of water", details: nil),
             .init(action: .pause, requirement: .countdown(30), startMethod: .auto, passMethod: .auto, message: "Let it bloom for 30.0 seconds", details: nil),
-            .init(action: .pourWater(.init(amount: 24, type: .millilitre)), requirement: BrewStageRequirementDTO.none, startMethod: .auto, passMethod: .userInteractive, message: "To bloom, pour 24.0 millilitres of water", details: "Total: 48.0 millilitres of water"),
+            .init(action: .pourWater(.init(amount: 24, type: .millilitre)), requirement: BrewStageRequirementDTO.none, startMethod: .auto, passMethod: .userInteractive, message: "Pour 24.0 millilitres of water", details: "Total: 48.0 millilitres of water"),
             .init(action: .pourWater(.init(amount: 72, type: .millilitre)), requirement: BrewStageRequirementDTO.none, startMethod: .userInteractive, passMethod: .userInteractive, message: "Use all remaining 72.0 millilitres of water", details: nil)
         ])
     }

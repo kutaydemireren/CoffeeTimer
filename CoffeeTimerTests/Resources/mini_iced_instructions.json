@@ -102,7 +102,7 @@
                 "factor": 0.2,
                 "factorOf": "water"
             },
-            "message": "To bloom, pour #current.amount millilitres of water",
+            "message": "Pour #current.amount millilitres of water",
             "details": "Total: #current.water millilitres of water"
         },
         {

@@ -60,12 +60,42 @@ final class FetchRecipeInstructionsUseCaseImpTests: XCTestCase {
         XCTAssertEqual(mockRepository._brewMethod, expectedBrewMethod)
     }
 
-    func test_fetch_shouldRequestExpectedInstructions() async throws {
+    func test_fetch_shouldReturnExpectedInstructions() async throws {
         let expectedInstructions = loadMiniInstructions()
         mockRepository._recipeInstructions = expectedInstructions
 
         let resultedInstructions = try await sut.fetch(brewMethod: .frenchPress)
 
         XCTAssertEqual(resultedInstructions, expectedInstructions)
+    }
+}
+
+extension FetchRecipeInstructionsUseCaseImpTests {
+    
+    func test_fetchActions_whenErrorThrown_shouldThrowExpectedError() async {
+        mockRepository._error = TestError.notAllowed
+
+        await assertThrowsError {
+            try await sut.fetchActions(brewMethod: .frenchPress)
+        } _: { error in
+            XCTAssertEqual(error as? TestError, .notAllowed)
+        }
+    }
+
+    func test_fetchActions_shouldRequestExpectedBrewMethod() async throws {
+        let expectedBrewMethod = BrewMethod.frenchPress
+        mockRepository._recipeInstructions = loadMiniInstructions()
+
+        _ = try await sut.fetchActions(brewMethod: expectedBrewMethod)
+
+        XCTAssertEqual(mockRepository._brewMethod, expectedBrewMethod)
+    }
+
+    func test_fetchActions_shouldReturnExpectedInstructionActions() async throws {
+        mockRepository._recipeInstructions = loadMiniInstructions()
+
+        let resultedInstructions = try await sut.fetchActions(brewMethod: .frenchPress)
+        
+        XCTAssertEqual(resultedInstructions, .stubMiniActions)
     }
 }

@@ -21,8 +21,6 @@ final class CreateMethodContext: ObservableObject {
     @Published var cupsCountMin: Double = 0
     @Published var cupsCountMax: Double = 0
 
-    @Published var isIcedBrew: Bool = false
-
     @Published var instructions: [RecipeInstructionActionItem] = []
 }
 

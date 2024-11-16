@@ -13,10 +13,10 @@ enum IngredientTypeItem: String, Titled, Hashable, Identifiable, CaseIterable {
     }
 
     var title: String {
-        return rawValue
+        return rawValue.capitalized
     }
 
-    case coffee = "Coffee"
-    case water = "Water"
-    case ice = "Ice"
+    case coffee = "coffee"
+    case water = "water"
+    case ice = "ice"
 }

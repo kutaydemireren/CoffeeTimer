@@ -10,6 +10,7 @@ import Foundation
 
 final class MockFetchRecipeInstructionsUseCase: FetchRecipeInstructionsUseCase {
     var _instructions: RecipeInstructions = .empty
+    var _instructionActions: [RecipeInstructionAction] = []
     var _error: Error?
 
     func fetch(brewMethod: BrewMethod) throws -> RecipeInstructions {
@@ -18,5 +19,13 @@ final class MockFetchRecipeInstructionsUseCase: FetchRecipeInstructionsUseCase {
         }
 
         return _instructions
+    }
+    
+    func fetchActions(brewMethod: BrewMethod) async throws -> [RecipeInstructionAction] {
+        if let _error {
+            throw _error
+        }
+
+        return _instructionActions
     }
 }

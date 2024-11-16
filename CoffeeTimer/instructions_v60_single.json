@@ -14,8 +14,7 @@
             "amount": {
                 "type": "gram",
                 "factor": 1,
-                "factorOf": "coffee",
-                "constant": 0
+                "factorOf": "coffee"
             },
             "message": "Put all your #current.amount g of coffee to brewer"
         },
@@ -35,8 +34,7 @@
             "amount": {
                 "type": "gram",
                 "factor": 0.2,
-                "factorOf": "water",
-                "constant": 0
+                "factorOf": "water"
             },
             "message": "To bloom, pour #current.amount ml of water"
         },
@@ -69,8 +67,7 @@
             "amount": {
                 "type": "gram",
                 "factor": 0.2,
-                "factorOf": "water",
-                "constant": 0
+                "factorOf": "water"
             },
             "message": "Pour #current.amount ml of water",
             "details": "Total: #current.water ml of water"

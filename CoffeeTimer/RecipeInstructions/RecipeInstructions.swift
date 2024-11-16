@@ -362,6 +362,7 @@ struct PutInstructionAction: InstructionAction {
         )
     }
 
+    /// Looks for the amount value in the `input` first, `context` second.
     private func calculate(factor amountFactor: InstructionAmount.Factor?, input: RecipeInstructionInput, in context: InstructionActionContext) -> Double {
         guard let factor = amountFactor?.factor, let factorOf = amountFactor?.factorOf else { return 0 }
 

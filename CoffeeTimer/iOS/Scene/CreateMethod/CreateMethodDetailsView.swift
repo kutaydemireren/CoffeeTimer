@@ -29,11 +29,14 @@ final class CreateMethodDetailsViewModel: ObservableObject {
     @Published var allMethods: [BrewMethod] = []
     
     private let getBrewMethodsUseCase: GetBrewMethodsUseCase
+    private let fetchRecipeInstructionsUseCase: FetchRecipeInstructionsUseCase
     
     init(
-        getBrewMethodsUseCase: GetBrewMethodsUseCase = GetBrewMethodsUseCaseImp()
+        getBrewMethodsUseCase: GetBrewMethodsUseCase = GetBrewMethodsUseCaseImp(),
+        fetchRecipeInstructionsUseCase: FetchRecipeInstructionsUseCase = FetchRecipeInstructionsUseCaseImp()
     ) {
         self.getBrewMethodsUseCase = getBrewMethodsUseCase
+        self.fetchRecipeInstructionsUseCase = fetchRecipeInstructionsUseCase
         refreshMethods()
     }
 
@@ -44,6 +47,14 @@ final class CreateMethodDetailsViewModel: ObservableObject {
         Task {
             let brewMethods = try await getBrewMethodsUseCase.getAll()
             allMethods.append(contentsOf: brewMethods)
+        }
+    }
+    
+    func didSelect(selectedMethod: BrewMethod, in context: CreateMethodContext) {
+        context.selectedMethod = selectedMethod
+        Task {
+            let instructions = try await fetchRecipeInstructionsUseCase.fetchActions(brewMethod: selectedMethod)
+            context.instructions = instructions.map { .init(action: $0) }
         }
     }
 }
@@ -70,7 +81,12 @@ struct CreateMethodDetailsView: View {
                 context.selectedMethod = .custom
             }
         }
+        .onChange(of: context.selectedMethod, perform: didUpdate(_:))
         .padding()
+    }
+    
+    private func didUpdate(_ newMethod: BrewMethod?) {
+        viewModel.didSelect(selectedMethod: newMethod ?? .custom, in: context)
     }
 
     @ViewBuilder
