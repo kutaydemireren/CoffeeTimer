@@ -167,30 +167,52 @@ final class InstructionActionViewBuilder {
                             style: .plain
                         )
                     } infoContent: {
-                        ScrollView {
-                            Spacer()
-
-                            Text("... Title TBD ... ")
-                                .lineLimit(nil)
-                                .font(.title3)
-
-                            Spacer()
-
-                            Text(informativeAmountDescription)
-                                .lineLimit(nil)
-                                .font(.body)
-
-                            Spacer()
-                        }
-                        .padding()
-                        .backgroundPrimary()
-                        .foregroundColor(Color("foregroundPrimary"))
-                        .ignoresSafeArea()
+                        InformativeView(
+                            title: "... Title TBD ... ",
+                            description: informativeAmountDescription
+                        )
                         .toAnyView()
                     }
                 }
             }
         }
+    }
+}
+
+#Preview {
+    InstructionActionViewBuilder()
+        .with(amount: .constant("23"))
+        .build()
+}
+
+#Preview {
+    RecipeInstructionActionView(item: .constant(.stubPut))
+}
+
+struct InformativeView: View {
+    let title: String
+    let description: String
+
+    var body: some View {
+        ScrollView {
+            Spacer()
+
+            Text(title)
+                .lineLimit(nil)
+                .font(.title3)
+
+            Spacer()
+
+            Text(description)
+                .lineLimit(nil)
+                .font(.body)
+
+            Spacer()
+        }
+        .padding()
+        .backgroundPrimary()
+        .foregroundColor(Color("foregroundPrimary"))
+        .ignoresSafeArea()
     }
 }
 
