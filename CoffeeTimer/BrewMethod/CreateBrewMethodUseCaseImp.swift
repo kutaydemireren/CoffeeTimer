@@ -31,11 +31,20 @@ struct CreateBrewMethodUseCaseImp: CreateBrewMethodUseCase {
     }
 
     func create(from context: CreateBrewMethodContext) async throws {
+        let numberOfPutIce = context.instructions.filter { item in
+            switch item.action {
+            case .put(let putModel):
+                return putModel.ingredient == .ice
+            default:
+                return false
+            }
+        }.count
+
         let brewMethod = BrewMethod(
             id: UUID().uuidString,
             title: context.methodTitle,
             path: "",
-            isIcedBrew: false,
+            isIcedBrew: numberOfPutIce > 0,
             cupsCount: .unlimited,
             ratios: []
         )
