@@ -28,20 +28,13 @@ final class CreateMethodContext: ObservableObject {
 
 import Combine
 
-final class CreateMethodViewModel: ObservableObject, Completable {
+final class CreateMethodViewModel: ObservableObject {
     private let pageCount = 2
-
-    var didComplete = PassthroughSubject<CreateMethodViewModel, Never>()
-    var didSelect = PassthroughSubject<RecipeInstructionActionItem, Never>()
 
     @Published var selectedPage = 1
     // TODO: `canCreate` is not properly handled atm!
     // check if user can create upon each update to data model
     @Published var canCreate: Bool = false
-
-    func didSelect(_ item: RecipeInstructionActionItem) {
-        didSelect.send(item)
-    }
 
     func nextPage() {
         selectedPage = (selectedPage % pageCount) + 1
@@ -50,14 +43,15 @@ final class CreateMethodViewModel: ObservableObject, Completable {
 
 struct CreateMethodView: View {
     @StateObject var viewModel: CreateMethodViewModel
+    var close: () -> Void
+    var selectItem: (RecipeInstructionActionItem) -> Void
 
     var body: some View {
         VStack {
 
             HStack {
-                Button("Close") {
-                    viewModel.close()
-                }
+                Button("Close", action: close)
+                    .frame(alignment: .topLeading)
 
                 Spacer()
 
@@ -66,7 +60,7 @@ struct CreateMethodView: View {
                 if viewModel.canCreate {
                     Button("Save") {
                         // TODO: 'save' functionality missing
-                        viewModel.close()
+                        close()
                     }
                 } else {
                     Button("Next") {
@@ -81,7 +75,7 @@ struct CreateMethodView: View {
                 CreateMethodDetailsView()
                     .tag(1)
 
-                CreateMethodInstructionsView(didSelect: viewModel.didSelect(_:))
+                CreateMethodInstructionsView(didSelect: selectItem)
                     .tag(2)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
@@ -92,8 +86,12 @@ struct CreateMethodView: View {
 }
 
 #Preview {
-    CreateMethodView(viewModel: CreateMethodViewModel())
-        .environmentObject(stubContext())
+    CreateMethodView(
+        viewModel: CreateMethodViewModel(),
+        close: { },
+        selectItem: { _ in }
+    )
+    .environmentObject(stubContext())
 }
 
 fileprivate func stubContext() -> CreateMethodContext {

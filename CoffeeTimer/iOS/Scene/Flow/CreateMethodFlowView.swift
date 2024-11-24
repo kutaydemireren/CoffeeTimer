@@ -27,17 +27,7 @@ final class CreateMethodFlowViewModel: ObservableObject, Completable {
 
     func makeCreateMethodVM() -> CreateMethodViewModel {
         let viewModel = CreateMethodViewModel()
-        viewModel.didComplete
-            .sink(receiveValue: didComplete(_:))
-            .store(in: &cancellables)
-        viewModel.didSelect
-            .sink(receiveValue: didSelect(_:))
-            .store(in: &cancellables)
         return viewModel
-    }
-
-    func didComplete(_ viewModel: CreateMethodViewModel) {
-        close()
     }
 
     func didSelect(_ item: RecipeInstructionActionItem) {
@@ -64,8 +54,12 @@ struct CreateMethodFlowView: View {
 
     @ViewBuilder
     var createMethod: some View {
-        CreateMethodView(viewModel: viewModel.makeCreateMethodVM())
-            .environmentObject(viewModel.context)
+        CreateMethodView(
+            viewModel: viewModel.makeCreateMethodVM(),
+            close: viewModel.close,
+            selectItem: viewModel.didSelect(_:)
+        )
+        .environmentObject(viewModel.context)
     }
 
     @ViewBuilder

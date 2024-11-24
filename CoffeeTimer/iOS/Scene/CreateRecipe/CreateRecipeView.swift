@@ -114,14 +114,14 @@ struct CreateRecipeView: View {
 
                 Spacer()
 
-                if !canCreate {
-                    Button("Next") {
-                        withAnimation { viewModel.nextPage(in: context) }
-                    }
-                } else {
-                    Button("Done") {
+                if canCreate {
+                    Button("Save") {
                         viewModel.create(from: context)
                         close()
+                    }
+                } else {
+                    Button("Next") {
+                        withAnimation { viewModel.nextPage(in: context) }
                     }
                 }
             }
