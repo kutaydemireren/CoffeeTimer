@@ -61,12 +61,12 @@ extension Array where Element == Ingredient {
 extension Array where Element == RecipeInstructionAction {
     static var stubMiniActions: [RecipeInstructionAction] {
         return [
-            .put(.init(requirement: .none, duration: 0, startMethod: .userInteractive, skipMethod: .userInteractive, message: "Put all your #current.amount grams of coffee to brewer", details: "", ingredient: .coffee, amount: "")), // TODO: amount missing
+            .put(.init(requirement: .none, duration: 0, startMethod: .userInteractive, skipMethod: .userInteractive, message: "Put all your #current.amount grams of coffee to brewer", details: "", ingredient: .coffee, mainFactor: 0, mainFactorOf: .stubTotalCoffe, adjustmentFactor: 0, adjustmentFactorOf: .stubTotalCoffe)), // TODO: factors missing
             .message(.init(message: "Wet filter on hot tap water", details: "")),
-            .put(.init(requirement: .countdown, duration: 10, startMethod: .userInteractive, skipMethod: .auto, message: "To bloom, pour #current.amount millilitres of water\nTotal: #current.water millilitres of water", details: "", ingredient: .water, amount: "")), // TODO: amount missing
+            .put(.init(requirement: .countdown, duration: 10, startMethod: .userInteractive, skipMethod: .auto, message: "To bloom, pour #current.amount millilitres of water\nTotal: #current.water millilitres of water", details: "", ingredient: .water, mainFactor: 0, mainFactorOf: .stubTotalCoffe, adjustmentFactor: 0, adjustmentFactorOf: .stubTotalCoffe)), // TODO: factors missing
             .pause(.init(duration: 30, message: "Let it bloom for #current.duration seconds", details: "")),
-            .put(.init(requirement: .none, duration: 0, startMethod: .auto, skipMethod: .userInteractive, message: "Pour #current.amount millilitres of water", details: "Total: #current.water millilitres of water", ingredient: .water, amount: "")), // TODO: amount missing
-            .put(.init(requirement: .none, duration: 0, startMethod: .userInteractive, skipMethod: .userInteractive, message: "Use all remaining #current.amount millilitres of water", details: "", ingredient: .water, amount: "")), // TODO: amount missing
+            .put(.init(requirement: .none, duration: 0, startMethod: .auto, skipMethod: .userInteractive, message: "Pour #current.amount millilitres of water", details: "Total: #current.water millilitres of water", ingredient: .water, mainFactor: 0, mainFactorOf: .stubTotalCoffe, adjustmentFactor: 0, adjustmentFactorOf: .stubTotalCoffe)), // TODO: factors missing
+            .put(.init(requirement: .none, duration: 0, startMethod: .userInteractive, skipMethod: .userInteractive, message: "Use all remaining #current.amount millilitres of water", details: "", ingredient: .water, mainFactor: 0, mainFactorOf: .stubTotalCoffe, adjustmentFactor: 0, adjustmentFactorOf: .stubTotalCoffe)), // TODO: factors missing
         ]
     }
 }
