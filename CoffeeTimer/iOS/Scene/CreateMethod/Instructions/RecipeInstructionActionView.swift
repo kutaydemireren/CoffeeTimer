@@ -22,7 +22,19 @@ struct RecipeInstructionActionView: View {
         allActions = [item.wrappedValue.action] + [
             .message(.init(message: "", details: "")),
             .pause(.init(duration: 0, message: "", details: "")),
-            .put(.init(requirement: .none, duration: 0, startMethod: .userInteractive, skipMethod: .userInteractive, message: "", details: "", ingredient: .coffee, amount: ""))
+            .put(.init(
+                requirement: .none,
+                duration: 0,
+                startMethod: .userInteractive,
+                skipMethod: .userInteractive,
+                message: "",
+                details: "",
+                ingredient: .coffee,
+                mainFactor: 0,
+                mainFactorOf: .stubTotalCoffe,
+                adjustmentFactor: 0,
+                adjustmentFactorOf: .stubTotalCoffe
+            ))
         ].filter {
             item.wrappedValue.action.title != $0.title
         }

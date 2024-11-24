@@ -79,27 +79,27 @@ final class InstructionActionViewBuilder {
     }
 
     private var mainFactor: Binding<Double>?
-    private var mainFactorOf: Binding<String>?
+    private var mainFactorOf: Binding<KeywordItem>?
 
     func with(mainFactor: Binding<Double>) -> Self {
         self.mainFactor = mainFactor
         return self
     }
 
-    func with(mainFactorOf: Binding<String>) -> Self {
+    func with(mainFactorOf: Binding<KeywordItem>) -> Self {
         self.mainFactorOf = mainFactorOf
         return self
     }
 
     private var adjustmentFactor: Binding<Double>?
-    private var adjustmentFactorOf: Binding<String>?
+    private var adjustmentFactorOf: Binding<KeywordItem>?
 
     func with(adjustmentFactor: Binding<Double>) -> Self {
         self.adjustmentFactor = adjustmentFactor
         return self
     }
 
-    func with(adjustmentFactorOf: Binding<String>) -> Self {
+    func with(adjustmentFactorOf: Binding<KeywordItem>) -> Self {
         self.adjustmentFactorOf = adjustmentFactorOf
         return self
     }
@@ -117,7 +117,7 @@ final class InstructionActionViewBuilder {
                 .disabled(requirementConstant)
                 .grayscale(requirementConstant ? 0.5 : 0.0)
             }
-            
+
             if let duration, requirement?.wrappedValue == .countdown {
                 NumericTextField(
                     title: "Duration (in seconds - limited to 300 seconds)",
@@ -127,7 +127,7 @@ final class InstructionActionViewBuilder {
                     input: duration
                 )
             }
-            
+
             if let startMethod {
                 TitledPicker(
                     selectedItem: startMethod,
@@ -138,7 +138,7 @@ final class InstructionActionViewBuilder {
                 .disabled(startMethodConstant)
                 .grayscale(startMethodConstant ? 0.5 : 0.0)
             }
-            
+
             if let skipMethod {
                 TitledPicker(
                     selectedItem: skipMethod,
@@ -149,7 +149,7 @@ final class InstructionActionViewBuilder {
                 .disabled(skipMethodConstant)
                 .grayscale(skipMethodConstant ? 0.5 : 0.0)
             }
-            
+
             if let message {
                 AlphanumericTextField(
                     title: "Message",
@@ -157,7 +157,7 @@ final class InstructionActionViewBuilder {
                     text: message
                 )
             }
-            
+
             if let details {
                 AlphanumericTextField(
                     title: "Secondary Message (optional)",
@@ -165,7 +165,7 @@ final class InstructionActionViewBuilder {
                     text: details
                 )
             }
-            
+
             if let ingredient {
                 TitledPicker(
                     selectedItem: ingredient,
@@ -173,24 +173,87 @@ final class InstructionActionViewBuilder {
                     title: "Ingredient",
                     placeholder: ""
                 )
-                .disabled(startMethodConstant)
-                .grayscale(startMethodConstant ? 0.5 : 0.0)
             }
-            
-            if let mainFactorOf {
-                VStack {
-                    TitledContent(title: "Amount (gram)") {
-                        AlphanumericTextField(
-                            text: mainFactorOf,
-                            placeholder: "0.2 * #current.water",
-                            style: .plain
-                        )
-                    } infoContent: {
-                        InformativeView(
-                            title: "... Title TBD ... ",
-                            description: informativeAmountDescription
-                        )
-                        .toAnyView()
+
+            if let mainFactor, let mainFactorOf, let adjustmentFactor, let adjustmentFactorOf {
+                TitledContent(title: "Amount (gram)") {
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack(spacing: 4) {
+                            NumericTextField(
+                                title: "",
+                                placeholder: "0.2",
+                                range: .init(minimum: 0, maximum: 10),
+                                input: mainFactor
+                            )
+
+                            Image(systemName: "xmark.app")
+                                .foregroundColor(Color("foregroundPrimary").opacity(0.8))
+
+                            Menu {
+                                Picker(selection: mainFactorOf, label: EmptyView()) {
+                                    ForEach([KeywordItem].stub) { ratio in
+                                        Text(ratio.title)
+                                    }
+                                }
+                            } label: {
+                                Text(mainFactorOf.wrappedValue.title)
+                                    .foregroundColor(Color("foregroundPrimary").opacity(0.8))
+                                    .padding()
+                                    .backgroundSecondary()
+                            }
+                        }
+
+                        HStack {
+                            Separator()
+                            Image(systemName: "plus.circle")
+                                .foregroundColor(Color("foregroundPrimary").opacity(0.8))
+                            Separator()
+                        }
+
+                        Text("Not just right? Adjust the amount")
+                            .multilineTextAlignment(.leading)
+                            .foregroundColor(Color("foregroundPrimary"))
+                            .font(.footnote)
+                            .padding(.horizontal)
+
+                        HStack(spacing: 4) {
+                            VStack {
+                                NumericTextField(
+                                    title: "",
+                                    placeholder: "0.2",
+                                    range: .init(minimum: -10, maximum: 10),
+                                    input: adjustmentFactor
+                                )
+
+                                Text("Leave empty for no addition")
+                                    .foregroundColor(Color("foregroundPrimary").opacity(0.8))
+                                    .font(.caption)
+                            }
+
+                            VStack {
+                                Image(systemName: "xmark.square")
+                                    .foregroundColor(Color("foregroundPrimary").opacity(0.8))
+                                Text("")
+                                    .font(.footnote)
+                            }
+
+                            Menu {
+                                Picker(selection: adjustmentFactorOf, label: EmptyView()) {
+                                    ForEach([KeywordItem].stub) { ratio in
+                                        Text(ratio.title)
+                                    }
+                                }
+                            } label: {
+                                VStack {
+                                    Text(adjustmentFactorOf.wrappedValue.title)
+                                        .foregroundColor(Color("foregroundPrimary").opacity(0.8))
+                                        .padding()
+                                        .backgroundSecondary()
+                                    Text("")
+                                        .font(.footnote)
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -198,9 +261,23 @@ final class InstructionActionViewBuilder {
     }
 }
 
+extension [KeywordItem] {
+    static var stub: Self {
+        return [
+            .init(keyword: "#total.coffee", title: "Total Coffee"),
+            .init(keyword: "#total.water", title: "Total Water"),
+            .init(keyword: "#total.ice", title: "Total Ice")
+        ]
+    }
+}
+
 #Preview {
     InstructionActionViewBuilder()
-        .with(mainFactorOf: .constant("23"))
+        .with(ingredient: .constant(.coffee))
+        .with(mainFactor: .constant(0))
+        .with(mainFactorOf: .constant(.stubTotalCoffe))
+        .with(adjustmentFactor: .constant(0))
+        .with(adjustmentFactorOf: .constant(.stubTotalCoffe))
         .build()
 }
 

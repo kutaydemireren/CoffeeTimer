@@ -99,14 +99,14 @@ protocol UpdatableInstructionActionIngredient {
     var mainFactor: Double { get }
     func updating(mainFactor: Double) -> RecipeInstructionAction
 
-    var mainFactorOf: String { get }
-    func updating(mainFactorOf: String) -> RecipeInstructionAction
+    var mainFactorOf: KeywordItem { get }
+    func updating(mainFactorOf: KeywordItem) -> RecipeInstructionAction
 
     var adjustmentFactor: Double { get }
     func updating(adjustmentFactor: Double) -> RecipeInstructionAction
 
-    var adjustmentFactorOf: String { get }
-    func updating(adjustmentFactorOf: String) -> RecipeInstructionAction
+    var adjustmentFactorOf: KeywordItem { get }
+    func updating(adjustmentFactorOf: KeywordItem) -> RecipeInstructionAction
 }
 
 extension UpdatableInstructionActionIngredient {
@@ -126,7 +126,7 @@ extension UpdatableInstructionActionIngredient {
         }
     }
 
-    func mainFactorOfBinding(to item: Binding<RecipeInstructionAction>) -> Binding<String> {
+    func mainFactorOfBinding(to item: Binding<RecipeInstructionAction>) -> Binding<KeywordItem> {
         return .init {
             mainFactorOf
         } set: { newValue in
@@ -142,7 +142,7 @@ extension UpdatableInstructionActionIngredient {
         }
     }
 
-    func adjustmentFactorOfBinding(to item: Binding<RecipeInstructionAction>) -> Binding<String> {
+    func adjustmentFactorOfBinding(to item: Binding<RecipeInstructionAction>) -> Binding<KeywordItem> {
         return .init {
             adjustmentFactorOf
         } set: { newValue in

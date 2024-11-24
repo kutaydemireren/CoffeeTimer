@@ -37,8 +37,17 @@ extension PutActionModel {
             message: "put msg",
             details: "dtl",
             ingredient: .coffee,
-            amount: ""
+            mainFactor: 0.2,
+            mainFactorOf: .stubTotalCoffe,
+            adjustmentFactor: -0.1,
+            adjustmentFactorOf: .stubTotalCoffe
         )
+    }
+}
+
+extension KeywordItem {
+    static var stubTotalCoffe: Self {
+        return .init(keyword: "#total.coffee", title: "Total Coffee")
     }
 }
 

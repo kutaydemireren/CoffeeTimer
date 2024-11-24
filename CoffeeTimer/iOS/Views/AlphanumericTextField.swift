@@ -77,6 +77,5 @@ struct AlphanumericTextField_Previews: PreviewProvider {
                 .padding()
             Spacer()
         }
-        .background(Color.black)
     }
 }

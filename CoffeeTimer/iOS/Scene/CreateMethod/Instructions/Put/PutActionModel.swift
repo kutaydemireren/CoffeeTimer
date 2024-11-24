@@ -16,9 +16,9 @@ struct PutActionModel: Hashable, Equatable {
     let details: String
     let ingredient: IngredientTypeItem
     let mainFactor: Double
-    let mainFactorOf: String
+    let mainFactorOf: KeywordItem
     let adjustmentFactor: Double
-    let adjustmentFactorOf: String
+    let adjustmentFactorOf: KeywordItem
 
     func updating(
         requirement: InstructionRequirementItem? = nil,
@@ -28,7 +28,11 @@ struct PutActionModel: Hashable, Equatable {
         message: String? = nil,
         details: String? = nil,
         ingredient: IngredientTypeItem? = nil,
-        amount: String? = nil
+        mainFactor: Double? = nil,
+        mainFactorOf: KeywordItem? = nil,
+        adjustmentFactor: Double? = nil,
+        adjustmentFactorOf: KeywordItem? = nil
+
     ) -> Self {
         .init(
             requirement: requirement ?? self.requirement,
@@ -38,7 +42,10 @@ struct PutActionModel: Hashable, Equatable {
             message: message ?? self.message,
             details: details ?? self.details,
             ingredient: ingredient ?? self.ingredient,
-            amount: amount ?? self.amount
+            mainFactor: mainFactor ?? self.mainFactor,
+            mainFactorOf: mainFactorOf ?? self.mainFactorOf,
+            adjustmentFactor: adjustmentFactor ?? self.adjustmentFactor,
+            adjustmentFactorOf: adjustmentFactorOf ?? self.adjustmentFactorOf
         )
     }
 }
@@ -84,14 +91,14 @@ extension PutActionModel: UpdatableInstructionActionIngredient {
         .put(updating(mainFactor: mainFactor))
     }
 
-    func updating(mainFactorOf: String) -> RecipeInstructionAction {
+    func updating(mainFactorOf: KeywordItem) -> RecipeInstructionAction {
         .put(updating(mainFactorOf: mainFactorOf))
     }
 
     func updating(adjustmentFactor: Double) -> RecipeInstructionAction {
         .put(updating(adjustmentFactor: adjustmentFactor))
     }
-    func updating(adjustmentFactorOf: String) -> RecipeInstructionAction {
+    func updating(adjustmentFactorOf: KeywordItem) -> RecipeInstructionAction {
         .put(updating(adjustmentFactorOf: adjustmentFactorOf))
     }
 }
