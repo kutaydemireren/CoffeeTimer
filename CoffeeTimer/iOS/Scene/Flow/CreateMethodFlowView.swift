@@ -18,7 +18,7 @@ final class CreateMethodFlowViewModel: ObservableObject, Completable {
         return context.instructions.firstIndex(where: { $0.id == selectedInstruction?.id })
     }
 
-    @Published var context = CreateMethodContext()
+    @Published var context = CreateBrewMethodContext()
     @Published var navigationPath: [Flow] = []
 
     var didComplete = PassthroughSubject<CreateMethodFlowViewModel, Never>()

@@ -106,6 +106,7 @@
 		CAF42CF329EC9906004D7788 /* RecipeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CF229EC9906004D7788 /* RecipeRepository.swift */; };
 		CAF42CF529EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CF429EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift */; };
 		CAFCF54B2A6F0A1700875CB7 /* HapticGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */; };
+		F22E68CE2CF38D2E00EE80FA /* CreateBrewMethodContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22E68CD2CF38D2E00EE80FA /* CreateBrewMethodContext.swift */; };
 		F27B2D692CF28D2100B425E9 /* IngredientAmountTypeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */; };
 /* End PBXBuildFile section */
 
@@ -229,6 +230,7 @@
 		CAF42CF229EC9906004D7788 /* RecipeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRepository.swift; sourceTree = "<group>"; };
 		CAF42CF429EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeBrewMethodSelection.swift; sourceTree = "<group>"; };
 		CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticGenerator.swift; sourceTree = "<group>"; };
+		F22E68CD2CF38D2E00EE80FA /* CreateBrewMethodContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBrewMethodContext.swift; sourceTree = "<group>"; };
 		F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientAmountTypeItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -655,6 +657,7 @@
 			children = (
 				CA2A00CD2C0B8FF10040B50D /* GetBrewMethodsUseCase.swift */,
 				CA1B52AF2C0B97B300C4B923 /* BrewMethodRepository.swift */,
+				F22E68CD2CF38D2E00EE80FA /* CreateBrewMethodContext.swift */,
 			);
 			path = BrewMethod;
 			sourceTree = "<group>";
@@ -926,6 +929,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAC371ED2C5586EF004D7659 /* Updatables.swift in Sources */,
+				F22E68CE2CF38D2E00EE80FA /* CreateBrewMethodContext.swift in Sources */,
 				CAF42CE729EC9561004D7788 /* Completable.swift in Sources */,
 				CA3CA4AF2A1AA20B00C76E28 /* RecipeMapper.swift in Sources */,
 				CA4758DF2A0C2D440022BC7D /* RecipesView.swift in Sources */,

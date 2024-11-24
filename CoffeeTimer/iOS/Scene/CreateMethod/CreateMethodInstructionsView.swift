@@ -57,15 +57,15 @@ struct RecipeInstructionActionItemRowView: View {
 //
 
 final class CreateMethodInstructionsViewModel: ObservableObject {
-    func addNewInstruction(context: CreateMethodContext) {
+    func addNewInstruction(context: CreateBrewMethodContext) {
         context.instructions.append(.init(action: .message(.init(message: "", details: ""))))
     }
 
-    func removeInstruction(at indexSet: IndexSet, context: CreateMethodContext) {
+    func removeInstruction(at indexSet: IndexSet, context: CreateBrewMethodContext) {
         context.instructions.remove(atOffsets: indexSet)
     }
 
-    func moveInstruction(from source: IndexSet, to destination: Int, context: CreateMethodContext) {
+    func moveInstruction(from source: IndexSet, to destination: Int, context: CreateBrewMethodContext) {
         context.instructions.move(fromOffsets: source, toOffset: destination)
     }
 }
@@ -73,7 +73,7 @@ final class CreateMethodInstructionsViewModel: ObservableObject {
 //
 
 struct CreateMethodInstructionsView: View {
-    @EnvironmentObject var context: CreateMethodContext
+    @EnvironmentObject var context: CreateBrewMethodContext
     @Environment(\.editMode) private var editMode
     @ObservedObject var viewModel = CreateMethodInstructionsViewModel()
 
@@ -176,7 +176,7 @@ struct CreateMethodInstructionsView: View {
 }
 
 fileprivate var previewWithContext: some View {
-    let context = CreateMethodContext()
+    let context = CreateBrewMethodContext()
     context.instructions = .stub
     return CreateMethodInstructionsView(viewModel: CreateMethodInstructionsViewModel())
         .backgroundPrimary()

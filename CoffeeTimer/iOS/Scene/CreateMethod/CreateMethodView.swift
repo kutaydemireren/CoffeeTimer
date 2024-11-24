@@ -7,27 +7,6 @@
 
 import SwiftUI
 
-final class CreateMethodContext: ObservableObject {
-    @Published var selectedMethod: BrewMethod?
-
-    @Published var methodTitle: String = ""
-
-    var cupsCount: CupsCount {
-        CupsCount(
-            minimum: cupsCountMin > 0 ? Int(cupsCountMin) : 1,
-            maximum: cupsCountMax > 0 ? Int(cupsCountMax) : nil
-        )
-    }
-    @Published var cupsCountMin: Double = 0
-    @Published var cupsCountMax: Double = 0
-
-    @Published var instructions: [RecipeInstructionActionItem] = []
-}
-
-//
-
-import Combine
-
 final class CreateMethodViewModel: ObservableObject {
     private let pageCount = 2
 
@@ -94,8 +73,8 @@ struct CreateMethodView: View {
     .environmentObject(stubContext())
 }
 
-fileprivate func stubContext() -> CreateMethodContext {
-    let context = CreateMethodContext()
+fileprivate func stubContext() -> CreateBrewMethodContext {
+    let context = CreateBrewMethodContext()
     context.instructions = .stub
     return context
 }

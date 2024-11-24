@@ -50,7 +50,7 @@ final class CreateMethodDetailsViewModel: ObservableObject {
         }
     }
     
-    func didSelect(selectedMethod: BrewMethod, in context: CreateMethodContext) {
+    func didSelect(selectedMethod: BrewMethod, in context: CreateBrewMethodContext) {
         context.selectedMethod = selectedMethod
         Task {
             let instructions = try await fetchRecipeInstructionsUseCase.fetchActions(brewMethod: selectedMethod)
@@ -60,7 +60,7 @@ final class CreateMethodDetailsViewModel: ObservableObject {
 }
 
 struct CreateMethodDetailsView: View {
-    @EnvironmentObject var context: CreateMethodContext
+    @EnvironmentObject var context: CreateBrewMethodContext
     @ObservedObject var viewModel = CreateMethodDetailsViewModel()
 
     var body: some View {
@@ -130,5 +130,5 @@ struct CreateMethodDetailsView: View {
 
 #Preview {
     CreateMethodDetailsView()
-        .environmentObject(CreateMethodContext())
+        .environmentObject(CreateBrewMethodContext())
 }
