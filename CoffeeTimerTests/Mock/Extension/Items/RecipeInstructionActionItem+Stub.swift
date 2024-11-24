@@ -68,7 +68,7 @@ extension RecipeInstructionStep {
 extension PutInstructionAction {
     static var stub: Self {
         .init(
-            requirement: .none,
+            requirement: .unknown,
             startMethod: .userInteractive,
             skipMethod: .userInteractive,
             message: "put msg",
@@ -98,7 +98,7 @@ extension PauseInstructionAction {
 extension MessageInstructionAction {
     static var stub: Self {
         .init(
-            requirement: .none,
+            requirement: .unknown,
             startMethod: .userInteractive,
             skipMethod: .userInteractive,
             message: "message msg",

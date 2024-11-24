@@ -23,7 +23,7 @@ final class MockBrewMethodRepository: BrewMethodRepository {
         return _brewMethods
     }
 
-    func create(brewMethod: BrewMethod) async throws {
+    func save(brewMethod: BrewMethod) async throws {
         _brewMethod = brewMethod
 
         if let _error {

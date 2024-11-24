@@ -54,7 +54,7 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
         )
     }
 
-    func create(brewMethod: BrewMethod) async throws {
+    func save(brewMethod: BrewMethod) async throws {
         fatalError("Not implemented")
 
     }

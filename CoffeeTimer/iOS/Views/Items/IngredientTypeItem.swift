@@ -16,6 +16,15 @@ enum IngredientTypeItem: String, Titled, Hashable, Identifiable, CaseIterable {
         return rawValue.capitalized
     }
 
+    var isLiquid: Bool {
+        switch self {
+        case .water:
+            return true
+        default:
+            return false
+        }
+    }
+
     case coffee = "coffee"
     case water = "water"
     case ice = "ice"

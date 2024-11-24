@@ -8,6 +8,7 @@
 import XCTest
 @testable import CoffeeTimer
 
+// TODO: move
 extension InstructionAction {
     func isEqual(to rhs: InstructionAction) -> Bool {
         (
@@ -18,6 +19,8 @@ extension InstructionAction {
         )
     }
 }
+
+//
 
 final class CreateBrewMethodUseCaseImpTests: XCTestCase {
     let validContext: CreateBrewMethodContext = {

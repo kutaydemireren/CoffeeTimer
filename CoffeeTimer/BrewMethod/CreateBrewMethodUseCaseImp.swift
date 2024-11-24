@@ -15,6 +15,8 @@ struct CustomMethodPathGenerator {
     }
 }
 
+//
+
 struct StaticCoffeetoWaterRatioGenerator {
     static func hotBrew() -> [CoffeeToWaterRatio] {
         return [
@@ -50,13 +52,16 @@ protocol CreateBrewMethodUseCase {
 }
 
 struct CreateBrewMethodUseCaseImp: CreateBrewMethodUseCase {
+    let instructionMapper: RecipeInstructionStepMapper
     let recipeInstructionsRepository: RecipeInstructionsRepository
     let brewMethodRepository: BrewMethodRepository
 
     init(
+        instructionMapper: RecipeInstructionStepMapper = RecipeInstructionStepMapperImp(),
         recipeInstructionsRepository: RecipeInstructionsRepository = RecipeInstructionsRepositoryImp(),
         brewMethodRepository: BrewMethodRepository = BrewMethodRepositoryImp()
     ) {
+        self.instructionMapper = instructionMapper
         self.recipeInstructionsRepository = recipeInstructionsRepository
         self.brewMethodRepository = brewMethodRepository
     }
@@ -69,14 +74,15 @@ struct CreateBrewMethodUseCaseImp: CreateBrewMethodUseCase {
 
     func create(from context: CreateBrewMethodContext) async throws {
         let brewMethod = createBrewMethod(from: context)
+        let instructionSteps = context.instructions.map(instructionMapper.map)
 
         try await recipeInstructionsRepository.save(
             instructions: .init(
                 identifier: brewMethod.id,
-                steps: []
+                steps: instructionSteps
             )
         )
-        try await brewMethodRepository.create(brewMethod: brewMethod)
+        try await brewMethodRepository.save(brewMethod: brewMethod)
     }
 
     private func createBrewMethod(from context: CreateBrewMethodContext) -> BrewMethod {

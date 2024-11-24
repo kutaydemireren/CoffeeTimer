@@ -8,6 +8,6 @@
 import Foundation
 
 protocol BrewMethodRepository {
-    func create(brewMethod: BrewMethod) async throws
+    func save(brewMethod: BrewMethod) async throws
     func fetchBrewMethods() async throws -> [BrewMethod]
 }
