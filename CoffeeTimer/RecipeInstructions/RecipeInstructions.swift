@@ -28,7 +28,6 @@ struct RecipeInstructions: Codable {
     typealias Ingredient = String
 
     let identifier: String
-    let ingredients: [RecipeInstructions.Ingredient]
     let steps: [RecipeInstructionStep]
 }
 
@@ -36,7 +35,6 @@ extension RecipeInstructions { // TODO: Move to test target
     static var empty: Self {
         return RecipeInstructions(
             identifier: "",
-            ingredients: [],
             steps: []
         )
     }

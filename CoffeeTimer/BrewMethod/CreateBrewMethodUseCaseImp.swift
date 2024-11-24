@@ -70,7 +70,12 @@ struct CreateBrewMethodUseCaseImp: CreateBrewMethodUseCase {
     func create(from context: CreateBrewMethodContext) async throws {
         let brewMethod = createBrewMethod(from: context)
 
-        try await recipeInstructionsRepository.save(instructions: .empty)
+        try await recipeInstructionsRepository.save(
+            instructions: .init(
+                identifier: brewMethod.id,
+                steps: []
+            )
+        )
         try await brewMethodRepository.create(brewMethod: brewMethod)
     }
 
