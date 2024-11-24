@@ -19,7 +19,11 @@ final class CreateBrewMethodUseCaseImpTests: XCTestCase {
         sut = nil
     }
 
-    func test_init() throws {
-        XCTAssertNotNil(sut)
+    func test_canCreate_whenMethodTitleIsNil_shouldThrowMissingMethodTitle() {
+        let createBrewMethodContext = CreateBrewMethodContext()
+
+        XCTAssertThrowsError(try sut.canCreate(from: createBrewMethodContext)) { error in
+            XCTAssertEqual(error as? CreateBrewMethodUseCaseError, .missingMethodTitle)
+        }
     }
 }

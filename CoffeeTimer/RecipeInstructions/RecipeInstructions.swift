@@ -24,7 +24,7 @@ func loadV60SingleRecipeInstructions() -> RecipeInstructions { // TODO: remove o
 
 //
 
-struct RecipeInstructions: Decodable {
+struct RecipeInstructions: Codable {
     typealias Ingredient = String
 
     let identifier: String
@@ -42,8 +42,8 @@ extension RecipeInstructions { // TODO: Move to test target
     }
 }
 
-struct RecipeInstructionStep: Decodable {
-    private enum Action: String, Decodable {
+struct RecipeInstructionStep: Codable {
+    private enum Action: String, Codable {
         case unknown
         case put
         case message
@@ -54,11 +54,13 @@ struct RecipeInstructionStep: Decodable {
         case action
     }
 
+    private let action: Action?
     let instructionAction: InstructionAction?
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let action = (try? container.decode(Action.self, forKey: .action)) ?? .unknown
+        self.action = action
 
         switch action {
         case .put:
@@ -72,15 +74,39 @@ struct RecipeInstructionStep: Decodable {
         }
     }
 
-    init(instructionAction: InstructionAction) {
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encodeIfPresent(action, forKey: .action)
+
+        switch action {
+        case .put:
+            if let putAction = instructionAction as? PutInstructionAction {
+                try putAction.encode(to: encoder)
+            }
+        case .message:
+            if let messageAction = instructionAction as? MessageInstructionAction {
+                try messageAction.encode(to: encoder)
+            }
+        case .pause:
+            if let pauseAction = instructionAction as? PauseInstructionAction {
+                try pauseAction.encode(to: encoder)
+            }
+        case .unknown, nil:
+            break
+        }
+    }
+
+    init(action: String, instructionAction: InstructionAction) {
+        self.action = Action(rawValue: action)
         self.instructionAction = instructionAction
     }
 }
 
 //
 
-struct InstructionAmount: Decodable {
-    struct Factor: Decodable {
+struct InstructionAmount: Codable {
+    struct Factor: Codable {
         let factor: Double?
         let factorOf: String?
     }
@@ -108,6 +134,17 @@ struct InstructionAmount: Decodable {
         adjustmentFactor = try container.decodeIfPresent(Factor.self, forKey: .adjustment)
     }
 
+    func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encodeIfPresent(type, forKey: .type)
+
+        try container.encodeIfPresent(mainFactor?.factor, forKey: .factor)
+        try container.encodeIfPresent(mainFactor?.factorOf, forKey: .factorOf)
+
+        try container.encodeIfPresent(adjustmentFactor, forKey: .adjustment)
+    }
+
     init(type: IngredientAmountTypeDTO?, mainFactor: Factor?, adjustmentFactor: Factor?) {
         self.type = type
         self.mainFactor = mainFactor
@@ -115,8 +152,8 @@ struct InstructionAmount: Decodable {
     }
 }
 
-enum InstructionRequirement: Decodable {
-    private struct Duration: Decodable {
+enum InstructionRequirement: Codable {
+    private struct Duration: Codable {
         let type: String?
         let length: Double?
     }
@@ -146,9 +183,23 @@ enum InstructionRequirement: Decodable {
 
         self = .countdown(UInt(round(durationLength)))
     }
+
+    func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        switch self {
+        case .unknown:
+            try container.encode("unknown", forKey: .type)
+
+        case .countdown(let duration):
+            try container.encode("countdown", forKey: .type)
+            let durationObject = Duration(type: "second", length: Double(duration))
+            try container.encode(durationObject, forKey: .duration)
+        }
+    }
 }
 
-enum InstructionInteractionMethod: String, Decodable {
+enum InstructionInteractionMethod: String, Codable {
     case auto
     case userInteractive
 }
@@ -261,7 +312,7 @@ extension InstructionActionContext {
 
 //
 
-protocol InstructionAction: Decodable, MessageProcessing {
+protocol InstructionAction: Codable, MessageProcessing {
     var requirement: InstructionRequirement? { get }
     var startMethod: InstructionInteractionMethod? { get }
     var skipMethod: InstructionInteractionMethod? { get }
