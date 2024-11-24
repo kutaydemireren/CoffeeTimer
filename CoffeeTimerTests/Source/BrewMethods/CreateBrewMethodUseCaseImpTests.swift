@@ -8,6 +8,17 @@
 import XCTest
 @testable import CoffeeTimer
 
+extension InstructionAction {
+    func isEqual(to rhs: InstructionAction) -> Bool {
+        (
+            self as? PutInstructionAction == rhs as? PutInstructionAction &&
+            self as? PauseInstructionAction == rhs as? PauseInstructionAction &&
+            self as? MessageInstructionAction == rhs as? MessageInstructionAction
+
+        )
+    }
+}
+
 final class CreateBrewMethodUseCaseImpTests: XCTestCase {
     let validContext: CreateBrewMethodContext = {
         let createBrewMethodContext = CreateBrewMethodContext()
@@ -77,6 +88,20 @@ final class CreateBrewMethodUseCaseImpTests: XCTestCase {
 
         let idString = mockInstructionsRepository._receivedRecipeInstructions.identifier
         XCTAssertNotNil(UUID(uuidString: idString), "ID (\(idString)) in path is not a valid UUID")
+    }
+
+    func test_create_shouldCallInstructionsRepositoryWithExpectedSteps() async throws {
+        validContext.instructions = [.stubMessage, .stubPut, .stubPause]
+
+        try await sut.create(from: validContext)
+
+        let resultedInstructions = mockInstructionsRepository._receivedRecipeInstructions.steps
+        let expectedInstructions: [RecipeInstructionStep] = [.stubMessage, .stubPut, .stubPause]
+        XCTAssertEqual(expectedInstructions.count, resultedInstructions.count)
+        zip(expectedInstructions, resultedInstructions).forEach { (expectedStep, resultedStep) in
+            XCTAssertEqual(expectedStep.action, resultedStep.action)
+            XCTAssertTrue(expectedStep.instructionAction!.isEqual(to: resultedStep.instructionAction!))
+        }
     }
 
     func test_create_whenMethodRepositoryThrows_shouldThrowExpectedError() async throws {

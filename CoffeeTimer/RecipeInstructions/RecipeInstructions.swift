@@ -7,7 +7,8 @@
 
 import Foundation
 
-func loadV60SingleRecipeInstructions() -> RecipeInstructions { // TODO: remove once fetching is possible
+// TODO: move
+func loadV60SingleRecipeInstructions() -> RecipeInstructions {
     guard let bundleURL = Bundle.main.url(forResource: "instructions_v60_single", withExtension: "json") else {
         fatalError("Instructions file not found in bundle")
     }
@@ -41,7 +42,7 @@ extension RecipeInstructions { // TODO: Move to test target
 }
 
 struct RecipeInstructionStep: Codable {
-    private enum Action: String, Codable {
+    enum Action: String, Codable {
         case unknown
         case put
         case message
@@ -52,7 +53,7 @@ struct RecipeInstructionStep: Codable {
         case action
     }
 
-    private let action: Action?
+    let action: Action?
     let instructionAction: InstructionAction?
 
     init(from decoder: Decoder) throws {
@@ -95,16 +96,16 @@ struct RecipeInstructionStep: Codable {
         }
     }
 
-    init(action: String, instructionAction: InstructionAction) {
-        self.action = Action(rawValue: action)
+    init(action: Action, instructionAction: InstructionAction) {
+        self.action = action
         self.instructionAction = instructionAction
     }
 }
 
 //
 
-struct InstructionAmount: Codable {
-    struct Factor: Codable {
+struct InstructionAmount: Codable, Equatable {
+    struct Factor: Codable, Equatable {
         let factor: Double?
         let factorOf: String?
     }
@@ -150,7 +151,7 @@ struct InstructionAmount: Codable {
     }
 }
 
-enum InstructionRequirement: Codable {
+enum InstructionRequirement: Codable, Equatable {
     private struct Duration: Codable {
         let type: String?
         let length: Double?
@@ -197,7 +198,7 @@ enum InstructionRequirement: Codable {
     }
 }
 
-enum InstructionInteractionMethod: String, Codable {
+enum InstructionInteractionMethod: String, Codable, Equatable {
     case auto
     case userInteractive
 }
@@ -366,7 +367,7 @@ extension RecipeInstructions.Ingredient {
     static var ice: Self { return "ice" }
 }
 
-struct PutInstructionAction: InstructionAction {
+struct PutInstructionAction: InstructionAction, Equatable {
     let requirement: InstructionRequirement?
     let startMethod: InstructionInteractionMethod?
     let skipMethod: InstructionInteractionMethod?
@@ -427,7 +428,7 @@ struct PutInstructionAction: InstructionAction {
 
 //
 
-struct PauseInstructionAction: InstructionAction {
+struct PauseInstructionAction: InstructionAction, Equatable {
     let requirement: InstructionRequirement?
     let startMethod: InstructionInteractionMethod?
     let skipMethod: InstructionInteractionMethod?
@@ -452,7 +453,7 @@ struct PauseInstructionAction: InstructionAction {
 
 //
 
-struct MessageInstructionAction: InstructionAction {
+struct MessageInstructionAction: InstructionAction, Equatable {
     let requirement: InstructionRequirement?
     let startMethod: InstructionInteractionMethod?
     let skipMethod: InstructionInteractionMethod?
