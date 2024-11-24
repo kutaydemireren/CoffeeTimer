@@ -9,6 +9,12 @@ import Foundation
 
 // TODO: move
 
+struct CustomMethodPathGenerator {
+    static func generate(id: String) -> String {
+        return "custom-method://\(id)"
+    }
+}
+
 struct StaticCoffeetoWaterRatioGenerator {
     static func hotBrew() -> [CoffeeToWaterRatio] {
         return [
@@ -66,11 +72,12 @@ struct CreateBrewMethodUseCaseImp: CreateBrewMethodUseCase {
             }
         }.count
         let isIcedBrew = numberOfPutIce > 0
+        let id = UUID().uuidString
 
         let brewMethod = BrewMethod(
-            id: UUID().uuidString,
+            id: id,
             title: context.methodTitle,
-            path: "",
+            path: CustomMethodPathGenerator.generate(id: id),
             isIcedBrew: isIcedBrew,
             cupsCount: context.cupsCount,
             ratios: isIcedBrew ? StaticCoffeetoWaterRatioGenerator.icedBrew() : StaticCoffeetoWaterRatioGenerator.hotBrew()

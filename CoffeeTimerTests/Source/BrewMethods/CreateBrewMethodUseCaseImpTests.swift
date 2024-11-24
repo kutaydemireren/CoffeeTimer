@@ -78,10 +78,13 @@ final class CreateBrewMethodUseCaseImpTests: XCTestCase {
         XCTAssertEqual(mockRepository._brewMethod.title, validContext.methodTitle)
     }
 
-    func test_create_shouldCallRepositoryWithEmptyPath() async throws {
+    func test_create_shouldCallRepositoryWithExpectedCustomPath() async throws {
         try await sut.create(from: validContext)
 
-        XCTAssertTrue(mockRepository._brewMethod.path.isEmpty)
+        XCTAssertTrue(mockRepository._brewMethod.path.hasPrefix("custom-method://"))
+
+        let idSubstring = mockRepository._brewMethod.path.replacingOccurrences(of: "custom-method://", with: "")
+        XCTAssertNotNil(UUID(uuidString: idSubstring), "ID (\(idSubstring)) in path is not a valid UUID")
     }
 
     func test_create_whenIngredientsDoNotContainIce_shouldCallRepositoryWithNotIcedBrewAndRatios() async throws {
