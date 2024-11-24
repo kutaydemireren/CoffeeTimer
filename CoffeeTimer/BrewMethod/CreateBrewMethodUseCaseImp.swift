@@ -50,10 +50,15 @@ protocol CreateBrewMethodUseCase {
 }
 
 struct CreateBrewMethodUseCaseImp: CreateBrewMethodUseCase {
-    let repository: BrewMethodRepository
+    let recipeInstructionsRepository: RecipeInstructionsRepository
+    let brewMethodRepository: BrewMethodRepository
 
-    init(repository: BrewMethodRepository = BrewMethodRepositoryImp()) {
-        self.repository = repository
+    init(
+        recipeInstructionsRepository: RecipeInstructionsRepository = RecipeInstructionsRepositoryImp(),
+        brewMethodRepository: BrewMethodRepository = BrewMethodRepositoryImp()
+    ) {
+        self.recipeInstructionsRepository = recipeInstructionsRepository
+        self.brewMethodRepository = brewMethodRepository
     }
 
     func canCreate(from context: CreateBrewMethodContext) throws -> Bool {
@@ -63,6 +68,13 @@ struct CreateBrewMethodUseCaseImp: CreateBrewMethodUseCase {
     }
 
     func create(from context: CreateBrewMethodContext) async throws {
+        let brewMethod = createBrewMethod(from: context)
+
+        try await recipeInstructionsRepository.save(instructions: .empty)
+        try await brewMethodRepository.create(brewMethod: brewMethod)
+    }
+
+    private func createBrewMethod(from context: CreateBrewMethodContext) -> BrewMethod {
         let numberOfPutIce = context.instructions.filter { item in
             switch item.action {
             case .put(let putModel):
@@ -74,7 +86,7 @@ struct CreateBrewMethodUseCaseImp: CreateBrewMethodUseCase {
         let isIcedBrew = numberOfPutIce > 0
         let id = UUID().uuidString
 
-        let brewMethod = BrewMethod(
+        return .init(
             id: id,
             title: context.methodTitle,
             path: CustomMethodPathGenerator.generate(id: id),
@@ -82,7 +94,5 @@ struct CreateBrewMethodUseCaseImp: CreateBrewMethodUseCase {
             cupsCount: context.cupsCount,
             ratios: isIcedBrew ? StaticCoffeetoWaterRatioGenerator.icedBrew() : StaticCoffeetoWaterRatioGenerator.hotBrew()
         )
-
-        try await repository.create(brewMethod: brewMethod)
     }
 }

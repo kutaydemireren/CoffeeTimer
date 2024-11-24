@@ -8,5 +8,6 @@
 import Foundation
 
 protocol RecipeInstructionsRepository {
+    func save(instructions: RecipeInstructions) async throws
     func fetchInstructions(for brewMethod: BrewMethod) async throws -> RecipeInstructions
 }

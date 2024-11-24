@@ -34,11 +34,12 @@ struct RecipeInstructionsRepositoryImp: RecipeInstructionsRepository {
     }
 
     func fetchInstructions(for brewMethod: BrewMethod) async throws -> RecipeInstructions {
-        // TODO: temp, revert
-//        return loadV60SingleRecipeInstructions()
-
         let data = try await networkManager.perform(request: FetchRecipeInstructionsRequest(brewMethod: brewMethod))
         let recipeInstructions = try decoding.decode(RecipeInstructions.self, from: data)
         return recipeInstructions
+    }
+
+    func save(instructions: RecipeInstructions) async throws {
+        fatalError("Not implemented")
     }
 }

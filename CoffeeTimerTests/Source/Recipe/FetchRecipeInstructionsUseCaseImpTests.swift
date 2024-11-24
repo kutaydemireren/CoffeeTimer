@@ -12,7 +12,8 @@ import XCTest
 
 final class MockRecipeInstructionsRepository: RecipeInstructionsRepository {
     var _error: Error!
-    var _recipeInstructions: RecipeInstructions!
+    var _receivedRecipeInstructions: RecipeInstructions!
+    var _resultedRecipeInstructions: RecipeInstructions!
     var _brewMethod: BrewMethod!
 
     func fetchInstructions(for brewMethod: BrewMethod) throws -> RecipeInstructions {
@@ -22,7 +23,15 @@ final class MockRecipeInstructionsRepository: RecipeInstructionsRepository {
             throw _error
         }
 
-        return _recipeInstructions
+        return _resultedRecipeInstructions
+    }
+
+    func save(instructions: RecipeInstructions) async throws {
+        _receivedRecipeInstructions = instructions
+
+        if let _error {
+            throw _error
+        }
     }
 }
 
@@ -53,7 +62,7 @@ final class FetchRecipeInstructionsUseCaseImpTests: XCTestCase {
 
     func test_fetch_shouldRequestExpectedBrewMethod() async throws {
         let expectedBrewMethod = BrewMethod.frenchPress
-        mockRepository._recipeInstructions = loadMiniInstructions()
+        mockRepository._resultedRecipeInstructions = loadMiniInstructions()
 
         _ = try await sut.fetch(brewMethod: expectedBrewMethod)
 
@@ -62,7 +71,7 @@ final class FetchRecipeInstructionsUseCaseImpTests: XCTestCase {
 
     func test_fetch_shouldReturnExpectedInstructions() async throws {
         let expectedInstructions = loadMiniInstructions()
-        mockRepository._recipeInstructions = expectedInstructions
+        mockRepository._resultedRecipeInstructions = expectedInstructions
 
         let resultedInstructions = try await sut.fetch(brewMethod: .frenchPress)
 
@@ -84,7 +93,7 @@ extension FetchRecipeInstructionsUseCaseImpTests {
 
     func test_fetchActions_shouldRequestExpectedBrewMethod() async throws {
         let expectedBrewMethod = BrewMethod.frenchPress
-        mockRepository._recipeInstructions = loadMiniInstructions()
+        mockRepository._resultedRecipeInstructions = loadMiniInstructions()
 
         _ = try await sut.fetchActions(brewMethod: expectedBrewMethod)
 
@@ -92,7 +101,7 @@ extension FetchRecipeInstructionsUseCaseImpTests {
     }
 
     func test_fetchActions_shouldReturnExpectedInstructionActions() async throws {
-        mockRepository._recipeInstructions = loadMiniInstructions()
+        mockRepository._resultedRecipeInstructions = loadMiniInstructions()
 
         let resultedInstructions = try await sut.fetchActions(brewMethod: .frenchPress)
         

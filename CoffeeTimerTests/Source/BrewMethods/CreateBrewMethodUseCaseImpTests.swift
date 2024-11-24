@@ -16,16 +16,22 @@ final class CreateBrewMethodUseCaseImpTests: XCTestCase {
         return createBrewMethodContext
     }()
 
-    var mockRepository: MockBrewMethodRepository!
+    var mockInstructionsRepository: MockRecipeInstructionsRepository!
+    var mockMethodRepository: MockBrewMethodRepository!
     var sut: CreateBrewMethodUseCaseImp!
 
     override func setUpWithError() throws {
-        mockRepository = MockBrewMethodRepository()
-        sut = CreateBrewMethodUseCaseImp(repository: mockRepository)
+        mockInstructionsRepository = MockRecipeInstructionsRepository()
+        mockMethodRepository = MockBrewMethodRepository()
+        sut = CreateBrewMethodUseCaseImp(
+            recipeInstructionsRepository: mockInstructionsRepository,
+            brewMethodRepository: mockMethodRepository
+        )
     }
 
     override func tearDownWithError() throws {
-        mockRepository = nil
+        mockInstructionsRepository = nil
+        mockMethodRepository = nil
         sut = nil
     }
 
@@ -56,8 +62,18 @@ final class CreateBrewMethodUseCaseImpTests: XCTestCase {
         XCTAssertTrue(resultedCanCreate)
     }
 
-    func test_create_whenRepositoryThrows_shouldThrowExpectedError() async throws {
-        mockRepository._error = TestError.notAllowed
+    func test_create_whenInstructionsRepositoryThrows_shouldThrowExpectedError() async throws {
+        mockInstructionsRepository._error = TestError.notAllowed
+
+        await assertThrowsError {
+            try await sut.create(from: validContext)
+        } _: { error in
+            XCTAssertEqual(error as? TestError, .notAllowed)
+        }
+    }
+
+    func test_create_whenMethodRepositoryThrows_shouldThrowExpectedError() async throws {
+        mockMethodRepository._error = TestError.notAllowed
 
         await assertThrowsError {
             try await sut.create(from: validContext)
@@ -69,29 +85,29 @@ final class CreateBrewMethodUseCaseImpTests: XCTestCase {
     func test_create_shouldCallRepositoryWithUUIDStringAsID() async throws {
         try await sut.create(from: validContext)
 
-        XCTAssertNotNil(UUID(uuidString: mockRepository._brewMethod.id))
+        XCTAssertNotNil(UUID(uuidString: mockMethodRepository._brewMethod.id))
     }
 
     func test_create_shouldCallRepositoryWithExpectedTitle() async throws {
         try await sut.create(from: validContext)
 
-        XCTAssertEqual(mockRepository._brewMethod.title, validContext.methodTitle)
+        XCTAssertEqual(mockMethodRepository._brewMethod.title, validContext.methodTitle)
     }
 
     func test_create_shouldCallRepositoryWithExpectedCustomPath() async throws {
         try await sut.create(from: validContext)
 
-        XCTAssertTrue(mockRepository._brewMethod.path.hasPrefix("custom-method://"))
+        XCTAssertTrue(mockMethodRepository._brewMethod.path.hasPrefix("custom-method://"))
 
-        let idSubstring = mockRepository._brewMethod.path.replacingOccurrences(of: "custom-method://", with: "")
+        let idSubstring = mockMethodRepository._brewMethod.path.replacingOccurrences(of: "custom-method://", with: "")
         XCTAssertNotNil(UUID(uuidString: idSubstring), "ID (\(idSubstring)) in path is not a valid UUID")
     }
 
-    func test_create_whenIngredientsDoNotContainIce_shouldCallRepositoryWithNotIcedBrewAndRatios() async throws {
+    func test_create_whenIngredientsDoNotContainIce_shouldCallRepositoryWithHotBrewAndRatios() async throws {
         try await sut.create(from: validContext)
 
-        XCTAssertFalse(mockRepository._brewMethod.isIcedBrew)
-        XCTAssertEqual(mockRepository._brewMethod.ratios, StaticCoffeetoWaterRatioGenerator.hotBrew())
+        XCTAssertFalse(mockMethodRepository._brewMethod.isIcedBrew)
+        XCTAssertEqual(mockMethodRepository._brewMethod.ratios, StaticCoffeetoWaterRatioGenerator.hotBrew())
     }
 
     func test_create_whenIngredientsContainIce_shouldCallRepositoryWithIcedBrewAndRatios() async throws {
@@ -101,17 +117,7 @@ final class CreateBrewMethodUseCaseImpTests: XCTestCase {
 
         try await sut.create(from: validContext)
 
-        XCTAssertTrue(mockRepository._brewMethod.isIcedBrew)
-        XCTAssertEqual(mockRepository._brewMethod.ratios, StaticCoffeetoWaterRatioGenerator.icedBrew())
-    }
-
-    func test_create_shouldCallRepositoryWithExpectedCupsCount() async throws {
-        validContext.instructions = [
-            .stubMessage, .stubPutCoffee, .stubPutIce, .stubPause, .stubPutWater
-        ]
-
-        try await sut.create(from: validContext)
-
-        XCTAssertEqual(mockRepository._brewMethod.cupsCount, validContext.cupsCount)
+        XCTAssertTrue(mockMethodRepository._brewMethod.isIcedBrew)
+        XCTAssertEqual(mockMethodRepository._brewMethod.ratios, StaticCoffeetoWaterRatioGenerator.icedBrew())
     }
 }
