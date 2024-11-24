@@ -9,17 +9,22 @@ import Foundation
 
 enum CreateBrewMethodUseCaseError: Error {
     case missingMethodTitle
-    case invalidCupsCount
+    case missingInstructions
 }
 
 protocol CreateBrewMethodUseCase {
     func canCreate(from context: CreateBrewMethodContext) throws -> Bool
+    func create(from context: CreateBrewMethodContext) throws
 }
 
 struct CreateBrewMethodUseCaseImp: CreateBrewMethodUseCase {
     func canCreate(from context: CreateBrewMethodContext) throws -> Bool {
         guard !context.methodTitle.isEmpty else { throw CreateBrewMethodUseCaseError.missingMethodTitle }
-        return false
+        guard !context.instructions.isEmpty else { throw CreateBrewMethodUseCaseError.missingInstructions }
+        return true
+    }
+
+    func create(from context: CreateBrewMethodContext) throws {
     }
 
     /*
