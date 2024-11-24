@@ -53,4 +53,9 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
             title: ratio.title ?? ""
         )
     }
+
+    func create(brewMethod: BrewMethod) async throws {
+        fatalError("Not implemented")
+
+    }
 }

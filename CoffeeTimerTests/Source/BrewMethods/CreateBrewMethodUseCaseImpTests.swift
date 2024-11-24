@@ -9,13 +9,23 @@ import XCTest
 @testable import CoffeeTimer
 
 final class CreateBrewMethodUseCaseImpTests: XCTestCase {
+    let validContext: CreateBrewMethodContext = {
+        let createBrewMethodContext = CreateBrewMethodContext()
+        createBrewMethodContext.methodTitle = "title"
+        createBrewMethodContext.instructions = [.stubMessage]
+        return createBrewMethodContext
+    }()
+
+    var mockRepository: MockBrewMethodRepository!
     var sut: CreateBrewMethodUseCaseImp!
 
     override func setUpWithError() throws {
-        sut = CreateBrewMethodUseCaseImp()
+        mockRepository = MockBrewMethodRepository()
+        sut = CreateBrewMethodUseCaseImp(repository: mockRepository)
     }
 
     override func tearDownWithError() throws {
+        mockRepository = nil
         sut = nil
     }
 
@@ -46,6 +56,13 @@ final class CreateBrewMethodUseCaseImpTests: XCTestCase {
         XCTAssertTrue(resultedCanCreate)
     }
 
-    func test_create_shouldCallRepositoryWithExpectedBrewMethodID() throws {
+    func test_create_shouldCallRepositoryWithUUIDStringAsID() async throws {
+        let createBrewMethodContext = CreateBrewMethodContext()
+        createBrewMethodContext.methodTitle = "title"
+        createBrewMethodContext.instructions = [.stubMessage]
+
+        try await sut.create(from: validContext)
+
+        XCTAssertNotNil(UUID(uuidString: mockRepository._brewMethod.id))
     }
 }

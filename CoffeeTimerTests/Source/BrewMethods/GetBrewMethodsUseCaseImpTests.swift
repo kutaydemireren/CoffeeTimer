@@ -11,6 +11,7 @@ import XCTest
 //
 
 final class MockBrewMethodRepository: BrewMethodRepository {
+    var _brewMethod: BrewMethod!
     var _brewMethods: [BrewMethod]!
     var _error: Error!
 
@@ -20,6 +21,14 @@ final class MockBrewMethodRepository: BrewMethodRepository {
         }
 
         return _brewMethods
+    }
+
+    func create(brewMethod: BrewMethod) async throws {
+        if let _error {
+            throw _error
+        }
+
+        _brewMethod = brewMethod
     }
 }
 
