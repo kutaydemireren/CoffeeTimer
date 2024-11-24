@@ -15,7 +15,10 @@ struct PutActionModel: Hashable, Equatable {
     let message: String
     let details: String
     let ingredient: IngredientTypeItem
-    let amount: String // TODO: parse
+    let mainFactor: Double
+    let mainFactorOf: String
+    let adjustmentFactor: Double
+    let adjustmentFactorOf: String
 
     func updating(
         requirement: InstructionRequirementItem? = nil,
@@ -77,7 +80,18 @@ extension PutActionModel: UpdatableInstructionActionIngredient {
         .put(updating(ingredient: ingredient))
     }
 
-    func updating(amount: String) -> RecipeInstructionAction {
-        .put(updating(amount: amount))
+    func updating(mainFactor: Double) -> RecipeInstructionAction {
+        .put(updating(mainFactor: mainFactor))
+    }
+
+    func updating(mainFactorOf: String) -> RecipeInstructionAction {
+        .put(updating(mainFactorOf: mainFactorOf))
+    }
+
+    func updating(adjustmentFactor: Double) -> RecipeInstructionAction {
+        .put(updating(adjustmentFactor: adjustmentFactor))
+    }
+    func updating(adjustmentFactorOf: String) -> RecipeInstructionAction {
+        .put(updating(adjustmentFactorOf: adjustmentFactorOf))
     }
 }

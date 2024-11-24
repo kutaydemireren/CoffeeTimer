@@ -94,9 +94,19 @@ extension UpdatableInstructionActionMessage {
 // MARK: Ingredient
 protocol UpdatableInstructionActionIngredient {
     var ingredient: IngredientTypeItem { get }
-    var amount: String { get }
     func updating(ingredient: IngredientTypeItem) -> RecipeInstructionAction
-    func updating(amount: String) -> RecipeInstructionAction
+
+    var mainFactor: Double { get }
+    func updating(mainFactor: Double) -> RecipeInstructionAction
+
+    var mainFactorOf: String { get }
+    func updating(mainFactorOf: String) -> RecipeInstructionAction
+
+    var adjustmentFactor: Double { get }
+    func updating(adjustmentFactor: Double) -> RecipeInstructionAction
+
+    var adjustmentFactorOf: String { get }
+    func updating(adjustmentFactorOf: String) -> RecipeInstructionAction
 }
 
 extension UpdatableInstructionActionIngredient {
@@ -108,11 +118,35 @@ extension UpdatableInstructionActionIngredient {
         }
     }
 
-    func amountBinding(to item: Binding<RecipeInstructionAction>) -> Binding<String> {
+    func mainFactorBinding(to item: Binding<RecipeInstructionAction>) -> Binding<Double> {
         return .init {
-            amount
+            mainFactor
         } set: { newValue in
-            item.wrappedValue = updating(amount: newValue)
+            item.wrappedValue = updating(mainFactor: newValue)
+        }
+    }
+
+    func mainFactorOfBinding(to item: Binding<RecipeInstructionAction>) -> Binding<String> {
+        return .init {
+            mainFactorOf
+        } set: { newValue in
+            item.wrappedValue = updating(mainFactorOf: newValue)
+        }
+    }
+
+    func adjustmentFactorBinding(to item: Binding<RecipeInstructionAction>) -> Binding<Double> {
+        return .init {
+            adjustmentFactor
+        } set: { newValue in
+            item.wrappedValue = updating(adjustmentFactor: newValue)
+        }
+    }
+
+    func adjustmentFactorOfBinding(to item: Binding<RecipeInstructionAction>) -> Binding<String> {
+        return .init {
+            adjustmentFactorOf
+        } set: { newValue in
+            item.wrappedValue = updating(adjustmentFactorOf: newValue)
         }
     }
 }

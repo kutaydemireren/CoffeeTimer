@@ -32,7 +32,10 @@ struct PutInstructionActionView: View {
                 .with(message: model.messageBinding(to: $action))
                 .with(details: model.detailsBinding(to: $action))
                 .with(ingredient: Binding(model.ingredientBinding(to: $action)))
-                .with(amount: model.amountBinding(to: $action))
+                .with(mainFactor: model.mainFactorBinding(to: $action))
+                .with(mainFactorOf: model.mainFactorOfBinding(to: $action))
+                .with(adjustmentFactor: model.adjustmentFactorBinding(to: $action))
+                .with(adjustmentFactorOf: model.adjustmentFactorOfBinding(to: $action))
                 .build()
         }
     }

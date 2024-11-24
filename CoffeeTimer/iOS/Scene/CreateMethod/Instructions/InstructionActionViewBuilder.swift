@@ -78,10 +78,29 @@ final class InstructionActionViewBuilder {
         return self
     }
 
-    private var amount: Binding<String>?
+    private var mainFactor: Binding<Double>?
+    private var mainFactorOf: Binding<String>?
 
-    func with(amount: Binding<String>) -> Self {
-        self.amount = amount
+    func with(mainFactor: Binding<Double>) -> Self {
+        self.mainFactor = mainFactor
+        return self
+    }
+
+    func with(mainFactorOf: Binding<String>) -> Self {
+        self.mainFactorOf = mainFactorOf
+        return self
+    }
+
+    private var adjustmentFactor: Binding<Double>?
+    private var adjustmentFactorOf: Binding<String>?
+
+    func with(adjustmentFactor: Binding<Double>) -> Self {
+        self.adjustmentFactor = adjustmentFactor
+        return self
+    }
+
+    func with(adjustmentFactorOf: Binding<String>) -> Self {
+        self.adjustmentFactorOf = adjustmentFactorOf
         return self
     }
 
@@ -158,11 +177,11 @@ final class InstructionActionViewBuilder {
                 .grayscale(startMethodConstant ? 0.5 : 0.0)
             }
             
-            if let amount {
+            if let mainFactorOf {
                 VStack {
                     TitledContent(title: "Amount (gram)") {
                         AlphanumericTextField(
-                            text: amount,
+                            text: mainFactorOf,
                             placeholder: "0.2 * #current.water",
                             style: .plain
                         )
@@ -181,7 +200,7 @@ final class InstructionActionViewBuilder {
 
 #Preview {
     InstructionActionViewBuilder()
-        .with(amount: .constant("23"))
+        .with(mainFactorOf: .constant("23"))
         .build()
 }
 

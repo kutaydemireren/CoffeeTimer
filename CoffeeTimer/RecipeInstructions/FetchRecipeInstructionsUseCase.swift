@@ -47,7 +47,10 @@ struct FetchRecipeInstructionsUseCaseImp: FetchRecipeInstructionsUseCase {
                             message: putInstruction.message ?? "",
                             details: putInstruction.details ?? "",
                             ingredient: try mapIngredientType(putInstruction.ingredient),
-                            amount: "" // TODO: `amount` missing
+                            mainFactor: 23, // TODO: missing
+                            mainFactorOf: "#water", // TODO: missing
+                            adjustmentFactor: 3, // TODO: missing
+                            adjustmentFactorOf: "#water" // TODO: missing
                         )
                  
                     )
