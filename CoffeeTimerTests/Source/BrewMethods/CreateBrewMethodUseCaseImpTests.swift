@@ -84,13 +84,14 @@ final class CreateBrewMethodUseCaseImpTests: XCTestCase {
         XCTAssertTrue(mockRepository._brewMethod.path.isEmpty)
     }
 
-    func test_create_whenDefault_shouldCallRepositoryWithNotIcedBrew() async throws {
+    func test_create_whenIngredientsDoNotContainIce_shouldCallRepositoryWithNotIcedBrewAndRatios() async throws {
         try await sut.create(from: validContext)
 
         XCTAssertFalse(mockRepository._brewMethod.isIcedBrew)
+        XCTAssertEqual(mockRepository._brewMethod.ratios, StaticCoffeetoWaterRatioGenerator.hotBrew())
     }
 
-    func test_create_whenIngredientsIncludeIce_shouldCallRepositoryWithIcedBrew() async throws {
+    func test_create_whenIngredientsContainIce_shouldCallRepositoryWithIcedBrewAndRatios() async throws {
         validContext.instructions = [
             .stubMessage, .stubPutCoffee, .stubPutIce, .stubPause, .stubPutWater
         ]
@@ -98,5 +99,16 @@ final class CreateBrewMethodUseCaseImpTests: XCTestCase {
         try await sut.create(from: validContext)
 
         XCTAssertTrue(mockRepository._brewMethod.isIcedBrew)
+        XCTAssertEqual(mockRepository._brewMethod.ratios, StaticCoffeetoWaterRatioGenerator.icedBrew())
+    }
+
+    func test_create_shouldCallRepositoryWithExpectedCupsCount() async throws {
+        validContext.instructions = [
+            .stubMessage, .stubPutCoffee, .stubPutIce, .stubPause, .stubPutWater
+        ]
+
+        try await sut.create(from: validContext)
+
+        XCTAssertEqual(mockRepository._brewMethod.cupsCount, validContext.cupsCount)
     }
 }
