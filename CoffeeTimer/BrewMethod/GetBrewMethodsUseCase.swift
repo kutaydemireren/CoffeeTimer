@@ -19,6 +19,6 @@ struct GetBrewMethodsUseCaseImp: GetBrewMethodsUseCase {
     }
 
     func getAll() async throws -> [BrewMethod] {
-        try await repository.fetchBrewMethods()
+        try await repository.getBrewMethods()
     }
 }

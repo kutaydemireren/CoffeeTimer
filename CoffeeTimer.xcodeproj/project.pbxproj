@@ -24,7 +24,7 @@
 		CA1B52B32C0B97E700C4B923 /* BrewMethodRepositoryImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B52B22C0B97E700C4B923 /* BrewMethodRepositoryImp.swift */; };
 		CA1B52B52C0B980400C4B923 /* FetchRecipeInstructionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B52B42C0B980400C4B923 /* FetchRecipeInstructionsRequest.swift */; };
 		CA1B52BA2C0B98D000C4B923 /* BrewMethodRepositoryImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B52B92C0B98D000C4B923 /* BrewMethodRepositoryImpTests.swift */; };
-		CA1B52BC2C0BA30500C4B923 /* FetchBrewMethodsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B52BB2C0BA30500C4B923 /* FetchBrewMethodsRequest.swift */; };
+		CA1B52BC2C0BA30500C4B923 /* GetBrewMethodsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1B52BB2C0BA30500C4B923 /* GetBrewMethodsRequest.swift */; };
 		CA2A00CA2C0B65E10040B50D /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2A00C92C0B65E10040B50D /* Errors.swift */; };
 		CA2A00CE2C0B8FF10040B50D /* GetBrewMethodsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2A00CD2C0B8FF10040B50D /* GetBrewMethodsUseCase.swift */; };
 		CA2A00D12C0B90A40040B50D /* GetBrewMethodsUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2A00D02C0B90A40040B50D /* GetBrewMethodsUseCaseImpTests.swift */; };
@@ -149,7 +149,7 @@
 		CA1B52B22C0B97E700C4B923 /* BrewMethodRepositoryImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewMethodRepositoryImp.swift; sourceTree = "<group>"; };
 		CA1B52B42C0B980400C4B923 /* FetchRecipeInstructionsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchRecipeInstructionsRequest.swift; sourceTree = "<group>"; };
 		CA1B52B92C0B98D000C4B923 /* BrewMethodRepositoryImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewMethodRepositoryImpTests.swift; sourceTree = "<group>"; };
-		CA1B52BB2C0BA30500C4B923 /* FetchBrewMethodsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchBrewMethodsRequest.swift; sourceTree = "<group>"; };
+		CA1B52BB2C0BA30500C4B923 /* GetBrewMethodsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBrewMethodsRequest.swift; sourceTree = "<group>"; };
 		CA2A00C92C0B65E10040B50D /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		CA2A00CD2C0B8FF10040B50D /* GetBrewMethodsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBrewMethodsUseCase.swift; sourceTree = "<group>"; };
 		CA2A00D02C0B90A40040B50D /* GetBrewMethodsUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBrewMethodsUseCaseImpTests.swift; sourceTree = "<group>"; };
@@ -319,7 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				CA1B52B22C0B97E700C4B923 /* BrewMethodRepositoryImp.swift */,
-				CA1B52BB2C0BA30500C4B923 /* FetchBrewMethodsRequest.swift */,
+				CA1B52BB2C0BA30500C4B923 /* GetBrewMethodsRequest.swift */,
 			);
 			path = BrewMethod;
 			sourceTree = "<group>";
@@ -989,7 +989,7 @@
 				CAC371E92C558662004D7659 /* MessageActionModel.swift in Sources */,
 				CA6263B82A250F00003E167D /* Storage.swift in Sources */,
 				CA1B52B32C0B97E700C4B923 /* BrewMethodRepositoryImp.swift in Sources */,
-				CA1B52BC2C0BA30500C4B923 /* FetchBrewMethodsRequest.swift in Sources */,
+				CA1B52BC2C0BA30500C4B923 /* GetBrewMethodsRequest.swift in Sources */,
 				CA6263C72A254EB3003E167D /* Color+HexString.swift in Sources */,
 				F22E68D32CF38DB600EE80FA /* CreateBrewMethodUseCaseImp.swift in Sources */,
 				CA6263BF2A25499A003E167D /* Entities+Stub.swift in Sources */,

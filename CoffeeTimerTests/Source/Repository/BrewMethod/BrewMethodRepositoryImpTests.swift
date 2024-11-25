@@ -37,40 +37,49 @@ final class BrewMethodRepositoryImpTests: XCTestCase {
     }
 }
 
-// MARK: Fetch Brew Methods
+// MARK: get Brew Methods
 extension BrewMethodRepositoryImpTests {
-    func test_fetchBrewMethods_whenNetworkThrowsError_shouldThrowExpectedError() async throws {
+    func test_getBrewMethods_whenNetworkThrowsError_shouldThrowExpectedError() async throws {
         mockNetworkManager._error = TestError.notAllowed
 
         await assertThrowsError {
-            try await sut.fetchBrewMethods()
+            try await sut.getBrewMethods()
         } _: { error in
             XCTAssertEqual(error as? TestError, .notAllowed)
         }
     }
 
-    func test_fetchBrewMethods_whenDecodingThrowsError_shouldThrowExpectedError() async throws {
+    func test_getBrewMethods_whenDecodingThrowsError_shouldThrowExpectedError() async throws {
         mockDecoding._error = TestError.notAllowed
 
         await assertThrowsError {
-            try await sut.fetchBrewMethods()
+            try await sut.getBrewMethods()
         } _: { error in
             XCTAssertEqual(error as? TestError, .notAllowed)
         }
     }
 
-    func test_fetchBrewMethods_shouldCreateExpectedBrewRequest() async throws {
-        _ = try await sut.fetchBrewMethods()
+    func test_getBrewMethods_shouldCreateExpectedBrewRequest() async throws {
+        _ = try await sut.getBrewMethods()
 
-        XCTAssertEqual(try mockNetworkManager._request.createURLRequest(), try FetchBrewMethodsRequest().createURLRequest())
+        XCTAssertEqual(try mockNetworkManager._request.createURLRequest(), try GetBrewMethodsRequest().createURLRequest())
     }
 
-    func test_fetchBrewMethods_shouldReturnExpectedBrewMethods() async throws {
+    func test_getBrewMethods_whenNoSavedBrewMethod_shouldOnlyReturnRemoteBrewMethods() async throws {
         mockDecoding._decoded = [BrewMethodDTO.frenchPress(cupsCount: .init(minimum: nil, maximum: 5)), BrewMethodDTO.v60Single]
 
-        let resultedBrewMethods = try await sut.fetchBrewMethods()
+        let resultedBrewMethods = try await sut.getBrewMethods()
 
         XCTAssertEqual(resultedBrewMethods, [.frenchPress, .v60Single])
+    }
+
+    func test_getBrewMethods_whenSavedBrewMethod_shouldReturnAllBrewMethods() async throws {
+        mockDecoding._decoded = [BrewMethodDTO.frenchPress(cupsCount: .init(minimum: nil, maximum: 5)), BrewMethodDTO.v60Single]
+        mockStorage.storageDictionary = [expectedSavedBrewMethodsKey: [BrewMethodDTO.v60Iced]]
+
+        let resultedBrewMethods = try await sut.getBrewMethods()
+
+        XCTAssertEqual(resultedBrewMethods, [.frenchPress, .v60Single, .v60Iced])
     }
 }
 

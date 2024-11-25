@@ -15,7 +15,7 @@ final class MockBrewMethodRepository: BrewMethodRepository {
     var _brewMethods: [BrewMethod]!
     var _error: Error!
 
-    func fetchBrewMethods() async throws -> [BrewMethod] {
+    func getBrewMethods() async throws -> [BrewMethod] {
         if let _error {
             throw _error
         }

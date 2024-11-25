@@ -28,9 +28,10 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
         self.storage = storage
     }
 
-    func fetchBrewMethods() async throws -> [BrewMethod] {
-        let data = try await networkManager.perform(request: FetchBrewMethodsRequest())
-        let brewMethodDTOs = try decoding.decode([BrewMethodDTO].self, from: data)
+    func getBrewMethods() async throws -> [BrewMethod] {
+        let data = try await networkManager.perform(request: GetBrewMethodsRequest())
+        var brewMethodDTOs = try decoding.decode([BrewMethodDTO].self, from: data)
+        brewMethodDTOs.append(contentsOf: getSavedBrewMethodDTOs())
         return map(brewMethodDTOs: brewMethodDTOs)
     }
 
