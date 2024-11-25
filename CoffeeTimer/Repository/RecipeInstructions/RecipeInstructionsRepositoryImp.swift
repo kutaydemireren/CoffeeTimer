@@ -21,6 +21,10 @@ protocol NetworkManager {
 
 //
 
+enum RecipeInstructionsRepositoryError: Error {
+    case invalidCustomMethod
+}
+
 struct RecipeInstructionsConstants {
     static let savedRecipeInstructionsKey = "savedRecipeInstructions"
 }
@@ -43,6 +47,21 @@ struct RecipeInstructionsRepositoryImp: RecipeInstructionsRepository {
     }
 
     func fetchInstructions(for brewMethod: BrewMethod) async throws -> RecipeInstructions {
+        if brewMethod.path.hasPrefix(CustomMethodPathGenerator.customMethodKey) {
+            return try findLocalInstructions(for: brewMethod)
+        } else {
+            return try await fetchRemoteInstructions(for: brewMethod)
+        }
+    }
+
+    private func findLocalInstructions(for brewMethod: BrewMethod) throws -> RecipeInstructions {
+        let savedInstruction = getSavedInstructions()
+            .first { $0.identifier == CustomMethodPathGenerator.parseID(path: brewMethod.path) }
+        guard let savedInstruction else { throw RecipeInstructionsRepositoryError.invalidCustomMethod }
+        return savedInstruction
+    }
+
+    private func fetchRemoteInstructions(for brewMethod: BrewMethod) async throws -> RecipeInstructions {
         let data = try await networkManager.perform(request: FetchRecipeInstructionsRequest(brewMethod: brewMethod))
         let recipeInstructions = try decoding.decode(RecipeInstructions.self, from: data)
         return recipeInstructions

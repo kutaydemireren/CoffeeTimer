@@ -13,6 +13,7 @@ final class MockStorage: Storage {
     var saveCalledWithKey: String?
     var saveCalledWithValue: Any?
     
+    var loadCalledCount = 0
     var loadCalledWithKey: String?
     
     func save<T>(_ value: T?, forKey key: String) {
@@ -22,6 +23,7 @@ final class MockStorage: Storage {
     }
     
     func load<T>(forKey key: String) -> T? {
+        loadCalledCount += 1
         loadCalledWithKey = key
         return storageDictionary[key] as? T
     }

@@ -70,7 +70,7 @@ extension BrewMethodRepositoryImpTests {
 
         let resultedBrewMethods = try await sut.getBrewMethods()
 
-        XCTAssertEqual(resultedBrewMethods, [.frenchPress, .v60Single])
+        XCTAssertEqual(resultedBrewMethods, [.frenchPress(), .v60Single])
     }
 
     func test_getBrewMethods_whenSavedBrewMethod_shouldReturnAllBrewMethods() async throws {
@@ -79,7 +79,7 @@ extension BrewMethodRepositoryImpTests {
 
         let resultedBrewMethods = try await sut.getBrewMethods()
 
-        XCTAssertEqual(resultedBrewMethods, [.frenchPress, .v60Single, .v60Iced])
+        XCTAssertEqual(resultedBrewMethods, [.frenchPress(), .v60Single, .v60Iced])
     }
 }
 
@@ -89,7 +89,7 @@ extension BrewMethodRepositoryImpTests {
         let existingBrewMethodDTOs: [BrewMethodDTO] = [.v60Iced]
         mockStorage.storageDictionary = [expectedSavedBrewMethodsKey: existingBrewMethodDTOs]
 
-        try await sut.save(brewMethod: .frenchPress)
+        try await sut.save(brewMethod: .frenchPress())
 
         XCTAssertEqual(mockStorage.loadCalledWithKey, expectedSavedBrewMethodsKey)
         XCTAssertEqual(mockStorage.saveCalledWithKey, expectedSavedBrewMethodsKey)

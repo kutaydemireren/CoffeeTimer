@@ -28,8 +28,10 @@ final class MockNetworkManager: NetworkManager {
     var _error: Error!
     var _data: Data!
     var _request: Request!
+    var performCallCount: Int = 0
 
     func perform(request: Request) throws -> Data {
+        performCallCount += 1
         _request = request
 
         if let _error {
@@ -54,7 +56,7 @@ final class MockDecoding: Decoding {
             throw _error
         }
 
-        return _decoded as! T
+        return try (_decoded as? T) ?? (JSONDecoder().decode(T.self, from: data))
     }
 }
 
@@ -73,7 +75,6 @@ final class RecipeInstructionsRepositoryImpTests: XCTestCase {
         mockNetworkManager = MockNetworkManager()
         mockNetworkManager._data = Data()
         mockDecoding = MockDecoding()
-        mockDecoding._decoded = RecipeInstructions.empty
         sut = RecipeInstructionsRepositoryImp(
             networkManager: mockNetworkManager,
             decoding: mockDecoding,
@@ -95,7 +96,7 @@ extension RecipeInstructionsRepositoryImpTests {
         mockNetworkManager._error = TestError.notAllowed
 
         await assertThrowsError {
-            try await sut.fetchInstructions(for: .frenchPress)
+            try await sut.fetchInstructions(for: .frenchPress())
         } _: { error in
             XCTAssertEqual(error as? TestError, .notAllowed)
         }
@@ -105,39 +106,73 @@ extension RecipeInstructionsRepositoryImpTests {
         mockDecoding._error = TestError.notAllowed
 
         await assertThrowsError {
-            try await sut.fetchInstructions(for: .frenchPress)
+            try await sut.fetchInstructions(for: .frenchPress())
         } _: { error in
             XCTAssertEqual(error as? TestError, .notAllowed)
         }
     }
 
     func test_fetchInstructions_shouldCreateExpectedBrewRequest() async throws {
-        _ = try await sut.fetchInstructions(for: .frenchPress)
+        mockDecoding._decoded = RecipeInstructions.empty
 
-        XCTAssertEqual(try mockNetworkManager._request.createURLRequest(), try FetchRecipeInstructionsRequest(brewMethod: .frenchPress).createURLRequest())
+        _ = try await sut.fetchInstructions(for: .frenchPress())
+
+        XCTAssertEqual(try mockNetworkManager._request.createURLRequest(), try FetchRecipeInstructionsRequest(brewMethod: .frenchPress()).createURLRequest())
     }
 
-    func test_fetchInstructions_shouldReturnExpectedRecipeInstructions() async throws {
-        mockNetworkManager._data = Data()
-        let expectedInstructions = loadMiniInstructions()
-        mockDecoding._decoded = expectedInstructions
+    func test_fetchInstructions_whenBrewMethodHasNotCustomMethodPath_shouldReturnRemoteRecipeInstructions() async throws {
+        let localInstructions = [loadMiniInstructions()]
+        mockStorage.storageDictionary[expectedSavedRecipeInstructionsKey] = localInstructions
+        let remoteInstructions = loadMiniInstructions()
+        mockNetworkManager._data = try! JSONEncoder().encode(remoteInstructions)
 
-        let resultedInstructions = try await sut.fetchInstructions(for: .frenchPress)
+        let resultedInstructions = try await sut.fetchInstructions(for: .frenchPress())
 
-        XCTAssertEqual(resultedInstructions, expectedInstructions)
+        XCTAssertEqual(resultedInstructions, remoteInstructions)
+        XCTAssertEqual(mockStorage.loadCalledCount, 0)
+        XCTAssertEqual(mockNetworkManager.performCallCount, 1)
+    }
+
+    func test_fetchInstructions_whenBrewMethodHasCustomMethodPath_PathNotFound_shouldThrowInvalidCustomMethod() async throws {
+        var localInstructions = loadMiniInstructions()
+        mockStorage.storageDictionary[expectedSavedRecipeInstructionsKey] = [localInstructions]
+        let remoteInstructions = loadMiniInstructions()
+        mockNetworkManager._data = try! JSONEncoder().encode(remoteInstructions)
+
+        await assertThrowsError {
+            try await sut.fetchInstructions(for: .frenchPress(path: "custom-method://test-id"))
+        } _: { error in
+            XCTAssertEqual(error as? RecipeInstructionsRepositoryError, .invalidCustomMethod)
+        }
+
+        XCTAssertEqual(mockStorage.loadCalledCount, 1)
+        XCTAssertEqual(mockNetworkManager.performCallCount, 0)
+    }
+
+    func test_fetchInstructions_whenBrewMethodHasCustomMethodPath_PathFound_shouldReturnSavedRecipeInstructions() async throws {
+        let localInstructions = RecipeInstructions(
+            identifier: "test-id",
+            steps: [.stubMessage, .stubPause, .stubPut]
+        )
+        mockStorage.storageDictionary[expectedSavedRecipeInstructionsKey] = [localInstructions]
+        let remoteInstructions = loadMiniInstructions()
+        mockNetworkManager._data = try! JSONEncoder().encode(remoteInstructions)
+
+        let resultedInstructions = try await sut.fetchInstructions(for: .frenchPress(path: "custom-method://test-id"))
+
+        XCTAssertEqual(resultedInstructions, localInstructions)
+        XCTAssertEqual(mockStorage.loadCalledCount, 1)
+        XCTAssertEqual(mockNetworkManager.performCallCount, 0)
     }
 }
 
 // MARK: Save Instructions
 extension RecipeInstructionsRepositoryImpTests {
     func test_save_shouldAppendToSavedRecipeInstructions() async throws {
-        let existingInstructions = [RecipeInstructions(identifier: "test-id-1", steps: [.stubMessage, .stubPause])]
+        let existingInstructions = [loadMiniInstructions()]
         mockStorage.storageDictionary[expectedSavedRecipeInstructionsKey] = existingInstructions
 
-        let newInstruction = RecipeInstructions(
-            identifier: "test-id-2",
-            steps: [.stubPut, .stubMessage]
-        )
+        let newInstruction = loadMiniIcedInstructions()
         let expectedRecipeInstructions = existingInstructions + [newInstruction]
 
         try await sut.save(instructions: newInstruction)

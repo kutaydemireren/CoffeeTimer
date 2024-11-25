@@ -16,7 +16,7 @@ final class CreateRecipeFromContextUseCaseImpTests: XCTestCase {
 
     var validContext: CreateRecipeContext {
         let createRecipeContext = CreateRecipeContext()
-        createRecipeContext.selectedBrewMethod = .frenchPress
+        createRecipeContext.selectedBrewMethod = .frenchPress()
         createRecipeContext.recipeProfile = .stubMini
         createRecipeContext.cupsCount = 1
         createRecipeContext.ratio = .ratio16
@@ -50,7 +50,7 @@ extension CreateRecipeFromContextUseCaseImpTests {
 
     func test_canCreate_whenRecipeProfileHasNoContent_shouldThrowMissingRecipeProfile() {
         let createRecipeContext = CreateRecipeContext()
-        createRecipeContext.selectedBrewMethod = .frenchPress
+        createRecipeContext.selectedBrewMethod = .frenchPress()
 
         XCTAssertThrowsError(try sut.canCreate(from: createRecipeContext)) { error in
             XCTAssertEqual(error as? CreateRecipeFromContextUseCaseError, .missingRecipeProfile)
@@ -59,7 +59,7 @@ extension CreateRecipeFromContextUseCaseImpTests {
 
     func test_canCreate_whenCupsCountIsNotGreaterThanZero_shouldThrowMissingCupsCount() {
         let createRecipeContext = CreateRecipeContext()
-        createRecipeContext.selectedBrewMethod = .frenchPress
+        createRecipeContext.selectedBrewMethod = .frenchPress()
         createRecipeContext.recipeProfile = .stubMini
 
         XCTAssertThrowsError(try sut.canCreate(from: createRecipeContext)) { error in
@@ -69,7 +69,7 @@ extension CreateRecipeFromContextUseCaseImpTests {
 
     func test_canCreate_whenRatioIsNil_shouldThrowMissingRatio() {
         let createRecipeContext = CreateRecipeContext()
-        createRecipeContext.selectedBrewMethod = .frenchPress
+        createRecipeContext.selectedBrewMethod = .frenchPress()
         createRecipeContext.recipeProfile = .stubMini
         createRecipeContext.cupsCount = 1
 

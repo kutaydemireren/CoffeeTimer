@@ -10,8 +10,18 @@ import Foundation
 // TODO: move
 
 struct CustomMethodPathGenerator {
+    static let customMethodKey = "custom-method"
+
     static func generate(id: String) -> String {
-        return "custom-method://\(id)"
+        return "\(customMethodKey)://\(id)"
+    }
+
+    static func parseID(path: String) -> String? {
+        guard path.starts(with: "\(customMethodKey)://") else {
+            return nil
+        }
+
+        return String(path.dropFirst("\(customMethodKey)://".count))
     }
 }
 

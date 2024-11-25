@@ -57,7 +57,7 @@ struct CreateRecipeBrewMethodSelection: View {
 
 struct CreateRecipeBrewMethodSelection_Previews: PreviewProvider {
     static var previews: some View {
-        CreateRecipeBrewMethodSelection(brewMethods: .constant([.frenchPress, .v60Single]), selectedBrewMethod: .constant(.v60Single))
+        CreateRecipeBrewMethodSelection(brewMethods: .constant([.frenchPress(), .v60Single]), selectedBrewMethod: .constant(.v60Single))
             .backgroundPrimary()
     }
 }
@@ -94,11 +94,11 @@ extension BrewMethod {
         )
     }
 
-    static var frenchPress: Self {
+    static func frenchPress(path: String = "/french-press") -> Self {
         return BrewMethod(
             id: "french-press",
             title: "French Press",
-            path: "/french-press",
+            path: path,
             isIcedBrew: false,
             cupsCount: .init(minimum: 1, maximum: 5),
             ratios: [

@@ -58,7 +58,7 @@ final class GetBrewMethodsUseCaseImpTests: XCTestCase {
     }
 
     func test_getAll_shouldReturnExpectedBrewMethods() async throws {
-        let expectedBrewMethods: [BrewMethod] = [.frenchPress, .v60Iced]
+        let expectedBrewMethods: [BrewMethod] = [.frenchPress(), .v60Iced]
         repository._brewMethods = expectedBrewMethods
 
         let resultedBrewMethods = try await sut.getAll()
