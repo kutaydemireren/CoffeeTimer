@@ -21,16 +21,25 @@ protocol NetworkManager {
 
 //
 
+struct RecipeInstructionsConstants {
+    static let savedRecipeInstructionsKey = "savedRecipeInstructions"
+}
+
 struct RecipeInstructionsRepositoryImp: RecipeInstructionsRepository {
-    let networkManager: NetworkManager
-    let decoding: Decoding
+    private let savedInstructionsKey = RecipeInstructionsConstants.savedRecipeInstructionsKey
+
+    private let networkManager: NetworkManager
+    private let decoding: Decoding
+    private let storage: Storage
 
     init(
         networkManager: NetworkManager = NetworkManagerImp(),
-        decoding: Decoding = JSONDecoder()
+        decoding: Decoding = JSONDecoder(),
+        storage: Storage = StorageImp(userDefaults: .standard)
     ) {
         self.networkManager = networkManager
         self.decoding = decoding
+        self.storage = storage
     }
 
     func fetchInstructions(for brewMethod: BrewMethod) async throws -> RecipeInstructions {
@@ -40,6 +49,15 @@ struct RecipeInstructionsRepositoryImp: RecipeInstructionsRepository {
     }
 
     func save(instructions: RecipeInstructions) async throws {
-        fatalError("Not implemented")
+        var newInstructions = getSavedInstructions()
+        newInstructions.append(instructions)
+        storage.save(newInstructions, forKey: savedInstructionsKey)
+    }
+
+    private func getSavedInstructions() -> [RecipeInstructions] {
+        guard let instructions = storage.load(forKey: savedInstructionsKey) as [RecipeInstructions]? else {
+            return []
+        }
+        return instructions
     }
 }

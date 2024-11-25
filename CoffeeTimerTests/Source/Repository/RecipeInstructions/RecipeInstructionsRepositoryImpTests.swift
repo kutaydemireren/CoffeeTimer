@@ -61,24 +61,36 @@ final class MockDecoding: Decoding {
 //
 
 final class RecipeInstructionsRepositoryImpTests: XCTestCase {
+    let expectedSavedRecipeInstructionsKey = RecipeInstructionsConstants.savedRecipeInstructionsKey
+
+    var mockStorage: MockStorage!
     var mockNetworkManager: MockNetworkManager!
     var mockDecoding: MockDecoding!
     var sut: RecipeInstructionsRepositoryImp!
 
     override func setUp() {
+        mockStorage = MockStorage()
         mockNetworkManager = MockNetworkManager()
         mockNetworkManager._data = Data()
         mockDecoding = MockDecoding()
         mockDecoding._decoded = RecipeInstructions.empty
-        sut = RecipeInstructionsRepositoryImp(networkManager: mockNetworkManager, decoding: mockDecoding)
+        sut = RecipeInstructionsRepositoryImp(
+            networkManager: mockNetworkManager,
+            decoding: mockDecoding,
+            storage: mockStorage
+        )
     }
 
     override func tearDown() {
+        mockStorage = nil
         mockNetworkManager = nil
         mockDecoding = nil
         sut = nil
     }
+}
 
+// MARK: Fetch Instructions
+extension RecipeInstructionsRepositoryImpTests {
     func test_fetchInstructions_whenNetworkThrowsError_shouldThrowExpectedError() async {
         mockNetworkManager._error = TestError.notAllowed
 
@@ -113,5 +125,25 @@ final class RecipeInstructionsRepositoryImpTests: XCTestCase {
         let resultedInstructions = try await sut.fetchInstructions(for: .frenchPress)
 
         XCTAssertEqual(resultedInstructions, expectedInstructions)
+    }
+}
+
+// MARK: Save Instructions
+extension RecipeInstructionsRepositoryImpTests {
+    func test_save_shouldAppendToSavedRecipeInstructions() async throws {
+        let existingInstructions = [RecipeInstructions(identifier: "test-id-1", steps: [.stubMessage, .stubPause])]
+        mockStorage.storageDictionary[expectedSavedRecipeInstructionsKey] = existingInstructions
+
+        let newInstruction = RecipeInstructions(
+            identifier: "test-id-2",
+            steps: [.stubPut, .stubMessage]
+        )
+        let expectedRecipeInstructions = existingInstructions + [newInstruction]
+
+        try await sut.save(instructions: newInstruction)
+
+        XCTAssertEqual(mockStorage.loadCalledWithKey, expectedSavedRecipeInstructionsKey)
+        XCTAssertEqual(mockStorage.saveCalledWithKey, expectedSavedRecipeInstructionsKey)
+        XCTAssertEqual(mockStorage.saveCalledWithValue as? [RecipeInstructions], expectedRecipeInstructions)
     }
 }
