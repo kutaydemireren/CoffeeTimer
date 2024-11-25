@@ -14,7 +14,6 @@ struct RecipeConstants {
 }
 
 final class RecipeRepositoryImp: RecipeRepository {
-    
     static let shared: RecipeRepositoryImp = RecipeRepositoryImp()
     
     var recipesPublisher: AnyPublisher<[Recipe], Never> {

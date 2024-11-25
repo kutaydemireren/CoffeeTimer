@@ -7,16 +7,25 @@
 
 import Foundation
 
+struct BrewMethodConstants {
+    static let savedBrewMethodsKey = "savedBrewMethods"
+}
+
 struct BrewMethodRepositoryImp: BrewMethodRepository {
-    let networkManager: NetworkManager
-    let decoding: Decoding
+    private let savedBrewMethodsKey = BrewMethodConstants.savedBrewMethodsKey
+
+    private let networkManager: NetworkManager
+    private let decoding: Decoding
+    private let storage: Storage
 
     init(
         networkManager: NetworkManager = NetworkManagerImp(),
-        decoding: Decoding = JSONDecoder()
+        decoding: Decoding = JSONDecoder(),
+        storage: Storage = StorageImp(userDefaults: .standard)
     ) {
         self.networkManager = networkManager
         self.decoding = decoding
+        self.storage = storage
     }
 
     func fetchBrewMethods() async throws -> [BrewMethod] {
@@ -55,7 +64,41 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
     }
 
     func save(brewMethod: BrewMethod) async throws {
-        fatalError("Not implemented")
+        var newBrewMethodDTOs = getSavedBrewMethodDTOs()
+        newBrewMethodDTOs.append(map(brewMethod: brewMethod))
+        storage.save(newBrewMethodDTOs, forKey: savedBrewMethodsKey)
+    }
 
+    private func map(brewMethod: BrewMethod) -> BrewMethodDTO {
+        return .init(
+            id: brewMethod.id,
+            title: brewMethod.title,
+            path: brewMethod.path,
+            isIcedBrew: brewMethod.isIcedBrew,
+            cupsCount: map(cupsCount: brewMethod.cupsCount),
+            ratios: brewMethod.ratios.map(map(ratio:))
+        )
+    }
+
+    private func map(cupsCount: CupsCount) -> CupsCountDTO {
+        return CupsCountDTO(
+            minimum: cupsCount.minimum,
+            maximum: cupsCount.maximum
+        )
+    }
+
+    private func map(ratio: CoffeeToWaterRatio) -> CoffeeToWaterRatioDTO {
+        return CoffeeToWaterRatioDTO(
+            id: ratio.id,
+            value: ratio.value,
+            title: ratio.title
+        )
+    }
+
+    private func getSavedBrewMethodDTOs() -> [BrewMethodDTO] {
+        if let brewMethodDTO = storage.load(forKey: savedBrewMethodsKey) as [BrewMethodDTO]? {
+            return brewMethodDTO
+        }
+        return []
     }
 }

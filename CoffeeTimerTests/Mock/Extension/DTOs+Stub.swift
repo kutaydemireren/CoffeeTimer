@@ -38,13 +38,13 @@ extension BrewMethodDTO {
         )
     }
 
-    static var frenchPress: Self {
+    static func frenchPress(cupsCount: CupsCountDTO) -> Self {
         return BrewMethodDTO(
             id: "french-press",
             title: "French Press",
             path: "/french-press",
             isIcedBrew: false,
-            cupsCount: .frenchPress,
+            cupsCount: cupsCount,
             ratios: [
                 .ratio17,
                 .ratio18,
@@ -61,10 +61,6 @@ extension CupsCountDTO {
 
     static var unlimited: Self {
         return CupsCountDTO(minimum: 1, maximum: nil)
-    }
-
-    static var frenchPress: Self {
-        return CupsCountDTO(minimum: nil, maximum: 5)
     }
 }
 
