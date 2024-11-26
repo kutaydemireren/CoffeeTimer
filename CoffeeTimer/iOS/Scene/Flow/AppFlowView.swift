@@ -37,16 +37,23 @@ final class AppFlowViewModel: ObservableObject {
     private func didComplete(viewModel: RecipesFlowViewModel) {
         isRecipesPresented = false
     }
+
+    func configure() {
+        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(named: "backgroundSecondary")
+        UIPageControl.appearance().pageIndicatorTintColor = UIColor(named: "backgroundSecondary")?.withAlphaComponent(0.3)
+    }
 }
 
 struct AppFlowView: View {
-
     @StateObject var viewModel: AppFlowViewModel
 
     var body: some View {
         brewQueue()
             .fullScreenCover(isPresented: $viewModel.isRecipesPresented) {
                 recipes()
+            }
+            .task {
+                viewModel.configure()
             }
     }
 

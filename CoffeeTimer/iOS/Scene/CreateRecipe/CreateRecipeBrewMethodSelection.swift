@@ -36,6 +36,8 @@ struct CreateRecipeBrewMethodSelection: View {
     @Binding var brewMethods: [BrewMethod]
     @Binding var selectedBrewMethod: BrewMethod?
 
+    var createMethod: () -> Void
+
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 16) {
@@ -51,13 +53,36 @@ struct CreateRecipeBrewMethodSelection: View {
                 }
             }
             .padding()
+
+            customMethodAction()
+        }
+    }
+
+    @ViewBuilder
+    private func customMethodAction() -> some View {
+        HStack {
+            VStack {
+                Spacer()
+
+                Button(action: createMethod) {
+                    HStack {
+                        Image(uiImage: .add)
+                            .renderingMode(.template)
+
+                        Text("Or, create your own")
+                    }
+                    .foregroundColor(Color("foregroundPrimary"))
+                }
+                .padding()
+                .backgroundSecondary(opacity: 0.6)
+            }
         }
     }
 }
 
 struct CreateRecipeBrewMethodSelection_Previews: PreviewProvider {
     static var previews: some View {
-        CreateRecipeBrewMethodSelection(brewMethods: .constant([.frenchPress(), .v60Single]), selectedBrewMethod: .constant(.v60Single))
+        CreateRecipeBrewMethodSelection(brewMethods: .constant([.frenchPress(), .v60Single]), selectedBrewMethod: .constant(.v60Single), createMethod: { })
             .backgroundPrimary()
     }
 }

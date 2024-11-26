@@ -7,54 +7,6 @@
 
 import SwiftUI
 
-// TODO: move
-
-struct PagerView<Content: View>: View {
-    @Binding var selectedPage: Int
-    @Binding var canCreate: Bool
-
-    var close: () -> Void
-    var create: () async throws -> Void
-    var nextPage: () -> Void
-    @ViewBuilder var content: () -> Content
-
-    var body: some View {
-
-        VStack {
-            HStack {
-                Button("Close", action: close)
-                    .frame(alignment: .topLeading)
-
-                Spacer()
-
-                if canCreate {
-                    Button("Save") {
-                        Task {
-                            try await create()
-                            close()
-                        }
-                    }
-                } else {
-                    Button("Next") {
-                        withAnimation { nextPage() }
-                    }
-                }
-            }
-            .padding()
-            .foregroundColor(Color("backgroundSecondary"))
-
-            TabView(selection: $selectedPage) {
-                content()
-            }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .ignoresSafeArea()
-        }
-        .backgroundPrimary()
-    }
-}
-
-//
-
 @MainActor
 final class CreateRecipeViewModel: ObservableObject {
     private let pageCount = 3
@@ -171,19 +123,27 @@ struct CreateRecipeView: View {
             content: {
                 // Wrapping in ZStack helps with the scrolling animation amongst pages
                 ZStack {
-                    CreateRecipeBrewMethodSelection(brewMethods: $viewModel.brewMethods, selectedBrewMethod: $context.selectedBrewMethod)
-
-                    customMethodAction()
+                    CreateRecipeBrewMethodSelection(
+                        brewMethods: $viewModel.brewMethods,
+                        selectedBrewMethod: $context.selectedBrewMethod,
+                        createMethod: createMethod
+                    )
                 }
                 .tag(1)
 
                 ZStack {
-                    CreateRecipeProfileSelection(recipeProfile: $context.recipeProfile)
+                    CreateRecipeProfileSelection(
+                        recipeProfile: $context.recipeProfile
+                    )
                 }
                 .tag(2)
 
                 ZStack {
-                    CreateRecipeCoffeeWaterSelection(cupsCountAmount: $context.cupsCount, selectedRatio: $context.ratio, allRatios: $viewModel.allRatios)
+                    CreateRecipeCoffeeWaterSelection(
+                        cupsCountAmount: $context.cupsCount,
+                        selectedRatio: $context.ratio,
+                        allRatios: $viewModel.allRatios
+                    )
                 }
                 .tag(3)
             }
@@ -192,28 +152,6 @@ struct CreateRecipeView: View {
         .onChange(of: context.recipeProfile, perform: didUpdate(_:))
         .onChange(of: context.cupsCount, perform: didUpdate(_:))
         .onChange(of: context.ratio, perform: didUpdate(_:))
-    }
-
-    @ViewBuilder
-    private func customMethodAction() -> some View {
-
-        HStack {
-            VStack {
-                Spacer()
-
-                Button(action: createMethod) {
-                    HStack {
-                        Image(uiImage: .add)
-                            .renderingMode(.template)
-
-                        Text("Create your own method")
-                    }
-                    .foregroundColor(Color("foregroundPrimary"))
-                }
-                .padding()
-                .backgroundSecondary(opacity: 0.6)
-            }
-        }
     }
 
     private func didUpdate<T>(_ newValue: T) {
