@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RecipeInstructionActionItem: Identifiable {
+struct RecipeInstructionActionItem: Identifiable, Equatable {
     let id: UUID
     let action: RecipeInstructionAction
 

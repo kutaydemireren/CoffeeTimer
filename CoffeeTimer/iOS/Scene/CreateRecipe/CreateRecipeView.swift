@@ -7,6 +7,54 @@
 
 import SwiftUI
 
+// TODO: move
+
+struct PagerView<Content: View>: View {
+    @Binding var selectedPage: Int
+    @Binding var canCreate: Bool
+
+    var close: () -> Void
+    var create: () async throws -> Void
+    var nextPage: () -> Void
+    @ViewBuilder var content: () -> Content
+
+    var body: some View {
+
+        VStack {
+            HStack {
+                Button("Close", action: close)
+                    .frame(alignment: .topLeading)
+
+                Spacer()
+
+                if canCreate {
+                    Button("Save") {
+                        Task {
+                            try await create()
+                            close()
+                        }
+                    }
+                } else {
+                    Button("Next") {
+                        withAnimation { nextPage() }
+                    }
+                }
+            }
+            .padding()
+            .foregroundColor(Color("backgroundSecondary"))
+
+            TabView(selection: $selectedPage) {
+                content()
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .ignoresSafeArea()
+        }
+        .backgroundPrimary()
+    }
+}
+
+//
+
 @MainActor
 final class CreateRecipeViewModel: ObservableObject {
     private let pageCount = 3
@@ -14,6 +62,7 @@ final class CreateRecipeViewModel: ObservableObject {
     @Published var selectedPage = 1
     @Published var brewMethods: [BrewMethod] = []
     @Published var allRatios: [CoffeeToWaterRatio] = []
+    @Published var canCreate = false
 
     private var createRecipeFromContextUseCase: CreateRecipeFromContextUseCase
     private var recipeRepository: RecipeRepository // TODO: use case - no repo in vm!
@@ -40,7 +89,7 @@ final class CreateRecipeViewModel: ObservableObject {
     func nextPage(in context: CreateRecipeContext) {
         var newSelectedPage = 1
 
-        if selectedPage < 3 {
+        if selectedPage < pageCount {
             newSelectedPage = (selectedPage % pageCount) + 1
         } else {
             newSelectedPage = getNextMissingPage(in: context)
@@ -65,22 +114,22 @@ final class CreateRecipeViewModel: ObservableObject {
             // Unknown error
         }
 
-        // No missing, return last page
-        return 3
+        return pageCount
     }
 
     func canCreate(from context: CreateRecipeContext) -> Bool {
-        // TODO: Extract below to separate functionality
-        let newRatios = context.selectedBrewMethod?.ratios
-        if let newRatios, newRatios != allRatios {
-            self.allRatios = newRatios
-            context.ratio = nil
-        }
-
         do {
             return try createRecipeFromContextUseCase.canCreate(from: context)
         } catch {
             return false
+        }
+    }
+
+    private func resetRatiosIfNeeded(_ context: CreateRecipeContext) {
+        let newRatios = context.selectedBrewMethod?.ratios
+        if let newRatios, newRatios != allRatios {
+            self.allRatios = newRatios
+            context.ratio = nil
         }
     }
 
@@ -94,42 +143,33 @@ final class CreateRecipeViewModel: ObservableObject {
             recipeRepository.save(recipe)
         }
     }
+
+    func didUpdate(context: CreateRecipeContext) {
+        resetRatiosIfNeeded(context)
+        canCreate = canCreate(from: context)
+    }
 }
 
 struct CreateRecipeView: View {
-
     @StateObject var viewModel: CreateRecipeViewModel
     @EnvironmentObject var context: CreateRecipeContext
+
     var close: () -> Void
     var createMethod: () -> Void
 
-    @State private var canCreate = false
-
     var body: some View {
-
-        VStack {
-            HStack {
-                Button("Close", action: close)
-                    .frame(alignment: .topLeading)
-
-                Spacer()
-
-                if canCreate {
-                    Button("Save") {
-                        viewModel.create(from: context)
-                        close()
-                    }
-                } else {
-                    Button("Next") {
-                        withAnimation { viewModel.nextPage(in: context) }
-                    }
-                }
-            }
-            .padding()
-            .foregroundColor(Color("backgroundSecondary"))
-
-            TabView(selection: $viewModel.selectedPage) {
-
+        PagerView(
+            selectedPage: $viewModel.selectedPage,
+            canCreate: $viewModel.canCreate,
+            close: close,
+            create: {
+                viewModel.create(from: context)
+            },
+            nextPage: {
+                withAnimation { viewModel.nextPage(in: context) }
+            },
+            content: {
+                // Wrapping in ZStack helps with the scrolling animation amongst pages
                 ZStack {
                     CreateRecipeBrewMethodSelection(brewMethods: $viewModel.brewMethods, selectedBrewMethod: $context.selectedBrewMethod)
 
@@ -137,20 +177,21 @@ struct CreateRecipeView: View {
                 }
                 .tag(1)
 
-                CreateRecipeProfileSelection(recipeProfile: $context.recipeProfile)
-                    .tag(2)
+                ZStack {
+                    CreateRecipeProfileSelection(recipeProfile: $context.recipeProfile)
+                }
+                .tag(2)
 
-                CreateRecipeCoffeeWaterSelection(cupsCountAmount: $context.cupsCount, selectedRatio: $context.ratio, allRatios: $viewModel.allRatios)
-                    .tag(3)
+                ZStack {
+                    CreateRecipeCoffeeWaterSelection(cupsCountAmount: $context.cupsCount, selectedRatio: $context.ratio, allRatios: $viewModel.allRatios)
+                }
+                .tag(3)
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .ignoresSafeArea()
-        }
+        )
         .onChange(of: context.selectedBrewMethod, perform: didUpdate(_:))
         .onChange(of: context.recipeProfile, perform: didUpdate(_:))
         .onChange(of: context.cupsCount, perform: didUpdate(_:))
         .onChange(of: context.ratio, perform: didUpdate(_:))
-        .backgroundPrimary()
     }
 
     @ViewBuilder
@@ -175,12 +216,8 @@ struct CreateRecipeView: View {
         }
     }
 
-    private func didUpdate<T>(_ context: T?) {
-        checkIfCanCreate()
-    }
-
-    private func checkIfCanCreate() {
-        canCreate = viewModel.canCreate(from: context)
+    private func didUpdate<T>(_ newValue: T) {
+        viewModel.didUpdate(context: context)
     }
 }
 

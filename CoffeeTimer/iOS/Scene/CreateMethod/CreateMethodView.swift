@@ -11,56 +11,99 @@ final class CreateMethodViewModel: ObservableObject {
     private let pageCount = 2
 
     @Published var selectedPage = 1
-    // TODO: `canCreate` is not properly handled atm!
-    // check if user can create upon each update to data model
     @Published var canCreate: Bool = false
 
-    func nextPage() {
-        selectedPage = (selectedPage % pageCount) + 1
+    private let createBrewMethodUseCase: CreateBrewMethodUseCase
+
+    init(
+        createBrewMethodUseCase: CreateBrewMethodUseCase = CreateBrewMethodUseCaseImp()
+    ) {
+        self.createBrewMethodUseCase = createBrewMethodUseCase
+    }
+
+    func nextPage(in context: CreateBrewMethodContext) {
+        var newSelectedPage = 1
+
+        if selectedPage < pageCount {
+            newSelectedPage = (selectedPage % pageCount) + 1
+        } else {
+            newSelectedPage = getNextMissingPage(in: context)
+        }
+
+        selectedPage = newSelectedPage
+    }
+
+    private func getNextMissingPage(in context: CreateBrewMethodContext) -> Int {
+        do {
+            let _ = try createBrewMethodUseCase.canCreate(from: context)
+        } catch let error as CreateBrewMethodUseCaseError {
+            switch error {
+            case .missingMethodTitle:
+                return 1
+            case .missingInstructions:
+                return 2
+            }
+        } catch _ {
+            // Unknown error
+        }
+
+        return pageCount
+    }
+
+    func canCreate(from context: CreateBrewMethodContext) -> Bool {
+        do {
+            return try createBrewMethodUseCase.canCreate(from: context)
+        } catch {
+            return false
+        }
+    }
+
+    func create(from context: CreateBrewMethodContext) async throws {
+        try await createBrewMethodUseCase.create(from: context)
+    }
+
+    func didUpdate(context: CreateBrewMethodContext) {
+        canCreate = canCreate(from: context)
     }
 }
 
 struct CreateMethodView: View {
     @StateObject var viewModel: CreateMethodViewModel
+    @EnvironmentObject var context: CreateBrewMethodContext
+
     var close: () -> Void
     var selectItem: (RecipeInstructionActionItem) -> Void
 
     var body: some View {
-        VStack {
-
-            HStack {
-                Button("Close", action: close)
-                    .frame(alignment: .topLeading)
-
-                Spacer()
-
-                // TODO: update `next` | `save` to align with CreateRecipe
-                // aka, show 'next' if not 'save'able, ow/ show `save`
-                if viewModel.canCreate {
-                    Button("Save") {
-                        // TODO: 'save' functionality missing
-                        close()
-                    }
-                } else {
-                    Button("Next") {
-                        withAnimation { viewModel.nextPage() }
-                    }
+        PagerView(
+            selectedPage: $viewModel.selectedPage,
+            canCreate: $viewModel.canCreate,
+            close: close,
+            create: {
+                try await viewModel.create(from: context)
+            },
+            nextPage: {
+                withAnimation { viewModel.nextPage(in: context) }
+            },
+            content: {
+                // Wrapping in ZStack helps with the scrolling animation amongst pages
+                ZStack {
+                    CreateMethodDetailsView()
                 }
-            }
-            .padding()
-            .foregroundColor(Color("backgroundSecondary"))
+                .tag(1)
 
-            TabView(selection: $viewModel.selectedPage) {
-                CreateMethodDetailsView()
-                    .tag(1)
-
-                CreateMethodInstructionsView(didSelect: selectItem)
-                    .tag(2)
+                ZStack {
+                    CreateMethodInstructionsView(didSelect: selectItem)
+                }
+                .tag(2)
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .ignoresSafeArea()
-        }
-        .backgroundPrimary()
+        )
+        .onChange(of: context.methodTitle, perform: didUpdate(_:))
+        .onChange(of: context.instructions, perform: didUpdate(_:))
+    }
+
+    private func didUpdate<T>(_ newValue: T?) {
+        viewModel.didUpdate(context: context)
     }
 }
 
