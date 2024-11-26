@@ -25,7 +25,7 @@ struct FetchRecipeInstructionsUseCaseImp: FetchRecipeInstructionsUseCase {
 
     func fetchActions(brewMethod: BrewMethod) async throws -> [RecipeInstructionAction] {
         let recipeInstructions = try await fetch(brewMethod: brewMethod)
-        
+
         return try recipeInstructions.steps.compactMap { step in
             if let messageInstruction = step.instructionAction as? MessageInstructionAction {
                 return RecipeInstructionAction.message(.init(message: messageInstruction.message ?? "", details: messageInstruction.details ?? ""))
@@ -47,19 +47,36 @@ struct FetchRecipeInstructionsUseCaseImp: FetchRecipeInstructionsUseCase {
                             message: putInstruction.message ?? "",
                             details: putInstruction.details ?? "",
                             ingredient: try mapIngredientType(putInstruction.ingredient),
-                            mainFactor: 0, // TODO: missing
-                            mainFactorOf: .stubTotalCoffe, // TODO: missing
-                            adjustmentFactor: 0, // TODO: missing
-                            adjustmentFactorOf: .stubTotalCoffe // TODO: missing
+                            mainFactor: putInstruction.amount?.mainFactor?.factor ?? 0,
+                            mainFactorOf: factorOf(putInstruction.amount?.mainFactor),
+                            adjustmentFactor: putInstruction.amount?.adjustmentFactor?.factor ?? 0,
+                            adjustmentFactorOf: factorOf(putInstruction.amount?.adjustmentFactor)
                         )
-                 
                     )
             }
-            
+
             return nil
         }
     }
-    
+
+    private func factorOf(_ amountFactor: InstructionAmount.Factor?) -> KeywordItem {
+        // TODO: extract into its own use case, combining with current other usages
+        switch amountFactor?.factorOf {
+        case "coffee", "#total.coffee":
+            return .init(keyword: "#total.coffee", title: "Total Coffee")
+        case "water", "#total.water":
+            return .init(keyword: "#total.water", title: "Total Water")
+        case "ice":
+            return .init(keyword: "ice", title: "Total Ice")
+        case "#remaining.coffee":
+            return .init(keyword: "#remaining.coffee", title: "Remaining Coffee")
+        case "#remaining.water":
+            return .init(keyword: "#remaining.water", title: "Remaining Water")
+        default:
+            return .init(keyword: "#total.coffee", title: "Total Coffee")
+        }
+    }
+
     private func mapInstructionRequirement(_ requirement: InstructionRequirement?) ->  InstructionRequirementItem {
         switch requirement {
         case .countdown(_):

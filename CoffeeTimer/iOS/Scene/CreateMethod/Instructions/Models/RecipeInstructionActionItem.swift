@@ -42,7 +42,7 @@ enum RecipeInstructionAction: Titled, Hashable, Identifiable, Equatable {
         case .pause(let model):
             return "Pause \("\(model.duration)".dashIfEmpty)s"
         case .put(let model):
-            return "Put \(model.ingredient.title)" // TODO: missing
+            return "Put \(model.ingredient.title)"
         }
     }
 
