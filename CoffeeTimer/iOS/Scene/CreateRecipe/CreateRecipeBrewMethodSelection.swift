@@ -26,7 +26,6 @@ struct BrewMethodView: View {
 }
 
 struct CreateRecipeBrewMethodSelection: View {
-
     let columns: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible()),

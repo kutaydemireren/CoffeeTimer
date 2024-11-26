@@ -30,10 +30,6 @@ struct PagerView<Content: View>: View {
             }
             .tabViewStyle(.page(indexDisplayMode: .automatic))
             .ignoresSafeArea()
-            .onAppear {
-                UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(named: "backgroundSecondary")
-                UIPageControl.appearance().pageIndicatorTintColor = UIColor(named: "backgroundSecondary")?.withAlphaComponent(0.3)
-            }
         }
         .backgroundPrimary()
     }

@@ -16,6 +16,8 @@ final class CreateRecipeFlowViewModel: ObservableObject, Completable {
 
     private var cancellables: [AnyCancellable] = []
 
+    @MainActor let createRecipeViewModel = CreateRecipeViewModel()
+
     func makeCreateMethodVM() -> CreateMethodFlowViewModel {
         let viewModel = CreateMethodFlowViewModel()
         viewModel.didComplete
@@ -30,6 +32,9 @@ final class CreateRecipeFlowViewModel: ObservableObject, Completable {
 
     private func didComplete(_ viewModel: CreateMethodFlowViewModel) {
         isCreateMethodPresented = false
+        Task {
+            await createRecipeViewModel.refreshBrewMethods()
+        }
     }
 }
 
@@ -46,7 +51,7 @@ struct CreateRecipeFlowView: View {
     @ViewBuilder
     var createRecipe: some View {
         CreateRecipeView(
-            viewModel: CreateRecipeViewModel(),
+            viewModel: viewModel.createRecipeViewModel,
             close: viewModel.close,
             createMethod: viewModel.crateMethod
         )
