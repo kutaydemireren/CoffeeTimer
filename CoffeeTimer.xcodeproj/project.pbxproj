@@ -113,6 +113,7 @@
 		F27B2D692CF28D2100B425E9 /* IngredientAmountTypeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */; };
 		F2AFA1512CF7BA5A00984AE2 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = F2AFA1502CF7BA5A00984AE2 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		F2AFA1532CF7BA5A00984AE2 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = F2AFA1522CF7BA5A00984AE2 /* FirebaseCrashlytics */; };
+		F2AFA14E2CF7B61800984AE2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2AFA14D2CF7B61800984AE2 /* GoogleService-Info.plist */; };
 		F2D5AB822CF66FCF004AE191 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D5AB812CF66FCF004AE191 /* PagerView.swift */; };
 		F2DB5FBF2CF3BAFE000D67ED /* RecipeInstructionActionItem+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DB5FBE2CF3BAFE000D67ED /* RecipeInstructionActionItem+Stub.swift */; };
 /* End PBXBuildFile section */
@@ -247,6 +248,7 @@
 		F2AFA1562CF7C1A700984AE2 /* v60-single.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "v60-single.json"; sourceTree = "<group>"; };
 		F2AFA1582CF7C1A700984AE2 /* brew-methods.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "brew-methods.json"; sourceTree = "<group>"; };
 		F2AFA15A2CF7C1A700984AE2 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		F2AFA14D2CF7B61800984AE2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F2D5AB812CF66FCF004AE191 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
 		F2DB5FBE2CF3BAFE000D67ED /* RecipeInstructionActionItem+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecipeInstructionActionItem+Stub.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -653,6 +655,7 @@
 		CA981F832A2695E6000254CD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F2AFA14D2CF7B61800984AE2 /* GoogleService-Info.plist */,
 				CA8B44422A2563780003EE57 /* Colors.xcassets */,
 				CA367D3529A2B0380095B1B8 /* Assets.xcassets */,
 			);
@@ -966,6 +969,7 @@
 				CA852F262BD557A800FEF144 /* instructions_v60_single.json in Resources */,
 				CA367D3929A2B0380095B1B8 /* Preview Assets.xcassets in Resources */,
 				CA367D3629A2B0380095B1B8 /* Assets.xcassets in Resources */,
+				F2AFA14E2CF7B61800984AE2 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
