@@ -8,7 +8,7 @@
 import Foundation
 
 struct FetchRecipeInstructionsRequest: Request {
-    let host: String = "raw.githubusercontent.com"
+    let host: String = "coffeetimer-4672c.firebaseapp.com"
     let path: String
 
     init(brewMethod: BrewMethod) {

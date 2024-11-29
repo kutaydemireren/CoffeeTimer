@@ -2,7 +2,7 @@
     {
         "id": "v60-single",
         "title": "V60 Single",
-        "path": "/kutaydemireren/CoffeeTimer/epic/remote-recipes/data/v0/brew-instructions/v60-single.json",
+        "path": "/v0/brew-instructions/v60-single.json",
         "cupsCount": {
             "minimum": 1,
             "maximum": 1
@@ -38,7 +38,7 @@
     {
         "id": "v60-iced",
         "title": "V60 Iced",
-        "path": "/kutaydemireren/CoffeeTimer/epic/remote-recipes/data/v0/brew-instructions/v60-iced.json",
+        "path": "/v0/brew-instructions/v60-iced.json",
         "isIcedBrew": true,
         "cupsCount": {
             "minimum": 1,
@@ -75,7 +75,7 @@
     {
         "id": "v60-default",
         "title": "V60",
-        "path": "/kutaydemireren/CoffeeTimer/epic/remote-recipes/data/v0/brew-instructions/v60-default.json",
+        "path": "/v0/brew-instructions/v60-default.json",
         "cupsCount": {
             "minimum": 1,
             "maximum": 5
