@@ -67,7 +67,7 @@ extension BrewQueue {
 final class BrewQueueViewModel: ObservableObject, Completable {
     let didComplete = PassthroughSubject<BrewQueueViewModel, Never>()
 
-    var stageHeader = StageHeader.welcome
+    var stageHeader = StageHeader.welcomeNotReady
 
     @Published var currentStageViewModel: any BrewStageViewModel = BrewStageConstantViewModel(text: "")
 
@@ -152,6 +152,10 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     }
 
     private func nextStage() {
+        guard selectedRecipe != nil else {
+            return
+        }
+
         if isActive {
             var tempCurrentStageIndex = currentStageIndex + 1
             if tempCurrentStageIndex >= brewQueue.stages.count {
@@ -173,7 +177,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     }
 
     private func loadInitialStage() {
-        stageHeader = .welcome
+        stageHeader = selectedRecipe != nil ? .welcomeReady : .welcomeNotReady
 
         currentStageViewModel = BrewStageConstantViewModel(text: title, subtext: subtextIfExists)
         canProceedToNextStep = true

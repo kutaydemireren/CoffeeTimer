@@ -12,7 +12,11 @@ struct StageHeader {
     let title: String
     var subtext: String? = nil
     
-    static var welcome: StageHeader {
+    static var welcomeNotReady: StageHeader {
+        return StageHeader(lightTitle: "Welcome", title: "Time to craft your masterpiece!")
+    }
+
+    static var welcomeReady: StageHeader {
         return StageHeader(lightTitle: "Welcome", title: "All set to go!")
     }
 }
@@ -48,7 +52,7 @@ struct StageHeaderView: View {
     VStack {
         Spacer()
         StageHeaderView(
-            header: .welcome
+            header: .welcomeReady
         )
         Spacer()
         StageHeaderView(
