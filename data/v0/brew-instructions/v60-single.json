@@ -169,6 +169,6 @@
             "skipMethod": "userInteractive",
             "message": "Your brew is ready",
             "details": "Let it cool for a minute, then enjoy your sip!"
-        },        
+        }
     ]
 }

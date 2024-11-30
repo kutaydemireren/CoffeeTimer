@@ -1,17 +1,10 @@
 {
-    "identifier": "v60-default",
+    "identifier": "aeropress-default",
     "ingredients": [
         "water",
         "coffee"
     ],
     "steps": [
-        {
-            "action": "message",
-            "requirement": null,
-            "startMethod": "userInteractive",
-            "skipMethod": "userInteractive",
-            "message": "Wet filter with hot water"
-        },
         {
             "action": "put",
             "requirement": null,
@@ -23,8 +16,7 @@
                 "factor": 1,
                 "factorOf": "coffee"
             },
-            "message": "Put all #current.amount g of coffee to brewer",
-            "details": "Create a small hole in the middle"
+            "message": "Put all #current.amount g of coffee to brewer"
         },
         {
             "action": "message",
@@ -42,18 +34,18 @@
             "ingredient": "water",
             "amount": {
                 "type": "millilitre",
-                "factor": 2,
-                "factorOf": "coffee"
+                "factor": 1,
+                "factorOf": "water"
             },
-            "message": "To bloom, gently pour #current.amount ml of water"
+            "message": "Pour #current.amount ml of water",
+            "details": "Wet all the coffee evenly"
         },
         {
             "action": "message",
             "requirement": null,
             "startMethod": "userInteractive",
             "skipMethod": "userInteractive",
-            "message": "Throughly swirl the V60 brewer",
-            "details": "Try to get it evenly mixed"
+            "message": "Place the plunger "
         },
         {
             "action": "pause",
@@ -61,36 +53,20 @@
                 "type": "countdown",
                 "duration": {
                     "type": "second",
-                    "length": 30
+                    "length": 120
                 }
             },
             "startMethod": "auto",
             "skipMethod": "auto",
-            "message": "Let it bloom for #current.duration seconds"
+            "message": "Wait for 2 minutes"
         },
         {
-            "action": "put",
-            "requirement": {
-                "type": "countdown",
-                "duration": {
-                    "type": "second",
-                    "length": 30
-                }
-            },
+            "action": "message",
+            "requirement": null,
             "startMethod": "userInteractive",
-            "skipMethod": "auto",
-            "ingredient": "water",
-            "amount": {
-                "type": "millilitre",
-                "factor": 0.6,
-                "factorOf": "water",
-                "adjustment": {
-                    "factor": -1.0,
-                    "factorOf": "#current.water"
-                }
-            },
-            "message": "Pour #current.amount ml of water in ~30 seconds",
-            "details": "Remember to pour gently in cycles\nTotal: #current.water ml of water"
+            "skipMethod": "userInteractive",
+            "message": "Gently swirly the aorepress",
+            "details": "Make sure to hold both the piston and the base"
         },
         {
             "action": "pause",
@@ -98,7 +74,7 @@
                 "type": "countdown",
                 "duration": {
                     "type": "second",
-                    "length": 10
+                    "length": 30
                 }
             },
             "startMethod": "auto",
@@ -106,24 +82,12 @@
             "message": "Pause for #current.duration seconds"
         },
         {
-            "action": "put",
-            "requirement": {
-                "type": "countdown",
-                "duration": {
-                    "type": "second",
-                    "length": 30
-                }
-            },
-            "startMethod": "auto",
-            "skipMethod": "auto",
-            "ingredient": "water",
-            "amount": {
-                "type": "millilitre",
-                "factor": 1.0,
-                "factorOf": "#remaining.water"
-            },
-            "message": "Pour the remaining #current.amount ml of water in ~30 seconds",
-            "details": "Pour in slower cycles during this phase\nTotal: #current.water ml of water"
+            "action": "message",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "message": "Press the plunger all the way down",
+            "details": "Take your time, avoid over-pressing"
         },
         {
             "action": "message",

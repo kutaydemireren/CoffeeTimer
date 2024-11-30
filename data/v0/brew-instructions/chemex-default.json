@@ -1,9 +1,8 @@
 {
-    "identifier": "v60-iced",
+    "identifier": "chemex-default",
     "ingredients": [
         "water",
-        "coffee",
-        "ice"
+        "coffee"
     ],
     "steps": [
         {
@@ -11,20 +10,7 @@
             "requirement": null,
             "startMethod": "userInteractive",
             "skipMethod": "userInteractive",
-            "message": "Place and wet the filter with hot water"
-        },
-        {
-            "action": "put",
-            "requirement": null,
-            "startMethod": "userInteractive",
-            "skipMethod": "userInteractive",
-            "ingredient": "ice",
-            "amount": {
-                "type": "gram",
-                "factor": 1,
-                "factorOf": "ice"
-            },
-            "message": "Put #current.amount g of ice into the vessel"
+            "message": "Wet filter with hot water"
         },
         {
             "action": "put",
@@ -37,7 +23,7 @@
                 "factor": 1,
                 "factorOf": "coffee"
             },
-            "message": "Put #current.amount g of coffee to brewer",
+            "message": "Put all #current.amount g of coffee to brewer",
             "details": "Create a small hole in the middle"
         },
         {
@@ -47,7 +33,7 @@
             "skipMethod": "userInteractive",
             "message": "Boil water in your kettle",
             "details": "Boil more than #total.water ml of water"
-        },
+        },        
         {
             "action": "put",
             "requirement": null,
@@ -56,7 +42,7 @@
             "ingredient": "water",
             "amount": {
                 "type": "millilitre",
-                "factor": 3,
+                "factor": 2,
                 "factorOf": "coffee"
             },
             "message": "To bloom, gently pour #current.amount ml of water"
@@ -66,7 +52,8 @@
             "requirement": null,
             "startMethod": "userInteractive",
             "skipMethod": "userInteractive",
-            "message": "Throughly swirl the V60 brewer"
+            "message": "Throughly swirl the Chemex",
+            "details": "Try to get it evenly mixed"
         },
         {
             "action": "pause",
@@ -87,18 +74,22 @@
                 "type": "countdown",
                 "duration": {
                     "type": "second",
-                    "length": 60
+                    "length": 30
                 }
             },
-            "startMethod": "auto",
+            "startMethod": "userInteractive",
             "skipMethod": "auto",
             "ingredient": "water",
             "amount": {
                 "type": "millilitre",
-                "factor": 1.0,
-                "factorOf": "#remaining.water"
+                "factor": 0.6,
+                "factorOf": "water",
+                "adjustment": {
+                    "factor": -1.0,
+                    "factorOf": "#current.water"
+                }
             },
-            "message": "Pour the remaining #current.amount ml of water in ~60 seconds",
+            "message": "Pour #current.amount ml of water in ~30 seconds",
             "details": "Remember to pour gently in cycles\nTotal: #current.water ml of water"
         },
         {
@@ -115,27 +106,32 @@
             "message": "Pause for #current.duration seconds"
         },
         {
-            "action": "message",
-            "requirement": null,
-            "startMethod": "userInteractive",
-            "skipMethod": "userInteractive",
-            "message": "Gently swirl the V60 brewer"
+            "action": "put",
+            "requirement": {
+                "type": "countdown",
+                "duration": {
+                    "type": "second",
+                    "length": 60
+                }
+            },
+            "startMethod": "auto",
+            "skipMethod": "auto",
+            "ingredient": "water",
+            "amount": {
+                "type": "millilitre",
+                "factor": 1.0,
+                "factorOf": "#remaining.water"
+            },
+            "message": "Pour the remaining #current.amount ml of water in ~1 minute",
+            "details": "Pour in slower cycles\nCan exceed 1 minute slightly\nTotal: #current.water ml of water"
         },
         {
             "action": "message",
             "requirement": null,
             "startMethod": "userInteractive",
             "skipMethod": "userInteractive",
-            "message": "When done, pour coffee into cups with fresh ice cubes",
-            "details": "Pro tip: Use glass cups!"
-        },
-        {
-            "action": "message",
-            "requirement": null,
-            "startMethod": "userInteractive",
-            "skipMethod": "userInteractive",
-            "message": "Your iced brew is ready",
-            "details": "Enjoy!"
+            "message": "Your brew is ready",
+            "details": "Let it cool for a minute, then enjoy your sip!"
         }
     ]
 }
