@@ -18,19 +18,47 @@ struct BrewMethodView: View {
                 .fill(isSelected ? Color("backgroundSecondary").opacity(0.8) : Color("backgroundSecondary").opacity(0.4))
                 .overlay {
                     Text(brewMethod.title)
+                        .multilineTextAlignment(.center)
                         .foregroundColor(isSelected ? Color("foregroundPrimary") : Color("foregroundPrimary").opacity(0.8))
-                        .font(.title2)
+                        .font(.title3)
+                        .padding(.horizontal, 4)
                 }
         }
     }
 }
 
 struct CreateRecipeBrewMethodSelection: View {
-    let columns: [GridItem] = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-    ]
-    let height: CGFloat = 150
+    private enum ItemStyle {
+        case large
+        case small
+    }
+
+    var columns: [GridItem] {
+        switch style {
+        case .large:
+            [
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+            ]
+        case .small:
+            [
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+            ]
+        }
+    }
+
+    var height: CGFloat {
+        switch style {
+        case .large: 150.0
+        case .small: 120.0
+        }
+    }
+
+    private var style: ItemStyle {
+        brewMethods.count > 8 ? .small : .large
+    }
 
     @Binding var brewMethods: [BrewMethod]
     @Binding var selectedBrewMethod: BrewMethod?
@@ -80,14 +108,70 @@ struct CreateRecipeBrewMethodSelection: View {
 }
 
 struct CreateRecipeBrewMethodSelection_Previews: PreviewProvider {
+    private static var methodsSmall: [BrewMethod] {
+        [
+            .preview(title: "V60"),
+            .preview(title: "V60 Single"),
+            .preview(title: "V60 Iced"),
+            .preview(title: "French Press"),
+            .preview(title: "Chemex"),
+            .preview(title: "Aeropress"),
+            .preview(title: "V60"),
+            .v60Single,
+        ]
+    }
+
+    private static var methodsLarge: [BrewMethod] {
+        [
+            .preview(title: "V60"),
+            .preview(title: "V60 Single"),
+            .preview(title: "V60 Iced"),
+            .preview(title: "French Press"),
+            .preview(title: "Chemex"),
+            .preview(title: "Aeropress"),
+            .preview(title: "V60"),
+            .v60Single,
+            .preview(title: "V60 Iced"),
+            .preview(title: "French Press"),
+            .preview(title: "Chemex"),
+            .preview(title: "Aeropress"),
+            .preview(title: "V60"),
+            .preview(title: "French Press"),
+        ]
+    }
+
     static var previews: some View {
-        CreateRecipeBrewMethodSelection(brewMethods: .constant([.frenchPress(), .v60Single]), selectedBrewMethod: .constant(.v60Single), createMethod: { })
-            .backgroundPrimary()
+        TabView {
+            CreateRecipeBrewMethodSelection(
+                brewMethods: .constant(methodsSmall),
+                selectedBrewMethod: .constant(.v60Single),
+                createMethod: { }
+            )
+
+            CreateRecipeBrewMethodSelection(
+                brewMethods: .constant(methodsLarge),
+                selectedBrewMethod: .constant(.v60Single),
+                createMethod: { }
+            )
+        }
+        .tabViewStyle(.page)
+        .backgroundPrimary()
     }
 }
 
 // TODO: move to preview content
 extension BrewMethod {
+    static func preview(title: String) -> Self {
+        return .init(
+            id: UUID().uuidString,
+            title: title,
+            path: "path",
+            isIcedBrew: false,
+            cupsCount: .unlimited,
+            ratios: []
+        )
+    }
+
     static var v60Single: Self {
         return BrewMethod(
             id: "v60-single",
