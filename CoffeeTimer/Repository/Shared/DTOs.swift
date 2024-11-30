@@ -46,7 +46,7 @@ struct BrewMethodDTO: Codable, Equatable {
     let isIcedBrew: Bool?
     let cupsCount: CupsCountDTO?
     let ratios: [CoffeeToWaterRatioDTO]
-    let infoModel: InfoModelDTO?
+    let info: InfoModelDTO?
 }
 
 struct CupsCountDTO: Codable, Equatable {

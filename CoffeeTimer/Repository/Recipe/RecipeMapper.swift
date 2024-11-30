@@ -67,7 +67,7 @@ extension RecipeMapperImp {
             isIcedBrew: brewMethodDTO.isIcedBrew ?? false,
             cupsCount: CupsCount(minimum: brewMethodDTO.cupsCount?.minimum ?? 1, maximum: brewMethodDTO.cupsCount?.maximum),
             ratios: brewMethodDTO.ratios.map { CoffeeToWaterRatio(id: $0.id ?? "", value: $0.value ?? 0, title: $0.title ?? "" ) },
-            info: map(infoModel: brewMethodDTO.infoModel, fallbackTitle: brewMethodDTO.title ?? "")
+            info: map(infoModel: brewMethodDTO.info, fallbackTitle: brewMethodDTO.title ?? "")
         )
     }
 
@@ -238,7 +238,7 @@ extension RecipeMapperImp {
             isIcedBrew: brewMethod.isIcedBrew,
             cupsCount: CupsCountDTO(minimum: brewMethod.cupsCount.minimum, maximum: brewMethod.cupsCount.maximum),
             ratios: brewMethod.ratios.map { CoffeeToWaterRatioDTO(id: $0.id, value: $0.value, title: $0.title) },
-            infoModel: map(infoModel: brewMethod.info)
+            info: map(infoModel: brewMethod.info)
         )
     }
 

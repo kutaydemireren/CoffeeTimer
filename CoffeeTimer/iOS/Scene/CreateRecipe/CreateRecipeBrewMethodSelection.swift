@@ -12,6 +12,10 @@ struct BrewMethodView: View {
 
     var isSelected = false
 
+    private var hasInfo: Bool {
+        !brewMethod.info.body.isEmpty
+    }
+
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
@@ -28,12 +32,15 @@ struct BrewMethodView: View {
             VStack {
                 HStack {
                     Spacer()
-                    InfoButton(
-                        infoViewModel: .init(
-                            title: brewMethod.title,
-                            body: "" // TODO: brewmethod info
+                    if hasInfo {
+                        InfoButton(
+                            infoViewModel: .init(
+                                title: brewMethod.info.title,
+                                source: brewMethod.info.source,
+                                body: brewMethod.info.body
+                            )
                         )
-                    )
+                    }
                 }
                 .padding([.top, .trailing], 8)
                 Spacer()

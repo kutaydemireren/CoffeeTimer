@@ -44,7 +44,7 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
                 isIcedBrew: brewMethodDTO.isIcedBrew ?? false,
                 cupsCount: map(cupsCountDTO: brewMethodDTO.cupsCount),
                 ratios: brewMethodDTO.ratios.map(map(ratio:)),
-                info: map(infoModel: brewMethodDTO.infoModel, fallbackTitle: brewMethodDTO.title ?? "")
+                info: map(infoModel: brewMethodDTO.info, fallbackTitle: brewMethodDTO.title ?? "")
             )
         }
     }
@@ -91,7 +91,7 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
             isIcedBrew: brewMethod.isIcedBrew,
             cupsCount: map(cupsCount: brewMethod.cupsCount),
             ratios: brewMethod.ratios.map(map(ratio:)),
-            infoModel: map(infoModel: brewMethod.info)
+            info: map(infoModel: brewMethod.info)
         )
     }
 
