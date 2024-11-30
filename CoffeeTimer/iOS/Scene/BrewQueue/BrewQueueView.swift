@@ -286,6 +286,7 @@ struct BrewQueueView: View {
                 RecipeProfileView(alignment: .center, recipeProfile: selectedRecipe.recipeProfile)
             } else {
                 Text("Create Recipe")
+                    .bold()
                     .font(.title3)
             }
         }

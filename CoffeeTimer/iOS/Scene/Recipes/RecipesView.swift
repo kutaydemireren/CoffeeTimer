@@ -130,12 +130,12 @@ struct RecipesView: View {
                     Button() {
                         viewModel.create()
                     } label: {
-                        Image(uiImage: .add)
+                        Image(systemName: "plus.circle.fill")
                             .renderingMode(.template)
                             .resizable()
                             .frame(width: 60, height: 60)
                             .padding(.horizontal, 32)
-                            .shadow(color: .black.opacity(0.3), radius: 16, x: 8, y: 12)
+                            .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 0)
                     }
                 }
                 .foregroundColor(Color("backgroundSecondary"))
