@@ -8,12 +8,9 @@
 import SwiftUI
 
 struct TitledContent<Content: View>: View {
-
-    @State private var isInfoPresented = false
-
     var title: String
     var content: () -> Content
-    var infoContent: (() -> AnyView)?
+    var infoContent: (() -> any View)?
 
     var body: some View {
 
@@ -23,15 +20,9 @@ struct TitledContent<Content: View>: View {
                 Text(title)
 
                 if let infoContent {
-                    Button {
-                        isInfoPresented = true
-                    } label: {
-                        Image(systemName: "info.circle")
-                    }
-                    .popover(isPresented: $isInfoPresented) {
+                    InfoButton {
                         infoContent()
                     }
-                } else {
                 }
             }
             .font(.headline)
