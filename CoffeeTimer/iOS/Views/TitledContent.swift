@@ -10,7 +10,6 @@ import SwiftUI
 struct TitledContent<Content: View>: View {
     var title: String
     var content: () -> Content
-    var infoContent: (() -> any View)?
 
     var body: some View {
 
@@ -18,12 +17,6 @@ struct TitledContent<Content: View>: View {
 
             HStack {
                 Text(title)
-
-                if let infoContent {
-                    InfoButton {
-                        infoContent()
-                    }
-                }
             }
             .font(.headline)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -54,15 +47,6 @@ struct TitledContent<Content: View>: View {
                 Text("text as content")
                 Text("text as content")
             }
-        } infoContent: {
-                VStack {
-                    Text("longer text as content because the text is expected to be a bit more descriptive")
-                    Spacer()
-                    Text("can be even a whole another view of its own")
-                        .backgroundSecondary()
-                }
-                .padding()
-                .toAnyView()
         }
 
         Spacer()

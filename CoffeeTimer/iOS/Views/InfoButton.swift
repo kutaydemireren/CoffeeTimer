@@ -10,7 +10,7 @@ import SwiftUI
 struct InfoButton: View {
     @State private var isInfoPresented = false
 
-    var infoContent: () -> any View
+    let infoViewModel: InfoViewModel
 
     var body: some View {
         Button {
@@ -19,8 +19,7 @@ struct InfoButton: View {
             Image(systemName: "info.circle")
         }
         .popover(isPresented: $isInfoPresented) {
-            infoContent()
-                .toAnyView()
+            InfoView(viewModel: infoViewModel)
         }
     }
 }

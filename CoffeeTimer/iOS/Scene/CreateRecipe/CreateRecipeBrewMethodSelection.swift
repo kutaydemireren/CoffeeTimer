@@ -13,17 +13,34 @@ struct BrewMethodView: View {
     var isSelected = false
 
     var body: some View {
-        VStack {
+        ZStack {
             RoundedRectangle(cornerRadius: 12)
                 .fill(isSelected ? Color("backgroundSecondary").opacity(0.8) : Color("backgroundSecondary").opacity(0.4))
-                .overlay {
-                    Text(brewMethod.title)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(isSelected ? Color("foregroundPrimary") : Color("foregroundPrimary").opacity(0.8))
-                        .font(.title3)
-                        .padding(.horizontal, 4)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+            VStack {
+                Text(brewMethod.title)
+                    .multilineTextAlignment(.center)
+                    .font(.title3)
+                    .padding(.horizontal, 4)
+            }
+
+            VStack {
+                HStack {
+                    Spacer()
+                    InfoButton(
+                        infoViewModel: .init(
+                            title: brewMethod.title,
+                            body: "" // TODO: brewmethod info
+                        )
+                    )
                 }
+                .padding([.top, .trailing], 8)
+                Spacer()
+            }
         }
+        .foregroundColor(isSelected ? Color("foregroundPrimary") : Color("foregroundPrimary").opacity(0.8))
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 

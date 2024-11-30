@@ -107,6 +107,7 @@
 		CAF42CF529EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CF429EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift */; };
 		CAFCF54B2A6F0A1700875CB7 /* HapticGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */; };
 		F222D3AF2CFB8CBC00AD7AF4 /* InfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D3AE2CFB8CBC00AD7AF4 /* InfoButton.swift */; };
+		F222D3B12CFBAA4000AD7AF4 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D3B02CFBAA4000AD7AF4 /* InfoView.swift */; };
 		F22E68CE2CF38D2E00EE80FA /* CreateBrewMethodContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22E68CD2CF38D2E00EE80FA /* CreateBrewMethodContext.swift */; };
 		F22E68D12CF38D9A00EE80FA /* CreateBrewMethodUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22E68D02CF38D9A00EE80FA /* CreateBrewMethodUseCaseImpTests.swift */; };
 		F22E68D32CF38DB600EE80FA /* CreateBrewMethodUseCaseImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22E68D22CF38DB600EE80FA /* CreateBrewMethodUseCaseImp.swift */; };
@@ -240,6 +241,7 @@
 		CAF42CF429EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeBrewMethodSelection.swift; sourceTree = "<group>"; };
 		CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticGenerator.swift; sourceTree = "<group>"; };
 		F222D3AE2CFB8CBC00AD7AF4 /* InfoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoButton.swift; sourceTree = "<group>"; };
+		F222D3B02CFBAA4000AD7AF4 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		F22E68CD2CF38D2E00EE80FA /* CreateBrewMethodContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBrewMethodContext.swift; sourceTree = "<group>"; };
 		F22E68D02CF38D9A00EE80FA /* CreateBrewMethodUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBrewMethodUseCaseImpTests.swift; sourceTree = "<group>"; };
 		F22E68D22CF38DB600EE80FA /* CreateBrewMethodUseCaseImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBrewMethodUseCaseImp.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				CA7D9E2C2C4BEB7600908159 /* TitledPicker.swift */,
 				CA7D9E302C4C066800908159 /* Separator.swift */,
 				F2D5AB812CF66FCF004AE191 /* PagerView.swift */,
+				F222D3B02CFBAA4000AD7AF4 /* InfoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1048,6 +1051,7 @@
 				CA6263B82A250F00003E167D /* Storage.swift in Sources */,
 				CA1B52B32C0B97E700C4B923 /* BrewMethodRepositoryImp.swift in Sources */,
 				CA1B52BC2C0BA30500C4B923 /* GetBrewMethodsRequest.swift in Sources */,
+				F222D3B12CFBAA4000AD7AF4 /* InfoView.swift in Sources */,
 				CA6263C72A254EB3003E167D /* Color+HexString.swift in Sources */,
 				F22E68D32CF38DB600EE80FA /* CreateBrewMethodUseCaseImp.swift in Sources */,
 				CA6263BF2A25499A003E167D /* Entities+Stub.swift in Sources */,
