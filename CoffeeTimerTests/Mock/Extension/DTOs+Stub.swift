@@ -19,7 +19,8 @@ extension BrewMethodDTO {
                 .ratio16,
                 .ratio18,
                 .ratio20
-            ]
+            ],
+            infoModel: .init(title: "v60 single title", body: "v60 single body")
         )
     }
 
@@ -34,7 +35,8 @@ extension BrewMethodDTO {
                 .ratio16,
                 .ratio17,
                 .ratio18
-            ]
+            ],
+            infoModel: .init(title: "v60 iced title", body: "v60 iced body")
         )
     }
 
@@ -49,7 +51,8 @@ extension BrewMethodDTO {
                 .ratio17,
                 .ratio18,
                 .ratio20
-            ]
+            ],
+            infoModel: .init(title: "french-press title", body: "french-press body")
         )
     }
 }

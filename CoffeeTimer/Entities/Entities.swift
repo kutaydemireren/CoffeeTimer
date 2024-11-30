@@ -14,12 +14,7 @@ struct BrewMethod: Equatable, Hashable, Identifiable, Titled {
     let isIcedBrew: Bool
     let cupsCount: CupsCount
     let ratios: [CoffeeToWaterRatio]
-}
-
-struct CoffeeToWaterRatio: Equatable, Hashable, Identifiable, Titled {
-    let id: String
-    let value: Double
-    let title: String
+    let info: InfoModel
 }
 
 struct CupsCount: Equatable, Hashable {
@@ -28,6 +23,24 @@ struct CupsCount: Equatable, Hashable {
 
     static var unlimited: CupsCount {
         return CupsCount(minimum: 1, maximum: nil)
+    }
+}
+
+struct CoffeeToWaterRatio: Equatable, Hashable, Identifiable, Titled {
+    let id: String
+    let value: Double
+    let title: String
+}
+
+struct InfoModel: Equatable, Hashable {
+    let title: String
+    let source: String?
+    let body: String
+
+    init(title: String, source: String? = nil, body: String) {
+        self.title = title
+        self.source = source
+        self.body = body
     }
 }
 

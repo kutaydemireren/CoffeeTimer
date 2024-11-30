@@ -113,7 +113,10 @@ struct CreateBrewMethodUseCaseImp: CreateBrewMethodUseCase {
             path: CustomMethodPathGenerator.generate(id: id),
             isIcedBrew: isIcedBrew,
             cupsCount: context.cupsCount,
-            ratios: isIcedBrew ? StaticCoffeetoWaterRatioGenerator.icedBrew() : StaticCoffeetoWaterRatioGenerator.hotBrew()
+            ratios: isIcedBrew ? StaticCoffeetoWaterRatioGenerator
+                .icedBrew() : StaticCoffeetoWaterRatioGenerator
+                .hotBrew(),
+            info: .init(title: context.methodTitle, body: "") // TODO: allow custom body - would allow custom notes on saved methods
         )
     }
 }

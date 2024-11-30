@@ -185,7 +185,8 @@ extension BrewMethod {
             path: "path",
             isIcedBrew: false,
             cupsCount: .unlimited,
-            ratios: []
+            ratios: [],
+            info: .empty
         )
     }
 
@@ -200,7 +201,8 @@ extension BrewMethod {
                 .ratio16,
                 .ratio18,
                 .ratio20
-            ]
+            ],
+            info: .init(title: "v60 single title", body: "v60 single body")
         )
     }
 
@@ -215,7 +217,8 @@ extension BrewMethod {
                 .ratio16,
                 .ratio17,
                 .ratio18
-            ]
+            ],
+            info: .init(title: "v60 iced title", body: "v60 iced body")
         )
     }
 
@@ -230,7 +233,8 @@ extension BrewMethod {
                 .ratio17,
                 .ratio18,
                 .ratio20
-            ]
+            ],
+            info: .init(title: "french-press title", body: "french-press body")
         )
     }
 }

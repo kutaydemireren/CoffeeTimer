@@ -37,30 +37,43 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
 
     private func map(brewMethodDTOs: [BrewMethodDTO]) -> [BrewMethod] {
         brewMethodDTOs.map { brewMethodDTO in
-            BrewMethod(
+                .init(
                 id: brewMethodDTO.id ?? "",
                 title: brewMethodDTO.title ?? "",
                 path: brewMethodDTO.path ?? "", 
                 isIcedBrew: brewMethodDTO.isIcedBrew ?? false,
                 cupsCount: map(cupsCountDTO: brewMethodDTO.cupsCount),
-                ratios: brewMethodDTO.ratios.map(map(ratio:))
+                ratios: brewMethodDTO.ratios.map(map(ratio:)),
+                info: map(infoModel: brewMethodDTO.infoModel, fallbackTitle: brewMethodDTO.title ?? "")
             )
         }
     }
 
     private func map(cupsCountDTO: CupsCountDTO?) -> CupsCount {
         guard let cupsCountDTO else { return CupsCount.unlimited }
-        return CupsCount(
+        return .init(
             minimum: cupsCountDTO.minimum ?? CupsCount.unlimited.minimum,
             maximum: cupsCountDTO.maximum ?? CupsCount.unlimited.maximum
         )
     }
 
     private func map(ratio: CoffeeToWaterRatioDTO) -> CoffeeToWaterRatio {
-        return CoffeeToWaterRatio(
+        return .init(
             id: ratio.id ?? "",
             value: ratio.value ?? 0,
             title: ratio.title ?? ""
+        )
+    }
+
+    private func map(infoModel: InfoModelDTO?, fallbackTitle: String) -> InfoModel {
+        guard let infoModel else {
+            return .init(title: fallbackTitle, body: "")
+        }
+
+        return .init(
+            title: infoModel.title ?? "",
+            source: infoModel.source,
+            body: infoModel.body ?? ""
         )
     }
 
@@ -77,22 +90,31 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
             path: brewMethod.path,
             isIcedBrew: brewMethod.isIcedBrew,
             cupsCount: map(cupsCount: brewMethod.cupsCount),
-            ratios: brewMethod.ratios.map(map(ratio:))
+            ratios: brewMethod.ratios.map(map(ratio:)),
+            infoModel: map(infoModel: brewMethod.info)
         )
     }
 
     private func map(cupsCount: CupsCount) -> CupsCountDTO {
-        return CupsCountDTO(
+        return .init(
             minimum: cupsCount.minimum,
             maximum: cupsCount.maximum
         )
     }
 
     private func map(ratio: CoffeeToWaterRatio) -> CoffeeToWaterRatioDTO {
-        return CoffeeToWaterRatioDTO(
+        return .init(
             id: ratio.id,
             value: ratio.value,
             title: ratio.title
+        )
+    }
+
+    private func map(infoModel: InfoModel) -> InfoModelDTO {
+        return .init(
+            title: infoModel.title,
+            source: infoModel.source,
+            body: infoModel.body
         )
     }
 

@@ -19,7 +19,8 @@ private extension BrewMethod {
                 .ratio17,
                 .ratio18,
                 .ratio20
-            ]
+            ],
+            info: .empty
         )
     }
 }

@@ -66,7 +66,20 @@ extension RecipeMapperImp {
             path: brewMethodDTO.path ?? "",
             isIcedBrew: brewMethodDTO.isIcedBrew ?? false,
             cupsCount: CupsCount(minimum: brewMethodDTO.cupsCount?.minimum ?? 1, maximum: brewMethodDTO.cupsCount?.maximum),
-            ratios: brewMethodDTO.ratios.map { CoffeeToWaterRatio(id: $0.id ?? "", value: $0.value ?? 0, title: $0.title ?? "" ) }
+            ratios: brewMethodDTO.ratios.map { CoffeeToWaterRatio(id: $0.id ?? "", value: $0.value ?? 0, title: $0.title ?? "" ) },
+            info: map(infoModel: brewMethodDTO.infoModel, fallbackTitle: brewMethodDTO.title ?? "")
+        )
+    }
+
+    private func map(infoModel: InfoModelDTO?, fallbackTitle: String) -> InfoModel {
+        guard let infoModel else {
+            return .init(title: fallbackTitle, body: "")
+        }
+
+        return .init(
+            title: infoModel.title ?? fallbackTitle,
+            source: infoModel.source,
+            body: infoModel.body ?? ""
         )
     }
 
@@ -224,7 +237,16 @@ extension RecipeMapperImp {
             path: brewMethod.path,
             isIcedBrew: brewMethod.isIcedBrew,
             cupsCount: CupsCountDTO(minimum: brewMethod.cupsCount.minimum, maximum: brewMethod.cupsCount.maximum),
-            ratios: brewMethod.ratios.map { CoffeeToWaterRatioDTO(id: $0.id, value: $0.value, title: $0.title) }
+            ratios: brewMethod.ratios.map { CoffeeToWaterRatioDTO(id: $0.id, value: $0.value, title: $0.title) },
+            infoModel: map(infoModel: brewMethod.info)
+        )
+    }
+
+    private func map(infoModel: InfoModel) -> InfoModelDTO {
+        return .init(
+            title: infoModel.title,
+            source: infoModel.source,
+            body: infoModel.body
         )
     }
 

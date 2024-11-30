@@ -7,20 +7,8 @@
 
 import SwiftUI
 
-struct InfoViewModel {
-    let title: String
-    let source: String?
-    let body: String
-
-    init(title: String, source: String? = nil, body: String) {
-        self.title = title
-        self.source = source
-        self.body = body
-    }
-}
-
 struct InfoView: View {
-    let viewModel: InfoViewModel
+    let viewModel: InfoModel
 
     var body: some View {
         VStack {

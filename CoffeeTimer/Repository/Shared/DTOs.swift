@@ -46,6 +46,12 @@ struct BrewMethodDTO: Codable, Equatable {
     let isIcedBrew: Bool?
     let cupsCount: CupsCountDTO?
     let ratios: [CoffeeToWaterRatioDTO]
+    let infoModel: InfoModelDTO?
+}
+
+struct CupsCountDTO: Codable, Equatable {
+    let minimum: Int?
+    let maximum: Int?
 }
 
 struct CoffeeToWaterRatioDTO: Codable, Equatable {
@@ -54,9 +60,16 @@ struct CoffeeToWaterRatioDTO: Codable, Equatable {
     let title: String?
 }
 
-struct CupsCountDTO: Codable, Equatable {
-    let minimum: Int?
-    let maximum: Int?
+struct InfoModelDTO: Codable, Equatable {
+    let title: String?
+    let source: String?
+    let body: String?
+
+    init(title: String?, source: String? = nil, body: String?) {
+        self.title = title
+        self.source = source
+        self.body = body
+    }
 }
 
 struct BrewQueueDTO: Codable, Equatable {

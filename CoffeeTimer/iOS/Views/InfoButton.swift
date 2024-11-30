@@ -10,7 +10,7 @@ import SwiftUI
 struct InfoButton: View {
     @State private var isInfoPresented = false
 
-    let infoViewModel: InfoViewModel
+    let infoViewModel: InfoModel
 
     var body: some View {
         Button {
