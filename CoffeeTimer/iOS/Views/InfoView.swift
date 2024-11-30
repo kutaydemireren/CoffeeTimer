@@ -25,6 +25,7 @@ struct InfoView: View {
     var body: some View {
         VStack {
             Text(viewModel.title)
+                .font(.title2)
                 .bold()
 
             if let source = viewModel.source {
@@ -34,18 +35,22 @@ struct InfoView: View {
 
             Spacer()
 
-            Text(viewModel.body)
+            Text(try! AttributedString(markdown: viewModel.body,
+                                       options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)))
 
             Spacer()
         }
         .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .foregroundColor(Color("foregroundPrimary"))
+        .backgroundPrimary()
     }
 }
 
 #Preview {
     InfoView(
         viewModel: .init(
-            title: "Title",
+            title: "The Title",
             source: "by Kutay Demireren",
             body: """
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim diam vitae ex mollis consectetur. Sed elit ipsum, fermentum non urna sit amet, fermentum bibendum purus. Nunc condimentum enim nec lacinia tristique. Duis ac blandit massa. Sed auctor purus augue, vitae fringilla nibh venenatis scelerisque. Aliquam id mattis tortor. Duis eget enim quis orci consequat venenatis.
