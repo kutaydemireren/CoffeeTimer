@@ -33,9 +33,9 @@ extension RecipeInstructionActionItem {
                     details: "dtl",
                     ingredient: ingredient,
                     mainFactor: 1.0,
-                    mainFactorOf: .stubTotalCoffe,
+                    mainFactorOf: .totalCoffee,
                     adjustmentFactor: 0,
-                    adjustmentFactorOf: .stubTotalCoffe
+                    adjustmentFactorOf: .totalCoffee
                 )
             )
         )

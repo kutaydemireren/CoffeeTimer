@@ -38,16 +38,20 @@ extension PutActionModel {
             details: "dtl",
             ingredient: .coffee,
             mainFactor: 0.2,
-            mainFactorOf: .stubTotalCoffe,
+            mainFactorOf: .totalCoffee,
             adjustmentFactor: -0.1,
-            adjustmentFactorOf: .stubTotalCoffe
+            adjustmentFactorOf: .totalCoffee
         )
     }
 }
 
 extension KeywordItem {
-    static var stubTotalCoffe: Self {
+    static var totalCoffee: Self {
         return .init(keyword: "#total.coffee", title: "Total Coffee")
+    }
+
+    static var totalWater: Self {
+        return .init(keyword: "#total.water", title: "Total Water")
     }
 }
 

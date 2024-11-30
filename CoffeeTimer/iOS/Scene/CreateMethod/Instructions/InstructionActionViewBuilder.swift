@@ -275,9 +275,9 @@ extension [KeywordItem] {
     InstructionActionViewBuilder()
         .with(ingredient: .constant(.coffee))
         .with(mainFactor: .constant(0))
-        .with(mainFactorOf: .constant(.stubTotalCoffe))
+        .with(mainFactorOf: .constant(.totalCoffee))
         .with(adjustmentFactor: .constant(0))
-        .with(adjustmentFactorOf: .constant(.stubTotalCoffe))
+        .with(adjustmentFactorOf: .constant(.totalCoffee))
         .build()
 }
 
