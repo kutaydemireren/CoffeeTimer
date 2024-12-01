@@ -1,5 +1,5 @@
 //
-//  CreateBrewMethodUseCaseImp.swift
+//  CreateBrewMethodUseCase.swift
 //  CoffeeTimer
 //
 //  Created by Kutay Demireren on 24/11/2024.
