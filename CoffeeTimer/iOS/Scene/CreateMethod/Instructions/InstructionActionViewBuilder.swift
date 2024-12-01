@@ -7,6 +7,19 @@
 
 import SwiftUI
 
+private var interactionMethodInfo: InfoModel {
+    .init(
+        title: "Start Requirement Method",
+        body: """
+Flag to decide whether the queue should automatically run the current step (once the previous step is completed).
+Only effective in the beginning of the steps.
+
+Use 'User Interactive' if an active confirmation can be useful to begin the step.
+"""
+    )
+}
+
+
 final class InstructionActionViewBuilder {
     private var requirementConstant: Bool = false
     private var requirement: Binding<InstructionRequirementItem?>?
@@ -120,10 +133,10 @@ final class InstructionActionViewBuilder {
 
             if let duration, requirement?.wrappedValue == .countdown {
                 NumericTextField(
-                    title: "Duration (in seconds - limited to 300 seconds)",
+                    title: "Duration (seconds) [limit = 300 (5 min)]",
                     placeholder: "",
                     keyboardType: .number,
-                    range: .init(minimum: 1, maximum: 5 * 60),
+                    range: .init(minimum: 1, maximum: 300),
                     input: duration
                 )
             }
@@ -133,7 +146,16 @@ final class InstructionActionViewBuilder {
                     selectedItem: startMethod,
                     allItems: .constant(InstructionInteractionMethodItem.allCases),
                     title: "Start Requirement Method",
-                    placeholder: ""
+                    placeholder: "",
+                    infoModel: .init(
+                        title: "Start Requirement Method",
+                        body: """
+Flag to decide whether the queue should automatically run the current step (once the previous step is completed).
+Only effective at the beginning of each step.
+
+Use 'User Interactive' if a confirmation can be useful to begin the step, letting the countdown begin.
+"""
+                    )
                 )
                 .disabled(startMethodConstant)
                 .grayscale(startMethodConstant ? 0.5 : 0.0)
@@ -144,7 +166,16 @@ final class InstructionActionViewBuilder {
                     selectedItem: skipMethod,
                     allItems: .constant(InstructionInteractionMethodItem.allCases),
                     title: "Skip Step Method",
-                    placeholder: ""
+                    placeholder: "",
+                    infoModel: .init(
+                        title: "Skip Step Method",
+                        body: """
+Flag to decide whether the queue should automatically skip the current step (once the step is completed).
+Only effective at the end of the each step.
+
+Use 'User Interactive' if a confirmation can be useful to end the step, and to go to the next one.
+"""
+                    )
                 )
                 .disabled(skipMethodConstant)
                 .grayscale(skipMethodConstant ? 0.5 : 0.0)
@@ -263,7 +294,7 @@ final class InstructionActionViewBuilder {
 }
 
 extension [KeywordItem] {
-    static var stub: Self {
+    static var stub: Self { // TODO: this is in use above! Replace it with a use case, whether it returns static element matters less.
         return [
             .init(keyword: "#total.coffee", title: "Total Coffee"),
             .init(keyword: "#total.water", title: "Total Water"),

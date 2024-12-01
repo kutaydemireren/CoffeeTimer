@@ -13,7 +13,12 @@ enum InstructionInteractionMethodItem: String, Titled, Hashable, Identifiable, C
     }
 
     var title: String {
-        return rawValue
+        switch self {
+        case .auto:
+            return "Auto"
+        case .userInteractive:
+            return "User Interactive"
+        }
     }
 
     case auto

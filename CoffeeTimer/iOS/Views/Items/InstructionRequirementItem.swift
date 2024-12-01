@@ -13,7 +13,7 @@ enum InstructionRequirementItem: String, Titled, Hashable, Identifiable, CaseIte
     }
 
     var title: String {
-        return rawValue
+        return rawValue.capitalized
     }
 
     case `none` = "none"
