@@ -15,9 +15,9 @@ extension String {
             newValue = self
         } else {
             let trimmed = trimmingCharacters(in: CharacterSet(charactersIn: "."))
-            newValue = trimmed.filter { "0123456789.".contains($0) }
+            newValue = trimmed.filter { "0123456789.-".contains($0) }
         }
-        
+
         return newValue
     }
 }

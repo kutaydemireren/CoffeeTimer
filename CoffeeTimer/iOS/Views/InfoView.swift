@@ -11,27 +11,29 @@ struct InfoView: View {
     let model: InfoModel
 
     var body: some View {
-        VStack {
-            Text(model.title)
-                .font(.title2)
-                .bold()
+        ScrollView {
+            VStack {
+                Text(model.title)
+                    .font(.title2)
+                    .bold()
 
-            if let source = model.source {
+                if let source = model.source {
+                    Text(try! AttributedString(
+                        markdown: source,
+                        options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)
+                    ))
+                    .bold()
+                    .italic()
+                }
+
                 Text(try! AttributedString(
-                    markdown: source,
+                    markdown: model.body,
                     options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)
                 ))
-                .bold()
-                .italic()
+                .padding(.vertical)
+
+                Spacer()
             }
-
-            Text(try! AttributedString(
-                markdown: model.body,
-                options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)
-            ))
-            .padding(.vertical)
-
-            Spacer()
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)

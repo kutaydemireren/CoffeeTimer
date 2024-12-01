@@ -51,8 +51,6 @@ struct AlphanumericTextField: View {
     @ViewBuilder
     private var textField: some View {
         HStack {
-            Spacer()
-
             TextField(text: $text) {
                 Text(placeholder)
                     .foregroundColor(Color("foregroundPrimary").opacity(0.3))

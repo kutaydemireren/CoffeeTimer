@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct TitledContent<Content: View>: View {
-    var title: String
-    var content: () -> Content
+    let title: String
+    var infoModel: InfoModel? = nil
+    let content: () -> Content
 
     var body: some View {
 
@@ -17,8 +18,13 @@ struct TitledContent<Content: View>: View {
 
             HStack {
                 Text(title)
+                    .font(.headline)
+
+                if let infoModel {
+                    InfoButton(infoModel: infoModel)
+                        .toAnyView()
+                }
             }
-            .font(.headline)
             .frame(maxWidth: .infinity, alignment: .leading)
 
             content()

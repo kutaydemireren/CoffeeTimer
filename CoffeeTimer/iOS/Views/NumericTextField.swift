@@ -12,6 +12,7 @@ struct NumericTextField: View {
     enum KeyboardType {
         case decimal
         case number
+        case numbersAndPunctuation
 
         var uiKeyboardType: UIKeyboardType {
             switch self {
@@ -19,6 +20,8 @@ struct NumericTextField: View {
                 return .decimalPad
             case .number:
                 return .numberPad
+            case .numbersAndPunctuation:
+                return .numbersAndPunctuation
             }
         }
     }
@@ -93,7 +96,10 @@ struct NumericTextField: View {
     private func didUpdate(displayText newValue: String) {
         guard isFocused else { return }
 
-        guard let newInput = Double(newValue.filteringNonNumerics()), inRange(input: newInput)else {
+        guard let newInput = Double(newValue.filteringNonNumerics()), inRange(input: newInput) else {
+            guard newValue != "-" else {
+                return
+            }
             setDisplayText(0)
             return
         }

@@ -7,18 +7,95 @@
 
 import SwiftUI
 
-private var interactionMethodInfo: InfoModel {
+private var startMethodInfo: InfoModel {
     .init(
         title: "Start Requirement Method",
         body: """
 Flag to decide whether the queue should automatically run the current step (once the previous step is completed).
-Only effective in the beginning of the steps.
+Only effective at the beginning of each step.
 
-Use 'User Interactive' if an active confirmation can be useful to begin the step.
+Use 'User Interactive' if a confirmation can be useful to begin the step, letting the countdown begin.
 """
     )
 }
 
+private var skipMethodInfo: InfoModel {
+    .init(
+        title: "Skip Step Method",
+        body: """
+Flag to decide whether the queue should automatically skip the current step (once the step is completed).
+Only effective at the end of the each step.
+
+Use 'User Interactive' if a confirmation can be useful to end the step, and to go to the next one.
+"""
+    )
+}
+
+private var messageInfo: InfoModel {
+    .init(
+        title: "Message",
+        body: """
+Message is the main text displayed at the top, prominently.
+
+It can contain the following keywords to display dynamic values within each step:
+\t- **#current.amount** → Step-specific amount, dynamically calculated for the current instruction.
+\t- **#current.duration** → Duration for the current step (0 if not set)
+\t- **#current.coffee** → Amount of coffee added so far.
+\t- **#current.water** → Amount of water added so far.
+\t- **#total.coffee** → Total coffee planned for the brew.
+\t- **#total.water** → Total water planned for the brew.
+\t- **#remaining.coffee** → Remaining coffee to be added (*total.coffee - current.coffee*).
+\t- **#remaining.water** → Remaining water to be added (*total.water - current.water*).
+"""
+    )
+}
+
+private var secondaryMessageInfo: InfoModel {
+    .init(
+        title: "Secondary Message",
+        body: """
+Secondary message is the text displayed below the main text, less prominent but visible enough.
+
+It can contain the following keywords to display dynamic values within each step:
+\t- **#current.amount** → Step-specific amount, dynamically calculated for the current instruction.
+\t- **#current.duration** → Duration for the current step (0 if not set)
+\t- **#current.coffee** → Amount of coffee added so far.
+\t- **#current.water** → Amount of water added so far.
+\t- **#total.coffee** → Total coffee planned for the brew.
+\t- **#total.water** → Total water planned for the brew.
+\t- **#remaining.coffee** → Remaining coffee to be added (*total.coffee - current.coffee*).
+\t- **#remaining.water** → Remaining water to be added (*total.water - current.water*).
+"""
+    )
+}
+
+private var amountInfo: InfoModel {
+    .init(
+        title: "Amount Configuration",
+        body: """
+The amount field determines the quantity for each brewing step using two factors:  
+
+1. **Main Factor:**
+   - Defines the base quantity. It must be defined.
+   - Choose a **keyword** to indicate what the factor applies to (e.g., *Current Water*, *Remaining Coffee*).
+   - Or, choose "None" to use as a constant value.
+
+2. **Adjustment Factor:** *(Optional)*
+   - Adds or subtracts a proportion from the main factor.
+   - Use negative factor for substraction.
+   - Choose a **keyword** to indicate what the factor applies to (e.g., *Current Coffee*, *Total Water*).
+   - Or, choose "None" to use as a constant value.
+
+**Supported Keywords:**
+\t- **Current Coffee** → Amount of coffee added so far.
+\t- **Current Water** → Amount of water added so far.
+\t- **Total Coffee** → Total coffee planned for the brew.
+\t- **Total Water** → Total water planned for the brew.
+\t- **Remaining Coffee** → Remaining coffee to be added (*Total Coffee - Current Coffee*).
+\t- **Remaining Water** → Remaining water to be added (*Total Water - Current Water*).
+"""
+    )
+}
 
 final class InstructionActionViewBuilder {
     private var requirementConstant: Bool = false
@@ -133,7 +210,7 @@ final class InstructionActionViewBuilder {
 
             if let duration, requirement?.wrappedValue == .countdown {
                 NumericTextField(
-                    title: "Duration (seconds) [limit = 300 (5 min)]",
+                    title: "Duration (seconds) [limit = 300]",
                     placeholder: "",
                     keyboardType: .number,
                     range: .init(minimum: 1, maximum: 300),
@@ -147,15 +224,7 @@ final class InstructionActionViewBuilder {
                     allItems: .constant(InstructionInteractionMethodItem.allCases),
                     title: "Start Requirement Method",
                     placeholder: "",
-                    infoModel: .init(
-                        title: "Start Requirement Method",
-                        body: """
-Flag to decide whether the queue should automatically run the current step (once the previous step is completed).
-Only effective at the beginning of each step.
-
-Use 'User Interactive' if a confirmation can be useful to begin the step, letting the countdown begin.
-"""
-                    )
+                    infoModel: startMethodInfo
                 )
                 .disabled(startMethodConstant)
                 .grayscale(startMethodConstant ? 0.5 : 0.0)
@@ -167,15 +236,7 @@ Use 'User Interactive' if a confirmation can be useful to begin the step, lettin
                     allItems: .constant(InstructionInteractionMethodItem.allCases),
                     title: "Skip Step Method",
                     placeholder: "",
-                    infoModel: .init(
-                        title: "Skip Step Method",
-                        body: """
-Flag to decide whether the queue should automatically skip the current step (once the step is completed).
-Only effective at the end of the each step.
-
-Use 'User Interactive' if a confirmation can be useful to end the step, and to go to the next one.
-"""
-                    )
+                    infoModel: skipMethodInfo
                 )
                 .disabled(skipMethodConstant)
                 .grayscale(skipMethodConstant ? 0.5 : 0.0)
@@ -186,22 +247,7 @@ Use 'User Interactive' if a confirmation can be useful to end the step, and to g
                     text: message,
                     style: .titled("Message"),
                     placeholder: "Put all #total.coffee g of coffee to brewer",
-                    infoModel: .init(
-                        title: "Message",
-                        body: """
-Message is the main text displayed at the top, prominently.
-
-Messages can contain the following keywords to display dynamic values within each step:
-**#total.coffee**: Total coffee amount
-**#total.water**: Total water amount 
-**#current.amount**: The amount calculated for the current step
-**#current.water**: Water used so far, the amount in the brewer
-**#current.coffee**: Coffee used so far, the amount in the brewer
-**#current.duration**: Duration set to requirement (0 if not set)
-**#remaining.water**: Remaining water (total.water - current.water)
-**#remaining.coffee**: Remaining coffee (total.coffee - current.coffee)
-"""
-                    )
+                    infoModel: messageInfo
                 )
             }
 
@@ -210,22 +256,7 @@ Messages can contain the following keywords to display dynamic values within eac
                     text: details,
                     style: .titled("Secondary Message"),
                     placeholder: "Total water: #current.water ml",
-                    infoModel: .init(
-                        title: "Secondary Message",
-                        body: """
-Secondary message is the text displayed below the main text, less prominent but visible enough.
-
-Secondary messages can contain the following keywords to display dynamic values within each step:
-**#total.coffee**: Total coffee amount
-**#total.water**: Total water amount 
-**#current.amount**: The amount calculated for the current step
-**#current.water**: Water used so far, the amount in the brewer
-**#current.coffee**: Coffee used so far, the amount in the brewer
-**#current.duration**: Duration set to requirement (0 if not set)
-**#remaining.water**: Remaining water (total.water - current.water)
-**#remaining.coffee**: Remaining coffee (total.coffee - current.coffee)
-"""
-                    )
+                    infoModel: secondaryMessageInfo
                 )
             }
 
@@ -239,13 +270,13 @@ Secondary messages can contain the following keywords to display dynamic values 
             }
 
             if let mainFactor, let mainFactorOf, let adjustmentFactor, let adjustmentFactorOf {
-                TitledContent(title: "Amount (gram)") {
+                TitledContent(title: "Amount (gram)", infoModel: amountInfo) {
                     VStack(alignment: .leading, spacing: 8) {
                         HStack(spacing: 4) {
                             NumericTextField(
                                 title: "",
                                 placeholder: "0.2",
-                                range: .init(minimum: 0, maximum: 10),
+                                range: .init(minimum: 0),
                                 input: mainFactor
                             )
 
@@ -284,7 +315,8 @@ Secondary messages can contain the following keywords to display dynamic values 
                                 NumericTextField(
                                     title: "",
                                     placeholder: "0.2",
-                                    range: .init(minimum: -10, maximum: 10),
+                                    keyboardType: .numbersAndPunctuation,
+                                    range: .init(minimum: .min, maximum: .max),
                                     input: adjustmentFactor
                                 )
 
@@ -326,11 +358,17 @@ Secondary messages can contain the following keywords to display dynamic values 
 }
 
 extension [KeywordItem] {
-    static var stub: Self { // TODO: this is in use above! Replace it with a use case, whether it returns static element matters less.
+    static var stub: Self { // TODO: this is in use above, in prod code! Replace it with a use case, whether it returns static element matters less.
         return [
+            .init(keyword: "", title: "None"),
+            .init(keyword: "#current.coffee", title: "Current Coffee"),
+            .init(keyword: "#current.water", title: "Current Water"),
+            .init(keyword: "#current.ice", title: "Current Ice"),
             .init(keyword: "#total.coffee", title: "Total Coffee"),
             .init(keyword: "#total.water", title: "Total Water"),
-            .init(keyword: "#total.ice", title: "Total Ice")
+            .init(keyword: "#total.ice", title: "Total Ice"),
+            .init(keyword: "#remaining.coffee", title: "Remaining Coffee"),
+            .init(keyword: "#remaining.water", title: "Remaining Water"),
         ]
     }
 }
@@ -348,63 +386,3 @@ extension [KeywordItem] {
 #Preview {
     RecipeInstructionActionView(item: .constant(.stubPut))
 }
-
-struct InformativeView: View {
-    let title: String
-    let description: String
-
-    var body: some View {
-        ScrollView {
-            Spacer()
-
-            Text(title)
-                .lineLimit(nil)
-                .font(.title3)
-
-            Spacer()
-
-            Text(description)
-                .lineLimit(nil)
-                .font(.body)
-
-            Spacer()
-        }
-        .padding()
-        .backgroundPrimary()
-        .foregroundColor(Color("foregroundPrimary"))
-        .ignoresSafeArea()
-    }
-}
-
-// TODO: move
-fileprivate let informativeAmountDescription: String = """
-... TBD ...
-- TODO: Write informative text explaining how this field can be used
-
-e.g.:
-You can use a constant amount or can express the amount relatively.
-
-- Expressions are calculated per stage. Each keyword represent a value that is available in the context of the stage.
-- Some values are constant (total amounts) and some others differs in each stage (eg. remainig water amount).
-
-For example, followings would be accepted:
-- 23 (23 gram of water)
-- 0.4 * #coffee (40% of the total coffee amount)
-- 0.6 * #current.water (60% of the water amount used so far)
-- 0.7 * #remaining.water + 0.5 * #current.water (70% of the water amount left to pour)
-- 245 * #current.coffee (yes - there is no limit to the multiplier (number), however, the outcome will be obviously bizarre)
-
-However, followings would _not_ be accepted:
-- 23asd: it contains alphanumeric values of 'asd'.
-- 0.4 * coffee: keywords ('coffee' here) without '#' does not yield as keyword to the application.
-- (0.6 * #current.water) * (0.5 * #remaining.coffee): multi-step expressions are not supported. Only a single expression can be used at a time.
-- 0.7 / #remaining.water:
-
-The known keywords you can use are:
-#coffee: representing the total coffee amount
-#water: representing the total water amount
-#current.water: representing the water amount used/brewed so far
-#current.coffee: repreesnting the coffee amount used so far
-#remaining.water: representing the remaining water amount that still will be used
-#remaining.coffee: representing the remaining coffee amont that will be used in later stages
-"""

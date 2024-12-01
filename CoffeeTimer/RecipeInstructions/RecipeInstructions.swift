@@ -420,7 +420,7 @@ struct PutInstructionAction: InstructionAction, Equatable {
         if valueFactorOf == nil {
             valueFactorOf = Double(process(message: factorOf, with: context.toDict()))
         }
-        guard let valueFactorOf else { return 0 }
+        guard let valueFactorOf else { return factor }
 
         return factor * valueFactorOf
     }
