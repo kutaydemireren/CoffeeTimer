@@ -8,21 +8,21 @@
 import SwiftUI
 
 struct InfoView: View {
-    let viewModel: InfoModel
+    let model: InfoModel
 
     var body: some View {
         VStack {
-            Text(viewModel.title)
+            Text(model.title)
                 .font(.title2)
                 .bold()
 
-            if let source = viewModel.source {
+            if let source = model.source {
                 Text(source)
                     .italic()
             }
 
             Text(try! AttributedString(
-                markdown: viewModel.body,
+                markdown: model.body,
                 options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)
             ))
             .padding(.vertical)
@@ -38,7 +38,7 @@ struct InfoView: View {
 
 #Preview {
     InfoView(
-        viewModel: .init(
+        model: .init(
             title: "The Title",
             source: "by Kutay Demireren",
             body: """

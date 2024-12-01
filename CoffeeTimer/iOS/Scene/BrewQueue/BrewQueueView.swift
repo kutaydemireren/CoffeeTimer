@@ -275,8 +275,6 @@ struct BrewQueueView: View {
         }
     }
 
-    // TODO: must move this to remove recipe dependency.
-    // `BrewQueue` and `Recipe` will be decoupled (atm, `Recipe` has a `BrewQueue`).
     @ViewBuilder
     private var recipesButton: some View {
         Button {
@@ -320,7 +318,13 @@ struct BrewQueueView: View {
     private func actionButton() -> some View {
 
         if !viewModel.isActive {
-            recipesButton
+            HStack {
+                recipesButton
+
+                if let info = viewModel.selectedRecipe?.recipeProfile.brewMethod.info {
+                    InfoButton(infoModel: info)
+                }
+            }
         } else {
             HStack {
                 endButton

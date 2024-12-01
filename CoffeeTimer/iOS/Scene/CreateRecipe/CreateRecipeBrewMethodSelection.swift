@@ -34,7 +34,7 @@ struct BrewMethodView: View {
                     Spacer()
                     if hasInfo {
                         InfoButton(
-                            infoViewModel: .init(
+                            infoModel: .init(
                                 title: brewMethod.info.title,
                                 source: brewMethod.info.source,
                                 body: brewMethod.info.body
