@@ -19,15 +19,18 @@ final class CreateRecipeViewModel: ObservableObject {
     private var createRecipeFromContextUseCase: CreateRecipeFromContextUseCase
     private var recipeRepository: RecipeRepository // TODO: use case - no repo in vm!
     private var getBrewMethodsUseCase: GetBrewMethodsUseCase
+    private var removeBrewMethodUseCase: RemoveBrewMethodUseCase
 
     init(
         createRecipeFromContextUseCase: CreateRecipeFromContextUseCase = CreateRecipeFromContextUseCaseImp(),
         recipeRepository: RecipeRepository = RecipeRepositoryImp.shared,
-        getBrewMethodsUseCase: GetBrewMethodsUseCase = GetBrewMethodsUseCaseImp()
+        getBrewMethodsUseCase: GetBrewMethodsUseCase = GetBrewMethodsUseCaseImp(),
+        removeBrewMethodUseCase: RemoveBrewMethodUseCase = RemoveBrewMethodUseCaseImp()
     ) {
         self.createRecipeFromContextUseCase = createRecipeFromContextUseCase
         self.recipeRepository = recipeRepository
         self.getBrewMethodsUseCase = getBrewMethodsUseCase
+        self.removeBrewMethodUseCase = removeBrewMethodUseCase
 
         refreshBrewMethods()
     }
@@ -100,6 +103,13 @@ final class CreateRecipeViewModel: ObservableObject {
         resetRatiosIfNeeded(context)
         canCreate = canCreate(from: context)
     }
+
+    func remove(brewMethod: BrewMethod) {
+        Task {
+            await removeBrewMethodUseCase.remove(brewMethod: brewMethod)
+            refreshBrewMethods()
+        }
+    }
 }
 
 struct CreateRecipeView: View {
@@ -126,7 +136,8 @@ struct CreateRecipeView: View {
                     CreateRecipeBrewMethodSelection(
                         brewMethods: $viewModel.brewMethods,
                         selectedBrewMethod: $context.selectedBrewMethod,
-                        createMethod: createMethod
+                        createMethod: createMethod,
+                        deleteMethod: viewModel.remove(brewMethod:)
                     )
                 }
                 .tag(1)

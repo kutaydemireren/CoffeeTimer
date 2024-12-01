@@ -87,6 +87,7 @@ struct CreateRecipeBrewMethodSelection: View {
     @Binding var selectedBrewMethod: BrewMethod?
 
     var createMethod: () -> Void
+    var deleteMethod: (BrewMethod) -> Void
 
     var body: some View {
         ScrollView {
@@ -99,6 +100,13 @@ struct CreateRecipeBrewMethodSelection: View {
                     .frame(height: height)
                     .onTapGesture {
                         selectedBrewMethod = brewMethod
+                    }
+                    .contextMenu {
+                        Button(role: .destructive) {
+                            deleteMethod(brewMethod)
+                        } label: {
+                            Label("Delete", systemImage: "trash")
+                        }
                     }
                 }
             }
@@ -168,13 +176,15 @@ struct CreateRecipeBrewMethodSelection_Previews: PreviewProvider {
             CreateRecipeBrewMethodSelection(
                 brewMethods: .constant(methodsSmall),
                 selectedBrewMethod: .constant(.v60Single),
-                createMethod: { }
+                createMethod: { },
+                deleteMethod: { _ in }
             )
 
             CreateRecipeBrewMethodSelection(
                 brewMethods: .constant(methodsLarge),
                 selectedBrewMethod: .constant(.v60Single),
-                createMethod: { }
+                createMethod: { },
+                deleteMethod: { _ in }
             )
         }
         .tabViewStyle(.page)

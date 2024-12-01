@@ -13,7 +13,7 @@ private var templateInfo: InfoModel {
         body: """
 Selecting an existing brewing method will duplicate its instructions, so that you can adjust the steps to make it your own.
 
-Simply select one from the dropdown, and you can find the instructions in the next page.
+Simply select one of the options, and you can find the instructions duplicated in the next page.
 """
     )
 }

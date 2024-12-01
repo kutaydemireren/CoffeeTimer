@@ -8,7 +8,7 @@
 import Foundation
 
 protocol RemoveBrewMethodUseCase {
-    func remove(brewMethod: BrewMethod) async throws
+    func remove(brewMethod: BrewMethod) async
 }
 
 final class RemoveBrewMethodUseCaseImp: RemoveBrewMethodUseCase {
@@ -18,7 +18,7 @@ final class RemoveBrewMethodUseCaseImp: RemoveBrewMethodUseCase {
         self.brewMethodRepository = brewMethodRepository
     }
 
-    func remove(brewMethod: BrewMethod) async throws {
-        try await brewMethodRepository.remove(brewMethod: brewMethod)
+    func remove(brewMethod: BrewMethod) async {
+        try? await brewMethodRepository.remove(brewMethod: brewMethod)
     }
 }
