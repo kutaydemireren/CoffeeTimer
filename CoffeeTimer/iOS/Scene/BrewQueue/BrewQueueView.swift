@@ -256,6 +256,19 @@ struct BrewQueueView: View {
                         .position(x: (proxy.size.width / 2) - 24, y: (proxy.size.height / 2) - 24)
                 }
                 .padding(24)
+
+                if let info = viewModel.selectedRecipe?.recipeProfile.brewMethod.info {
+                    VStack {
+                        HStack {
+                            Spacer()
+                            InfoButton(infoModel: info)
+                        }
+                        Spacer()
+                    }
+                    .padding()
+                    .padding(.horizontal)
+                    .foregroundColor(Color("foregroundPrimary"))
+                }
             }
             .backgroundPrimary()
         }
@@ -320,10 +333,6 @@ struct BrewQueueView: View {
         if !viewModel.isActive {
             HStack {
                 recipesButton
-
-                if let info = viewModel.selectedRecipe?.recipeProfile.brewMethod.info {
-                    InfoButton(infoModel: info)
-                }
             }
         } else {
             HStack {
