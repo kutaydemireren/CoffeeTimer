@@ -21,10 +21,11 @@ struct InfoView: View {
                     .italic()
             }
 
-            Spacer()
-
-            Text(try! AttributedString(markdown: viewModel.body,
-                                       options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)))
+            Text(try! AttributedString(
+                markdown: viewModel.body,
+                options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)
+            ))
+            .padding(.vertical)
 
             Spacer()
         }
