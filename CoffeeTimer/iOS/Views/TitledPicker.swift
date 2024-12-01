@@ -13,21 +13,28 @@ struct TitledPicker<T: Titled & Identifiable & Hashable>: View {
 
     let title: String
     let placeholder: String
+    var infoModel: InfoModel? = nil
 
     var body: some View {
         TitledContent(title: title) {
-            Menu {
-                Picker(selection: $selectedItem, label: EmptyView()) {
-                    ForEach(allItems) { ratio in
-                        Text(ratio.title)
-                            .tag(ratio as T?)
+            HStack {
+                Menu {
+                    Picker(selection: $selectedItem, label: EmptyView()) {
+                        ForEach(allItems) { ratio in
+                            Text(ratio.title)
+                                .tag(ratio as T?)
+                        }
                     }
+                } label: {
+                    pickerLabel
                 }
-            } label: {
-                pickerLabel
+                
+                if let infoModel {
+                    InfoButton(infoModel: infoModel)
+                }
             }
         }
-
+        
     }
 
     private var pickerLabel: some View {

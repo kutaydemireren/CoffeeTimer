@@ -18,8 +18,9 @@ struct InfoButton: View {
         } label: {
             Image(systemName: "info.circle")
         }
-        .popover(isPresented: $isInfoPresented) {
+        .sheet(isPresented: $isInfoPresented, content: {
             InfoView(model: infoModel)
-        }
+                .presentationDetents([.medium])
+        })
     }
 }

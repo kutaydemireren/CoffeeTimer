@@ -7,6 +7,17 @@
 
 import SwiftUI
 
+private var templateInfo: InfoModel {
+    return .init(
+        title: "Choose a Template",
+        body: """
+Selecting an existing brewing method will duplicate its instructions, so that you can adjust the steps to make it your own.
+
+Simply select one from the dropdown, and you can find the instructions in the next page.
+"""
+    )
+}
+
 private extension BrewMethod {
     static var custom: BrewMethod {
         return BrewMethod(
@@ -70,7 +81,8 @@ struct CreateMethodDetailsView: View {
                 selectedItem: $context.selectedMethod,
                 allItems: $viewModel.allMethods,
                 title: "Choose a template to start with",
-                placeholder: "Custom"
+                placeholder: "Custom",
+                infoModel: templateInfo
             )
 
             methodInputs

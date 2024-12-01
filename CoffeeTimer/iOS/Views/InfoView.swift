@@ -17,8 +17,12 @@ struct InfoView: View {
                 .bold()
 
             if let source = model.source {
-                Text(source)
-                    .italic()
+                Text(try! AttributedString(
+                    markdown: source,
+                    options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)
+                ))
+                .bold()
+                .italic()
             }
 
             Text(try! AttributedString(
@@ -40,7 +44,7 @@ struct InfoView: View {
     InfoView(
         model: .init(
             title: "The Title",
-            source: "by Kutay Demireren",
+            source: "[*Learn it from John Doe*](www.example.com)",
             body: """
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim diam vitae ex mollis consectetur. Sed elit ipsum, fermentum non urna sit amet, fermentum bibendum purus. Nunc condimentum enim nec lacinia tristique. Duis ac blandit massa. Sed auctor purus augue, vitae fringilla nibh venenatis scelerisque. Aliquam id mattis tortor. Duis eget enim quis orci consequat venenatis.
 """
