@@ -43,15 +43,27 @@ struct NumericTextField: View {
     @State private var displayText: String = ""
 
     var body: some View {
-
-        if !title.isEmpty {
-            TitledContent(title: title) {
+        VStack {
+            if !title.isEmpty {
+                TitledContent(title: title) {
+                    textField
+                }
+            } else {
                 textField
             }
-        } else {
-            textField
         }
-
+        .toolbar {
+            if isFocused {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("Done") {
+                        hideKeyboard()
+                    }
+                    .bold()
+                    .foregroundColor(Color("backgroundSecondary"))
+                }
+            }
+        }
     }
 
     @ViewBuilder

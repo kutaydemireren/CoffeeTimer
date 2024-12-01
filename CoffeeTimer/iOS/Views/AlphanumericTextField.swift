@@ -39,16 +39,32 @@ struct AlphanumericTextField: View {
     /// The text to display and edit.
     @Binding var text: String
 
+    @FocusState private var isFocused: Bool
+
     let style: Style
     let placeholder: String
 
     var body: some View {
-        switch style {
-        case .plain:
-            textField
-        case .titled(let title):
-            TitledContent(title: title) {
+        VStack {
+            switch style {
+            case .plain:
                 textField
+            case .titled(let title):
+                TitledContent(title: title) {
+                    textField
+                }
+            }
+        }
+        .toolbar {
+            if isFocused {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("Done") {
+                        hideKeyboard()
+                    }
+                    .bold()
+                    .foregroundColor(Color("backgroundSecondary"))
+                }
             }
         }
     }
@@ -62,6 +78,7 @@ struct AlphanumericTextField: View {
         .textFieldStyle(.plain)
         .foregroundColor(Color("foregroundPrimary"))
         .padding()
+        .focused($isFocused)
         .backgroundSecondary()
     }
 }

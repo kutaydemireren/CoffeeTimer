@@ -20,8 +20,14 @@ extension View {
 struct HideKeyboardModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .onTapGesture {
-                content.hideKeyboard()
-            }
+            .background( // Attach the gesture to a clear background layer
+                Color.clear
+                    .contentShape(Rectangle()) // Ensure the tap gesture covers the full area
+                    .simultaneousGesture(
+                        TapGesture().onEnded {
+                            content.hideKeyboard()
+                        }
+                    )
+            )
     }
 }
