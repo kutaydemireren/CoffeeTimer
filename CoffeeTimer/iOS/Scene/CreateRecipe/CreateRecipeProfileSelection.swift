@@ -40,9 +40,9 @@ struct CreateRecipeProfileSelection: View {
         VStack {
             VStack {
                 AlphanumericTextField(
-                    title: "Name your recipe",
-                    placeholder: "Majestic Cup",
-                    text: nameWrapper
+                    text: nameWrapper,
+                    style: .titled("Name your recipe"),
+                    placeholder: "Majestic Cup"
                 )
                 .multilineTextAlignment(.center)
                 .clearButton(text: nameWrapper)

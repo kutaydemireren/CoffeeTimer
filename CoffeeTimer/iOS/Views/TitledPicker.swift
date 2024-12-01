@@ -18,6 +18,8 @@ struct TitledPicker<T: Titled & Identifiable & Hashable>: View {
     var body: some View {
         TitledContent(title: title) {
             HStack {
+                Spacer()
+
                 Menu {
                     Picker(selection: $selectedItem, label: EmptyView()) {
                         ForEach(allItems) { ratio in

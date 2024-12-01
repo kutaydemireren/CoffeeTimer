@@ -14,28 +14,6 @@ struct AlphanumericTextField: View {
         case titled(String)
     }
 
-    init(
-        text: Binding<String>,
-        placeholder: String,
-        style: Style
-    ) {
-        _text = text
-        self.style = style
-        self.placeholder = placeholder
-    }
-
-    // TODO: remove
-    /// Temporary (legacy) initialiser. Will be removed
-    init(
-        title: String,
-        placeholder: String,
-        text: Binding<String>
-    ) {
-        _text = text
-        self.style = title.isEmpty ? .plain : .titled(title)
-        self.placeholder = placeholder
-    }
-
     /// The text to display and edit.
     @Binding var text: String
 
@@ -43,6 +21,7 @@ struct AlphanumericTextField: View {
 
     let style: Style
     let placeholder: String
+    var infoModel: InfoModel? = nil
 
     var body: some View {
         VStack {
@@ -71,15 +50,23 @@ struct AlphanumericTextField: View {
 
     @ViewBuilder
     private var textField: some View {
-        TextField(text: $text) {
-            Text(placeholder)
-                .foregroundColor(Color("foregroundPrimary").opacity(0.3))
+        HStack {
+            Spacer()
+
+            TextField(text: $text) {
+                Text(placeholder)
+                    .foregroundColor(Color("foregroundPrimary").opacity(0.3))
+            }
+            .textFieldStyle(.plain)
+            .foregroundColor(Color("foregroundPrimary"))
+            .padding()
+            .focused($isFocused)
+            .backgroundSecondary()
+
+            if let infoModel {
+                InfoButton(infoModel: infoModel)
+            }
         }
-        .textFieldStyle(.plain)
-        .foregroundColor(Color("foregroundPrimary"))
-        .padding()
-        .focused($isFocused)
-        .backgroundSecondary()
     }
 }
 
@@ -87,10 +74,10 @@ struct AlphanumericTextField_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
             Spacer()
-            AlphanumericTextField(text: .constant(""), placeholder: "placeholder", style: .titled("titled"))
+            AlphanumericTextField(text: .constant(""), style: .titled("titled"), placeholder: "placeholder")
                 .padding()
             Spacer()
-            AlphanumericTextField(text: .constant(""), placeholder: "placeholder", style: .plain)
+            AlphanumericTextField(text: .constant(""), style: .plain, placeholder: "placeholder")
                 .padding()
             Spacer()
         }

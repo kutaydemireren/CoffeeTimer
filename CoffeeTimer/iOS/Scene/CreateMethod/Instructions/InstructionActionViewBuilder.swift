@@ -183,17 +183,49 @@ Use 'User Interactive' if a confirmation can be useful to end the step, and to g
 
             if let message {
                 AlphanumericTextField(
-                    title: "Message",
-                    placeholder: "",
-                    text: message
+                    text: message,
+                    style: .titled("Message"),
+                    placeholder: "Put all #total.coffee g of coffee to brewer",
+                    infoModel: .init(
+                        title: "Message",
+                        body: """
+Message is the main text displayed at the top, prominently.
+
+Messages can contain the following keywords to display dynamic values within each step:
+**#total.coffee**: Total coffee amount
+**#total.water**: Total water amount 
+**#current.amount**: The amount calculated for the current step
+**#current.water**: Water used so far, the amount in the brewer
+**#current.coffee**: Coffee used so far, the amount in the brewer
+**#current.duration**: Duration set to requirement (0 if not set)
+**#remaining.water**: Remaining water (total.water - current.water)
+**#remaining.coffee**: Remaining coffee (total.coffee - current.coffee)
+"""
+                    )
                 )
             }
 
             if let details {
                 AlphanumericTextField(
-                    title: "Secondary Message (optional)",
-                    placeholder: "",
-                    text: details
+                    text: details,
+                    style: .titled("Secondary Message"),
+                    placeholder: "Total water: #current.water ml",
+                    infoModel: .init(
+                        title: "Secondary Message",
+                        body: """
+Secondary message is the text displayed below the main text, less prominent but visible enough.
+
+Secondary messages can contain the following keywords to display dynamic values within each step:
+**#total.coffee**: Total coffee amount
+**#total.water**: Total water amount 
+**#current.amount**: The amount calculated for the current step
+**#current.water**: Water used so far, the amount in the brewer
+**#current.coffee**: Coffee used so far, the amount in the brewer
+**#current.duration**: Duration set to requirement (0 if not set)
+**#remaining.water**: Remaining water (total.water - current.water)
+**#remaining.coffee**: Remaining coffee (total.coffee - current.coffee)
+"""
+                    )
                 )
             }
 

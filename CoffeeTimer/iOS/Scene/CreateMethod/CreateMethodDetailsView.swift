@@ -107,9 +107,9 @@ struct CreateMethodDetailsView: View {
     var methodInputs: some View {
         VStack {
             AlphanumericTextField(
-                title: "Title",
-                placeholder: "My V60, Icy V60",
-                text: $context.methodTitle
+                text: $context.methodTitle,
+                style: .titled("Title"),
+                placeholder: "My V60, Icy V60"
             )
 
             TitledContent(title: "Cups Count") {
