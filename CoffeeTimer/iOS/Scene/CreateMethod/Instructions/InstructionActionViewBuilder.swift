@@ -14,7 +14,7 @@ private var startMethodInfo: InfoModel {
 Flag to decide whether the queue should automatically run the current step (once the previous step is completed).
 Only effective at the beginning of each step.
 
-Use 'User Interactive' if a confirmation can be useful to begin the step, letting the countdown begin.
+Use "User Interactive" if a confirmation can be useful to begin the step, letting the countdown begin.
 """
     )
 }
@@ -26,7 +26,7 @@ private var skipMethodInfo: InfoModel {
 Flag to decide whether the queue should automatically skip the current step (once the step is completed).
 Only effective at the end of the each step.
 
-Use 'User Interactive' if a confirmation can be useful to end the step, and to go to the next one.
+Use "User Interactive" if a confirmation can be useful to end the step, and to go to the next one.
 """
     )
 }
@@ -37,15 +37,12 @@ private var messageInfo: InfoModel {
         body: """
 Message is the main text displayed at the top, prominently.
 
-It can contain the following keywords to display dynamic values within each step:
+**Supported Keywords: (X = "coffee", "water", "ice")**
 \t- **#current.amount** → Step-specific amount, dynamically calculated for the current instruction.
 \t- **#current.duration** → Duration for the current step (0 if not set)
-\t- **#current.coffee** → Amount of coffee added so far.
-\t- **#current.water** → Amount of water added so far.
-\t- **#total.coffee** → Total coffee planned for the brew.
-\t- **#total.water** → Total water planned for the brew.
-\t- **#remaining.coffee** → Remaining coffee to be added (*total.coffee - current.coffee*).
-\t- **#remaining.water** → Remaining water to be added (*total.water - current.water*).
+\t- **#current.X** → Amount of X added so far.
+\t- **#total.X** → Total X planned for the brew.
+\t- **#remaining.X** → Remaining X to be added (*total.X - current.X*).
 """
     )
 }
@@ -56,15 +53,12 @@ private var secondaryMessageInfo: InfoModel {
         body: """
 Secondary message is the text displayed below the main text, less prominent but visible enough.
 
-It can contain the following keywords to display dynamic values within each step:
+**Supported Keywords: (X = "coffee", "water", "ice")**
 \t- **#current.amount** → Step-specific amount, dynamically calculated for the current instruction.
 \t- **#current.duration** → Duration for the current step (0 if not set)
-\t- **#current.coffee** → Amount of coffee added so far.
-\t- **#current.water** → Amount of water added so far.
-\t- **#total.coffee** → Total coffee planned for the brew.
-\t- **#total.water** → Total water planned for the brew.
-\t- **#remaining.coffee** → Remaining coffee to be added (*total.coffee - current.coffee*).
-\t- **#remaining.water** → Remaining water to be added (*total.water - current.water*).
+\t- **#current.X** → Amount of X added so far.
+\t- **#total.X** → Total X planned for the brew.
+\t- **#remaining.X** → Remaining X to be added (*total.X - current.X*).
 """
     )
 }
@@ -86,13 +80,10 @@ The amount field determines the quantity for each brewing step using two factors
    - Choose a **keyword** to indicate what the factor applies to (e.g., *Current Coffee*, *Total Water*).
    - Or, choose "None" to use as a constant value.
 
-**Supported Keywords:**
-\t- **Current Coffee** → Amount of coffee added so far.
-\t- **Current Water** → Amount of water added so far.
-\t- **Total Coffee** → Total coffee planned for the brew.
-\t- **Total Water** → Total water planned for the brew.
-\t- **Remaining Coffee** → Remaining coffee to be added (*Total Coffee - Current Coffee*).
-\t- **Remaining Water** → Remaining water to be added (*Total Water - Current Water*).
+**Supported Keywords: (X = "Coffee", "Water", "Ice")**
+\t- **Current X** → Amount of X added so far.
+\t- **Total X** → Total X planned for the brew.
+\t- **Remaining X** → Remaining X to be added (*Total X - Current X*).
 """
     )
 }

@@ -41,6 +41,7 @@ struct RecipeRowView: View {
         VStack(alignment: .leading) {
             RecipeProfileView(alignment: .leading, recipeProfile: recipe.recipeProfile)
             Text(recipe.ingredients.toRepresentableString)
+                .font(.subheadline)
                 .foregroundColor(Color("foregroundPrimary"))
                 .padding(.leading)
         }
