@@ -17,15 +17,8 @@ struct RecipeProfileView: View {
                 .foregroundColor(Color("foregroundPrimary"))
                 .bold()
 
-//            Text("(\(recipeProfile.brewMethod.title))")
-//                .foregroundColor(Color("foregroundPrimary"))
-//
             Text("(\(recipeProfile.brewMethod.title))")
                 .foregroundColor(Color("foregroundSecondary"))
-//
-//            Text("(\(recipeProfile.brewMethod.title))")
-//                .foregroundColor(Color("foregroundSecondary"))
-//                .bold()
         }
     }
 }
@@ -41,8 +34,8 @@ struct RecipeProfileView_Previews: PreviewProvider {
 
 
 struct RecipeRowView: View {
-
     let recipe: Recipe
+    let isSelected: Bool
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -53,7 +46,7 @@ struct RecipeRowView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         .padding(.horizontal)
-        .backgroundSecondary()
+        .backgroundSecondary(opacity: isSelected ? 0.8 : 0.5)
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
     }
@@ -62,7 +55,7 @@ struct RecipeRowView: View {
 struct RecipeRowView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            RecipeRowView(recipe: .stubSingleV60)
+            RecipeRowView(recipe: .stubSingleV60, isSelected: false)
         }
         .frame(height: 125)
     }

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct BrewMethodView: View {
     let brewMethod: BrewMethod
-
     var isSelected = false
 
     private var hasInfo: Bool {

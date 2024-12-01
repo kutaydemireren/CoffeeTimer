@@ -25,10 +25,15 @@ final class RemoveRecipeUseCaseImp: RemoveRecipeUseCase {
 }
 
 protocol GetSavedRecipesUseCase {
+    var selectedRecipe: Recipe? { get }
     var savedRecipes: AnyPublisher<[Recipe], Never> { get }
 }
 
 final class GetSavedRecipesUseCaseImp: GetSavedRecipesUseCase {
+    var selectedRecipe: Recipe? {
+        recipeRepository.getSelectedRecipe()
+    }
+
     var savedRecipes: AnyPublisher<[Recipe], Never> {
         recipeRepository.recipesPublisher
     }
@@ -61,7 +66,8 @@ final class UpdateSelectedRecipeUseCaseImp: UpdateSelectedRecipeUseCase {
 final class RecipesViewModel: ObservableObject, Completable {
     var didComplete = PassthroughSubject<RecipesViewModel, Never>()
     var didCreate = PassthroughSubject<RecipesViewModel, Never>()
-    
+
+    @Published var selectedRecipe: Recipe?
     @Published var recipes: [Recipe] = []
     
     private var cancellables: [AnyCancellable] = []
@@ -78,16 +84,22 @@ final class RecipesViewModel: ObservableObject, Completable {
         self.getSavedRecipesUseCase = getSavedRecipesUseCase
         self.updateSelectedRecipeUseCase = updateSelectedRecipeUseCase
         self.removeRecipeUseCase = removeRecipeUseCase
-        
+
         self.getSavedRecipesUseCase.savedRecipes
             .assign(to: &$recipes)
+        refresh()
     }
     
     func select(recipe: Recipe) {
         updateSelectedRecipeUseCase.update(selectedRecipe: recipe)
+        refresh()
         close()
     }
-    
+
+    private func refresh() {
+        selectedRecipe = getSavedRecipesUseCase.selectedRecipe
+    }
+
     func removeRecipes(at indices: IndexSet) {
         indices
             .compactMap { recipes[safe: $0] }
@@ -171,10 +183,13 @@ struct RecipesView: View {
     var recipesList: some View {
         List {
             ForEach(viewModel.recipes) { recipe in
-                RecipeRowView(recipe: recipe)
-                    .onTapGesture {
-                        viewModel.select(recipe: recipe)
-                    }
+                RecipeRowView(
+                    recipe: recipe,
+                    isSelected: viewModel.selectedRecipe == recipe
+                )
+                .onTapGesture {
+                    viewModel.select(recipe: recipe)
+                }
             }
             .onDelete { indexSet in
                 viewModel.removeRecipes(at: indexSet)
