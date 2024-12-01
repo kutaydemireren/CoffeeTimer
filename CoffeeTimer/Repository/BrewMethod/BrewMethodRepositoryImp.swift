@@ -35,6 +35,26 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
         return map(brewMethodDTOs: brewMethodDTOs)
     }
 
+    func save(brewMethod: BrewMethod) async throws {
+        var newBrewMethodDTOs = getSavedBrewMethodDTOs()
+        newBrewMethodDTOs.append(map(brewMethod: brewMethod))
+        storage.save(newBrewMethodDTOs, forKey: savedBrewMethodsKey)
+    }
+
+    func remove(brewMethod: BrewMethod) async throws {
+        let removeBrewMethodDTO = map(brewMethod: brewMethod)
+        var newBrewMethodDTOs = getSavedBrewMethodDTOs().filter { $0 != removeBrewMethodDTO }
+        storage.save(newBrewMethodDTOs, forKey: savedBrewMethodsKey)
+    }
+
+    private func getSavedBrewMethodDTOs() -> [BrewMethodDTO] {
+        if let brewMethodDTO = storage.load(forKey: savedBrewMethodsKey) as [BrewMethodDTO]? {
+            return brewMethodDTO
+        }
+        return []
+    }
+
+    // MARK: BrewMethodDTO -> BrewMethod
     private func map(brewMethodDTOs: [BrewMethodDTO]) -> [BrewMethod] {
         brewMethodDTOs.map { brewMethodDTO in
                 .init(
@@ -77,12 +97,7 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
         )
     }
 
-    func save(brewMethod: BrewMethod) async throws {
-        var newBrewMethodDTOs = getSavedBrewMethodDTOs()
-        newBrewMethodDTOs.append(map(brewMethod: brewMethod))
-        storage.save(newBrewMethodDTOs, forKey: savedBrewMethodsKey)
-    }
-
+    // MARK: BrewMethod -> BrewMethodDTO
     private func map(brewMethod: BrewMethod) -> BrewMethodDTO {
         return .init(
             id: brewMethod.id,
@@ -116,12 +131,5 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
             source: infoModel.source,
             body: infoModel.body
         )
-    }
-
-    private func getSavedBrewMethodDTOs() -> [BrewMethodDTO] {
-        if let brewMethodDTO = storage.load(forKey: savedBrewMethodsKey) as [BrewMethodDTO]? {
-            return brewMethodDTO
-        }
-        return []
     }
 }

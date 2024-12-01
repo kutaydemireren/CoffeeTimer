@@ -112,6 +112,7 @@
 		F22E68D12CF38D9A00EE80FA /* CreateBrewMethodUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22E68D02CF38D9A00EE80FA /* CreateBrewMethodUseCaseImpTests.swift */; };
 		F22E68D32CF38DB600EE80FA /* CreateBrewMethodUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22E68D22CF38DB600EE80FA /* CreateBrewMethodUseCase.swift */; };
 		F233D28D2CF3E52100E357A5 /* RecipeInstructionStepMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F233D28C2CF3E52100E357A5 /* RecipeInstructionStepMapper.swift */; };
+		F275237A2CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27523792CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift */; };
 		F27B2D692CF28D2100B425E9 /* IngredientAmountTypeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */; };
 		F2AFA14E2CF7B61800984AE2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2AFA14D2CF7B61800984AE2 /* GoogleService-Info.plist */; };
 		F2AFA1512CF7BA5A00984AE2 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = F2AFA1502CF7BA5A00984AE2 /* FirebaseAnalyticsWithoutAdIdSupport */; };
@@ -246,6 +247,7 @@
 		F22E68D02CF38D9A00EE80FA /* CreateBrewMethodUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBrewMethodUseCaseImpTests.swift; sourceTree = "<group>"; };
 		F22E68D22CF38DB600EE80FA /* CreateBrewMethodUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBrewMethodUseCase.swift; sourceTree = "<group>"; };
 		F233D28C2CF3E52100E357A5 /* RecipeInstructionStepMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructionStepMapper.swift; sourceTree = "<group>"; };
+		F27523792CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveBrewMethodUseCase.swift; sourceTree = "<group>"; };
 		F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientAmountTypeItem.swift; sourceTree = "<group>"; };
 		F2AFA14D2CF7B61800984AE2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F2D5AB812CF66FCF004AE191 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
@@ -682,6 +684,7 @@
 			isa = PBXGroup;
 			children = (
 				CA2A00CD2C0B8FF10040B50D /* GetBrewMethodsUseCase.swift */,
+				F27523792CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift */,
 				CA1B52AF2C0B97B300C4B923 /* BrewMethodRepository.swift */,
 				F22E68CD2CF38D2E00EE80FA /* CreateBrewMethodContext.swift */,
 				F22E68D22CF38DB600EE80FA /* CreateBrewMethodUseCase.swift */,
@@ -1004,6 +1007,7 @@
 				CA1552882C0A5DEB000334FB /* FetchRecipeInstructionsUseCase.swift in Sources */,
 				CAD01B4F2C395B5B004A1EFF /* StageHeaderView.swift in Sources */,
 				CA17289429EB4B9F000F867B /* NumericTextField.swift in Sources */,
+				F275237A2CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift in Sources */,
 				CABD23A12C4EEBE2005C599F /* Instructions+Stub.swift in Sources */,
 				CA7B804B29BFABBB007D3DFC /* StageTimerView.swift in Sources */,
 				F27B2D692CF28D2100B425E9 /* IngredientAmountTypeItem.swift in Sources */,
