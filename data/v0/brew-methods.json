@@ -2,7 +2,7 @@
     {
         "id": "v60-default",
         "title": "V60",
-        "path": "/v0/brew-instructions/v60-default.json",
+        "path": "/kutaydemireren/CoffeeTimer/epic/custom-method/data/v0/brew-instructions/v60-default.json",
         "cupsCount": {
             "minimum": 1,
             "maximum": 10
@@ -43,7 +43,7 @@
     {
         "id": "v60-single",
         "title": "V60 Single",
-        "path": "/v0/brew-instructions/v60-single.json",
+        "path": "/kutaydemireren/CoffeeTimer/epic/custom-method/data/v0/brew-instructions/v60-single.json",
         "cupsCount": {
             "minimum": 1,
             "maximum": 1
@@ -84,7 +84,7 @@
     {
         "id": "v60-iced",
         "title": "V60 Iced",
-        "path": "/v0/brew-instructions/v60-iced.json",
+        "path": "/kutaydemireren/CoffeeTimer/epic/custom-method/data/v0/brew-instructions/v60-iced.json",
         "isIcedBrew": true,
         "cupsCount": {
             "minimum": 1,
@@ -126,7 +126,7 @@
     {
         "id": "french-press-default",
         "title": "French Press",
-        "path": "/v0/brew-instructions/french-press-default.json",
+        "path": "/kutaydemireren/CoffeeTimer/epic/custom-method/data/v0/brew-instructions/french-press-default.json",
         "cupsCount": {
             "minimum": 1,
             "maximum": 10
@@ -167,7 +167,7 @@
     {
         "id": "chemex-default",
         "title": "Chemex",
-        "path": "/v0/brew-instructions/chemex-default.json",
+        "path": "/kutaydemireren/CoffeeTimer/epic/custom-method/data/v0/brew-instructions/chemex-default.json",
         "cupsCount": {
             "minimum": 1,
             "maximum": 10
@@ -208,7 +208,7 @@
     {
         "id": "aeropress-default",
         "title": "Aeropress",
-        "path": "/v0/brew-instructions/aeropress-default.json",
+        "path": "/kutaydemireren/CoffeeTimer/epic/custom-method/data/v0/brew-instructions/aeropress-default.json",
         "cupsCount": {
             "minimum": 1,
             "maximum": 10
