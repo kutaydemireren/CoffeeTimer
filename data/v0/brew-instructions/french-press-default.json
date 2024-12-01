@@ -87,7 +87,7 @@
             "skipMethod": "userInteractive",
             "message": "Press the plunger gently",
             "details": "Stop when it reaches to the surface of the coffee"
-        }
+        },
         {
             "action": "message",
             "requirement": null,
