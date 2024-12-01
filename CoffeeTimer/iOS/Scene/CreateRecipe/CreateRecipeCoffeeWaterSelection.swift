@@ -29,9 +29,7 @@ struct CreateRecipeCoffeeWaterSelection: View {
         }
         .padding(.horizontal, 32)
         .contentShape(Rectangle())
-        .onTapGesture {
-            hideKeyboard()
-        }
+        .hideKeyboardOnTap()
     }
     
     private var cupsCountField: some View {

@@ -100,6 +100,7 @@ struct CreateMethodView: View {
         )
         .onChange(of: context.methodTitle, perform: didUpdate(_:))
         .onChange(of: context.instructions, perform: didUpdate(_:))
+        .hideKeyboardOnTap()
     }
 
     private func didUpdate<T>(_ newValue: T?) {

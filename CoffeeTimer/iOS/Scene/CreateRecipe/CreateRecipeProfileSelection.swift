@@ -39,17 +39,19 @@ struct CreateRecipeProfileSelection: View {
 
         VStack {
             VStack {
-                AlphanumericTextField(title: "Name your recipe", placeholder: "V60 Magic", text: nameWrapper)
-                    .multilineTextAlignment(.center)
-                    .clearButton(text: nameWrapper)
+                AlphanumericTextField(
+                    title: "Name your recipe",
+                    placeholder: "Majestic Cup",
+                    text: nameWrapper
+                )
+                .multilineTextAlignment(.center)
+                .clearButton(text: nameWrapper)
             }
             Spacer()
         }
         .padding(.horizontal, 32)
         .contentShape(Rectangle())
-        .onTapGesture {
-            hideKeyboard()
-        }
+        .hideKeyboardOnTap()
     }
 }
 

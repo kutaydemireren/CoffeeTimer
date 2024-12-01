@@ -15,7 +15,7 @@ final class CreateBrewMethodContext: ObservableObject {
     var cupsCount: CupsCount {
         CupsCount(
             minimum: cupsCountMin > 0 ? Int(cupsCountMin) : 1,
-            maximum: cupsCountMax > 0 ? Int(cupsCountMax) : nil
+            maximum: cupsCountMax > cupsCountMin ? Int(cupsCountMax) : nil
         )
     }
     @Published var cupsCountMin: Double = 0

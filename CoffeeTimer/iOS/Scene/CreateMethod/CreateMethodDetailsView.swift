@@ -84,6 +84,7 @@ struct CreateMethodDetailsView: View {
         }
         .onChange(of: context.selectedMethod, perform: didUpdate(_:))
         .padding()
+        .hideKeyboardOnTap()
     }
     
     private func didUpdate(_ newMethod: BrewMethod?) {
@@ -106,7 +107,7 @@ struct CreateMethodDetailsView: View {
                             title: "",
                             placeholder: "min",
                             keyboardType: .number,
-                            range: .init(minimum: 1),
+                            range: .init(minimum: 1, maximum: 10),
                             input: $context.cupsCountMin
                         )
                         Text("") // this is (and VStack) needed to align with the neighbour content
@@ -117,7 +118,7 @@ struct CreateMethodDetailsView: View {
                             title: "",
                             placeholder: "max",
                             keyboardType: .number,
-                            range: .init(minimum: 0),
+                            range: .init(minimum: 0, maximum: 30),
                             input: $context.cupsCountMax
                         )
                         Text("0 = no limit")
