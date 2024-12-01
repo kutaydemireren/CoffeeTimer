@@ -257,7 +257,7 @@ struct BrewQueueView: View {
                 }
                 .padding(24)
 
-                if let info = viewModel.selectedRecipe?.recipeProfile.brewMethod.info {
+                if let info = viewModel.selectedRecipe?.recipeProfile.brewMethod.info, !info.body.isEmpty {
                     VStack {
                         HStack {
                             Spacer()
