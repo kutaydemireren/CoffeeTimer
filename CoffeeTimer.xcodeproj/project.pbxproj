@@ -246,16 +246,8 @@
 		F22E68D02CF38D9A00EE80FA /* CreateBrewMethodUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBrewMethodUseCaseImpTests.swift; sourceTree = "<group>"; };
 		F22E68D22CF38DB600EE80FA /* CreateBrewMethodUseCaseImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBrewMethodUseCaseImp.swift; sourceTree = "<group>"; };
 		F233D28C2CF3E52100E357A5 /* RecipeInstructionStepMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructionStepMapper.swift; sourceTree = "<group>"; };
-		F242D2522CFB613A00D76A3C /* aeropress-default.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "aeropress-default.json"; sourceTree = "<group>"; };
-		F242D2532CFB613A00D76A3C /* chemex-default.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "chemex-default.json"; sourceTree = "<group>"; };
-		F242D2542CFB613A00D76A3C /* french-press-default.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "french-press-default.json"; sourceTree = "<group>"; };
 		F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientAmountTypeItem.swift; sourceTree = "<group>"; };
 		F2AFA14D2CF7B61800984AE2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		F2AFA1542CF7C1A700984AE2 /* v60-default.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "v60-default.json"; sourceTree = "<group>"; };
-		F2AFA1552CF7C1A700984AE2 /* v60-iced.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "v60-iced.json"; sourceTree = "<group>"; };
-		F2AFA1562CF7C1A700984AE2 /* v60-single.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "v60-single.json"; sourceTree = "<group>"; };
-		F2AFA1582CF7C1A700984AE2 /* brew-methods.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "brew-methods.json"; sourceTree = "<group>"; };
-		F2AFA15A2CF7C1A700984AE2 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		F2D5AB812CF66FCF004AE191 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
 		F2DB5FBE2CF3BAFE000D67ED /* RecipeInstructionActionItem+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecipeInstructionActionItem+Stub.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -397,7 +389,6 @@
 				CA367D3029A2B0370095B1B8 /* CoffeeTimer */,
 				CA367D4129A2B0380095B1B8 /* CoffeeTimerTests */,
 				CA367D2F29A2B0370095B1B8 /* Products */,
-				F2AFA15B2CF7C1A700984AE2 /* data */,
 			);
 			sourceTree = "<group>";
 		};
@@ -828,37 +819,6 @@
 				CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		F2AFA1572CF7C1A700984AE2 /* brew-instructions */ = {
-			isa = PBXGroup;
-			children = (
-				F242D2522CFB613A00D76A3C /* aeropress-default.json */,
-				F242D2532CFB613A00D76A3C /* chemex-default.json */,
-				F242D2542CFB613A00D76A3C /* french-press-default.json */,
-				F2AFA1542CF7C1A700984AE2 /* v60-default.json */,
-				F2AFA1552CF7C1A700984AE2 /* v60-iced.json */,
-				F2AFA1562CF7C1A700984AE2 /* v60-single.json */,
-			);
-			path = "brew-instructions";
-			sourceTree = "<group>";
-		};
-		F2AFA1592CF7C1A700984AE2 /* v0 */ = {
-			isa = PBXGroup;
-			children = (
-				F2AFA1572CF7C1A700984AE2 /* brew-instructions */,
-				F2AFA1582CF7C1A700984AE2 /* brew-methods.json */,
-			);
-			path = v0;
-			sourceTree = "<group>";
-		};
-		F2AFA15B2CF7C1A700984AE2 /* data */ = {
-			isa = PBXGroup;
-			children = (
-				F2AFA1592CF7C1A700984AE2 /* v0 */,
-				F2AFA15A2CF7C1A700984AE2 /* index.html */,
-			);
-			path = data;
 			sourceTree = "<group>";
 		};
 		F2DB5FBC2CF3BAEB000D67ED /* Items */ = {

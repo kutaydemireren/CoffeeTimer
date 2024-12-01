@@ -1,0 +1,101 @@
+{
+    "identifier": "aeropress-default",
+    "ingredients": [
+        "water",
+        "coffee"
+    ],
+    "steps": [
+        {
+            "action": "put",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "ingredient": "coffee",
+            "amount": {
+                "type": "gram",
+                "factor": 1,
+                "factorOf": "coffee"
+            },
+            "message": "Put all #current.amount g of coffee to brewer"
+        },
+        {
+            "action": "message",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "message": "Boil water in your kettle",
+            "details": "Boil more than #total.water ml of water"
+        },
+        {
+            "action": "put",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "ingredient": "water",
+            "amount": {
+                "type": "millilitre",
+                "factor": 1,
+                "factorOf": "water"
+            },
+            "message": "Pour #current.amount ml of water",
+            "details": "Wet all the coffee evenly"
+        },
+        {
+            "action": "message",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "message": "Place the plunger "
+        },
+        {
+            "action": "pause",
+            "requirement": {
+                "type": "countdown",
+                "duration": {
+                    "type": "second",
+                    "length": 120
+                }
+            },
+            "startMethod": "auto",
+            "skipMethod": "auto",
+            "message": "Wait for 2 minutes"
+        },
+        {
+            "action": "message",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "message": "Gently swirly the aorepress",
+            "details": "Make sure to hold both the piston and the base"
+        },
+        {
+            "action": "pause",
+            "requirement": {
+                "type": "countdown",
+                "duration": {
+                    "type": "second",
+                    "length": 30
+                }
+            },
+            "startMethod": "auto",
+            "skipMethod": "auto",
+            "message": "Pause for #current.duration seconds"
+        },
+        {
+            "action": "message",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "message": "Press the plunger all the way down",
+            "details": "Take your time, avoid over-pressing"
+        },
+        {
+            "action": "message",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "message": "Your brew is ready",
+            "details": "Let it cool for a minute, then enjoy your sip!"
+        }
+    ]
+}

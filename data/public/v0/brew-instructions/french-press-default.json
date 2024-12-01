@@ -1,0 +1,100 @@
+{
+    "identifier": "french-press-default",
+    "ingredients": [
+        "water",
+        "coffee"
+    ],
+    "steps": [
+        {
+            "action": "put",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "ingredient": "coffee",
+            "amount": {
+                "type": "gram",
+                "factor": 1,
+                "factorOf": "coffee"
+            },
+            "message": "Put all #current.amount g of coffee"
+        },
+        {
+            "action": "message",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "message": "Boil water in your kettle",
+            "details": "Boil more than #total.water ml of water"
+        },        
+        {
+            "action": "put",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "ingredient": "water",
+            "amount": {
+                "type": "millilitre",
+                "factor": 1,
+                "factorOf": "water"
+            },
+            "message": "Pour all #current.amount ml of water"
+        },
+        {
+            "action": "pause",
+            "requirement": {
+                "type": "countdown",
+                "duration": {
+                    "type": "second",
+                    "length": 240
+                }
+            },
+            "startMethod": "auto",
+            "skipMethod": "auto",
+            "message": "Let the coffee sits for 4 minutes",
+            "details": "Make a tablespoon ready for the next step"
+        },
+        {
+            "action": "message",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "message": "Stir the crust formed on top with a tablespoon"
+        },
+        {
+            "action": "message",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "message": "Remove the foam and the floating bits",
+        },
+        {
+            "action": "pause",
+            "requirement": {
+                "type": "countdown",
+                "duration": {
+                    "type": "second",
+                    "length": 300
+                }
+            },
+            "startMethod": "auto",
+            "skipMethod": "auto",
+            "message": "Let the coffee rest for at least 5 minutes"
+        },
+        {
+            "action": "message",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "message": "Press the plunger gently",
+            "details": "Stop when it reaches to the surface of the coffee"
+        }
+        {
+            "action": "message",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "message": "Your brew is ready",
+            "details": "Let it cool for a minute, then enjoy your sip!"
+        }
+    ]
+}

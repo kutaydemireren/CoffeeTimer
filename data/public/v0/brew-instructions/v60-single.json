@@ -1,0 +1,174 @@
+{
+    "identifier": "v60-single",
+    "ingredients": [
+        "water",
+        "coffee"
+    ],
+    "steps": [
+        {
+            "action": "message",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "message": "Wet filter with hot water"
+        },
+        {
+            "action": "put",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "ingredient": "coffee",
+            "amount": {
+                "type": "gram",
+                "factor": 1,
+                "factorOf": "coffee"
+            },
+            "message": "Put all #current.amount g of coffee to brewer",
+            "details": "Create a small hole in the middle"
+        },
+        {
+            "action": "message",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "message": "Boil water in your kettle",
+            "details": "Boil more than #total.water ml of water"
+        },        
+        {
+            "action": "put",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "ingredient": "water",
+            "amount": {
+                "type": "millilitre",
+                "factor": 0.2,
+                "factorOf": "water"
+            },
+            "message": "To bloom, gently pour #current.amount ml of water"
+        },
+        {
+            "action": "message",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "message": "Throughly swirl the V60 brewer"
+        },
+        {
+            "action": "pause",
+            "requirement": {
+                "type": "countdown",
+                "duration": {
+                    "type": "second",
+                    "length": 30
+                }
+            },
+            "startMethod": "auto",
+            "skipMethod": "auto",
+            "message": "Let it bloom for #current.duration seconds"
+        },
+        {
+            "action": "put",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "ingredient": "water",
+            "amount": {
+                "type": "millilitre",
+                "factor": 0.2,
+                "factorOf": "water"
+            },
+            "message": "Pour #current.amount ml of water",
+            "details": "Remember to pour gently in cycles\nTotal: #current.water ml of water"
+        },
+        {
+            "action": "pause",
+            "requirement": {
+                "type": "countdown",
+                "duration": {
+                    "type": "second",
+                    "length": 10
+                }
+            },
+            "startMethod": "auto",
+            "skipMethod": "auto",
+            "message": "Pause for #current.duration seconds"
+        },
+        {
+            "action": "put",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "ingredient": "water",
+            "amount": {
+                "type": "millilitre",
+                "factor": 0.2,
+                "factorOf": "water"
+            },
+            "message": "Pour #current.amount ml of water",
+            "details": "Remember to pour gently in cycles\nTotal: #current.water ml of water"
+        },
+        {
+            "action": "pause",
+            "requirement": {
+                "type": "countdown",
+                "duration": {
+                    "type": "second",
+                    "length": 10
+                }
+            },
+            "startMethod": "auto",
+            "skipMethod": "auto",
+            "message": "Pause for #current.duration seconds"
+        },
+        {
+            "action": "put",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "ingredient": "water",
+            "amount": {
+                "type": "millilitre",
+                "factor": 0.2,
+                "factorOf": "water"
+            },
+            "message": "Pour #current.amount ml of water",
+            "details": "Remember to pour gently in cycles\nTotal: #current.water ml of water"
+        },
+        {
+            "action": "pause",
+            "requirement": {
+                "type": "countdown",
+                "duration": {
+                    "type": "second",
+                    "length": 10
+                }
+            },
+            "startMethod": "auto",
+            "skipMethod": "auto",
+            "message": "Pause for #current.duration seconds"
+        },
+        {
+            "action": "put",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "ingredient": "water",
+            "amount": {
+                "type": "millilitre",
+                "factor": 0.2,
+                "factorOf": "water"
+            },
+            "message": "Pour #current.amount ml of water",
+            "details": "Remember to pour gently in cycles\nTotal: #current.water ml of water"
+        },
+        {
+            "action": "message",
+            "requirement": null,
+            "startMethod": "userInteractive",
+            "skipMethod": "userInteractive",
+            "message": "Your brew is ready",
+            "details": "Let it cool for a minute, then enjoy your sip!"
+        }
+    ]
+}
