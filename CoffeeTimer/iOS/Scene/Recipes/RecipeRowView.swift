@@ -12,14 +12,21 @@ struct RecipeProfileView: View {
     let recipeProfile: RecipeProfile
 
     var body: some View {
-        VStack(alignment: alignment) {
-            Text(recipeProfile.name)
-                .foregroundColor(Color("foregroundPrimary"))
-                .bold()
+        HStack {
+            Image(recipeProfile.brewMethod.iconName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
 
-            Text("(\(recipeProfile.brewMethod.title))")
-                .foregroundColor(Color("foregroundSecondary"))
+            VStack(alignment: alignment) {
+                Text(recipeProfile.name)
+                    .foregroundColor(Color("foregroundPrimary"))
+                    .bold()
+
+                Text("(\(recipeProfile.brewMethod.title))")
+                    .foregroundColor(Color("foregroundSecondary"))
+            }
         }
+        .frame(maxHeight: 60)
     }
 }
 
@@ -55,9 +62,12 @@ struct RecipeRowView: View {
 
 struct RecipeRowView_Previews: PreviewProvider {
     static var previews: some View {
-        VStack {
+        List {
+            RecipeRowView(recipe: .stubSingleV60, isSelected: false)
+            RecipeRowView(recipe: .stubSingleV60, isSelected: false)
+            RecipeRowView(recipe: .stubSingleV60, isSelected: false)
+            RecipeRowView(recipe: .stubSingleV60, isSelected: false)
             RecipeRowView(recipe: .stubSingleV60, isSelected: false)
         }
-        .frame(height: 125)
     }
 }
