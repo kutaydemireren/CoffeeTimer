@@ -21,11 +21,15 @@ struct BrewMethodView: View {
                 .fill(isSelected ? Color("backgroundSecondary").opacity(0.8) : Color("backgroundSecondary").opacity(0.4))
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-            VStack {
+            VStack(spacing: 0) {
                 Text(brewMethod.title)
                     .multilineTextAlignment(.center)
                     .font(.title3)
-                    .padding(.horizontal, 4)
+
+                Image(brewMethod.iconName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxWidth: 80, maxHeight: 80)
             }
 
             VStack {
@@ -197,7 +201,7 @@ extension BrewMethod {
     static func preview(title: String) -> Self {
         return .init(
             id: UUID().uuidString,
-            iconName: "recipe-profile-v60",
+            iconName: ["recipe-profile-v60", "recipe-profile-chemex", "recipe-profile-aeropress", "recipe-profile-french-press"].randomElement()!,
             title: title,
             path: "path",
             isIcedBrew: false,

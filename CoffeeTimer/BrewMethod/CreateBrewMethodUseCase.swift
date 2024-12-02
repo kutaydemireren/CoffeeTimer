@@ -109,15 +109,15 @@ struct CreateBrewMethodUseCaseImp: CreateBrewMethodUseCase {
 
         return .init(
             id: id,
-            iconName: "", // TODO: allow custom icon!
-            title: context.methodTitle,
+            iconName: "recipe-profile-gooseneck-kettle", // TODO: allow custom icon!
+            title: context.methodTitle.trimmingCharacters(in: .whitespacesAndNewlines),
             path: CustomMethodPathGenerator.generate(id: id),
             isIcedBrew: isIcedBrew,
             cupsCount: context.cupsCount,
             ratios: isIcedBrew ? StaticCoffeetoWaterRatioGenerator
                 .icedBrew() : StaticCoffeetoWaterRatioGenerator
                 .hotBrew(),
-            info: .init(title: context.methodTitle, body: "") // TODO: allow custom body - would allow custom notes on saved methods
+            info: .init(title: context.methodTitle, body: "") // TODO: allow custom body!
         )
     }
 }

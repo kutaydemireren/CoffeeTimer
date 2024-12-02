@@ -12,10 +12,11 @@ struct RecipeProfileView: View {
     let recipeProfile: RecipeProfile
 
     var body: some View {
-        HStack {
+        HStack(spacing: 4) {
             Image(recipeProfile.brewMethod.iconName)
                 .resizable()
-                .aspectRatio(contentMode: .fit)
+                .aspectRatio(contentMode: .fill)
+                .frame(maxWidth: 50, maxHeight: 40)
 
             VStack(alignment: alignment) {
                 Text(recipeProfile.name)
@@ -26,7 +27,6 @@ struct RecipeProfileView: View {
                     .foregroundColor(Color("foregroundSecondary"))
             }
         }
-        .frame(maxHeight: 60)
     }
 }
 
@@ -39,7 +39,6 @@ struct RecipeProfileView_Previews: PreviewProvider {
     }
 }
 
-
 struct RecipeRowView: View {
     let recipe: Recipe
     let isSelected: Bool
@@ -47,10 +46,10 @@ struct RecipeRowView: View {
     var body: some View {
         VStack(alignment: .leading) {
             RecipeProfileView(alignment: .leading, recipeProfile: recipe.recipeProfile)
-            Text(recipe.ingredients.toRepresentableString)
+            Text(recipe.ingredients.toRepresentableString(joining: " | "))
                 .font(.subheadline)
-                .foregroundColor(Color("foregroundPrimary"))
-                .padding(.leading)
+                .foregroundColor(Color("foregroundSecondary"))
+                .padding(.leading, 4)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         .padding(.horizontal)
@@ -64,9 +63,9 @@ struct RecipeRowView_Previews: PreviewProvider {
     static var previews: some View {
         List {
             RecipeRowView(recipe: .stubSingleV60, isSelected: false)
+            RecipeRowView(recipe: .stubFrenchPress, isSelected: false)
             RecipeRowView(recipe: .stubSingleV60, isSelected: false)
-            RecipeRowView(recipe: .stubSingleV60, isSelected: false)
-            RecipeRowView(recipe: .stubSingleV60, isSelected: false)
+            RecipeRowView(recipe: .stubFrenchPress, isSelected: false)
             RecipeRowView(recipe: .stubSingleV60, isSelected: false)
         }
     }
