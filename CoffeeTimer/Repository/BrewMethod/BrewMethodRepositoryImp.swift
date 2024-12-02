@@ -58,14 +58,15 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
     private func map(brewMethodDTOs: [BrewMethodDTO]) -> [BrewMethod] {
         brewMethodDTOs.map { brewMethodDTO in
                 .init(
-                id: brewMethodDTO.id ?? "",
-                title: brewMethodDTO.title ?? "",
-                path: brewMethodDTO.path ?? "", 
-                isIcedBrew: brewMethodDTO.isIcedBrew ?? false,
-                cupsCount: map(cupsCountDTO: brewMethodDTO.cupsCount),
-                ratios: brewMethodDTO.ratios.map(map(ratio:)),
-                info: map(infoModel: brewMethodDTO.info, fallbackTitle: brewMethodDTO.title ?? "")
-            )
+                    id: brewMethodDTO.id ?? "",
+                    iconName: brewMethodDTO.icon ?? "recipe-profile-gooseneck-kettle",
+                    title: brewMethodDTO.title ?? "",
+                    path: brewMethodDTO.path ?? "",
+                    isIcedBrew: brewMethodDTO.isIcedBrew ?? false,
+                    cupsCount: map(cupsCountDTO: brewMethodDTO.cupsCount),
+                    ratios: brewMethodDTO.ratios.map(map(ratio:)),
+                    info: map(infoModel: brewMethodDTO.info, fallbackTitle: brewMethodDTO.title ?? "")
+                )
         }
     }
 
@@ -101,6 +102,7 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
     private func map(brewMethod: BrewMethod) -> BrewMethodDTO {
         return .init(
             id: brewMethod.id,
+            icon: brewMethod.iconName,
             title: brewMethod.title,
             path: brewMethod.path,
             isIcedBrew: brewMethod.isIcedBrew,

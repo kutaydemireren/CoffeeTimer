@@ -22,7 +22,16 @@ extension RecipeProfile {
 
 extension BrewMethod {
     static var none: BrewMethod {
-        .init(id: "", title: "", path: "", isIcedBrew: false, cupsCount: .unlimited, ratios: [], info: .empty)
+        .init(
+            id: "",
+            iconName: "",
+            title: "",
+            path: "",
+            isIcedBrew: false,
+            cupsCount: .unlimited,
+            ratios: [],
+            info: .empty
+        )
     }
 }
 

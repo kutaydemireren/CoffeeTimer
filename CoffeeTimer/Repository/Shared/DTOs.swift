@@ -41,6 +41,7 @@ enum IngredientAmountTypeDTO: String, Codable, Equatable {
 
 struct BrewMethodDTO: Codable, Equatable {
     let id: String?
+    let icon: String?
     let title: String?
     let path: String?
     let isIcedBrew: Bool?

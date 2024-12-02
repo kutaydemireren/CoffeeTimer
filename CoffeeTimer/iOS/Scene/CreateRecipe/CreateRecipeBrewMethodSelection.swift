@@ -197,6 +197,7 @@ extension BrewMethod {
     static func preview(title: String) -> Self {
         return .init(
             id: UUID().uuidString,
+            iconName: "recipe-profile-v60",
             title: title,
             path: "path",
             isIcedBrew: false,
@@ -209,6 +210,7 @@ extension BrewMethod {
     static var v60Single: Self {
         return BrewMethod(
             id: "v60-single",
+            iconName: "recipe-profile-v60",
             title: "V60 Single",
             path: "/v60-single", 
             isIcedBrew: false,
@@ -225,6 +227,7 @@ extension BrewMethod {
     static var v60Iced: Self {
         return BrewMethod(
             id: "v60-iced",
+            iconName: "recipe-profile-v60",
             title: "V60 Iced",
             path: "/v60-iced",
             isIcedBrew: true,
@@ -241,6 +244,7 @@ extension BrewMethod {
     static func frenchPress(path: String = "/french-press") -> Self {
         return BrewMethod(
             id: "french-press",
+            iconName: "recipe-profile-french-press",
             title: "French Press",
             path: path,
             isIcedBrew: false,

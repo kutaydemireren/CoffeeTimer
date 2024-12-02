@@ -9,7 +9,7 @@ import Foundation
 
 struct BrewMethod: Equatable, Hashable, Identifiable, Titled {
     let id: String
-    let iconName: String = ["v60-3"].randomElement() ?? "v60"
+    let iconName: String
     let title: String
     let path: String
     let isIcedBrew: Bool

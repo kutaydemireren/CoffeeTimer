@@ -22,6 +22,7 @@ private extension BrewMethod {
     static var custom: BrewMethod {
         return BrewMethod(
             id: "custom-method",
+            iconName: "",
             title: "Custom",
             path: "",
             isIcedBrew: false,

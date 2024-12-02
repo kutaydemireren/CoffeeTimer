@@ -109,6 +109,7 @@ struct CreateBrewMethodUseCaseImp: CreateBrewMethodUseCase {
 
         return .init(
             id: id,
+            iconName: "", // TODO: allow custom icon!
             title: context.methodTitle,
             path: CustomMethodPathGenerator.generate(id: id),
             isIcedBrew: isIcedBrew,

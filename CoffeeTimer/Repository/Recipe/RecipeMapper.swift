@@ -62,6 +62,7 @@ extension RecipeMapperImp {
 
         return BrewMethod(
             id: brewMethodDTO.id ?? "",
+            iconName: brewMethodDTO.icon ?? "recipe-profile-gooseneck-kettle",
             title: brewMethodDTO.title ?? "",
             path: brewMethodDTO.path ?? "",
             isIcedBrew: brewMethodDTO.isIcedBrew ?? false,
@@ -233,6 +234,7 @@ extension RecipeMapperImp {
     private func mapToBrewMethodDTO(brewMethod: BrewMethod) -> BrewMethodDTO {
         return BrewMethodDTO(
             id: brewMethod.id,
+            icon: brewMethod.iconName,
             title: brewMethod.title,
             path: brewMethod.path,
             isIcedBrew: brewMethod.isIcedBrew,
