@@ -16,7 +16,7 @@ struct TitledPicker<T: Titled & Identifiable & Hashable>: View {
     var infoModel: InfoModel? = nil
 
     var body: some View {
-        TitledContent(title: title) {
+        TitledContent(title: title, infoModel: infoModel) {
             HStack {
                 Menu {
                     Picker(selection: $selectedItem, label: EmptyView()) {
@@ -27,10 +27,6 @@ struct TitledPicker<T: Titled & Identifiable & Hashable>: View {
                     }
                 } label: {
                     pickerLabel
-                }
-                
-                if let infoModel {
-                    InfoButton(infoModel: infoModel)
                 }
             }
         }

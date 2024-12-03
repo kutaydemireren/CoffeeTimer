@@ -27,10 +27,10 @@ struct AlphanumericTextField: View {
         VStack {
             switch style {
             case .plain:
-                textField
+                textField(info: infoModel)
             case .titled(let title):
-                TitledContent(title: title) {
-                    textField
+                TitledContent(title: title, infoModel: infoModel) {
+                    textField(info: nil)
                 }
             }
         }
@@ -49,7 +49,7 @@ struct AlphanumericTextField: View {
     }
 
     @ViewBuilder
-    private var textField: some View {
+    private func textField(info: InfoModel?) -> some View {
         HStack {
             TextField(text: $text) {
                 Text(placeholder)
@@ -61,8 +61,8 @@ struct AlphanumericTextField: View {
             .focused($isFocused)
             .backgroundSecondary()
 
-            if let infoModel {
-                InfoButton(infoModel: infoModel)
+            if let info {
+                InfoButton(infoModel: info)
             }
         }
     }
