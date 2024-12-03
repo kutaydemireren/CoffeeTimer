@@ -160,7 +160,9 @@ final class InstructionActionViewBuilder {
     }
 
     private static let keywords: [KeywordItem] = {
-        [.init(keyword: "",title: "None")] + InstructionKeyword.userAllowedKeywords.compactMap { $0.keywordItem }
+        var keywords: [KeywordItem] = [.init(keyword: "",title: "None")]
+        keywords.append(contentsOf: InstructionKeyword.userAllowedKeywords.compactMap { $0.keywordItem })
+        return Array(Set(keywords))
     }()
     private var mainFactor: Binding<Double>?
     private var mainFactorOf: Binding<KeywordItem>?
