@@ -7,6 +7,48 @@
 
 import Foundation
 
+// TODO: move
+enum InstructionKeyword: String {
+    static var userAllowedKeywords: [Self] {
+        return [
+            .coffee, .currentCoffee, .totalCoffee, .remainingCoffee,
+            .water, .currentWater, .totalWater, .remainingWater,
+            .ice
+        ]
+    }
+
+    case coffee, currentCoffee = "#current.coffee", totalCoffee = "#total.coffee", remainingCoffee = "#remaining.coffee"
+    case water, currentWater = "#current.water", totalWater = "#total.water", remainingWater = "#remaining.water"
+    case ice
+    case currentAmount = "#current.amount"
+    case currentDuration = "#current.duration"
+
+    var keywordItem: KeywordItem? {
+        switch self {
+        case .coffee, .totalCoffee:
+            return .init(keyword: "#total.coffee", title: "Total Coffee")
+        case .currentCoffee:
+            return .init(keyword: "#current.coffee", title: "Current Coffee")
+        case .remainingCoffee:
+            return .init(keyword: "#remaining.coffee", title: "Remaining Coffee")
+        case .water, .totalWater:
+            return .init(keyword: "#total.water", title: "Total Water")
+        case .currentWater:
+            return .init(keyword: "#current.water", title: "Current Water")
+        case .remainingWater:
+            return .init(keyword: "#remaining.water", title: "Remaining Water")
+        case .ice:
+            return .init(keyword: "ice", title: "Total Ice")
+        case .currentAmount, .currentDuration:
+            return nil
+        }
+    }
+
+    var keyword: String {
+        return rawValue
+    }
+}
+
 protocol FetchRecipeInstructionsUseCase {
     func fetch(brewMethod: BrewMethod) async throws -> RecipeInstructions
     func fetchActions(brewMethod: BrewMethod) async throws -> [RecipeInstructionAction]
@@ -60,21 +102,8 @@ struct FetchRecipeInstructionsUseCaseImp: FetchRecipeInstructionsUseCase {
     }
 
     private func factorOf(_ amountFactor: InstructionAmount.Factor?) -> KeywordItem {
-        // TODO: extract into its own use case, combining with current other usages
-        switch amountFactor?.factorOf {
-        case "coffee", "#total.coffee":
-            return .init(keyword: "#total.coffee", title: "Total Coffee")
-        case "water", "#total.water":
-            return .init(keyword: "#total.water", title: "Total Water")
-        case "ice":
-            return .init(keyword: "ice", title: "Total Ice")
-        case "#remaining.coffee":
-            return .init(keyword: "#remaining.coffee", title: "Remaining Coffee")
-        case "#remaining.water":
-            return .init(keyword: "#remaining.water", title: "Remaining Water")
-        default:
-            return .init(keyword: "#total.coffee", title: "Total Coffee")
-        }
+        let keyword = InstructionKeyword(rawValue: amountFactor?.factorOf ?? "")
+        return keyword?.keywordItem ?? .init(keyword: "#current.coffee", title: "Current Coffee")
     }
 
     private func mapInstructionRequirement(_ requirement: InstructionRequirement?) ->  InstructionRequirementItem {

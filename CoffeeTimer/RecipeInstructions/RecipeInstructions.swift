@@ -273,20 +273,20 @@ struct InstructionActionContext {
         var dict = [String: String]()
 
         if let current {
-            dict["#current.amount"] = String(current.amount)
-            dict["#current.coffee"] = String(current.coffee)
-            dict["#current.water"] = String(current.water)
-            dict["#current.duration"] = String(current.duration)
+            dict[InstructionKeyword.currentAmount.keyword] = String(current.amount)
+            dict[InstructionKeyword.currentCoffee.keyword] = String(current.coffee)
+            dict[InstructionKeyword.currentWater.keyword] = String(current.water)
+            dict[InstructionKeyword.currentDuration.keyword] = String(current.duration)
         }
 
         if let total {
-            dict["#total.coffee"] = String(total.coffee)
-            dict["#total.water"] = String(total.water)
+            dict[InstructionKeyword.totalCoffee.keyword] = String(total.coffee)
+            dict[InstructionKeyword.totalWater.keyword] = String(total.water)
         }
 
         if let remaining {
-            dict["#remaining.coffee"] = String(remaining.coffee)
-            dict["#remaining.water"] = String(remaining.water)
+            dict[InstructionKeyword.remainingCoffee.keyword] = String(remaining.coffee)
+            dict[InstructionKeyword.remainingWater.keyword] = String(remaining.water)
         }
 
         return dict

@@ -159,6 +159,9 @@ final class InstructionActionViewBuilder {
         return self
     }
 
+    private static let keywords: [KeywordItem] = {
+        [.init(keyword: "",title: "None")] + InstructionKeyword.userAllowedKeywords.compactMap { $0.keywordItem }
+    }()
     private var mainFactor: Binding<Double>?
     private var mainFactorOf: Binding<KeywordItem>?
 
@@ -276,7 +279,7 @@ final class InstructionActionViewBuilder {
 
                             Menu {
                                 Picker(selection: mainFactorOf, label: EmptyView()) {
-                                    ForEach([KeywordItem].stub) { ratio in
+                                    ForEach(Self.keywords) { ratio in
                                         Text(ratio.title)
                                     }
                                 }
@@ -325,7 +328,7 @@ final class InstructionActionViewBuilder {
 
                             Menu {
                                 Picker(selection: adjustmentFactorOf, label: EmptyView()) {
-                                    ForEach([KeywordItem].stub) { ratio in
+                                    ForEach(Self.keywords) { ratio in
                                         Text(ratio.title)
                                     }
                                 }
@@ -345,22 +348,6 @@ final class InstructionActionViewBuilder {
             }
         }
         .hideKeyboardOnTap()
-    }
-}
-
-extension [KeywordItem] {
-    static var stub: Self { // TODO: this is in use above, in prod code! Replace it with a use case, whether it returns static element matters less.
-        return [
-            .init(keyword: "", title: "None"),
-            .init(keyword: "#current.coffee", title: "Current Coffee"),
-            .init(keyword: "#current.water", title: "Current Water"),
-            .init(keyword: "#current.ice", title: "Current Ice"),
-            .init(keyword: "#total.coffee", title: "Total Coffee"),
-            .init(keyword: "#total.water", title: "Total Water"),
-            .init(keyword: "#total.ice", title: "Total Ice"),
-            .init(keyword: "#remaining.coffee", title: "Remaining Coffee"),
-            .init(keyword: "#remaining.water", title: "Remaining Water"),
-        ]
     }
 }
 
