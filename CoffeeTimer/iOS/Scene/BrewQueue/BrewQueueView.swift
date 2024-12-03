@@ -93,7 +93,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
     private var cancellables: [AnyCancellable] = []
 
-    // TODO: Create a real queue data structure for getting the next stage from.
+    // TODO: Create a queue data structure for getting the next stage from.
     // The 'play' around the stages[] is tedious & dangerous. That better is encapsulated.
     private var currentStageIndex: UInt = 0 {
         didSet {
@@ -142,9 +142,11 @@ final class BrewQueueViewModel: ObservableObject, Completable {
         }
     }
 
+    #if DEBUG
     func skipAction() {
         nextStage()
     }
+    #endif
 
     func endAction() {
         isActive = false
@@ -240,10 +242,8 @@ struct BrewQueueView: View {
     @ObservedObject var viewModel: BrewQueueViewModel
 
     var body: some View {
-
         GeometryReader { proxy in
             ZStack {
-
                 backgroundView
                     .padding(24)
 
@@ -289,6 +289,26 @@ struct BrewQueueView: View {
     }
 
     @ViewBuilder
+    private func actionButton() -> some View {
+
+        if !viewModel.isActive {
+            HStack {
+                recipesButton
+            }
+        } else {
+            HStack {
+                endButton
+                Spacer()
+                #if DEBUG
+                skipButton
+                Spacer()
+                Spacer()
+                #endif
+            }
+        }
+    }
+
+    @ViewBuilder
     private var recipesButton: some View {
         Button {
             viewModel.showRecipes()
@@ -307,6 +327,7 @@ struct BrewQueueView: View {
         .shadow(color: .blue.opacity(0.2), radius: 8, x: -2, y: -2)
     }
 
+    #if DEBUG
     private var skipButton: some View {
         Button {
             viewModel.skipAction()
@@ -316,6 +337,7 @@ struct BrewQueueView: View {
         .padding()
         .foregroundColor(Color("foregroundPrimary").opacity(0.8))
     }
+    #endif
 
     private var endButton: some View {
         Button {
@@ -325,24 +347,6 @@ struct BrewQueueView: View {
         }
         .padding()
         .foregroundColor(Color("foregroundPrimary").opacity(0.8))
-    }
-
-    @ViewBuilder
-    private func actionButton() -> some View {
-
-        if !viewModel.isActive {
-            HStack {
-                recipesButton
-            }
-        } else {
-            HStack {
-                endButton
-                Spacer()
-                skipButton
-                Spacer()
-                Spacer()
-            }
-        }
     }
 
     @ViewBuilder
