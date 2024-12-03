@@ -45,6 +45,10 @@ final class PostBrewViewModel {
     var cta: String {
         ctaTexts.randomElement() ?? ctaTexts[0]
     }
+
+    var animation: String {
+        "post-brew-\([1, 2, 3].randomElement() ?? 1)"
+    }
 }
 
 struct PostBrewView: View {
@@ -61,7 +65,7 @@ struct PostBrewView: View {
                 foregroundColor: Color("backgroundPrimary")
             )
 
-            AnimationView(dotLottieFilename: "post-brew-1")
+            AnimationView(dotLottieFilename: viewModel.animation)
 
             Text(viewModel.cta)
                 .frame(maxWidth: .infinity)
@@ -72,23 +76,28 @@ struct PostBrewView: View {
                 dismiss()
             } label: {
                 Text("Buy Me a Coffee")
+                    .font(.callout)
+                    .padding(12)
+                    .foregroundColor(Color("backgroundSecondary"))
+                    .background(
+                        RoundedRectangle(cornerRadius: 24)
+                            .fill(Color("backgroundPrimary"))
+                    )
             }
-            .font(.callout)
-            .padding(12)
-            .foregroundColor(Color("backgroundSecondary"))
-            .background(
-                RoundedRectangle(cornerRadius: 24)
-                    .fill(Color("backgroundPrimary"))
-            )
-            .padding(.bottom)
+            .padding(.bottom, 20)
 
             Button {
                 dismiss()
             } label: {
                 Text("Skip")
+                    .font(.callout)
+                    .padding(12)
+                    .padding(.horizontal)
+                    .overlay {
+                        Capsule()
+                            .stroke(Color("backgroundPrimary"), lineWidth: 2)
+                    }
             }
-            .font(.callout)
-            .padding(12)
 
             Spacer()
         }
