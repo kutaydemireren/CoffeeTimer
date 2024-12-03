@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StageHeader {
-    let lightTitle: String
+    var lightTitle: String? = nil
     let title: String
     var subtext: String? = nil
     
@@ -28,10 +28,12 @@ struct StageHeaderView: View {
     
     var body: some View {
         VStack {
-            Text(header.lightTitle)
-                .foregroundColor(foregroundColor.opacity(0.6))
-                .font(.title3)
-            
+            if let lightTitle = header.lightTitle {
+                Text(lightTitle)
+                    .foregroundColor(foregroundColor.opacity(0.6))
+                    .font(.title3)
+            }
+
             Text(header.title)
                 .foregroundColor(foregroundColor)
                 .font(.title)
