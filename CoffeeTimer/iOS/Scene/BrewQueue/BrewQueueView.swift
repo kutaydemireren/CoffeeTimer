@@ -149,7 +149,16 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     #endif
 
     func endAction() {
+        resetQueue()
+    }
+
+    private func resetQueue() {
         isActive = false
+        currentStageIndex = 0
+    }
+
+    private func beginQueue() {
+        isActive = true
         currentStageIndex = 0
     }
 
@@ -159,15 +168,14 @@ final class BrewQueueViewModel: ObservableObject, Completable {
         }
 
         if isActive {
-            var tempCurrentStageIndex = currentStageIndex + 1
-            if tempCurrentStageIndex >= brewQueue.stages.count {
-                isActive = false
-                tempCurrentStageIndex = 0
+            var newStageIndex = currentStageIndex + 1
+            guard newStageIndex < brewQueue.stages.count else {
+                resetQueue()
+                return
             }
-            currentStageIndex = tempCurrentStageIndex
+            currentStageIndex = newStageIndex
         } else {
-            isActive = true
-            currentStageIndex = 0
+            beginQueue()
         }
     }
 
