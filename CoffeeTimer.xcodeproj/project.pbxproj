@@ -122,6 +122,9 @@
 		F2CCBBFE2CFE76320085C590 /* chemex.lottie in Resources */ = {isa = PBXBuildFile; fileRef = F2CCBBFD2CFE76320085C590 /* chemex.lottie */; };
 		F2D5AB822CF66FCF004AE191 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D5AB812CF66FCF004AE191 /* PagerView.swift */; };
 		F2DB5FBF2CF3BAFE000D67ED /* RecipeInstructionActionItem+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DB5FBE2CF3BAFE000D67ED /* RecipeInstructionActionItem+Stub.swift */; };
+		F2FBE5152CFF7F860084D821 /* v60.lottie in Resources */ = {isa = PBXBuildFile; fileRef = F2FBE5142CFF7F860084D821 /* v60.lottie */; };
+		F2FBE5172CFF81570084D821 /* aeropress.lottie in Resources */ = {isa = PBXBuildFile; fileRef = F2FBE5162CFF81570084D821 /* aeropress.lottie */; };
+		F2FBE5192CFF815D0084D821 /* french-press.lottie in Resources */ = {isa = PBXBuildFile; fileRef = F2FBE5182CFF815D0084D821 /* french-press.lottie */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -257,6 +260,9 @@
 		F2CCBBFD2CFE76320085C590 /* chemex.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = chemex.lottie; sourceTree = "<group>"; };
 		F2D5AB812CF66FCF004AE191 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
 		F2DB5FBE2CF3BAFE000D67ED /* RecipeInstructionActionItem+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecipeInstructionActionItem+Stub.swift"; sourceTree = "<group>"; };
+		F2FBE5142CFF7F860084D821 /* v60.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = v60.lottie; sourceTree = "<group>"; };
+		F2FBE5162CFF81570084D821 /* aeropress.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = aeropress.lottie; sourceTree = "<group>"; };
+		F2FBE5182CFF815D0084D821 /* french-press.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = "french-press.lottie"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -664,6 +670,9 @@
 		CA981F832A2695E6000254CD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F2FBE5182CFF815D0084D821 /* french-press.lottie */,
+				F2FBE5162CFF81570084D821 /* aeropress.lottie */,
+				F2FBE5142CFF7F860084D821 /* v60.lottie */,
 				F2CCBBFD2CFE76320085C590 /* chemex.lottie */,
 				F2AFA14D2CF7B61800984AE2 /* GoogleService-Info.plist */,
 				CA8B44422A2563780003EE57 /* Colors.xcassets */,
@@ -952,7 +961,10 @@
 				CAEE2F702C42A03F00D7D61E /* button-click.wav in Resources */,
 				CA852F262BD557A800FEF144 /* instructions_v60_single.json in Resources */,
 				CA367D3929A2B0380095B1B8 /* Preview Assets.xcassets in Resources */,
+				F2FBE5192CFF815D0084D821 /* french-press.lottie in Resources */,
 				CA367D3629A2B0380095B1B8 /* Assets.xcassets in Resources */,
+				F2FBE5172CFF81570084D821 /* aeropress.lottie in Resources */,
+				F2FBE5152CFF7F860084D821 /* v60.lottie in Resources */,
 				F2CCBBFE2CFE76320085C590 /* chemex.lottie in Resources */,
 				F2AFA14E2CF7B61800984AE2 /* GoogleService-Info.plist in Resources */,
 			);

@@ -80,7 +80,8 @@ extension RecipeMapperImp {
         return .init(
             title: infoModel.title ?? fallbackTitle,
             source: infoModel.source,
-            body: infoModel.body ?? ""
+            body: infoModel.body ?? "",
+            animation: infoModel.animation
         )
     }
 
@@ -248,7 +249,8 @@ extension RecipeMapperImp {
         return .init(
             title: infoModel.title,
             source: infoModel.source,
-            body: infoModel.body
+            body: infoModel.body,
+            animation: infoModel.animation
         )
     }
 

@@ -37,7 +37,8 @@
         "info": {
             "title": "The V60",
             "source": "[Learn it from James Hoffman](https://youtube.com/)",
-            "body": "This simple V60 recipe achieves a great extraction in a short amount of time.\n\nTake a note of:\n\t- Try **medium-fine** ground coffee.\n\t- Pour water gently in a circular motion for even saturation.\n\t- Try to keep the water pressure (the water depth) stable, especially during the last stage.\n\t- Around 3 minutes is a good timing."
+            "body": "This simple V60 recipe achieves a great extraction in a short amount of time.\n\nTake a note of:\n\t- Try **medium-fine** ground coffee.\n\t- Pour water gently in a circular motion for even saturation.\n\t- Try to keep the water pressure (the water depth) stable, especially during the last stage.\n\t- Around 3 minutes is a good timing.",
+            "animation": "v60"
         }
     },
     {
@@ -78,7 +79,8 @@
         "info": {
             "title": "The V60 Single",
             "source": "[Learn it from James Hoffman](https://youtube.com/)",
-            "body": "Easy to follow, yet delicios technique for brewing small amounts of coffee.\n\nTake a note of:\n\t- Try **medium-fine** ground coffee for optimal extraction.\n\t- Suggested for a single cup brews.\n\t- Pour in stages, with constant additions\n\t- Pour water gently in a circular motion for even saturation.\n\t- Around 3 minutes is a good timing."
+            "body": "Easy to follow, yet delicios technique for brewing small amounts of coffee.\n\nTake a note of:\n\t- Try **medium-fine** ground coffee for optimal extraction.\n\t- Suggested for a single cup brews.\n\t- Pour in stages, with constant additions\n\t- Pour water gently in a circular motion for even saturation.\n\t- Around 3 minutes is a good timing.",
+            "animation": "v60"
         }
     },
     {
@@ -120,7 +122,8 @@
         "info": {
             "title": "The V60 Iced",
             "source": "[Learn it from James Hoffman](https://youtube.com/)",
-            "body": "Brewing V60 over ice delivers a refreshing, chilled coffee with great taste.\n\nTake a note of:\n\t- Try **medium-fine** to **medium** ground coffee for a smooth iced brew.\n\t- Pour water gently in a circular motion for even saturation.\n\t- Keep the water temperature a bit lower than usual.\n\t- Just under 3 minutes is a good timing.\n\t- Serve with fresh ice cubes in a cup!"
+            "body": "Brewing V60 over ice delivers a refreshing, chilled coffee with great taste.\n\nTake a note of:\n\t- Try **medium-fine** to **medium** ground coffee for a smooth iced brew.\n\t- Pour water gently in a circular motion for even saturation.\n\t- Keep the water temperature a bit lower than usual.\n\t- Just under 3 minutes is a good timing.\n\t- Serve with fresh ice cubes in a cup!",
+            "animation": "v60"
         }
     },
     {
@@ -161,7 +164,8 @@
         "info": {
             "title": "French Press",
             "source": "[Learn it from James Hoffman](https://youtube.com/)",
-            "body": "The timeless French Press excels in brewing a rich and full-bodied cup of coffee.\n\nTake a note of:\n\t- Try **medium** to **coarse** ground coffee for the best results.\n\t- Take your time! Fantastic taste, but it needs a bit more time and love.\n\t- Avoid pressing too hard and too deep to minimize sediment in your cup."
+            "body": "The timeless French Press excels in brewing a rich and full-bodied cup of coffee.\n\nTake a note of:\n\t- Try **medium** to **coarse** ground coffee for the best results.\n\t- Take your time! Fantastic taste, but it needs a bit more time and love.\n\t- Avoid pressing too hard and too deep to minimize sediment in your cup.",
+            "animation": "french-press"
         }
     },
     {
@@ -202,7 +206,8 @@
         "info": {
             "title": "The Chemex",
             "source": "[Learn it from James Hoffman](https://youtube.com/)",
-            "body": "The Chemex delivers a clean and crisp cup with vibrant flavors.\n\nTake a note of:\n\t- Try **medium-fine** ground coffee for optimal extraction.\n\t- Pour water gently in a circular motion for even saturation.\n\t- Allow the brew to drip completely before serving for the best taste."
+            "body": "The Chemex delivers a clean and crisp cup with vibrant flavors.\n\nTake a note of:\n\t- Try **medium-fine** ground coffee for optimal extraction.\n\t- Pour water gently in a circular motion for even saturation.\n\t- Allow the brew to drip completely before serving for the best taste.",
+            "animation": "chemex"
         }
     },
     {
@@ -243,7 +248,8 @@
         "info": {
             "title": "The Aeropress",
             "source": "[Learn it from James Hoffman](https://youtube.com/)",
-            "body": "The versatile Aeropress can brew an incredibly smooth cup in no time.\n\nTake a note of:\n\t- Try **medium** to **fine** ground coffee for a balanced brew.\n\t- Experiment with brew time; 2 to 3 minutes is a good timing.\n\t- Press gently to avoid over-extraction and bitterness."
+            "body": "The versatile Aeropress can brew an incredibly smooth cup in no time.\n\nTake a note of:\n\t- Try **medium** to **fine** ground coffee for a balanced brew.\n\t- Experiment with brew time; 2 to 3 minutes is a good timing.\n\t- Press gently to avoid over-extraction and bitterness.",
+            "animation": "aeropress"
         }
     }
 ]

@@ -30,7 +30,12 @@ struct InfoView: View {
                     markdown: model.body,
                     options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)
                 ))
-                .padding(.vertical)
+                .padding(.top)
+
+                if let animation = model.animation {
+                    AnimationView(dotLottieFilename: animation)
+                        .frame(maxHeight: 200)
+                }
 
                 Spacer()
             }
@@ -49,7 +54,8 @@ struct InfoView: View {
             source: "[*Learn it from John Doe*](www.example.com)",
             body: """
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim diam vitae ex mollis consectetur. Sed elit ipsum, fermentum non urna sit amet, fermentum bibendum purus. Nunc condimentum enim nec lacinia tristique. Duis ac blandit massa. Sed auctor purus augue, vitae fringilla nibh venenatis scelerisque. Aliquam id mattis tortor. Duis eget enim quis orci consequat venenatis.
-"""
+""",
+            animation: "chemex"
         )
     )
 }

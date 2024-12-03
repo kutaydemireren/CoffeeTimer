@@ -36,13 +36,7 @@ struct BrewMethodView: View {
                 HStack {
                     Spacer()
                     if hasInfo {
-                        InfoButton(
-                            infoModel: .init(
-                                title: brewMethod.info.title,
-                                source: brewMethod.info.source,
-                                body: brewMethod.info.body
-                            )
-                        )
+                        InfoButton(infoModel: brewMethod.info)
                     }
                 }
                 .padding([.top, .trailing], 8)
@@ -224,7 +218,7 @@ extension BrewMethod {
                 .ratio18,
                 .ratio20
             ],
-            info: .init(title: "v60 single title", body: "v60 single body")
+            info: .init(title: "v60 single title", body: "v60 single body", animation: "chemex")
         )
     }
 

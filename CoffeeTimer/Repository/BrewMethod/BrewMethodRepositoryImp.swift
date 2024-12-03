@@ -94,7 +94,8 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
         return .init(
             title: infoModel.title ?? "",
             source: infoModel.source,
-            body: infoModel.body ?? ""
+            body: infoModel.body ?? "",
+            animation: infoModel.animation
         )
     }
 
@@ -131,7 +132,8 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
         return .init(
             title: infoModel.title,
             source: infoModel.source,
-            body: infoModel.body
+            body: infoModel.body,
+            animation: infoModel.animation
         )
     }
 }

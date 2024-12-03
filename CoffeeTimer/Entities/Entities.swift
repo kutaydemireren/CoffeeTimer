@@ -37,11 +37,13 @@ struct InfoModel: Equatable, Hashable {
     let title: String
     let source: String?
     let body: String
+    let animation: String?
 
-    init(title: String, source: String? = nil, body: String) {
+    init(title: String, source: String? = nil, body: String, animation: String? = nil) {
         self.title = title
         self.source = source
         self.body = body
+        self.animation = animation
     }
 }
 

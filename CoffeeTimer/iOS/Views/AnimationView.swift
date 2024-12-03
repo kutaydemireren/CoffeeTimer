@@ -11,14 +11,16 @@ import Lottie
 /// Currently only ".lottie" files are supported.
 struct AnimationView: View {
     let dotLottieFilename: String
+    var loop: Bool = true
 
     var body: some View {
         LottieView {
             try await DotLottieFile.named(dotLottieFilename)
         }
+        .playing(loopMode: loop ? .loop : .playOnce)
     }
 }
 
 #Preview {
-    AnimationView(dotLottieFilename: "chemex")
+    AnimationView(dotLottieFilename: "v60")
 }
