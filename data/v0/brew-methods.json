@@ -2,6 +2,7 @@
     {
         "id": "v60-default",
         "title": "V60",
+        "icon": "recipe-profile-v60",
         "path": "/kutaydemireren/CoffeeTimer/epic/custom-method/data/v0/brew-instructions/v60-default.json",
         "cupsCount": {
             "minimum": 1,
@@ -43,6 +44,7 @@
     },
     {
         "id": "v60-single",
+        "icon": "recipe-profile-v60",
         "title": "V60 Single",
         "path": "/kutaydemireren/CoffeeTimer/epic/custom-method/data/v0/brew-instructions/v60-single.json",
         "cupsCount": {
@@ -85,6 +87,7 @@
     },
     {
         "id": "v60-iced",
+        "icon": "recipe-profile-v60",
         "title": "V60 Iced",
         "path": "/kutaydemireren/CoffeeTimer/epic/custom-method/data/v0/brew-instructions/v60-iced.json",
         "isIcedBrew": true,
@@ -128,6 +131,7 @@
     },
     {
         "id": "french-press-default",
+        "icon": "recipe-profile-french-press",
         "title": "French Press",
         "path": "/kutaydemireren/CoffeeTimer/epic/custom-method/data/v0/brew-instructions/french-press-default.json",
         "cupsCount": {
@@ -170,6 +174,7 @@
     },
     {
         "id": "chemex-default",
+        "icon": "recipe-profile-chemex",
         "title": "Chemex",
         "path": "/kutaydemireren/CoffeeTimer/epic/custom-method/data/v0/brew-instructions/chemex-default.json",
         "cupsCount": {
@@ -212,6 +217,7 @@
     },
     {
         "id": "aeropress-default",
+        "icon": "recipe-profile-aeropress",
         "title": "Aeropress",
         "path": "/kutaydemireren/CoffeeTimer/epic/custom-method/data/v0/brew-instructions/aeropress-default.json",
         "cupsCount": {
