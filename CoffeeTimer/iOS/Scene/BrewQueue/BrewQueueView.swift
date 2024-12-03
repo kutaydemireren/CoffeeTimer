@@ -70,6 +70,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     var stageHeader = StageHeader.welcomeNotReady
 
     @Published var currentStageViewModel: any BrewStageViewModel = BrewStageConstantViewModel(text: "")
+    @Published var isPresentingPostBrew: Bool = false
 
     // TODO: Unify VMs for a single source
     var currentStageTimerViewModel: BrewStageTimerViewModel? {
@@ -168,8 +169,9 @@ final class BrewQueueViewModel: ObservableObject, Completable {
         }
 
         if isActive {
-            var newStageIndex = currentStageIndex + 1
+            let newStageIndex = currentStageIndex + 1
             guard newStageIndex < brewQueue.stages.count else {
+                isPresentingPostBrew = true
                 resetQueue()
                 return
             }
@@ -244,41 +246,49 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     func showRecipes() {
         didComplete.send(self)
     }
+
+    func dismissEndScreen() {
+        isPresentingPostBrew = false
+    }
 }
 
 struct BrewQueueView: View {
     @ObservedObject var viewModel: BrewQueueViewModel
 
     var body: some View {
-        GeometryReader { proxy in
-            ZStack {
-                backgroundView
+        if viewModel.isPresentingPostBrew {
+            PostBrewView(dismiss: viewModel.dismissEndScreen)
+        } else {
+            GeometryReader { proxy in
+                ZStack {
+                    backgroundView
+                        .padding(24)
+
+                    Group {
+                        brewStageView()
+                            .shadow(color: .black.opacity(0.2), radius: 16)
+                            .onTapGesture {
+                                viewModel.primaryAction()
+                            }
+                            .position(x: (proxy.size.width / 2) - 24, y: (proxy.size.height / 2) - 24)
+                    }
                     .padding(24)
 
-                Group {
-                    brewStageView()
-                        .shadow(color: .black.opacity(0.2), radius: 16)
-                        .onTapGesture {
-                            viewModel.primaryAction()
-                        }
-                        .position(x: (proxy.size.width / 2) - 24, y: (proxy.size.height / 2) - 24)
-                }
-                .padding(24)
-
-                if let info = viewModel.selectedRecipe?.recipeProfile.brewMethod.info, !info.body.isEmpty {
-                    VStack {
-                        HStack {
+                    if let info = viewModel.selectedRecipe?.recipeProfile.brewMethod.info, !info.body.isEmpty {
+                        VStack {
+                            HStack {
+                                Spacer()
+                                InfoButton(infoModel: info)
+                            }
                             Spacer()
-                            InfoButton(infoModel: info)
                         }
-                        Spacer()
+                        .padding()
+                        .padding(.horizontal)
+                        .foregroundColor(Color("foregroundPrimary"))
                     }
-                    .padding()
-                    .padding(.horizontal)
-                    .foregroundColor(Color("foregroundPrimary"))
                 }
+                .backgroundPrimary()
             }
-            .backgroundPrimary()
         }
     }
 
