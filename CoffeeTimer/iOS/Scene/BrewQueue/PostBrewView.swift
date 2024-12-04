@@ -52,19 +52,21 @@ final class PostBrewViewModel: BuyMeACoffeeViewModel {
 }
 
 struct PostBrewView: View {
-    let viewModel = PostBrewViewModel()
-
+    var confirm: () -> Void
     var dismiss: () -> Void
 
     var body: some View {
         BuyMeACoffeeView(
-            viewModel: PostBrewViewModel(),
-            confirm: { },
-            dismiss: { }
+            viewModel:  PostBrewViewModel(),
+            confirm: confirm,
+            dismiss: dismiss
         )
     }
 }
 
 #Preview {
-    PostBrewView { }
+    PostBrewView(
+        confirm: { },
+        dismiss: { }
+    )
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StageHeader {
     var lightTitle: String? = nil
-    let title: String
+    var title: String? = nil
     var subtext: String? = nil
     
     static var welcomeNotReady: StageHeader {
@@ -34,11 +34,13 @@ struct StageHeaderView: View {
                     .font(.title3)
             }
 
-            Text(header.title)
-                .foregroundColor(foregroundColor)
-                .font(.title)
-                .minimumScaleFactor(0.5)
-            
+            if let title = header.title {
+                Text(title)
+                    .foregroundColor(foregroundColor)
+                    .font(.title)
+                    .minimumScaleFactor(0.5)
+            }
+
             if let subtext = header.subtext {
                 Text(subtext)
                     .foregroundColor(foregroundColor)

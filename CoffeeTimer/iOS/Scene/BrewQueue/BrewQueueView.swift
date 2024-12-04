@@ -257,7 +257,10 @@ struct BrewQueueView: View {
 
     var body: some View {
         if viewModel.isPresentingPostBrew {
-            PostBrewView(dismiss: viewModel.dismissEndScreen)
+            PostBrewView(
+                confirm: viewModel.dismissEndScreen, // TODO: missing confirm
+                dismiss: viewModel.dismissEndScreen
+            )
         } else {
             GeometryReader { proxy in
                 ZStack {

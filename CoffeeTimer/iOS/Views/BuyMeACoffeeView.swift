@@ -38,6 +38,7 @@ struct BuyMeACoffeeView<Model: BuyMeACoffeeViewModel>: View {
                 dismiss()
             } label: {
                 Text("Buy Me a Coffee")
+                    .bold()
                     .font(.callout)
                     .padding(12)
                     .foregroundColor(Color("backgroundSecondary"))
