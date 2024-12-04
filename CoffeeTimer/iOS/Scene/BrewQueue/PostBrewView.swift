@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class PostBrewViewModel {
+final class PostBrewViewModel: BuyMeACoffeeViewModel {
     private let titles = [
         "Enjoy your brew!",
         "Brew-tiful job!",
@@ -57,56 +57,11 @@ struct PostBrewView: View {
     var dismiss: () -> Void
 
     var body: some View {
-        VStack {
-            Spacer()
-
-            StageHeaderView(
-                header: viewModel.header,
-                foregroundColor: Color("backgroundPrimary")
-            )
-
-            AnimationView(dotLottieFilename: viewModel.animation)
-
-            Text(viewModel.cta)
-                .frame(maxWidth: .infinity)
-                .multilineTextAlignment(.center)
-                .font(.callout)
-
-            Button {
-                dismiss()
-            } label: {
-                Text("Buy Me a Coffee")
-                    .font(.callout)
-                    .padding(12)
-                    .foregroundColor(Color("backgroundSecondary"))
-                    .background(
-                        RoundedRectangle(cornerRadius: 24)
-                            .fill(Color("backgroundPrimary"))
-                    )
-            }
-            .padding(.bottom, 20)
-
-            Button {
-                dismiss()
-            } label: {
-                Text("Skip")
-                    .font(.callout)
-                    .padding(12)
-                    .padding(.horizontal)
-                    .overlay {
-                        Capsule()
-                            .stroke(Color("backgroundPrimary"), lineWidth: 2)
-                    }
-            }
-
-            Spacer()
-        }
-        .padding()
-        .foregroundColor(Color("backgroundPrimary"))
-        .background {
-            Color("backgroundSecondary")
-                .ignoresSafeArea()
-        }
+        BuyMeACoffeeView(
+            viewModel: PostBrewViewModel(),
+            confirm: { },
+            dismiss: { }
+        )
     }
 }
 

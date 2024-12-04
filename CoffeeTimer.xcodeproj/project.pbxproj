@@ -116,6 +116,7 @@
 		F23A6E242CFFB5F100AB94C4 /* post-brew-1.lottie in Resources */ = {isa = PBXBuildFile; fileRef = F23A6E232CFFB5F100AB94C4 /* post-brew-1.lottie */; };
 		F23A6E262CFFBE8F00AB94C4 /* post-brew-2.lottie in Resources */ = {isa = PBXBuildFile; fileRef = F23A6E252CFFBE8F00AB94C4 /* post-brew-2.lottie */; };
 		F23A6E282CFFBF2400AB94C4 /* post-brew-3.lottie in Resources */ = {isa = PBXBuildFile; fileRef = F23A6E272CFFBF2400AB94C4 /* post-brew-3.lottie */; };
+		F270D9EC2D00CC0100466D54 /* BuyMeACoffeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F270D9EB2D00CC0100466D54 /* BuyMeACoffeeView.swift */; };
 		F275237A2CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27523792CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift */; };
 		F27B2D692CF28D2100B425E9 /* IngredientAmountTypeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */; };
 		F2AFA14E2CF7B61800984AE2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2AFA14D2CF7B61800984AE2 /* GoogleService-Info.plist */; };
@@ -261,6 +262,7 @@
 		F23A6E232CFFB5F100AB94C4 /* post-brew-1.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = "post-brew-1.lottie"; sourceTree = "<group>"; };
 		F23A6E252CFFBE8F00AB94C4 /* post-brew-2.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = "post-brew-2.lottie"; sourceTree = "<group>"; };
 		F23A6E272CFFBF2400AB94C4 /* post-brew-3.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = "post-brew-3.lottie"; sourceTree = "<group>"; };
+		F270D9EB2D00CC0100466D54 /* BuyMeACoffeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyMeACoffeeView.swift; sourceTree = "<group>"; };
 		F27523792CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveBrewMethodUseCase.swift; sourceTree = "<group>"; };
 		F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientAmountTypeItem.swift; sourceTree = "<group>"; };
 		F2AFA14D2CF7B61800984AE2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -330,15 +332,16 @@
 			isa = PBXGroup;
 			children = (
 				CABD23992C4EEB82005C599F /* Items */,
-				CA17289329EB4B9F000F867B /* NumericTextField.swift */,
 				CAF42CE029EC90CA004D7788 /* AlphanumericTextField.swift */,
-				CA7790922A06DB5300BEA142 /* TitledContent.swift */,
-				F222D3AE2CFB8CBC00AD7AF4 /* InfoButton.swift */,
-				CA7D9E2C2C4BEB7600908159 /* TitledPicker.swift */,
-				CA7D9E302C4C066800908159 /* Separator.swift */,
-				F2D5AB812CF66FCF004AE191 /* PagerView.swift */,
-				F222D3B02CFBAA4000AD7AF4 /* InfoView.swift */,
 				F2CCBBFB2CFE75610085C590 /* AnimationView.swift */,
+				F270D9EB2D00CC0100466D54 /* BuyMeACoffeeView.swift */,
+				F222D3AE2CFB8CBC00AD7AF4 /* InfoButton.swift */,
+				F222D3B02CFBAA4000AD7AF4 /* InfoView.swift */,
+				CA17289329EB4B9F000F867B /* NumericTextField.swift */,
+				F2D5AB812CF66FCF004AE191 /* PagerView.swift */,
+				CA7D9E302C4C066800908159 /* Separator.swift */,
+				CA7790922A06DB5300BEA142 /* TitledContent.swift */,
+				CA7D9E2C2C4BEB7600908159 /* TitledPicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1073,6 +1076,7 @@
 				CA8C9AEE2C0B5081000A71AC /* RecipeInstructionsRepository.swift in Sources */,
 				CAF42CF529EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift in Sources */,
 				CAF42CF129EC98E4004D7788 /* RecipeRepositoryImp.swift in Sources */,
+				F270D9EC2D00CC0100466D54 /* BuyMeACoffeeView.swift in Sources */,
 				CA7790932A06DB5300BEA142 /* TitledContent.swift in Sources */,
 				CABD239D2C4EEBAB005C599F /* IngredientTypeItem.swift in Sources */,
 				CA852F252BD5552D00FEF144 /* RecipeInstructions.swift in Sources */,
