@@ -71,6 +71,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
     @Published var currentStageViewModel: any BrewStageViewModel = BrewStageConstantViewModel(text: "")
     @Published var isPresentingPostBrew: Bool = false
+    @Published var isPresentingGiftView: Bool = false
 
     // TODO: Unify VMs for a single source
     var currentStageTimerViewModel: BrewStageTimerViewModel? {
@@ -247,7 +248,21 @@ final class BrewQueueViewModel: ObservableObject, Completable {
         didComplete.send(self)
     }
 
-    func dismissEndScreen() {
+    func confirmGiftCoffee() {
+        // TODO: missing confirm
+        isPresentingGiftView = false
+    }
+
+    func dismissGiftCoffee() {
+        isPresentingGiftView = false
+    }
+
+    func confirmPostBrew() {
+        // TODO: missing confirm
+        isPresentingPostBrew = false
+    }
+
+    func dismissPostBrew() {
         isPresentingPostBrew = false
     }
 }
@@ -257,16 +272,23 @@ struct BrewQueueView: View {
 
     var body: some View {
         if viewModel.isPresentingPostBrew {
+            postBrew
         } else {
             queueContent
+                .popover(isPresented: $viewModel.isPresentingGiftView) {
+                    GiftCoffeeView(
+                        confirm: viewModel.confirmGiftCoffee,
+                        dismiss: viewModel.dismissGiftCoffee
+                    )
+                }
         }
     }
 
     @ViewBuilder
     private var postBrew: some View {
         PostBrewView(
-            confirm: viewModel.dismissEndScreen, // TODO: missing confirm
-            dismiss: viewModel.dismissEndScreen
+            confirm: viewModel.confirmPostBrew,
+            dismiss: viewModel.dismissPostBrew
         )
     }
 
@@ -287,20 +309,33 @@ struct BrewQueueView: View {
                 }
                 .padding(24)
 
-                if let info = viewModel.selectedRecipe?.recipeProfile.brewMethod.info, !info.body.isEmpty {
-                    VStack {
-                        HStack {
-                            Spacer()
+                VStack {
+                    HStack {
+                        giftButton
+                        Spacer()
+
+                        if let info = viewModel.selectedRecipe?.recipeProfile.brewMethod.info,
+                            !info.body.isEmpty {
                             InfoButton(infoModel: info)
                         }
-                        Spacer()
                     }
-                    .padding()
-                    .padding(.horizontal)
-                    .foregroundColor(Color("foregroundPrimary"))
+                    Spacer()
                 }
+                .padding()
+                .padding(.horizontal)
+                .foregroundColor(Color("foregroundPrimary"))
+
             }
             .backgroundPrimary()
+        }
+    }
+
+    @ViewBuilder
+    private var giftButton: some View {
+        Button {
+            viewModel.isPresentingGiftView = true
+        } label: {
+            Image(systemName: "gift")
         }
     }
 

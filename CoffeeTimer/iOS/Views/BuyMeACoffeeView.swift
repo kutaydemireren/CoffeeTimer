@@ -40,7 +40,7 @@ struct BuyMeACoffeeView<Model: BuyMeACoffeeViewModel>: View {
                 Text("Buy Me a Coffee")
                     .bold()
                     .font(.callout)
-                    .padding(12)
+                    .padding()
                     .foregroundColor(Color("backgroundSecondary"))
                     .background(
                         RoundedRectangle(cornerRadius: 24)
@@ -52,10 +52,9 @@ struct BuyMeACoffeeView<Model: BuyMeACoffeeViewModel>: View {
             Button {
                 dismiss()
             } label: {
-                Text("Skip")
+                Text("Maybe next time!")
                     .font(.callout)
                     .padding(12)
-                    .padding(.horizontal)
                     .overlay {
                         Capsule()
                             .stroke(Color("backgroundPrimary"), lineWidth: 2)
@@ -75,7 +74,7 @@ struct BuyMeACoffeeView<Model: BuyMeACoffeeViewModel>: View {
 
 private class BuyMeACoffeePreviewViewModel: BuyMeACoffeeViewModel {
     let header: StageHeader = .init(title: "The Big Title", subtext: "Some other text in smaller fonts")
-    let cta: String = "Some text supporting the CTA"
+    let cta: String = "Yet another text supporting the CTA"
     let animation: String = "post-brew-1"
 }
 

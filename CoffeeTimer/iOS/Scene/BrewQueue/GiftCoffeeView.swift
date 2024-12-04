@@ -1,5 +1,5 @@
 //
-//  BrewGiftView.swift
+//  GiftCoffeeView.swift
 //  CoffeeTimer
 //
 //  Created by Kutay Demireren on 04/12/2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class BrewGiftViewModel: BuyMeACoffeeViewModel {
+final class GiftCoffeeViewModel: BuyMeACoffeeViewModel {
     private let subtitles = [
         "Love CoffeeTimer? Let me know by sharing a cup!",
         "Enjoyed using CoffeeTimer?",
@@ -31,13 +31,13 @@ final class BrewGiftViewModel: BuyMeACoffeeViewModel {
     }
 }
 
-struct BrewGiftView: View {
+struct GiftCoffeeView: View {
     var confirm: () -> Void
     var dismiss: () -> Void
 
     var body: some View {
         BuyMeACoffeeView(
-            viewModel: BrewGiftViewModel(),
+            viewModel: GiftCoffeeViewModel(),
             confirm: confirm,
             dismiss: dismiss
         )
@@ -45,7 +45,7 @@ struct BrewGiftView: View {
 }
 
 #Preview {
-    BrewGiftView(
+    GiftCoffeeView(
         confirm: { },
         dismiss: { }
     )
