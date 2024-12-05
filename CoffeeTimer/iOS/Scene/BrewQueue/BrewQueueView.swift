@@ -8,6 +8,17 @@
 import SwiftUI
 import Combine
 
+// TODO: move
+
+protocol URLOpener {
+    @discardableResult
+    func open(_ url: URL, options: [UIApplication.OpenExternalURLOptionsKey : Any]) async -> Bool
+}
+
+extension UIApplication: URLOpener { }
+
+//
+
 extension Array where Element == Ingredient {
     func toRepresentableString(joining separator: String) -> String {
         return map { "\($0.toRepresentableString)" }.joined(separator: separator)
@@ -125,13 +136,16 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
     private var recipeRepository: RecipeRepository
     private var hapticGenerator: HapticGenerator
+    private var urlOpener: URLOpener
 
     init(
         recipeRepository: RecipeRepository = RecipeRepositoryImp.shared, // TODO: use case - no repo in vm!
-        hapticGenerator: HapticGenerator = HapticGeneratorImp()
+        hapticGenerator: HapticGenerator = HapticGeneratorImp(),
+        urlOpener: URLOpener = UIApplication.shared
     ) {
         self.recipeRepository = recipeRepository
         self.hapticGenerator = hapticGenerator
+        self.urlOpener = urlOpener
 
         loadInitialStage()
     }
@@ -249,8 +263,8 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     }
 
     func confirmGiftCoffee() {
-        // TODO: missing confirm
         isPresentingGiftView = false
+        redirectToBMC()
     }
 
     func dismissGiftCoffee() {
@@ -258,8 +272,15 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     }
 
     func confirmPostBrew() {
-        // TODO: missing confirm
         isPresentingPostBrew = false
+        redirectToBMC()
+    }
+
+    private func redirectToBMC() {
+        Task {
+            guard let url = URL(string: "https://buymeacoffee.com/coffeetimer") else { return }
+            await urlOpener.open(url, options: [:])
+        }
     }
 
     func dismissPostBrew() {
