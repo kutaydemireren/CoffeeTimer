@@ -22,14 +22,14 @@ struct BrewMethodView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
 
             VStack(spacing: 0) {
-                Text(brewMethod.title)
-                    .multilineTextAlignment(.center)
-                    .font(.title3)
-
                 Image(brewMethod.iconName)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(maxWidth: 80, maxHeight: 80)
+
+                Text(brewMethod.title)
+                    .multilineTextAlignment(.center)
+                    .font(.title3)
             }
 
             VStack {
@@ -139,9 +139,9 @@ struct CreateRecipeBrewMethodSelection: View {
 struct CreateRecipeBrewMethodSelection_Previews: PreviewProvider {
     private static var methodsSmall: [BrewMethod] {
         [
-            .preview(title: "V60"),
-            .preview(title: "V60 Single"),
-            .preview(title: "V60 Iced"),
+            .preview(title: "V60", info: .init(title: "title", body: "body")),
+            .preview(title: "V60 Single", info: .init(title: "title", body: "body")),
+            .preview(title: "V60 Iced", info: .init(title: "title", body: "body")),
             .preview(title: "French Press"),
             .preview(title: "Chemex"),
             .preview(title: "Aeropress"),
@@ -152,9 +152,9 @@ struct CreateRecipeBrewMethodSelection_Previews: PreviewProvider {
 
     private static var methodsLarge: [BrewMethod] {
         [
-            .preview(title: "V60"),
-            .preview(title: "V60 Single"),
-            .preview(title: "V60 Iced"),
+            .preview(title: "V60", info: .init(title: "title", body: "body")),
+            .preview(title: "V60 Single", info: .init(title: "title", body: "body")),
+            .preview(title: "V60 Iced", info: .init(title: "title", body: "body")),
             .preview(title: "French Press"),
             .preview(title: "Chemex"),
             .preview(title: "Aeropress"),
@@ -192,7 +192,7 @@ struct CreateRecipeBrewMethodSelection_Previews: PreviewProvider {
 
 // TODO: move to preview content
 extension BrewMethod {
-    static func preview(title: String) -> Self {
+    static func preview(title: String, info: InfoModel = .empty) -> Self {
         return .init(
             id: UUID().uuidString,
             iconName: ["recipe-profile-v60", "recipe-profile-chemex", "recipe-profile-aeropress", "recipe-profile-french-press"].randomElement()!,
@@ -201,7 +201,7 @@ extension BrewMethod {
             isIcedBrew: false,
             cupsCount: .unlimited,
             ratios: [],
-            info: .empty
+            info: info
         )
     }
 
