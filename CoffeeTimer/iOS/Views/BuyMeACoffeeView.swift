@@ -35,7 +35,7 @@ struct BuyMeACoffeeView<Model: BuyMeACoffeeViewModel>: View {
                 .font(.callout)
 
             Button {
-                dismiss()
+                confirm()
             } label: {
                 Text("Buy Me a Coffee")
                     .bold()

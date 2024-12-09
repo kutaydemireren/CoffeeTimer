@@ -11,6 +11,7 @@ import Combine
 // TODO: move
 
 protocol URLOpener {
+    @MainActor
     @discardableResult
     func open(_ url: URL, options: [UIApplication.OpenExternalURLOptionsKey : Any]) async -> Bool
 }
@@ -169,11 +170,13 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     }
 
     private func resetQueue() {
+        UIApplication.shared.isIdleTimerDisabled = false
         isActive = false
         currentStageIndex = 0
     }
 
     private func beginQueue() {
+        UIApplication.shared.isIdleTimerDisabled = true
         isActive = true
         currentStageIndex = 0
     }
