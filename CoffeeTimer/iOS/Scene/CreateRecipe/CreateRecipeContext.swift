@@ -18,5 +18,6 @@ final class CreateRecipeContext: ObservableObject {
     }
     @Published var recipeProfile: RecipeProfile = .empty
     @Published var cupsCount: Double = 0.0
+    @Published var cupSize: Double = 250.0
     @Published var ratio: CoffeeToWaterRatio?
 }

@@ -11,6 +11,7 @@ extension BrewMethodDTO {
     static var v60Single: Self {
         return BrewMethodDTO(
             id: "v60-single",
+            icon: "v60-single",
             title: "V60 Single",
             path: "/v60-single",
             isIcedBrew: false,
@@ -20,13 +21,14 @@ extension BrewMethodDTO {
                 .ratio18,
                 .ratio20
             ],
-            infoModel: .init(title: "v60 single title", body: "v60 single body")
+            info: .init(title: "v60 single title", source: "v60 single src", body: "v60 single body", animation: "v60 single anim")
         )
     }
 
     static var v60Iced: Self {
         return BrewMethodDTO(
             id: "v60-iced",
+            icon: "v60-iced",
             title: "V60 Iced",
             path: "/v60-iced",
             isIcedBrew: true,
@@ -36,13 +38,14 @@ extension BrewMethodDTO {
                 .ratio17,
                 .ratio18
             ],
-            infoModel: .init(title: "v60 iced title", body: "v60 iced body")
+            info: .init(title: "v60 iced title", source: "v60 iced src", body: "v60 iced body", animation: "v60 iced anim")
         )
     }
 
     static func frenchPress(cupsCount: CupsCountDTO) -> Self {
         return BrewMethodDTO(
             id: "french-press",
+            icon: "french-press",
             title: "French Press",
             path: "/french-press",
             isIcedBrew: false,
@@ -52,7 +55,7 @@ extension BrewMethodDTO {
                 .ratio18,
                 .ratio20
             ],
-            infoModel: .init(title: "french-press title", body: "french-press body")
+            info: .init(title: "french press title", source: "french press src", body: "french press body", animation: "french press anim")
         )
     }
 }

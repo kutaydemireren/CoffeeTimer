@@ -44,13 +44,14 @@ final class CreateContextToInputMapperImpTests: XCTestCase {
         }
     }
 
-    func test_map_when1Cup_shouldReturn250MLWater() throws {
+    func test_map_when1CupWithCupSizeOf300_shouldReturn300mlWater() throws {
         let context = createValidContext()
         context.cupsCount = 1
+        context.cupSize = 300
 
         let resultedInput = try sut.map(context: context)
 
-        XCTAssertEqual(resultedInput.water, .init(amount: 250, type: .millilitre))
+        XCTAssertEqual(resultedInput.water, .init(amount: 300, type: .millilitre))
         XCTAssertEqual(resultedInput.ice, nil)
     }
 

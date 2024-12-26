@@ -30,6 +30,10 @@ final class MockBrewMethodRepository: BrewMethodRepository {
             throw _error
         }
     }
+
+    func remove(brewMethod: BrewMethod) async throws {
+        fatalError("Not implemented")
+    }
 }
 
 //

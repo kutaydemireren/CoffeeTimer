@@ -17,7 +17,6 @@ protocol CreateContextToInputMapper {
 }
 
 struct CreateContextToInputMapperImp: CreateContextToInputMapper {
-    private let waterAmountPerCup = IngredientAmount(amount: 250, type: .millilitre)
     private let iceToWaterRatio = 0.4
 
     func map(context: CreateRecipeContext) throws -> CreateRecipeInput {
@@ -29,7 +28,7 @@ struct CreateContextToInputMapperImp: CreateContextToInputMapper {
             throw CreateRecipeMapperError.missingRatio
         }
 
-        var waterAmount = calculateWaterAmount(forCupsCount: Int(context.cupsCount))
+        var waterAmount = calculateWaterAmount(forCupsCount: Int(context.cupsCount), withCupSize: context.cupSize)
 
         var iceAmount: IngredientAmount?
         if context.selectedBrewMethod?.isIcedBrew == true {
@@ -46,10 +45,10 @@ struct CreateContextToInputMapperImp: CreateContextToInputMapper {
         )
     }
 
-    private func calculateWaterAmount(forCupsCount cupsCount: Int) -> IngredientAmount {
+    private func calculateWaterAmount(forCupsCount cupsCount: Int, withCupSize cupSize: Double) -> IngredientAmount {
         return IngredientAmount(
-            amount: waterAmountPerCup.amount * UInt(cupsCount),
-            type: waterAmountPerCup.type
+            amount: UInt(cupSize * Double(cupsCount)),
+            type: .millilitre
         )
     }
 
