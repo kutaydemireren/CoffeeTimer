@@ -152,6 +152,7 @@ struct CreateRecipeView: View {
                 ZStack {
                     CreateRecipeCoffeeWaterSelection(
                         cupsCountAmount: $context.cupsCount,
+                        cupSizeAmount: $context.cupSize,
                         selectedRatio: $context.ratio,
                         allRatios: $viewModel.allRatios
                     )

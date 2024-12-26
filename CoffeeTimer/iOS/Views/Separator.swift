@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// TODO: can be completely replaced with Divider 
 struct Separator: View {
     var body: some View {
         Rectangle()

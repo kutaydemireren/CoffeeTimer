@@ -10,6 +10,7 @@ import SwiftUI
 struct CreateRecipeCoffeeWaterSelection: View {
     
     @Binding var cupsCountAmount: Double
+    @Binding var cupSizeAmount: Double
     @Binding var selectedRatio: CoffeeToWaterRatio?
     @Binding var allRatios: [CoffeeToWaterRatio]
     
@@ -19,11 +20,13 @@ struct CreateRecipeCoffeeWaterSelection: View {
         VStack {
             
             cupsCountField
-            
+
+            cupSizeField
+
             Separator()
                 .padding(.vertical)
 
-            picker
+            ratioPicker
             
             Spacer()
         }
@@ -44,13 +47,22 @@ struct CreateRecipeCoffeeWaterSelection: View {
             input: $cupsCountAmount
         )
     }
-    
-    private var picker: some View {
+
+    private var cupSizeField: some View {
+        NumericTextField(
+            title: "What is the size of each cup?",
+            placeholder: "200",
+            keyboardType: .number,
+            input: $cupSizeAmount
+        )
+    }
+
+    private var ratioPicker: some View {
         TitledPicker(
             selectedItem: $selectedRatio,
             allItems: $allRatios,
             title: "How strong would you like?",
-            placeholder: "Choose preferred ratio"
+            placeholder: "Choose a preferred ratio"
         )
     }
 }
@@ -59,6 +71,7 @@ struct CreateRecipeCoffeeWaterSelection_Previews: PreviewProvider {
     static var previews: some View {
         CreateRecipeCoffeeWaterSelection(
             cupsCountAmount: .constant(2.0),
+            cupSizeAmount: .constant(200.0),
             selectedRatio: .constant(.ratio18),
             allRatios: .constant([.ratio16, .ratio17, .ratio18, .ratio20])
         )
