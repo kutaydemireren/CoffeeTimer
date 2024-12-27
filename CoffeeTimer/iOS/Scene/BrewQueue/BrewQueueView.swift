@@ -84,6 +84,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     @Published var currentStageViewModel: any BrewStageViewModel = BrewStageConstantViewModel(text: "")
     @Published var isPresentingPostBrew: Bool = false
     @Published var isPresentingGiftView: Bool = false
+    @Published var isButtonAnimating = false
 
     // TODO: Unify VMs for a single source
     var currentStageTimerViewModel: BrewStageTimerViewModel? {
@@ -124,7 +125,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     }
 
     private var title: String {
-        selectedRecipe != nil ? "Begin" : "Select a recipe"
+        selectedRecipe != nil ? "Begin" : "No recipe selected.\nCreate a new one below"
     }
 
     private var subtextIfExists: String? {
@@ -152,6 +153,19 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     }
 
     func primaryAction() {
+        guard selectedRecipe != nil else {
+            if #available(iOS 17.0, *) {
+                withAnimation {
+                    isButtonAnimating = true
+                } completion: { [weak self] in
+                    self?.isButtonAnimating = false
+                }
+            } else {
+                // Fallback on earlier versions
+            }
+            return
+        }
+
         if canProceedToNextStep {
             nextStage()
         } else {
@@ -333,7 +347,9 @@ struct BrewQueueView: View {
 
                 VStack {
                     HStack {
-                        giftButton
+                        if !viewModel.isActive {
+                            giftButton
+                        }
                         Spacer()
 
                         if let info = viewModel.selectedRecipe?.recipeProfile.brewMethod.info,
@@ -378,20 +394,25 @@ struct BrewQueueView: View {
 
     @ViewBuilder
     private func actionButton() -> some View {
-
-        if !viewModel.isActive {
-            HStack {
-                recipesButton
+            if !viewModel.isActive {
+                HStack {
+                    recipesButton
+                        .padding()
+                        .scaleEffect(viewModel.isButtonAnimating ? 1.1 : 1)
+                        .animation(
+                            Animation.default.repeatCount(1, autoreverses: true),
+                            value: viewModel.isButtonAnimating
+                        )
+                }
+            } else {
+                HStack {
+                    endButton
+                    Spacer()
+                    skipButton
+                    Spacer()
+                    Spacer()
+                }
             }
-        } else {
-            HStack {
-                endButton
-                Spacer()
-                skipButton
-                Spacer()
-                Spacer()
-            }
-        }
     }
 
     @ViewBuilder
@@ -402,7 +423,7 @@ struct BrewQueueView: View {
             if let selectedRecipe = viewModel.selectedRecipe {
                 RecipeProfileView(alignment: .center, recipeProfile: selectedRecipe.recipeProfile)
             } else {
-                Text("Create Recipe")
+                Text("Create a New Recipe")
                     .bold()
                     .font(.title3)
             }
@@ -439,6 +460,7 @@ struct BrewQueueView: View {
             BrewStageView(viewModel: currentStageTimerViewModel)
         } else if let currentStageConstantViewModel = viewModel.currentStageConstantViewModel {
             BrewStageView(viewModel: currentStageConstantViewModel)
+                .opacity(viewModel.selectedRecipe == nil ? 0.5 : 1.0)
         } else {
             EmptyView()
         }
@@ -448,5 +470,17 @@ struct BrewQueueView: View {
 struct BrewQueueView_Previews: PreviewProvider {
     static var previews: some View {
         BrewQueueView(viewModel: .init())
+            .previewDisplayName("Selected")
+
+        BrewQueueView(
+            viewModel: .init(
+                recipeRepository: RecipeRepositoryImp(
+                    storage: StorageImp(
+                        userDefaults: .init(suiteName: "brew-queue-preview-test")!
+                    )
+                )
+            )
+        )
+        .previewDisplayName("Not Selected")
     }
 }

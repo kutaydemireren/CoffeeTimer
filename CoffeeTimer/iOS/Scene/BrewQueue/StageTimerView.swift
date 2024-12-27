@@ -103,6 +103,7 @@ struct BrewStageView<ViewModel>: View where ViewModel: BrewStageViewModel {
                         .foregroundColor(.init("backgroundSecondary"))
                 }
             }
+            .padding()
             .multilineTextAlignment(.center)
         }
     }
@@ -115,6 +116,7 @@ struct BrewStageView_Previews: PreviewProvider {
             BrewStageView(viewModel: BrewStageTimerViewModel(timeIntervalLeft: 10, countdownTimer: CountdownTimerImp(timeLeft: 5)))
             Spacer()
         }
+        .padding()
         .backgroundPrimary()
     }
 }
