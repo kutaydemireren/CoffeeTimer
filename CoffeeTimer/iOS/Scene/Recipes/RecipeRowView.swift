@@ -30,6 +30,7 @@ struct RecipeProfileView: View {
     }
 }
 
+#if DEBUG
 struct RecipeProfileView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
@@ -38,6 +39,7 @@ struct RecipeProfileView_Previews: PreviewProvider {
         .background(Color.orange)
     }
 }
+#endif
 
 struct RecipeRowView: View {
     let recipe: Recipe
@@ -59,6 +61,7 @@ struct RecipeRowView: View {
     }
 }
 
+#if DEBUG
 struct RecipeRowView_Previews: PreviewProvider {
     static var previews: some View {
         List {
@@ -70,3 +73,4 @@ struct RecipeRowView_Previews: PreviewProvider {
         }
     }
 }
+#endif

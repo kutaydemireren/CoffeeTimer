@@ -31,9 +31,9 @@ struct RecipeInstructionActionView: View {
                 details: "",
                 ingredient: .coffee,
                 mainFactor: 0,
-                mainFactorOf: .totalCoffee,
+                mainFactorOf: .init(keyword: "#total.coffee", title: "Total Coffee"),
                 adjustmentFactor: 0,
-                adjustmentFactorOf: .totalCoffee
+                adjustmentFactorOf: .init(keyword: "#total.coffee", title: "Total Coffee")
             ))
         ].filter {
             item.wrappedValue.action.title != $0.title
@@ -79,6 +79,8 @@ struct RecipeInstructionActionView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     RecipeInstructionActionView(item: .constant(.stubPut))
 }
+#endif

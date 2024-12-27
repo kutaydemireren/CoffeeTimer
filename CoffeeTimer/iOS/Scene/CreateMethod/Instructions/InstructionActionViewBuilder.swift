@@ -353,6 +353,7 @@ final class InstructionActionViewBuilder {
     }
 }
 
+#if DEBUG
 #Preview {
     InstructionActionViewBuilder()
         .with(ingredient: .constant(.coffee))
@@ -366,3 +367,4 @@ final class InstructionActionViewBuilder {
 #Preview {
     RecipeInstructionActionView(item: .constant(.stubPut))
 }
+#endif

@@ -14,25 +14,6 @@ extension String {
     }
 }
 
-extension Array where Element == RecipeInstructionActionItem {
-    static var stub: Self {
-        [
-            .init(action: .put(.stub)),
-            .init(action: .pause(.stub)),
-            .init(action: .message(.stub)),
-            .init(action: .put(.stub)),
-            .init(action: .put(.stub)),
-            .init(action: .pause(.stub)),
-            .init(action: .message(.stub)),
-            .init(action: .put(.stub)),
-            .init(action: .put(.stub)),
-            .init(action: .pause(.stub)),
-            .init(action: .message(.stub)),
-            .init(action: .put(.stub)),
-        ]
-    }
-}
-
 //
 
 struct RecipeInstructionActionItemRowView: View {
@@ -171,6 +152,7 @@ struct CreateMethodInstructionsView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     previewWithContext
 }
@@ -182,3 +164,4 @@ fileprivate var previewWithContext: some View {
         .backgroundPrimary()
         .environmentObject(context)
 }
+#endif

@@ -108,6 +108,7 @@ struct CreateMethodView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     CreateMethodView(
         viewModel: CreateMethodViewModel(),
@@ -122,3 +123,4 @@ fileprivate func stubContext() -> CreateBrewMethodContext {
     context.instructions = .stub
     return context
 }
+#endif
