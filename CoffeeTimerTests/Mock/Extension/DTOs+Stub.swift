@@ -11,7 +11,7 @@ extension BrewMethodDTO {
     static var v60Single: Self {
         return BrewMethodDTO(
             id: "v60-single",
-            icon: "v60-single",
+            icon: "recipe-profile-v60",
             title: "V60 Single",
             path: "/v60-single",
             isIcedBrew: false,
@@ -28,7 +28,7 @@ extension BrewMethodDTO {
     static var v60Iced: Self {
         return BrewMethodDTO(
             id: "v60-iced",
-            icon: "v60-iced",
+            icon: "recipe-profile-v60",
             title: "V60 Iced",
             path: "/v60-iced",
             isIcedBrew: true,
@@ -45,7 +45,7 @@ extension BrewMethodDTO {
     static func frenchPress(cupsCount: CupsCountDTO) -> Self {
         return BrewMethodDTO(
             id: "french-press",
-            icon: "french-press",
+            icon: "recipe-profile-french-press",
             title: "French Press",
             path: "/french-press",
             isIcedBrew: false,

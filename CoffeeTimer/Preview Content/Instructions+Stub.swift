@@ -50,6 +50,10 @@ extension KeywordItem {
         return .init(keyword: "#total.coffee", title: "Total Coffee")
     }
 
+    static var currentCoffee: Self {
+        return .init(keyword: "#current.coffee", title: "Current Coffee")
+    }
+
     static var totalWater: Self {
         return .init(keyword: "#total.water", title: "Total Water")
     }

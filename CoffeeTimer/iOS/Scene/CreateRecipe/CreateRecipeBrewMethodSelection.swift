@@ -218,7 +218,7 @@ extension BrewMethod {
                 .ratio18,
                 .ratio20
             ],
-            info: .init(title: "v60 single title", body: "v60 single body", animation: "chemex")
+            info: .init(title: "v60 single title", source: "v60 single src", body: "v60 single body", animation: "v60 single anim")
         )
     }
 
@@ -235,7 +235,7 @@ extension BrewMethod {
                 .ratio17,
                 .ratio18
             ],
-            info: .init(title: "v60 iced title", body: "v60 iced body")
+            info: .init(title: "v60 iced title", source: "v60 iced src", body: "v60 iced body", animation: "v60 iced anim")
         )
     }
 
@@ -252,7 +252,7 @@ extension BrewMethod {
                 .ratio18,
                 .ratio20
             ],
-            info: .init(title: "french-press title", body: "french-press body")
+            info: .init(title: "french press title", source: "french press src", body: "french press body", animation: "french press anim")
         )
     }
 }

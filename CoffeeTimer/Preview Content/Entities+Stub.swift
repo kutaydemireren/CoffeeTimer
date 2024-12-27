@@ -55,8 +55,7 @@ extension Array where Element == Ingredient {
     static var stubSingleV60: [Ingredient] {
         return [
             Ingredient(ingredientType: .coffee, amount: .init(amount: 15, type: .gram)),
-            Ingredient(ingredientType: .water, amount: .init(amount: 1000, type: .millilitre)),
-            Ingredient(ingredientType: .ice, amount: .init(amount: 200, type: .gram))
+            Ingredient(ingredientType: .water, amount: .init(amount: 1000, type: .millilitre))
         ]
     }
 
