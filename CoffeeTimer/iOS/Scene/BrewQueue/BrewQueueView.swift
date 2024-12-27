@@ -159,11 +159,9 @@ final class BrewQueueViewModel: ObservableObject, Completable {
         }
     }
 
-    #if DEBUG
     func skipAction() {
         nextStage()
     }
-    #endif
 
     func endAction() {
         resetQueue()
@@ -389,11 +387,9 @@ struct BrewQueueView: View {
             HStack {
                 endButton
                 Spacer()
-                #if DEBUG
                 skipButton
                 Spacer()
                 Spacer()
-                #endif
             }
         }
     }
@@ -417,7 +413,6 @@ struct BrewQueueView: View {
         .shadow(color: .blue.opacity(0.2), radius: 8, x: -2, y: -2)
     }
 
-    #if DEBUG
     private var skipButton: some View {
         Button {
             viewModel.skipAction()
@@ -427,7 +422,6 @@ struct BrewQueueView: View {
         .padding()
         .foregroundColor(Color("foregroundPrimary").opacity(0.8))
     }
-    #endif
 
     private var endButton: some View {
         Button {
