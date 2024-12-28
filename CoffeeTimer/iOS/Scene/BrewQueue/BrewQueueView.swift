@@ -128,7 +128,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
         selectedRecipe != nil ? "Begin" : "No recipe selected"
     }
 
-    private var subtextIfExists: String? {
+    private var subtext: String? {
         guard let selectedRecipe = selectedRecipe else {
             return "Create a new one below"
         }
@@ -154,14 +154,10 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
     func primaryAction() {
         guard selectedRecipe != nil else {
-            if #available(iOS 17.0, *) {
-                withAnimation {
-                    isButtonAnimating = true
-                } completion: { [weak self] in
-                    self?.isButtonAnimating = false
-                }
-            } else {
-                // Fallback on earlier versions
+            withAnimation {
+                isButtonAnimating = true
+            } completion: { [weak self] in
+                self?.isButtonAnimating = false
             }
             return
         }
@@ -221,7 +217,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     private func loadInitialStage() {
         stageHeader = selectedRecipe != nil ? .welcomeReady : .welcomeNotReady
 
-        currentStageViewModel = BrewStageConstantViewModel(text: title, subtext: subtextIfExists)
+        currentStageViewModel = BrewStageConstantViewModel(text: title, subtext: subtext)
         canProceedToNextStep = true
     }
 

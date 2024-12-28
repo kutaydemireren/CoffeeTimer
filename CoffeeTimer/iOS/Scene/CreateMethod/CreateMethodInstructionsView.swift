@@ -115,35 +115,30 @@ struct CreateMethodInstructionsView: View {
     @ViewBuilder
     private var content: some View {
         ScrollViewReader { proxy in
-            if #available(iOS 17.0, *) {
-                VStack {
-                    List {
-                        ForEach($context.instructions) { instruction in
-                            RecipeInstructionActionItemRowView(item: instruction.wrappedValue)
-                                .onTapGesture {
-                                    didSelect?(instruction.wrappedValue)
-                                }
-                                .id(instruction.id)
-                        }
-                        .onDelete { viewModel.removeInstruction(at: $0, context: context) }
-                        .onMove { viewModel.moveInstruction(from: $0, to: $1, context: context) }
+            VStack {
+                List {
+                    ForEach($context.instructions) { instruction in
+                        RecipeInstructionActionItemRowView(item: instruction.wrappedValue)
+                            .onTapGesture {
+                                didSelect?(instruction.wrappedValue)
+                            }
+                            .id(instruction.id)
                     }
-                    .listStyle(.plain)
-                    .listRowSpacing(12)
-                    .scrollIndicators(.hidden)
-                    .scrollContentBackground(.hidden)
+                    .onDelete { viewModel.removeInstruction(at: $0, context: context) }
+                    .onMove { viewModel.moveInstruction(from: $0, to: $1, context: context) }
                 }
-                .onChange(of: $context.instructions.map { $0.id }) { oldValue, newValue in
-                    guard newValue.count > oldValue.count else { return }
-                    withAnimation {
-                        proxy.scrollTo(newValue.last)
-                    }
-                }
-                .padding(.horizontal)
-            } else {
-                // It is in the plan to upgrade to 17.
-                // Can simply remain without any fallback.
+                .listStyle(.plain)
+                .listRowSpacing(12)
+                .scrollIndicators(.hidden)
+                .scrollContentBackground(.hidden)
             }
+            .onChange(of: $context.instructions.map { $0.id }) { oldValue, newValue in
+                guard newValue.count > oldValue.count else { return }
+                withAnimation {
+                    proxy.scrollTo(newValue.last)
+                }
+            }
+            .padding(.horizontal)
         }
     }
 
