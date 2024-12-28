@@ -125,12 +125,12 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     }
 
     private var title: String {
-        selectedRecipe != nil ? "Begin" : "No recipe selected.\nCreate a new one below"
+        selectedRecipe != nil ? "Begin" : "No recipe selected"
     }
 
     private var subtextIfExists: String? {
         guard let selectedRecipe = selectedRecipe else {
-            return nil
+            return "Create a new one below"
         }
 
         return selectedRecipe.ingredients.toRepresentableString(joining: "\n")

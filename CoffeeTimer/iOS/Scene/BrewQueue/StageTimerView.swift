@@ -18,11 +18,13 @@ protocol BrewStageViewModel: ObservableObject {
     var text: String { get }
     var subtext: String? { get }
     var progress: Double { get }
+    var isPaused: Bool { get }
 }
 
 final class BrewStageConstantViewModel: BrewStageViewModel {
     @Published var text: String
     @Published var subtext: String?
+    let isPaused = false
     let progress = 1.0
 
     init(text: String, subtext: String? = nil) {
@@ -34,6 +36,7 @@ final class BrewStageConstantViewModel: BrewStageViewModel {
 final class BrewStageTimerViewModel: BrewStageViewModel {
     @Published var text: String = ""
     @Published var subtext: String? = nil
+    @Published var isPaused = false
     @Published var progress: Double = 0.0
     @Published private(set) var timeIntervalLeft: TimeInterval {
         didSet {
@@ -64,14 +67,16 @@ final class BrewStageTimerViewModel: BrewStageViewModel {
 
     func startOrStop() {
         if countdownTimer.isRunning {
-            countdownTimer.stop()
+            stop()
         } else {
             try? countdownTimer.start()
+            isPaused = false
         }
     }
 
     func stop() {
         countdownTimer.stop()
+        isPaused = true
     }
 }
 
@@ -93,16 +98,30 @@ struct BrewStageView<ViewModel>: View where ViewModel: BrewStageViewModel {
         }
         .rotationEffect(.degrees(-90))
         .overlay {
-            VStack {
-                Text(viewModel.text)
-                    .font(.largeTitle)
-                    .foregroundColor(.init("backgroundSecondary"))
-                if let subtext = viewModel.subtext {
-                    Text(subtext)
-                        .font(.body)
-                        .foregroundColor(.init("backgroundSecondary"))
+            ZStack {
+                VStack {
+                    Text(viewModel.text)
+                        .font(.largeTitle)
+                    if let subtext = viewModel.subtext {
+                        Text(subtext)
+                            .font(.body)
+                    }
+                }
+                VStack {
+                    Spacer()
+                    if viewModel.isPaused {
+                        Image(systemName: "play.circle")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .opacity(0.8)
+                            .padding()
+                    } else {
+                        Spacer()
+                            .frame(width: 40, height: 40)
+                    }
                 }
             }
+            .foregroundColor(.init("backgroundSecondary"))
             .padding()
             .multilineTextAlignment(.center)
         }
