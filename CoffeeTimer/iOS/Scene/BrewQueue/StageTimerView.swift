@@ -82,6 +82,7 @@ final class BrewStageTimerViewModel: BrewStageViewModel {
 
 struct BrewStageView<ViewModel>: View where ViewModel: BrewStageViewModel {
     @ObservedObject var viewModel: ViewModel
+    @State private var isAnimating = false
 
     var body: some View {
 
@@ -113,11 +114,16 @@ struct BrewStageView<ViewModel>: View where ViewModel: BrewStageViewModel {
                         Image(systemName: "play.circle")
                             .resizable()
                             .frame(width: 40, height: 40)
-                            .opacity(0.8)
+                            .scaleEffect(isAnimating ? 1.1 : 1)
+                            .opacity(isAnimating ? 0.4 : 0.8)
                             .padding()
-                    } else {
-                        Spacer()
-                            .frame(width: 40, height: 40)
+                            .animation(
+                                Animation.linear(duration: 1.7).repeatForever(),
+                                value: isAnimating
+                            )
+                            .onAppear {
+                                isAnimating = true
+                            }
                     }
                 }
             }
@@ -126,6 +132,7 @@ struct BrewStageView<ViewModel>: View where ViewModel: BrewStageViewModel {
             .multilineTextAlignment(.center)
         }
     }
+    
 }
 
 struct BrewStageView_Previews: PreviewProvider {
