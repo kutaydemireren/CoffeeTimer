@@ -118,11 +118,17 @@ struct BrewStageView<ViewModel>: View where ViewModel: BrewStageViewModel {
                             .opacity(isAnimating ? 0.4 : 0.8)
                             .padding()
                             .animation(
-                                Animation.linear(duration: 1.7).repeatForever(),
+                                Animation
+                                    .easeInOut(duration: 1.5)
+                                    .delay(0.5)
+                                    .repeatForever(),
                                 value: isAnimating
                             )
                             .onAppear {
                                 isAnimating = true
+                            }
+                            .onDisappear {
+                                isAnimating = false
                             }
                     }
                 }
