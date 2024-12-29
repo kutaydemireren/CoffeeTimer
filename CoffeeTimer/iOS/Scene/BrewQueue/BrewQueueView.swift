@@ -253,6 +253,8 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
         if currentStage.startMethod == .auto {
             currentStageTimerViewModel?.startOrStop()
+        } else {
+            currentStageTimerViewModel?.stop()
         }
 
         canProceedToNextStep = currentStage.requirement == .none
