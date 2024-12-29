@@ -35,6 +35,8 @@ final class CountdownTimerImp: CountdownTimer {
     }
     @Published private(set) var timeLeft: TimeInterval
 
+    private var endTime: Date?
+
     init(timeLeft: TimeInterval) {
         self.timeLeft = timeLeft
     }
@@ -44,13 +46,12 @@ final class CountdownTimerImp: CountdownTimer {
     }
 
     func start() throws {
-
         guard !isRunning else { throw CountdownTimerError.alreadyRunning }
         guard canStart() else { return }
 
+        endTime = Date().addingTimeInterval(timeLeft)
         let timer = Timer(timeInterval: stepInterval, target: self, selector: #selector(timerDidFire), userInfo: nil, repeats: true)
         RunLoop.current.add(timer, forMode: .common)
-
         self.timer = timer
     }
 
@@ -59,10 +60,14 @@ final class CountdownTimerImp: CountdownTimer {
     }
 
     @objc private func timerDidFire() {
+        guard let endTime else {
+            stop()
+            return
+        }
 
-        let newTimeLeft = timeLeft - stepInterval
+        let newTimeLeft = max(0, endTime.timeIntervalSinceNow)
 
-        if newTimeLeft < 0 {
+        if newTimeLeft == 0 {
             stop()
         }
 
@@ -72,5 +77,6 @@ final class CountdownTimerImp: CountdownTimer {
     func stop() {
         timer?.invalidate()
         timer = nil
+        endTime = nil
     }
 }

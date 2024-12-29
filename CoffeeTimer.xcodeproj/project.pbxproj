@@ -141,13 +141,6 @@
 			remoteGlobalIDString = CA367D2D29A2B0370095B1B8;
 			remoteInfo = CoffeeTimer;
 		};
-		CA367D4929A2B0380095B1B8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CA367D2629A2B0370095B1B8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CA367D2D29A2B0370095B1B8;
-			remoteInfo = CoffeeTimer;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -178,7 +171,6 @@
 		CA367D3529A2B0380095B1B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CA367D3829A2B0380095B1B8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CA367D3E29A2B0380095B1B8 /* CoffeeTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoffeeTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CA367D4829A2B0380095B1B8 /* CoffeeTimerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoffeeTimerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA3CA4AE2A1AA20B00C76E28 /* RecipeMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeMapper.swift; sourceTree = "<group>"; };
 		CA3CA4B02A1AA22600C76E28 /* RecipeMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeMapperTests.swift; sourceTree = "<group>"; };
 		CA4758DE2A0C2D440022BC7D /* RecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesView.swift; sourceTree = "<group>"; };
@@ -289,13 +281,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		CA367D3B29A2B0380095B1B8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CA367D4529A2B0380095B1B8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -425,7 +410,6 @@
 			children = (
 				CA367D2E29A2B0370095B1B8 /* CoffeeTimer.app */,
 				CA367D3E29A2B0380095B1B8 /* CoffeeTimerTests.xctest */,
-				CA367D4829A2B0380095B1B8 /* CoffeeTimerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -905,24 +889,6 @@
 			productReference = CA367D3E29A2B0380095B1B8 /* CoffeeTimerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		CA367D4729A2B0380095B1B8 /* CoffeeTimerUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CA367D5829A2B0380095B1B8 /* Build configuration list for PBXNativeTarget "CoffeeTimerUITests" */;
-			buildPhases = (
-				CA367D4429A2B0380095B1B8 /* Sources */,
-				CA367D4529A2B0380095B1B8 /* Frameworks */,
-				CA367D4629A2B0380095B1B8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CA367D4A29A2B0380095B1B8 /* PBXTargetDependency */,
-			);
-			name = CoffeeTimerUITests;
-			productName = CoffeeTimerUITests;
-			productReference = CA367D4829A2B0380095B1B8 /* CoffeeTimerUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -937,10 +903,6 @@
 						CreatedOnToolsVersion = 14.0.1;
 					};
 					CA367D3D29A2B0380095B1B8 = {
-						CreatedOnToolsVersion = 14.0.1;
-						TestTargetID = CA367D2D29A2B0370095B1B8;
-					};
-					CA367D4729A2B0380095B1B8 = {
 						CreatedOnToolsVersion = 14.0.1;
 						TestTargetID = CA367D2D29A2B0370095B1B8;
 					};
@@ -965,7 +927,6 @@
 			targets = (
 				CA367D2D29A2B0370095B1B8 /* CoffeeTimer */,
 				CA367D3D29A2B0380095B1B8 /* CoffeeTimerTests */,
-				CA367D4729A2B0380095B1B8 /* CoffeeTimerUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -997,13 +958,6 @@
 			files = (
 				CAC59D882C47137900301A43 /* mini_iced_instructions.json in Resources */,
 				CA8B41B32C0CAC9800C0DA86 /* mini_instructions.json in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CA367D4629A2B0380095B1B8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1130,13 +1084,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CA367D4429A2B0380095B1B8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1144,11 +1091,6 @@
 			isa = PBXTargetDependency;
 			target = CA367D2D29A2B0370095B1B8 /* CoffeeTimer */;
 			targetProxy = CA367D3F29A2B0380095B1B8 /* PBXContainerItemProxy */;
-		};
-		CA367D4A29A2B0380095B1B8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CA367D2D29A2B0370095B1B8 /* CoffeeTimer */;
-			targetProxy = CA367D4929A2B0380095B1B8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1338,7 +1280,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 39M62N4WS5;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kutaydemireren.CoffeeTimerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1358,7 +1300,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4VYX3TZ9R9;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kutaydemireren.CoffeeTimerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1366,42 +1308,6 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CoffeeTimer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CoffeeTimer";
-			};
-			name = Release;
-		};
-		CA367D5929A2B0380095B1B8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4VYX3TZ9R9;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kutaydemireren.CoffeeTimerUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = CoffeeTimer;
-			};
-			name = Debug;
-		};
-		CA367D5A29A2B0380095B1B8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4VYX3TZ9R9;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kutaydemireren.CoffeeTimerUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = CoffeeTimer;
 			};
 			name = Release;
 		};
@@ -1431,15 +1337,6 @@
 			buildConfigurations = (
 				CA367D5629A2B0380095B1B8 /* Debug */,
 				CA367D5729A2B0380095B1B8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CA367D5829A2B0380095B1B8 /* Build configuration list for PBXNativeTarget "CoffeeTimerUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CA367D5929A2B0380095B1B8 /* Debug */,
-				CA367D5A29A2B0380095B1B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
