@@ -18,9 +18,9 @@ struct InfoButton: View {
         } label: {
             Image(systemName: "info.circle")
         }
-        .sheet(isPresented: $isInfoPresented, content: {
+        .sheet(isPresented: $isInfoPresented) {
             InfoView(model: infoModel)
-                .presentationDetents([.medium])
-        })
+                .presentationDetents(UIDevice.current.userInterfaceIdiom == .pad ? [] : [.medium])
+        }
     }
 }

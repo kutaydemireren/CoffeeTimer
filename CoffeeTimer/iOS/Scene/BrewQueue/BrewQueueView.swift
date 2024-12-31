@@ -309,7 +309,7 @@ struct BrewQueueView: View {
             postBrew
         } else {
             queueContent
-                .popover(isPresented: $viewModel.isPresentingGiftView) {
+                .sheet(isPresented: $viewModel.isPresentingGiftView) {
                     GiftCoffeeView(
                         confirm: viewModel.confirmGiftCoffee,
                         dismiss: viewModel.dismissGiftCoffee
