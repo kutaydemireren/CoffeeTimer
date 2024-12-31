@@ -365,8 +365,8 @@ struct BrewQueueView: View {
                 }
                 Spacer()
             }
-            .padding(.vertical, 24)
-            .padding(.horizontal, 48)
+            .padding(.top, 24)
+            .padding(.horizontal, 32)
             .foregroundColor(Color("foregroundPrimary"))
         }
         .backgroundPrimary()
