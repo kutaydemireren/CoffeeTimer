@@ -329,21 +329,12 @@ struct BrewQueueView: View {
     @ViewBuilder
     private var queueContent: some View {
         ZStack {
-            GeometryReader { proxy in
-                brewStageView()
-                    .position(x: (proxy.size.width / 2) - 24, y: (proxy.size.height / 2) - 24)
-                    .frame(height: 3 * (proxy.size.height / 5))
-                    .shadow(color: .black.opacity(0.2), radius: 16)
-                    .onTapGesture {
-                        viewModel.primaryAction()
-                    }
-                    .padding(24)
-            }
+            brewStageContainer
 
             VStack {
                 StageHeaderView(header: viewModel.stageHeader)
                 Spacer()
-                actionButton()
+                actionButton
                     .padding()
             }
             .padding(24)
@@ -370,16 +361,33 @@ struct BrewQueueView: View {
     }
 
     @ViewBuilder
-    private var giftButton: some View {
-        Button {
-            viewModel.isPresentingGiftView = true
-        } label: {
-            Image(systemName: "gift")
+    private var brewStageContainer: some View {
+        GeometryReader { proxy in
+            brewStageView
+                .opacity(viewModel.selectedRecipe == nil ? 0.5 : 1.0)
+                .position(x: (proxy.size.width / 2) - 24, y: (proxy.size.height / 2) - 24)
+                .frame(height: 3 * (proxy.size.height / 5))
+                .shadow(color: .black.opacity(0.2), radius: 16)
+                .onTapGesture {
+                    viewModel.primaryAction()
+                }
+                .padding(24)
         }
     }
 
     @ViewBuilder
-    private func actionButton() -> some View {
+    private var brewStageView: some View {
+        if let currentStageTimerViewModel = viewModel.currentStageTimerViewModel {
+            BrewStageView(viewModel: currentStageTimerViewModel)
+        } else if let currentStageConstantViewModel = viewModel.currentStageConstantViewModel {
+            BrewStageView(viewModel: currentStageConstantViewModel)
+        } else {
+            EmptyView()
+        }
+    }
+
+    @ViewBuilder
+    private var actionButton: some View {
         if !viewModel.isActive {
             HStack {
                 recipesButton
@@ -440,14 +448,11 @@ struct BrewQueueView: View {
     }
 
     @ViewBuilder
-    private func brewStageView() -> some View {
-        if let currentStageTimerViewModel = viewModel.currentStageTimerViewModel {
-            BrewStageView(viewModel: currentStageTimerViewModel)
-        } else if let currentStageConstantViewModel = viewModel.currentStageConstantViewModel {
-            BrewStageView(viewModel: currentStageConstantViewModel)
-                .opacity(viewModel.selectedRecipe == nil ? 0.5 : 1.0)
-        } else {
-            EmptyView()
+    private var giftButton: some View {
+        Button {
+            viewModel.isPresentingGiftView = true
+        } label: {
+            Image(systemName: "gift")
         }
     }
 }
