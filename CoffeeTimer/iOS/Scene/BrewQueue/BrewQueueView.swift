@@ -328,42 +328,48 @@ struct BrewQueueView: View {
 
     @ViewBuilder
     private var queueContent: some View {
-        GeometryReader { proxy in
-            ZStack {
-                backgroundView
+        ZStack {
+            GeometryReader { proxy in
+                brewStageView()
+                    .position(x: (proxy.size.width / 2) - 24, y: (proxy.size.height / 2) - 24)
+                    .frame(height: 3 * (proxy.size.height / 5))
+                    .shadow(color: .black.opacity(0.2), radius: 16)
+                    .onTapGesture {
+                        viewModel.primaryAction()
+                    }
                     .padding(24)
+            }
 
-                Group {
-                    brewStageView()
-                        .shadow(color: .black.opacity(0.2), radius: 16)
-                        .onTapGesture {
-                            viewModel.primaryAction()
-                        }
-                        .position(x: (proxy.size.width / 2) - 24, y: (proxy.size.height / 2) - 24)
-                }
-                .padding(24)
-
+            HStack {
+                Spacer()
                 VStack {
-                    HStack {
-                        if !viewModel.isActive {
-                            giftButton
-                        }
-                        Spacer()
+                    StageHeaderView(header: viewModel.stageHeader)
+                    Spacer()
+                    actionButton()
+                }
+                Spacer()
+            }
+            .padding(24)
 
-                        if let info = viewModel.selectedRecipe?.recipeProfile.brewMethod.info,
-                            !info.body.isEmpty {
-                            InfoButton(infoModel: info)
-                        }
+            VStack {
+                HStack {
+                    if !viewModel.isActive {
+                        giftButton
                     }
                     Spacer()
-                }
-                .padding()
-                .padding(.horizontal)
-                .foregroundColor(Color("foregroundPrimary"))
 
+                    if let info = viewModel.selectedRecipe?.recipeProfile.brewMethod.info,
+                       !info.body.isEmpty {
+                        InfoButton(infoModel: info)
+                    }
+                }
+                Spacer()
             }
-            .backgroundPrimary()
+            .padding(.vertical, 24)
+            .padding(.horizontal, 48)
+            .foregroundColor(Color("foregroundPrimary"))
         }
+        .backgroundPrimary()
     }
 
     @ViewBuilder
