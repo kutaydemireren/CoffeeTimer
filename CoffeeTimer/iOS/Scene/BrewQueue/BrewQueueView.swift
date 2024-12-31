@@ -340,14 +340,11 @@ struct BrewQueueView: View {
                     .padding(24)
             }
 
-            HStack {
+            VStack {
+                StageHeaderView(header: viewModel.stageHeader)
                 Spacer()
-                VStack {
-                    StageHeaderView(header: viewModel.stageHeader)
-                    Spacer()
-                    actionButton()
-                }
-                Spacer()
+                actionButton()
+                    .padding()
             }
             .padding(24)
 
@@ -382,41 +379,25 @@ struct BrewQueueView: View {
     }
 
     @ViewBuilder
-    private var backgroundView: some View {
-        HStack {
-            Spacer()
-
-            VStack {
-                StageHeaderView(header: viewModel.stageHeader)
-                Spacer()
-                actionButton()
-            }
-
-            Spacer()
-        }
-    }
-
-    @ViewBuilder
     private func actionButton() -> some View {
-            if !viewModel.isActive {
-                HStack {
-                    recipesButton
-                        .padding()
-                        .scaleEffect(viewModel.isButtonAnimating ? 1.1 : 1)
-                        .animation(
-                            Animation.default.repeatCount(1, autoreverses: true),
-                            value: viewModel.isButtonAnimating
-                        )
-                }
-            } else {
+        if !viewModel.isActive {
+            HStack {
+                recipesButton
+                    .scaleEffect(viewModel.isButtonAnimating ? 1.1 : 1)
+                    .animation(
+                        Animation.default.repeatCount(1, autoreverses: true),
+                        value: viewModel.isButtonAnimating
+                    )
+            }
+        } else {
+            ZStack {
                 HStack {
                     endButton
                     Spacer()
-                    skipButton
-                    Spacer()
-                    Spacer()
                 }
+                skipButton
             }
+        }
     }
 
     @ViewBuilder
