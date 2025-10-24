@@ -396,6 +396,7 @@ struct BrewQueueView: View {
                         Animation.default.repeatCount(1, autoreverses: true),
                         value: viewModel.isButtonAnimating
                     )
+                editButton
             }
         } else {
             ZStack {
@@ -406,6 +407,19 @@ struct BrewQueueView: View {
                 skipButton
             }
         }
+    }
+
+    @ViewBuilder
+    private var editButton: some View {
+        Button {
+            debugPrint("Display Edit Water Coffee Amount")
+        } label: {
+            Image(systemName: "pencil")
+        }
+        .padding(12)
+        .foregroundColor(Color("foregroundPrimary"))
+        .backgroundSecondary()
+        .shadow(color: .blue.opacity(0.2), radius: 8, x: -2, y: -2)
     }
 
     @ViewBuilder
@@ -427,6 +441,7 @@ struct BrewQueueView: View {
         .shadow(color: .blue.opacity(0.2), radius: 8, x: -2, y: -2)
     }
 
+    @ViewBuilder
     private var skipButton: some View {
         Button {
             viewModel.skipAction()
@@ -437,6 +452,7 @@ struct BrewQueueView: View {
         .foregroundColor(Color("foregroundPrimary").opacity(0.8))
     }
 
+    @ViewBuilder
     private var endButton: some View {
         Button {
             viewModel.endAction()
@@ -460,7 +476,7 @@ struct BrewQueueView: View {
 struct BrewQueueView_Previews: PreviewProvider {
     static var previews: some View {
         BrewQueueView(viewModel: .init())
-            .previewDisplayName("Selected")
+            .previewDisplayName("Persistent")
 
         BrewQueueView(
             viewModel: .init(

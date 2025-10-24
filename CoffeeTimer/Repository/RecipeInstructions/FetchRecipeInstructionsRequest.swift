@@ -17,6 +17,7 @@ struct FetchRecipeInstructionsRequest: Request {
 #endif
 
     init(brewMethod: BrewMethod) {
-        path = brewMethod.path
+        path = "/kutaydemireren/CoffeeTimer/refs/heads/main/data/v0/brew-instructions/\(brewMethod.id).json"
+//        path = brewMethod.path
     }
 }
