@@ -84,6 +84,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     @Published var currentStageViewModel: any BrewStageViewModel = BrewStageConstantViewModel(text: "")
     @Published var isPresentingPostBrew: Bool = false
     @Published var isPresentingGiftView: Bool = false
+    @Published var isPresentingEditAmounts: Bool = false
     @Published var isButtonAnimating = false
 
     // TODO: Unify VMs for a single source
@@ -221,6 +222,22 @@ final class BrewQueueViewModel: ObservableObject, Completable {
         canProceedToNextStep = true
     }
 
+    // MARK: Edit Amounts
+    func showEditAmounts() {
+        guard selectedRecipe != nil else { return }
+        isPresentingEditAmounts = true
+    }
+
+    func dismissEditAmounts() {
+        isPresentingEditAmounts = false
+    }
+
+    func didSaveEditedAmounts() {
+        // Reload header and stage view after repository update
+        loadInitialStage()
+        isPresentingEditAmounts = false
+    }
+
     private func loadStage() {
         guard let currentStage = currentStage else {
             return
@@ -314,6 +331,14 @@ struct BrewQueueView: View {
                         confirm: viewModel.confirmGiftCoffee,
                         dismiss: viewModel.dismissGiftCoffee
                     )
+                }
+                .sheet(isPresented: $viewModel.isPresentingEditAmounts) {
+                    if let recipe = viewModel.selectedRecipe {
+                        EditRecipeAmountsView(
+                            recipe: recipe,
+                            onSaved: { viewModel.didSaveEditedAmounts() }
+                        )
+                    }
                 }
         }
     }
@@ -412,7 +437,7 @@ struct BrewQueueView: View {
     @ViewBuilder
     private var editButton: some View {
         Button {
-            debugPrint("Display Edit Water Coffee Amount")
+            viewModel.showEditAmounts()
         } label: {
             Image(systemName: "pencil")
         }
