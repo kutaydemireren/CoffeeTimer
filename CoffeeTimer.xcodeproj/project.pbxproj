@@ -106,8 +106,9 @@
 		CAF42CF329EC9906004D7788 /* RecipeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CF229EC9906004D7788 /* RecipeRepository.swift */; };
 		CAF42CF529EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CF429EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift */; };
 		CAFCF54B2A6F0A1700875CB7 /* HapticGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */; };
-		F208EF262EABD137005B87DE /* EditRecipeAmountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F208EF252EABD137005B87DE /* EditRecipeAmountsViewModel.swift */; };
-		F208EF272EABD137005B87DE /* EditRecipeAmountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F208EF242EABD137005B87DE /* EditRecipeAmountsView.swift */; };
+		F208EF292EAE644C005B87DE /* EditRecipeFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F208EF282EAE644C005B87DE /* EditRecipeFlowView.swift */; };
+		F208EF2D2EAE6549005B87DE /* EditRecipeAmountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F208EF2B2EAE6549005B87DE /* EditRecipeAmountsViewModel.swift */; };
+		F208EF2E2EAE6549005B87DE /* EditRecipeAmountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F208EF2A2EAE6549005B87DE /* EditRecipeAmountsView.swift */; };
 		F222D3AF2CFB8CBC00AD7AF4 /* InfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D3AE2CFB8CBC00AD7AF4 /* InfoButton.swift */; };
 		F222D3B12CFBAA4000AD7AF4 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D3B02CFBAA4000AD7AF4 /* InfoView.swift */; };
 		F22E68CE2CF38D2E00EE80FA /* CreateBrewMethodContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22E68CD2CF38D2E00EE80FA /* CreateBrewMethodContext.swift */; };
@@ -247,8 +248,9 @@
 		CAF42CF229EC9906004D7788 /* RecipeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRepository.swift; sourceTree = "<group>"; };
 		CAF42CF429EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeBrewMethodSelection.swift; sourceTree = "<group>"; };
 		CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticGenerator.swift; sourceTree = "<group>"; };
-		F208EF242EABD137005B87DE /* EditRecipeAmountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecipeAmountsView.swift; sourceTree = "<group>"; };
-		F208EF252EABD137005B87DE /* EditRecipeAmountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecipeAmountsViewModel.swift; sourceTree = "<group>"; };
+		F208EF282EAE644C005B87DE /* EditRecipeFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecipeFlowView.swift; sourceTree = "<group>"; };
+		F208EF2A2EAE6549005B87DE /* EditRecipeAmountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecipeAmountsView.swift; sourceTree = "<group>"; };
+		F208EF2B2EAE6549005B87DE /* EditRecipeAmountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecipeAmountsViewModel.swift; sourceTree = "<group>"; };
 		F222D3AE2CFB8CBC00AD7AF4 /* InfoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoButton.swift; sourceTree = "<group>"; };
 		F222D3B02CFBAA4000AD7AF4 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		F22E68CD2CF38D2E00EE80FA /* CreateBrewMethodContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBrewMethodContext.swift; sourceTree = "<group>"; };
@@ -569,6 +571,7 @@
 				CAF42CE929EC9821004D7788 /* BrewQueue */,
 				CA7D9E292C4BE45B00908159 /* CreateMethod */,
 				CAF42CEA29EC9842004D7788 /* CreateRecipe */,
+				F208EF2C2EAE6549005B87DE /* EditRecipe */,
 				CA91CEF429E5FA7D00E9F5D1 /* Flow */,
 				CA4758DB2A0C2CF20022BC7D /* Recipes */,
 			);
@@ -645,6 +648,7 @@
 		CA91CEF429E5FA7D00E9F5D1 /* Flow */ = {
 			isa = PBXGroup;
 			children = (
+				F208EF282EAE644C005B87DE /* EditRecipeFlowView.swift */,
 				CA91CEF629E5FA9100E9F5D1 /* AppFlowView.swift */,
 				CAF42CE229EC9524004D7788 /* CreateRecipeFlowView.swift */,
 				CA4758E32A0C3C5C0022BC7D /* RecipesFlowView.swift */,
@@ -788,8 +792,6 @@
 		CAF42CE929EC9821004D7788 /* BrewQueue */ = {
 			isa = PBXGroup;
 			children = (
-				F208EF242EABD137005B87DE /* EditRecipeAmountsView.swift */,
-				F208EF252EABD137005B87DE /* EditRecipeAmountsViewModel.swift */,
 				CA7B804A29BFABBB007D3DFC /* StageTimerView.swift */,
 				CA7B804C29BFBD8C007D3DFC /* BrewQueueView.swift */,
 				F23A6E212CFFB14800AB94C4 /* PostBrewView.swift */,
@@ -847,6 +849,15 @@
 				CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		F208EF2C2EAE6549005B87DE /* EditRecipe */ = {
+			isa = PBXGroup;
+			children = (
+				F208EF2A2EAE6549005B87DE /* EditRecipeAmountsView.swift */,
+				F208EF2B2EAE6549005B87DE /* EditRecipeAmountsViewModel.swift */,
+			);
+			path = EditRecipe;
 			sourceTree = "<group>";
 		};
 		F2DB5FBC2CF3BAEB000D67ED /* Items */ = {
@@ -980,10 +991,9 @@
 				CA3CA4AF2A1AA20B00C76E28 /* RecipeMapper.swift in Sources */,
 				CA4758DF2A0C2D440022BC7D /* RecipesView.swift in Sources */,
 				CA7D9E312C4C066800908159 /* Separator.swift in Sources */,
-				F208EF262EABD137005B87DE /* EditRecipeAmountsViewModel.swift in Sources */,
-				F208EF272EABD137005B87DE /* EditRecipeAmountsView.swift in Sources */,
 				CA4758E42A0C3C5C0022BC7D /* RecipesFlowView.swift in Sources */,
 				F2CCBBFC2CFE75610085C590 /* AnimationView.swift in Sources */,
+				F208EF292EAE644C005B87DE /* EditRecipeFlowView.swift in Sources */,
 				CAE3944229DE13C0007611F1 /* CreateRecipeView.swift in Sources */,
 				CA8C9AFA2C0B609D000A71AC /* Request.swift in Sources */,
 				CA7D9E332C4C153300908159 /* CreateMethodDetailsView.swift in Sources */,
@@ -996,6 +1006,8 @@
 				F2D5AB822CF66FCF004AE191 /* PagerView.swift in Sources */,
 				CAD226D62C4D82EA00BD6DAD /* RecipeInstructionActionView.swift in Sources */,
 				CAC371EB2C558687004D7659 /* PutActionModel.swift in Sources */,
+				F208EF2D2EAE6549005B87DE /* EditRecipeAmountsViewModel.swift in Sources */,
+				F208EF2E2EAE6549005B87DE /* EditRecipeAmountsView.swift in Sources */,
 				CA5A7D0F2A0EBA7400C7EC04 /* DTOs.swift in Sources */,
 				CABD23912C4EEB12005C599F /* InstructionActionViewBuilder.swift in Sources */,
 				CA8C9AF12C0B50ED000A71AC /* RecipeInstructionsRepositoryImp.swift in Sources */,

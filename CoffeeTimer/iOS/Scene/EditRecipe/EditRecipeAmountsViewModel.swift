@@ -11,7 +11,6 @@ import Combine
 @MainActor
 final class EditRecipeAmountsViewModel: ObservableObject {
     @Published var allRatios: [CoffeeToWaterRatio] = []
-
     @Published var context = CreateRecipeContext()
 
     private let recipeRepository: RecipeRepository
@@ -30,7 +29,6 @@ final class EditRecipeAmountsViewModel: ObservableObject {
         context.selectedBrewMethod = recipe.recipeProfile.brewMethod
         allRatios = recipe.recipeProfile.brewMethod.ratios
 
-        // Derive initial ratio from existing ingredients if possible
         if let water = recipe.ingredients.first(where: { $0.ingredientType == .water })?.amount,
            let coffee = recipe.ingredients.first(where: { $0.ingredientType == .coffee })?.amount,
            coffee.amount > 0 {
@@ -40,7 +38,6 @@ final class EditRecipeAmountsViewModel: ObservableObject {
             context.ratio = allRatios.first
         }
 
-        // Initialize cups and cup size to match current total water (approx.)
         let isIced = recipe.recipeProfile.brewMethod.isIcedBrew
         let waterMl = Double(
             recipe.ingredients
@@ -59,13 +56,10 @@ final class EditRecipeAmountsViewModel: ObservableObject {
     }
 
     func saveChanges() async {
-        guard let _ = await createRecipeFromContextUseCase.create(from: context) else {
+        guard let updatedRecipe = await createRecipeFromContextUseCase.create(from: context) else {
             return
         }
-
-        if let updatedRecipe = await createRecipeFromContextUseCase.create(from: context) {
-            recipeRepository.update(selectedRecipe: updatedRecipe)
-        }
+        recipeRepository.update(selectedRecipe: updatedRecipe)
     }
 
     private func closestRatio(to value: Double, in ratios: [CoffeeToWaterRatio]) -> CoffeeToWaterRatio? {

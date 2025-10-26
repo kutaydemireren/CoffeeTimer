@@ -78,13 +78,13 @@ extension BrewQueue {
 
 final class BrewQueueViewModel: ObservableObject, Completable {
     let didComplete = PassthroughSubject<BrewQueueViewModel, Never>()
+    let didRequestEdit = PassthroughSubject<Recipe, Never>()
 
     var stageHeader = StageHeader.welcomeNotReady
 
     @Published var currentStageViewModel: any BrewStageViewModel = BrewStageConstantViewModel(text: "")
     @Published var isPresentingPostBrew: Bool = false
     @Published var isPresentingGiftView: Bool = false
-    @Published var isPresentingEditAmounts: Bool = false
     @Published var isButtonAnimating = false
 
     // TODO: Unify VMs for a single source
@@ -222,20 +222,13 @@ final class BrewQueueViewModel: ObservableObject, Completable {
         canProceedToNextStep = true
     }
 
-    // MARK: Edit Amounts
-    func showEditAmounts() {
-        guard selectedRecipe != nil else { return }
-        isPresentingEditAmounts = true
-    }
-
-    func dismissEditAmounts() {
-        isPresentingEditAmounts = false
+    func requestEdit() {
+        guard let recipe = selectedRecipe else { return }
+        didRequestEdit.send(recipe)
     }
 
     func didSaveEditedAmounts() {
-        // Reload header and stage view after repository update
         loadInitialStage()
-        isPresentingEditAmounts = false
     }
 
     private func loadStage() {
@@ -331,14 +324,6 @@ struct BrewQueueView: View {
                         confirm: viewModel.confirmGiftCoffee,
                         dismiss: viewModel.dismissGiftCoffee
                     )
-                }
-                .sheet(isPresented: $viewModel.isPresentingEditAmounts) {
-                    if let recipe = viewModel.selectedRecipe {
-                        EditRecipeAmountsView(
-                            recipe: recipe,
-                            onSaved: { viewModel.didSaveEditedAmounts() }
-                        )
-                    }
                 }
         }
     }
@@ -437,7 +422,7 @@ struct BrewQueueView: View {
     @ViewBuilder
     private var editButton: some View {
         Button {
-            viewModel.showEditAmounts()
+            viewModel.requestEdit()
         } label: {
             Image(systemName: "pencil")
         }

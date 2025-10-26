@@ -17,6 +17,7 @@ struct EditRecipeAmountsView: View {
     var body: some View {
         VStack(spacing: 0) {
             header
+                .padding()
 
             CreateRecipeCoffeeWaterSelection(
                 cupsCountAmount: $viewModel.context.cupsCount,
@@ -38,10 +39,10 @@ struct EditRecipeAmountsView: View {
     private var header: some View {
         HStack {
             Text("Edit Amounts")
-                .font(.headline)
+                .font(.title3)
                 .foregroundColor(Color("foregroundPrimary"))
-            Spacer()
         }
+        .frame(maxWidth: .infinity)
         .padding(.horizontal, 24)
         .padding(.top, 16)
         .padding(.bottom, 8)
@@ -80,3 +81,4 @@ struct EditRecipeAmountsView: View {
         .padding(.bottom, 24)
     }
 }
+
