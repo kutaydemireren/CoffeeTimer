@@ -1,7 +1,11 @@
 # CoffeeTimer ☕  
 **Brew consistently great coffee in your own ritual.**
 
-[![Download on the App Store](https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg)](https://apps.apple.com/app/id6739947358)
+<p align="center">
+  <a href="https://apps.apple.com/app/id6739947358">
+    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" width="180"/>
+  </a>
+</p>
 
 ---
 
