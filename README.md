@@ -32,13 +32,12 @@ Brewing coffee is a daily ritual that deserves love and attention. CoffeeTimer l
 2. **Ritual** — Enjoy your process, not just the result.  
 3. **Simplicity** — Keep it minimal, without getting in your way.  
 
----
-
 <p align="center">
   <img src="https://coffeetimer.app/images/begin-brew.png" width="33%" alt="Brew screen">
   <img src="https://coffeetimer.app/images/recipes.png" width="33%" alt="Recipe selection">
   <img src="https://coffeetimer.app/images/personalize-recipe.png" width="33%" alt="Custom recipe editor">
 </p>
+
 ## Support & Contribute
 
 **Support development** — Donations keep this project going. A cup of coffee goes a long way! [Buy Me a Coffee](https://buymeacoffee.com/coffeetimer)  
