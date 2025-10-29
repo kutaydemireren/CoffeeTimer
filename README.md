@@ -1,14 +1,7 @@
 # CoffeeTimer ☕  
 **Brew consistently great coffee in your own ritual.**
 
-<p align="center">
-  <a href="https://apps.apple.com/app/id6739947358" style="display:inline-block; vertical-align:middle; margin-right:12px;">
-    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" height="60"/>
-  </a>
-  <a href="https://buymeacoffee.com/coffeetimer" style="display:inline-block; vertical-align:middle;">
-    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60"/>
-  </a>
-</p>
+[<img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" width="15%">](https://apps.apple.com/app/id6739947358) [<img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" width="18%">]("https://buymeacoffee.com/coffeetimer")
 
 ---
 
