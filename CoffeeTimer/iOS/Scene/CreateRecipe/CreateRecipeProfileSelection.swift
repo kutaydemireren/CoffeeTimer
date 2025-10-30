@@ -36,7 +36,6 @@ struct CreateRecipeProfileSelection: View {
     }
 
     var body: some View {
-
         VStack {
             VStack {
                 AlphanumericTextField(

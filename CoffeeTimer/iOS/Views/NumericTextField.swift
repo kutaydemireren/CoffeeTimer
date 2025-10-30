@@ -55,18 +55,7 @@ struct NumericTextField: View {
                 textField
             }
         }
-        .toolbar {
-            if isFocused {
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
-                    Button("Done") {
-                        hideKeyboard()
-                    }
-                    .bold()
-                    .foregroundColor(Color("backgroundSecondary"))
-                }
-            }
-        }
+        .modifier(KeyboardToolbarModifier(isFocused: isFocused))
     }
 
     @ViewBuilder
@@ -113,6 +102,33 @@ struct NumericTextField: View {
     private func setDisplayText(_ newValue: Double) {
         if Double(displayText) != newValue {
             displayText = newValue == 0 ? "" : "\(newValue)"
+        }
+    }
+}
+
+// Keyboard toolbar modifier that only shows on iOS 25 and below
+private struct KeyboardToolbarModifier: ViewModifier {
+    let isFocused: Bool
+    
+    func body(content: Content) -> some View {
+        if #available(iOS 26, *) {
+            // iOS 26+: Don't show keyboard toolbar to avoid extra space
+            content
+        } else {
+            // iOS 25 and below: Show Done button for number pads
+            content
+                .toolbar {
+                    if isFocused {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Spacer()
+                            Button("Done") {
+                                content.hideKeyboard()
+                            }
+                            .bold()
+                            .foregroundColor(Color("backgroundSecondary"))
+                        }
+                    }
+                }
         }
     }
 }
