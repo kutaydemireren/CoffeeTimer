@@ -24,7 +24,6 @@ extension RecipeProfile {
 }
 
 struct CreateRecipeProfileSelection: View {
-
     @Binding var recipeProfile: RecipeProfile
 
     private var nameWrapper: Binding<String> {
@@ -44,7 +43,6 @@ struct CreateRecipeProfileSelection: View {
                     placeholder: "Majestic Cup"
                 )
                 .multilineTextAlignment(.center)
-                .clearButton(text: nameWrapper)
             }
             Spacer()
         }

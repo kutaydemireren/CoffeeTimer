@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AlphanumericTextField: View {
-
     enum Style {
         case plain
         case titled(String)
@@ -34,7 +33,8 @@ struct AlphanumericTextField: View {
                 }
             }
         }
-        .modifier(KeyboardToolbarModifier(isFocused: isFocused))
+        .keyboardDoneToolbar(isFocused: isFocused)
+        .clearButton(text: $text)
     }
 
     @ViewBuilder
@@ -53,33 +53,6 @@ struct AlphanumericTextField: View {
             if let info {
                 InfoButton(infoModel: info)
             }
-        }
-    }
-}
-
-// Keyboard toolbar modifier that only shows on iOS 25 and below
-private struct KeyboardToolbarModifier: ViewModifier {
-    let isFocused: Bool
-    
-    func body(content: Content) -> some View {
-        if #available(iOS 26, *) {
-            // iOS 26+: Don't show keyboard toolbar to avoid extra space
-            content
-        } else {
-            // iOS 25 and below: Show Done button for keyboards without return key
-            content
-                .toolbar {
-                    if isFocused {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            Spacer()
-                            Button("Done") {
-                                content.hideKeyboard()
-                            }
-                            .bold()
-                            .foregroundColor(Color("backgroundSecondary"))
-                        }
-                    }
-                }
         }
     }
 }

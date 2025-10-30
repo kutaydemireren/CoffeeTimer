@@ -108,6 +108,7 @@
 		CAFCF54B2A6F0A1700875CB7 /* HapticGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */; };
 		F222D3AF2CFB8CBC00AD7AF4 /* InfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D3AE2CFB8CBC00AD7AF4 /* InfoButton.swift */; };
 		F222D3B12CFBAA4000AD7AF4 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D3B02CFBAA4000AD7AF4 /* InfoView.swift */; };
+		F22318F82EB3D33600B83265 /* View+KeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22318F72EB3D33600B83265 /* View+KeyboardToolbar.swift */; };
 		F22E68CE2CF38D2E00EE80FA /* CreateBrewMethodContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22E68CD2CF38D2E00EE80FA /* CreateBrewMethodContext.swift */; };
 		F22E68D12CF38D9A00EE80FA /* CreateBrewMethodUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22E68D02CF38D9A00EE80FA /* CreateBrewMethodUseCaseImpTests.swift */; };
 		F22E68D32CF38DB600EE80FA /* CreateBrewMethodUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22E68D22CF38DB600EE80FA /* CreateBrewMethodUseCase.swift */; };
@@ -247,6 +248,7 @@
 		CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticGenerator.swift; sourceTree = "<group>"; };
 		F222D3AE2CFB8CBC00AD7AF4 /* InfoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoButton.swift; sourceTree = "<group>"; };
 		F222D3B02CFBAA4000AD7AF4 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		F22318F72EB3D33600B83265 /* View+KeyboardToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+KeyboardToolbar.swift"; sourceTree = "<group>"; };
 		F22E68CD2CF38D2E00EE80FA /* CreateBrewMethodContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBrewMethodContext.swift; sourceTree = "<group>"; };
 		F22E68D02CF38D9A00EE80FA /* CreateBrewMethodUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBrewMethodUseCaseImpTests.swift; sourceTree = "<group>"; };
 		F22E68D22CF38DB600EE80FA /* CreateBrewMethodUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBrewMethodUseCase.swift; sourceTree = "<group>"; };
@@ -808,6 +810,7 @@
 		CAF42CEB29EC9867004D7788 /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
+				F22318F72EB3D33600B83265 /* View+KeyboardToolbar.swift */,
 				CAF42CDE29EC907F004D7788 /* View+ClearButton.swift */,
 				CA5CA81829EB662F001E384D /* View+Background.swift */,
 			);
@@ -995,6 +998,7 @@
 				F270D9EE2D00CE2500466D54 /* GiftCoffeeView.swift in Sources */,
 				CA7D9E2F2C4BEB8500908159 /* Titled.swift in Sources */,
 				F233D28D2CF3E52100E357A5 /* RecipeInstructionStepMapper.swift in Sources */,
+				F22318F82EB3D33600B83265 /* View+KeyboardToolbar.swift in Sources */,
 				CA9BDA292A2CFD290068DFF7 /* CreateRecipeInput.swift in Sources */,
 				CA5CA81929EB662F001E384D /* View+Background.swift in Sources */,
 				CA367D3229A2B0370095B1B8 /* CoffeeTimerApp.swift in Sources */,

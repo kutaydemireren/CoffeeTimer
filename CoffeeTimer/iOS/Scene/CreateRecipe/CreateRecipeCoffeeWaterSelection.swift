@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CreateRecipeCoffeeWaterSelection: View {
-    
     @Binding var cupsCountAmount: Double
     @Binding var cupSizeAmount: Double
     @Binding var selectedRatio: CoffeeToWaterRatio?
