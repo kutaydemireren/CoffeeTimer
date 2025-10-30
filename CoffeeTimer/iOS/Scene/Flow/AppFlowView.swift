@@ -41,6 +41,7 @@ final class AppFlowViewModel: ObservableObject {
     func configure() {
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(named: "backgroundSecondary")
         UIPageControl.appearance().pageIndicatorTintColor = UIColor(named: "backgroundSecondary")?.withAlphaComponent(0.3)
+        UIPageControl.appearance().isUserInteractionEnabled = false
     }
 }
 
