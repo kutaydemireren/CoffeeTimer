@@ -53,11 +53,13 @@ struct RecipeRowView: View {
                 .foregroundColor(Color("foregroundSecondary"))
                 .padding(.leading, 4)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-        .padding(.horizontal)
-        .backgroundSecondary(opacity: isSelected ? 0.8 : 0.5)
         .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
+        .listRowBackground(
+            BackgroundSecondary(opacity: isSelected ? 0.8 : 0.5)
+        )
+        .padding(.horizontal)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+        .contentShape(Rectangle())
     }
 }
 
