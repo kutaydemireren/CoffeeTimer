@@ -65,7 +65,10 @@ struct BuyMeACoffeeView<Model: BuyMeACoffeeViewModel>: View {
         }
         .padding()
         .foregroundColor(Color("backgroundPrimary"))
-        .background(BackgroundSecondary(opacity: 1.0).ignoresSafeArea())
+        .background {
+            Color("backgroundSecondary")
+                .ignoresSafeArea()
+        }
     }
 }
 
