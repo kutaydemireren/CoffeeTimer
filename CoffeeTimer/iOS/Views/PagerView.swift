@@ -28,8 +28,7 @@ struct PagerView<Content: View>: View {
             TabView(selection: $selectedPage) {
                 content()
             }
-            .tabViewStyle(.page(indexDisplayMode: .automatic))
-            .ignoresSafeArea()
+            .tabViewStyle(.page)
         }
         .backgroundPrimary()
     }

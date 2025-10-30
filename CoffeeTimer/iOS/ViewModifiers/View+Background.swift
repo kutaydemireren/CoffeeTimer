@@ -8,17 +8,21 @@
 import SwiftUI
 
 struct BackgroundPrimaryViewModifier: ViewModifier {
+    let opacity: Double
+
     func body(content: Content) -> some View {
         content
-            .background(BackgroundPrimary())
+            .background(BackgroundPrimary(opacity: opacity))
     }
 }
 
 struct BackgroundPrimary: View {
+    let opacity: Double
+
     var body: some View {
         Rectangle()
             .fill(
-                Color("backgroundPrimary")
+                Color("backgroundPrimary").opacity(opacity)
             )
             .ignoresSafeArea()
     }
@@ -49,8 +53,8 @@ struct BackgroundSecondary: View {
 }
 
 extension View {
-    func backgroundPrimary() -> some View {
-        modifier(BackgroundPrimaryViewModifier())
+    func backgroundPrimary(opacity: Double = 1.0) -> some View {
+        modifier(BackgroundPrimaryViewModifier(opacity: opacity))
     }
     
     func backgroundSecondary(opacity: Double = 0.8) -> some View {

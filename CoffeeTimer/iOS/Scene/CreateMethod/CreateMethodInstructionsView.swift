@@ -65,11 +65,7 @@ struct CreateMethodInstructionsView: View {
             content
                 .safeAreaInset(edge: .bottom, spacing: 0) {
                     addListActions
-                        .background(
-                            Color("backgroundPrimary")
-                                .ignoresSafeArea()
-                                .opacity(0.9)
-                        )
+                        .backgroundPrimary(opacity: 0.9)
                 }
         }
     }
