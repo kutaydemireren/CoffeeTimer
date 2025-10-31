@@ -48,7 +48,10 @@ struct CreateRecipeProfileSelection: View {
         }
         .padding(.horizontal, 32)
         .contentShape(Rectangle())
-        .hideKeyboardOnTap()
+//        .hideKeyboardOnTap()
+        .onTapGesture {
+            hideKeyboard()
+        }
     }
 }
 

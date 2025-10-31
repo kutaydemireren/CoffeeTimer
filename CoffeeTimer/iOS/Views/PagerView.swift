@@ -31,12 +31,6 @@ struct PagerView<Content: View>: View {
             .tabViewStyle(.page)
         }
         .backgroundPrimary()
-        .onChange(of: selectedPage) { _, _ in
-            Task {
-                try? await Task.sleep(nanoseconds: 350_000_000)
-                hideKeyboard()
-            }
-        }
     }
 
     @ViewBuilder
