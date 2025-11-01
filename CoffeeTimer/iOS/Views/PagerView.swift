@@ -29,6 +29,7 @@ struct PagerView<Content: View>: View {
                 content()
             }
             .tabViewStyle(.page)
+            .ignoresSafeArea(.keyboard)
         }
         .backgroundPrimary()
     }

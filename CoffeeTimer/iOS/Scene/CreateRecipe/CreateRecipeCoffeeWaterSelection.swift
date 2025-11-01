@@ -17,7 +17,6 @@ struct CreateRecipeCoffeeWaterSelection: View {
     
     var body: some View {
         VStack {
-            
             cupsCountField
 
             cupSizeField
