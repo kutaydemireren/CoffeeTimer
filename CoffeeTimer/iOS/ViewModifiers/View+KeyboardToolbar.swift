@@ -18,9 +18,27 @@ struct KeyboardDoneToolbarModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         if #available(iOS 26, *) {
-            // Toolbar on keyboard has a jumpy behaviour on iOS 26.
-            // I find it not worthy of having it, so simply opt-in not to show.
             content
+                .toolbar {
+                    if isFocused {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            VStack {
+                                HStack {
+                                    Spacer()
+                                    Button("Done") {
+                                        content.hideKeyboard()
+                                    }
+                                    .bold()
+                                    .padding(8)
+                                    .glassEffect()
+                                }
+                                Spacer()
+                                    .padding(.bottom, 8)
+                            }
+                        }
+                        .sharedBackgroundVisibility(.hidden)
+                    }
+                }
         } else {
             content
                 .toolbar {

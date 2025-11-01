@@ -42,7 +42,6 @@ struct RecipeInstructionActionView: View {
 
     var body: some View {
         actionView
-            .padding()
             .backgroundPrimary()
     }
 
@@ -66,6 +65,7 @@ struct RecipeInstructionActionView: View {
                     MessageInstructionActionView(action: $selectedAction)
                 }
             }
+            .padding()
         }
         .onChange(of: selectedAction, perform: didUpdate(selectionAction:))
         .scrollIndicators(.hidden)
