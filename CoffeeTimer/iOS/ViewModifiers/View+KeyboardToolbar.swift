@@ -29,6 +29,7 @@ struct KeyboardDoneToolbarModifier: ViewModifier {
                                         content.hideKeyboard()
                                     }
                                     .bold()
+                                    .foregroundColor(Color("backgroundSecondary"))
                                     .padding(8)
                                     .glassEffect()
                                 }
