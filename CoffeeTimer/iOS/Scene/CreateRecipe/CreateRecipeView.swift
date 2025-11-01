@@ -164,7 +164,6 @@ struct CreateRecipeView: View {
         .onChange(of: context.recipeProfile, perform: didUpdate(_:))
         .onChange(of: context.cupsCount, perform: didUpdate(_:))
         .onChange(of: context.ratio, perform: didUpdate(_:))
-        .hideKeyboardOnTap()
     }
 
     private func didUpdate<T>(_ newValue: T) {

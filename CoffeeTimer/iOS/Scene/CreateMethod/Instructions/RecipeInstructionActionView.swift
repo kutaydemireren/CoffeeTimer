@@ -43,6 +43,7 @@ struct RecipeInstructionActionView: View {
     var body: some View {
         actionView
             .backgroundPrimary()
+            .hideKeyboardOnTap()
     }
 
     @ViewBuilder
