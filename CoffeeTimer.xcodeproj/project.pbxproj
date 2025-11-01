@@ -775,7 +775,6 @@
 		CAD071E329DCCAD60010E561 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				CA17289529EB4CA8000F867B /* View+Responder.swift */,
 				CA77908C2A06A39900BEA142 /* String+Filter.swift */,
 				CA6263C62A254EB3003E167D /* Color+HexString.swift */,
 				CA6263D02A255266003E167D /* RecipeProfile+UserDefined.swift */,
@@ -810,6 +809,7 @@
 		CAF42CEB29EC9867004D7788 /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
+				CA17289529EB4CA8000F867B /* View+Responder.swift */,
 				F22318F72EB3D33600B83265 /* View+KeyboardToolbar.swift */,
 				CAF42CDE29EC907F004D7788 /* View+ClearButton.swift */,
 				CA5CA81829EB662F001E384D /* View+Background.swift */,
