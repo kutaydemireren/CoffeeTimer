@@ -41,7 +41,9 @@ struct CreateContextToInputMapperImp: CreateContextToInputMapper {
             recipeProfile: context.recipeProfile,
             coffee: calculateCoffeeAmount(forWaterAmount: waterAmount, withRatio: ratio),
             water: waterAmount,
-            ice: iceAmount
+            ice: iceAmount,
+            cupsCount: context.cupsCount,
+            cupSize: context.cupSize
         )
     }
 

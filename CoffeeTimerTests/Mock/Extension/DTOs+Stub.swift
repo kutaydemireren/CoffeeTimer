@@ -118,7 +118,9 @@ extension RecipeDTO {
         return RecipeDTO(
             recipeProfile: .stubMini,
             ingredients: .stubMini,
-            brewQueue: .stubMini
+            brewQueue: .stubMini,
+            cupsCount: 1.0,
+            cupSize: 200.0
         )
     }
 
@@ -126,7 +128,9 @@ extension RecipeDTO {
         return RecipeDTO(
             recipeProfile: .stubMiniIced,
             ingredients: .stubMiniIced,
-            brewQueue: .stubMiniIced
+            brewQueue: .stubMiniIced,
+            cupsCount: 1.0,
+            cupSize: 200.0
         )
     }
 }
@@ -136,7 +140,9 @@ extension RecipeDTO {
         return RecipeDTO(
             recipeProfile: nil,
             ingredients: ingredients,
-            brewQueue: brewQueue
+            brewQueue: brewQueue,
+            cupsCount: cupsCount,
+            cupSize: cupSize
         )
     }
 
@@ -144,7 +150,9 @@ extension RecipeDTO {
         return RecipeDTO(
             recipeProfile: .init(name: nil, brewMethod: nil),
             ingredients: ingredients,
-            brewQueue: brewQueue
+            brewQueue: brewQueue,
+            cupsCount: cupsCount,
+            cupSize: cupSize
         )
     }
 
@@ -152,7 +160,9 @@ extension RecipeDTO {
         return RecipeDTO(
             recipeProfile: .init(name: "", brewMethod: nil),
             ingredients: ingredients,
-            brewQueue: brewQueue
+            brewQueue: brewQueue,
+            cupsCount: cupsCount,
+            cupSize: cupSize
         )
     }
 
@@ -162,7 +172,9 @@ extension RecipeDTO {
             ingredients: [
                 .init(ingredientType: nil, amount: ingredients?.first!.amount)
             ],
-            brewQueue: brewQueue
+            brewQueue: brewQueue,
+            cupsCount: cupsCount,
+            cupSize: cupSize
         )
     }
 
@@ -172,7 +184,9 @@ extension RecipeDTO {
             ingredients: [
                 .init(ingredientType: ingredients?.first!.ingredientType, amount: nil)
             ],
-            brewQueue: brewQueue
+            brewQueue: brewQueue,
+            cupsCount: cupsCount,
+            cupSize: cupSize
         )
     }
 
@@ -182,7 +196,9 @@ extension RecipeDTO {
             ingredients: [
                 .init(ingredientType: ingredients?.first!.ingredientType, amount: .init(amount: nil, type: nil))
             ],
-            brewQueue: brewQueue
+            brewQueue: brewQueue,
+            cupsCount: cupsCount,
+            cupSize: cupSize
         )
     }
 
@@ -190,7 +206,9 @@ extension RecipeDTO {
         return RecipeDTO(
             recipeProfile: recipeProfile,
             ingredients: ingredients,
-            brewQueue: nil
+            brewQueue: nil,
+            cupsCount: cupsCount,
+            cupSize: cupSize
         )
     }
 
@@ -200,7 +218,9 @@ extension RecipeDTO {
             ingredients: ingredients,
             brewQueue: .init(stages: [
                 .init(action: nil, requirement: nil, startMethod: nil, passMethod: nil, message: nil, details: nil)
-            ])
+            ]),
+            cupsCount: cupsCount,
+            cupSize: cupSize
         )
     }
 
@@ -210,7 +230,9 @@ extension RecipeDTO {
             ingredients: ingredients,
             brewQueue: .init(stages: [
                 .init(action: .pause, requirement: nil, startMethod: nil, passMethod: nil, message: nil, details: nil)
-            ])
+            ]),
+            cupsCount: cupsCount,
+            cupSize: cupSize
         )
     }
 }

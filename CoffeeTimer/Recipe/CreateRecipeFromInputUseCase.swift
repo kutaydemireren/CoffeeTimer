@@ -16,7 +16,9 @@ struct CreateRecipeFromInputUseCaseImp: CreateRecipeFromInputUseCase {
         return Recipe(
             recipeProfile: input.recipeProfile,
             ingredients: getIngredients(from: input),
-            brewQueue: getBrew(input: input, instructions: instructions)
+            brewQueue: getBrew(input: input, instructions: instructions),
+            cupsCount: input.cupsCount,
+            cupSize: input.cupSize
         )
     }
 

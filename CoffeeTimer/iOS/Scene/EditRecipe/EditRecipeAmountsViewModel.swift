@@ -38,21 +38,27 @@ final class EditRecipeAmountsViewModel: ObservableObject {
             context.ratio = allRatios.first
         }
 
-        let isIced = recipe.recipeProfile.brewMethod.isIcedBrew
-        let waterMl = Double(
-            recipe.ingredients
-                .first(
-                    where: { $0.ingredientType == .water
-                    })?.amount.amount ?? 0
-        )
-        let iceAmount = Double(
-            recipe.ingredients
-                .first(where: { $0.ingredientType == .ice })?.amount.amount ?? 0
-        )
-        let totalLiquid = isIced ? waterMl + iceAmount : waterMl
+        if recipe.cupsCount > 0 && recipe.cupSize > 0 {
+            context.cupsCount = recipe.cupsCount
+            context.cupSize = recipe.cupSize
+        } else {
+            // Fallback for old recipes that don't have cupsCount/cupSize persisted
+            let isIced = recipe.recipeProfile.brewMethod.isIcedBrew
+            let water = Double(
+                recipe.ingredients
+                    .first(
+                        where: { $0.ingredientType == .water
+                        })?.amount.amount ?? 0
+            )
+            let iceAmount = Double(
+                recipe.ingredients
+                    .first(where: { $0.ingredientType == .ice })?.amount.amount ?? 0
+            )
+            let totalLiquid = isIced ? water + iceAmount : water
 
-        context.cupsCount = Double(max(recipe.recipeProfile.brewMethod.cupsCount.minimum, 1))
-        context.cupSize = totalLiquid / max(context.cupsCount, 1)
+            context.cupsCount = Double(max(recipe.recipeProfile.brewMethod.cupsCount.minimum, 1))
+            context.cupSize = totalLiquid / max(context.cupsCount, 1)
+        }
     }
 
     func saveChanges() async {

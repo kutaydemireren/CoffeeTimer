@@ -12,7 +12,9 @@ extension Recipe {
         return Recipe(
             recipeProfile: .stubSingleV60,
             ingredients: .stubSingleV60,
-            brewQueue: .stubSingleV60
+            brewQueue: .stubSingleV60,
+            cupsCount: 1.0,
+            cupSize: 250.0
         )
     }
 
@@ -20,18 +22,20 @@ extension Recipe {
         return Recipe(
             recipeProfile: .stubFrenchPress,
             ingredients: .stubFrenchPress,
-            brewQueue: .stubFrenchPress
+            brewQueue: .stubFrenchPress,
+            cupsCount: 1.0,
+            cupSize: 250.0
         )
     }
 }
 
 extension CreateRecipeInput {
     static var stubSingleV60: CreateRecipeInput{
-        return CreateRecipeInput(recipeProfile: .stubSingleV60, coffee: .init(amount: 15, type: .gram), water: .init(amount: 250, type: .millilitre), ice: nil)
+        return CreateRecipeInput(recipeProfile: .stubSingleV60, coffee: .init(amount: 15, type: .gram), water: .init(amount: 250, type: .millilitre), ice: nil, cupsCount: 1.0, cupSize: 250.0)
     }
 
     static var stubFrenchPress: CreateRecipeInput{
-        return CreateRecipeInput(recipeProfile: .stubFrenchPress, coffee: .init(amount: 15, type: .gram), water: .init(amount: 250, type: .millilitre), ice: nil)
+        return CreateRecipeInput(recipeProfile: .stubFrenchPress, coffee: .init(amount: 15, type: .gram), water: .init(amount: 250, type: .millilitre), ice: nil, cupsCount: 1.0, cupSize: 250.0)
     }
 }
 

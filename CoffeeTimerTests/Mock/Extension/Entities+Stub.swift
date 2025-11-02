@@ -12,7 +12,9 @@ extension Recipe {
         return Recipe(
             recipeProfile: .stubMini,
             ingredients: .stubMini,
-            brewQueue: .stubMini
+            brewQueue: .stubMini,
+            cupsCount: 1.0,
+            cupSize: 200.0
         )
     }
     
@@ -20,7 +22,9 @@ extension Recipe {
         return Recipe(
             recipeProfile: .stubMiniIced,
             ingredients: .stubMiniIced,
-            brewQueue: .stubMiniIced
+            brewQueue: .stubMiniIced,
+            cupsCount: 1.0,
+            cupSize: 200.0
         )
     }
 }

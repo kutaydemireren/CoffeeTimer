@@ -19,7 +19,9 @@ struct MockStore {
                     .init(ingredientType: .coffee, amount: .init(amount: 2 * index, type: .gram)),
                     .init(ingredientType: .water, amount: .init(amount: 40 * index, type: .millilitre))
                 ],
-                brewQueue: .stubMini
+                brewQueue: .stubMini,
+                cupsCount: 1.0,
+                cupSize: 250.0
             )
         }
     }
@@ -35,7 +37,9 @@ struct MockStore {
                     .init(ingredientType: .coffee, amount: .init(amount: 2 * index, type: .gram)),
                     .init(ingredientType: .water, amount: .init(amount: 40 * index, type: .millilitre))
                 ],
-                brewQueue: .stubMini
+                brewQueue: .stubMini,
+                cupsCount: 1.0,
+                cupSize: 250.0
             )
         }
     }

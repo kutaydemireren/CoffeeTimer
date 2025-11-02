@@ -44,7 +44,21 @@ extension RecipeMapperImp {
         let ingredients = try mapToIngredients(ingredientDTOs: recipeDTO.ingredients)
         let brewQueue = try mapToBrewQueue(brewQueueDTO: recipeDTO.brewQueue)
         
-        return Recipe(recipeProfile: recipeProfile, ingredients: ingredients, brewQueue: brewQueue)
+        // Default values for backwards compatibility with old recipes
+        let cupsCount = recipeDTO.cupsCount ?? 1.0
+        let cupSize: Double
+        if let persistedCupSize = recipeDTO.cupSize {
+            cupSize = persistedCupSize
+        } else {
+            // Calculate from total liquid when cupSize is missing
+            let waterMl = Double(ingredients.first(where: { $0.ingredientType == .water })?.amount.amount ?? 0)
+            let iceAmount = Double(ingredients.first(where: { $0.ingredientType == .ice })?.amount.amount ?? 0)
+            let isIced = recipeProfile.brewMethod.isIcedBrew
+            let totalLiquid = isIced ? waterMl + iceAmount : waterMl
+            cupSize = totalLiquid
+        }
+        
+        return Recipe(recipeProfile: recipeProfile, ingredients: ingredients, brewQueue: brewQueue, cupsCount: cupsCount, cupSize: cupSize)
     }
     
     private func mapToRecipeProfile(recipeProfileDTO: RecipeProfileDTO?) throws -> RecipeProfile {
@@ -222,7 +236,7 @@ extension RecipeMapperImp {
         let ingredientDTOs = mapToIngredientDTOs(ingredients: recipe.ingredients)
         let brewQueueDTO = mapToBrewQueueDTO(brewQueue: recipe.brewQueue)
         
-        return RecipeDTO(recipeProfile: recipeProfileDTO, ingredients: ingredientDTOs, brewQueue: brewQueueDTO)
+        return RecipeDTO(recipeProfile: recipeProfileDTO, ingredients: ingredientDTOs, brewQueue: brewQueueDTO, cupsCount: recipe.cupsCount, cupSize: recipe.cupSize)
     }
     
     private func mapToRecipeProfileDTO(recipeProfile: RecipeProfile) -> RecipeProfileDTO {

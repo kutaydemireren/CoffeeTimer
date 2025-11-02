@@ -33,7 +33,9 @@ final class CreateRecipeFromInputUseCaseImpTests: XCTestCase {
                 recipeProfile: .empty,
                 coffee: expectedIngredients[0].amount,
                 water: expectedIngredients[1].amount, 
-                ice: nil
+                ice: nil,
+                cupsCount: 1.0,
+                cupSize: 250.0
             ),
             instructions: .empty
         )
@@ -49,7 +51,9 @@ final class CreateRecipeFromInputUseCaseImpTests: XCTestCase {
                 recipeProfile: .empty,
                 coffee: expectedIngredients[0].amount,
                 water: expectedIngredients[1].amount,
-                ice: expectedIngredients[2].amount
+                ice: expectedIngredients[2].amount,
+                cupsCount: 1.0,
+                cupSize: 250.0
             ),
             instructions: .empty
         )
@@ -65,7 +69,9 @@ final class CreateRecipeFromInputUseCaseImpTests: XCTestCase {
                 recipeProfile: .empty,
                 coffee: ingredients[0].amount,
                 water: ingredients[1].amount, 
-                ice: nil
+                ice: nil,
+                cupsCount: 1.0,
+                cupSize: 250.0
             ),
             instructions: loadMiniInstructions()
         )
@@ -81,7 +87,9 @@ final class CreateRecipeFromInputUseCaseImpTests: XCTestCase {
                 recipeProfile: .empty,
                 coffee: ingredients[0].amount,
                 water: ingredients[1].amount, 
-                ice: ingredients[2].amount
+                ice: ingredients[2].amount,
+                cupsCount: 1.0,
+                cupSize: 250.0
             ),
             instructions: loadMiniIcedInstructions()
         )

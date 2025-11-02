@@ -52,9 +52,11 @@ struct Recipe: Equatable, Identifiable {
     let recipeProfile: RecipeProfile
     let ingredients: [Ingredient]
     let brewQueue: BrewQueue
+    let cupsCount: Double
+    let cupSize: Double
 
     static func ==(lhs: Recipe, rhs: Recipe) -> Bool {
-        return lhs.recipeProfile == rhs.recipeProfile && lhs.ingredients == rhs.ingredients && lhs.brewQueue == rhs.brewQueue
+        return lhs.recipeProfile == rhs.recipeProfile && lhs.ingredients == rhs.ingredients && lhs.brewQueue == rhs.brewQueue && lhs.cupsCount == rhs.cupsCount && lhs.cupSize == rhs.cupSize
     }
 }
 

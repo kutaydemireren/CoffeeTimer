@@ -49,7 +49,15 @@ final class AppFlowViewModel: ObservableObject {
     }
 
     func makeEditRecipeFlowVM() -> EditRecipeFlowViewModel {
-        let vm = EditRecipeFlowViewModel(recipe: recipeToEdit ?? Recipe(recipeProfile: .empty, ingredients: [], brewQueue: .empty))
+        let vm = EditRecipeFlowViewModel(
+            recipe: recipeToEdit ?? Recipe(
+                recipeProfile: .empty,
+                ingredients: [],
+                brewQueue: .empty,
+                cupsCount: 1,
+                cupSize: 250.0
+            )
+        )
         vm.didComplete
             .sink(receiveValue: didComplete)
             .store(in: &cancellables)

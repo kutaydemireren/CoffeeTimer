@@ -11,6 +11,8 @@ struct RecipeDTO: Codable, Equatable {
     let recipeProfile: RecipeProfileDTO?
     let ingredients: [IngredientDTO]?
     let brewQueue: BrewQueueDTO?
+    let cupsCount: Double?
+    let cupSize: Double?
 }
 
 struct RecipeProfileDTO: Codable, Equatable {

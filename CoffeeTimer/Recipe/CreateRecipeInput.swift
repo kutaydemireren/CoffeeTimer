@@ -12,4 +12,6 @@ struct CreateRecipeInput {
     let coffee: IngredientAmount
     let water: IngredientAmount
     let ice: IngredientAmount?
+    let cupsCount: Double
+    let cupSize: Double
 }
