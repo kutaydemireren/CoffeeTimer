@@ -116,29 +116,24 @@ final class RecipesViewModel: ObservableObject, Completable {
 }
 
 struct RecipesView: View {
-    
     @ObservedObject var viewModel: RecipesViewModel
     
     var body: some View {
-        ZStack(alignment: .top) {
-            content
-                .padding(.top, 20)
-
+        VStack {
             HStack {
                 Button("Close") {
                     viewModel.close()
                 }
                 .padding(.horizontal)
-                
+
                 Spacer()
             }
+            .padding(.top)
             .foregroundColor(Color("backgroundSecondary"))
-            
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
 
+            content
+                .padding(.top, 20)
+                .overlay(alignment: .bottomTrailing) {
                     Button() {
                         viewModel.create()
                     } label: {
@@ -149,9 +144,8 @@ struct RecipesView: View {
                             .padding(.horizontal, 32)
                             .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 0)
                     }
+                    .foregroundColor(Color("backgroundSecondary"))
                 }
-                .foregroundColor(Color("backgroundSecondary"))
-            }
         }
         .backgroundPrimary()
     }
@@ -195,8 +189,11 @@ struct RecipesView: View {
                 viewModel.removeRecipes(at: indexSet)
             }
         }
+        .listStyle(.plain)
+        .listRowSpacing(12)
         .scrollIndicators(.hidden)
         .scrollContentBackground(.hidden)
+        .padding(.horizontal)
     }
 }
 

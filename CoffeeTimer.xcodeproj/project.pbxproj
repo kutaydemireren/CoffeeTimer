@@ -111,6 +111,7 @@
 		F208EF2E2EAE6549005B87DE /* EditRecipeAmountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F208EF2A2EAE6549005B87DE /* EditRecipeAmountsView.swift */; };
 		F222D3AF2CFB8CBC00AD7AF4 /* InfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D3AE2CFB8CBC00AD7AF4 /* InfoButton.swift */; };
 		F222D3B12CFBAA4000AD7AF4 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D3B02CFBAA4000AD7AF4 /* InfoView.swift */; };
+		F22318F82EB3D33600B83265 /* View+KeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22318F72EB3D33600B83265 /* View+KeyboardToolbar.swift */; };
 		F22E68CE2CF38D2E00EE80FA /* CreateBrewMethodContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22E68CD2CF38D2E00EE80FA /* CreateBrewMethodContext.swift */; };
 		F22E68D12CF38D9A00EE80FA /* CreateBrewMethodUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22E68D02CF38D9A00EE80FA /* CreateBrewMethodUseCaseImpTests.swift */; };
 		F22E68D32CF38DB600EE80FA /* CreateBrewMethodUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22E68D22CF38DB600EE80FA /* CreateBrewMethodUseCase.swift */; };
@@ -123,6 +124,7 @@
 		F270D9EE2D00CE2500466D54 /* GiftCoffeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F270D9ED2D00CE2500466D54 /* GiftCoffeeView.swift */; };
 		F275237A2CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27523792CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift */; };
 		F27B2D692CF28D2100B425E9 /* IngredientAmountTypeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */; };
+		F2AAB07D2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AAB07C2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift */; };
 		F2AFA14E2CF7B61800984AE2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2AFA14D2CF7B61800984AE2 /* GoogleService-Info.plist */; };
 		F2AFA1512CF7BA5A00984AE2 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = F2AFA1502CF7BA5A00984AE2 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		F2AFA1532CF7BA5A00984AE2 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = F2AFA1522CF7BA5A00984AE2 /* FirebaseCrashlytics */; };
@@ -253,6 +255,7 @@
 		F208EF2B2EAE6549005B87DE /* EditRecipeAmountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecipeAmountsViewModel.swift; sourceTree = "<group>"; };
 		F222D3AE2CFB8CBC00AD7AF4 /* InfoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoButton.swift; sourceTree = "<group>"; };
 		F222D3B02CFBAA4000AD7AF4 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		F22318F72EB3D33600B83265 /* View+KeyboardToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+KeyboardToolbar.swift"; sourceTree = "<group>"; };
 		F22E68CD2CF38D2E00EE80FA /* CreateBrewMethodContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBrewMethodContext.swift; sourceTree = "<group>"; };
 		F22E68D02CF38D9A00EE80FA /* CreateBrewMethodUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBrewMethodUseCaseImpTests.swift; sourceTree = "<group>"; };
 		F22E68D22CF38DB600EE80FA /* CreateBrewMethodUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBrewMethodUseCase.swift; sourceTree = "<group>"; };
@@ -265,6 +268,7 @@
 		F270D9ED2D00CE2500466D54 /* GiftCoffeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftCoffeeView.swift; sourceTree = "<group>"; };
 		F27523792CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveBrewMethodUseCase.swift; sourceTree = "<group>"; };
 		F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientAmountTypeItem.swift; sourceTree = "<group>"; };
+		F2AAB07C2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+HighlightAnimation.swift"; sourceTree = "<group>"; };
 		F2AFA14D2CF7B61800984AE2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F2CCBBFB2CFE75610085C590 /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
 		F2CCBBFD2CFE76320085C590 /* chemex.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = chemex.lottie; sourceTree = "<group>"; };
@@ -781,7 +785,6 @@
 		CAD071E329DCCAD60010E561 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				CA17289529EB4CA8000F867B /* View+Responder.swift */,
 				CA77908C2A06A39900BEA142 /* String+Filter.swift */,
 				CA6263C62A254EB3003E167D /* Color+HexString.swift */,
 				CA6263D02A255266003E167D /* RecipeProfile+UserDefined.swift */,
@@ -816,6 +819,9 @@
 		CAF42CEB29EC9867004D7788 /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
+				F2AAB07C2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift */,
+				CA17289529EB4CA8000F867B /* View+Responder.swift */,
+				F22318F72EB3D33600B83265 /* View+KeyboardToolbar.swift */,
 				CAF42CDE29EC907F004D7788 /* View+ClearButton.swift */,
 				CA5CA81829EB662F001E384D /* View+Background.swift */,
 			);
@@ -1011,10 +1017,12 @@
 				CA5A7D0F2A0EBA7400C7EC04 /* DTOs.swift in Sources */,
 				CABD23912C4EEB12005C599F /* InstructionActionViewBuilder.swift in Sources */,
 				CA8C9AF12C0B50ED000A71AC /* RecipeInstructionsRepositoryImp.swift in Sources */,
+				F2AAB07D2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift in Sources */,
 				CA1B52B52C0B980400C4B923 /* FetchRecipeInstructionsRequest.swift in Sources */,
 				F270D9EE2D00CE2500466D54 /* GiftCoffeeView.swift in Sources */,
 				CA7D9E2F2C4BEB8500908159 /* Titled.swift in Sources */,
 				F233D28D2CF3E52100E357A5 /* RecipeInstructionStepMapper.swift in Sources */,
+				F22318F82EB3D33600B83265 /* View+KeyboardToolbar.swift in Sources */,
 				CA9BDA292A2CFD290068DFF7 /* CreateRecipeInput.swift in Sources */,
 				CA5CA81929EB662F001E384D /* View+Background.swift in Sources */,
 				CA367D3229A2B0370095B1B8 /* CoffeeTimerApp.swift in Sources */,

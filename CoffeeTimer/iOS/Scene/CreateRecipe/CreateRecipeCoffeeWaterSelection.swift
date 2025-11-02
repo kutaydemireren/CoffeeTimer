@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct CreateRecipeCoffeeWaterSelection: View {
-    
     @Binding var cupsCountAmount: Double
     @Binding var cupSizeAmount: Double
     @Binding var selectedRatio: CoffeeToWaterRatio?
     @Binding var allRatios: [CoffeeToWaterRatio]
+    @Binding var animateCupsCount: Bool
+    @Binding var animateRatio: Bool
     
     @EnvironmentObject var context: CreateRecipeContext
     
     var body: some View {
         VStack {
-            
             cupsCountField
 
             cupSizeField
@@ -31,7 +31,6 @@ struct CreateRecipeCoffeeWaterSelection: View {
             Spacer()
         }
         .padding(.horizontal, 32)
-        .contentShape(Rectangle())
         .hideKeyboardOnTap()
     }
     
@@ -46,6 +45,7 @@ struct CreateRecipeCoffeeWaterSelection: View {
             ),
             input: $cupsCountAmount
         )
+        .highlightAnimation(isAnimating: $animateCupsCount)
     }
 
     private var cupSizeField: some View {
@@ -55,6 +55,7 @@ struct CreateRecipeCoffeeWaterSelection: View {
             keyboardType: .number,
             input: $cupSizeAmount
         )
+        .highlightAnimation(isAnimating: $animateCupsCount)
     }
 
     private var ratioPicker: some View {
@@ -64,6 +65,7 @@ struct CreateRecipeCoffeeWaterSelection: View {
             title: "How strong would you like?",
             placeholder: "Choose a preferred ratio"
         )
+        .highlightAnimation(isAnimating: $animateRatio)
     }
 }
 
@@ -73,7 +75,9 @@ struct CreateRecipeCoffeeWaterSelection_Previews: PreviewProvider {
             cupsCountAmount: .constant(2.0),
             cupSizeAmount: .constant(200.0),
             selectedRatio: .constant(.ratio18),
-            allRatios: .constant([.ratio16, .ratio17, .ratio18, .ratio20])
+            allRatios: .constant([.ratio16, .ratio17, .ratio18, .ratio20]),
+            animateCupsCount: .constant(false),
+            animateRatio: .constant(false)
         )
         .backgroundPrimary()
         .environmentObject(CreateRecipeContext())

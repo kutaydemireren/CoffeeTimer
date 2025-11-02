@@ -75,6 +75,7 @@ final class CreateMethodDetailsViewModel: ObservableObject {
 struct CreateMethodDetailsView: View {
     @EnvironmentObject var context: CreateBrewMethodContext
     @ObservedObject var viewModel = CreateMethodDetailsViewModel()
+    @Binding var animateMethodTitle: Bool
 
     var body: some View {
         VStack {
@@ -112,6 +113,7 @@ struct CreateMethodDetailsView: View {
                 style: .titled("Title"),
                 placeholder: "My V60, Icy V60"
             )
+            .highlightAnimation(isAnimating: $animateMethodTitle)
 
             TitledContent(title: "Cups Count") {
                 HStack {
@@ -144,6 +146,6 @@ struct CreateMethodDetailsView: View {
 }
 
 #Preview {
-    CreateMethodDetailsView()
+    CreateMethodDetailsView(animateMethodTitle: .constant(false))
         .environmentObject(CreateBrewMethodContext())
 }

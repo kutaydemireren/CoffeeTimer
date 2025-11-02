@@ -83,10 +83,15 @@ struct CreateRecipeBrewMethodSelection: View {
 
     @Binding var brewMethods: [BrewMethod]
     @Binding var selectedBrewMethod: BrewMethod?
+    @Binding var animateSelection: Bool
 
     var createMethod: () -> Void
     var deleteMethod: (BrewMethod) -> Void
 
+    private var shouldAnimate: Bool {
+        animateSelection && selectedBrewMethod == nil
+    }
+    
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 16) {
@@ -96,6 +101,11 @@ struct CreateRecipeBrewMethodSelection: View {
                         isSelected: selectedBrewMethod == brewMethod
                     )
                     .frame(height: height)
+                    .scaleEffect(shouldAnimate ? 1.1 : 1)
+                    .animation(
+                        Animation.default.repeatCount(1, autoreverses: true),
+                        value: animateSelection
+                    )
                     .onTapGesture {
                         selectedBrewMethod = brewMethod
                     }
@@ -174,6 +184,7 @@ struct CreateRecipeBrewMethodSelection_Previews: PreviewProvider {
             CreateRecipeBrewMethodSelection(
                 brewMethods: .constant(methodsSmall),
                 selectedBrewMethod: .constant(.v60Single),
+                animateSelection: .constant(false),
                 createMethod: { },
                 deleteMethod: { _ in }
             )
@@ -181,6 +192,7 @@ struct CreateRecipeBrewMethodSelection_Previews: PreviewProvider {
             CreateRecipeBrewMethodSelection(
                 brewMethods: .constant(methodsLarge),
                 selectedBrewMethod: .constant(.v60Single),
+                animateSelection: .constant(false),
                 createMethod: { },
                 deleteMethod: { _ in }
             )

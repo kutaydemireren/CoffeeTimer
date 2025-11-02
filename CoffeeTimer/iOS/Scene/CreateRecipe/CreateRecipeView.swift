@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+enum CreateRecipeMissingField {
+    case brewMethod
+    case recipeProfile
+    case cupsCount
+    case ratio
+}
+
 @MainActor
 final class CreateRecipeViewModel: ObservableObject {
     private let pageCount = 3
@@ -15,6 +22,11 @@ final class CreateRecipeViewModel: ObservableObject {
     @Published var brewMethods: [BrewMethod] = []
     @Published var allRatios: [CoffeeToWaterRatio] = []
     @Published var canCreate = false
+    
+    @Published var animateBrewMethod = false
+    @Published var animateRecipeProfile = false
+    @Published var animateCupsCount = false
+    @Published var animateRatio = false
 
     private var createRecipeFromContextUseCase: CreateRecipeFromContextUseCase
     private var recipeRepository: RecipeRepository // TODO: use case - no repo in vm!
@@ -43,33 +55,77 @@ final class CreateRecipeViewModel: ObservableObject {
 
     func nextPage(in context: CreateRecipeContext) {
         var newSelectedPage = 1
+        var missingField: CreateRecipeMissingField?
 
         if selectedPage < pageCount {
             newSelectedPage = (selectedPage % pageCount) + 1
         } else {
-            newSelectedPage = getNextMissingPage(in: context)
+            let result = getNextMissingPage(in: context)
+            newSelectedPage = result.page
+            missingField = result.missingField
         }
 
         selectedPage = newSelectedPage
+        
+        if let missingField = missingField {
+            triggerAnimation(for: missingField)
+        }
+    }
+    
+    private func triggerAnimation(for field: CreateRecipeMissingField) {
+        animateBrewMethod = false
+        animateRecipeProfile = false
+        animateCupsCount = false
+        animateRatio = false
+        
+        // Small delay to wait for page transition
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+            switch field {
+            case .brewMethod:
+                self?.animateBrewMethod = true
+            case .recipeProfile:
+                self?.animateRecipeProfile = true
+            case .cupsCount:
+                self?.animateCupsCount = true
+            case .ratio:
+                self?.animateRatio = true
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                switch field {
+                case .brewMethod:
+                    self?.animateBrewMethod = false
+                case .recipeProfile:
+                    self?.animateRecipeProfile = false
+                case .cupsCount:
+                    self?.animateCupsCount = false
+                case .ratio:
+                    self?.animateRatio = false
+                }
+            }
+        }
     }
 
-    private func getNextMissingPage(in context: CreateRecipeContext) -> Int {
+    private func getNextMissingPage(in context: CreateRecipeContext) -> (page: Int, missingField: CreateRecipeMissingField?) {
         do {
             let _ = try createRecipeFromContextUseCase.canCreate(from: context)
+            return (pageCount, nil)
         } catch let error as CreateRecipeFromContextUseCaseError {
             switch error {
             case .missingBrewMethod:
-                return 1
+                return (1, .brewMethod)
             case .missingRecipeProfile:
-                return 2
-            case .missingCupsCount, .missingRatio:
-                return 3
+                return (2, .recipeProfile)
+            case .missingCupsCount:
+                return (3, .cupsCount)
+            case .missingRatio:
+                return (3, .ratio)
             }
         } catch _ {
             // Unknown error
         }
 
-        return pageCount
+        return (pageCount, nil)
     }
 
     func canCreate(from context: CreateRecipeContext) -> Bool {
@@ -136,6 +192,7 @@ struct CreateRecipeView: View {
                     CreateRecipeBrewMethodSelection(
                         brewMethods: $viewModel.brewMethods,
                         selectedBrewMethod: $context.selectedBrewMethod,
+                        animateSelection: $viewModel.animateBrewMethod,
                         createMethod: createMethod,
                         deleteMethod: viewModel.remove(brewMethod:)
                     )
@@ -144,7 +201,8 @@ struct CreateRecipeView: View {
 
                 ZStack {
                     CreateRecipeProfileSelection(
-                        recipeProfile: $context.recipeProfile
+                        recipeProfile: $context.recipeProfile,
+                        animateField: $viewModel.animateRecipeProfile
                     )
                 }
                 .tag(2)
@@ -154,7 +212,9 @@ struct CreateRecipeView: View {
                         cupsCountAmount: $context.cupsCount,
                         cupSizeAmount: $context.cupSize,
                         selectedRatio: $context.ratio,
-                        allRatios: $viewModel.allRatios
+                        allRatios: $viewModel.allRatios,
+                        animateCupsCount: $viewModel.animateCupsCount,
+                        animateRatio: $viewModel.animateRatio
                     )
                 }
                 .tag(3)
@@ -164,7 +224,6 @@ struct CreateRecipeView: View {
         .onChange(of: context.recipeProfile, perform: didUpdate(_:))
         .onChange(of: context.cupsCount, perform: didUpdate(_:))
         .onChange(of: context.ratio, perform: didUpdate(_:))
-        .hideKeyboardOnTap()
     }
 
     private func didUpdate<T>(_ newValue: T) {

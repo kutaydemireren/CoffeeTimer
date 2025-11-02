@@ -24,8 +24,8 @@ extension RecipeProfile {
 }
 
 struct CreateRecipeProfileSelection: View {
-
     @Binding var recipeProfile: RecipeProfile
+    @Binding var animateField: Bool
 
     private var nameWrapper: Binding<String> {
         .init(get: {
@@ -36,7 +36,6 @@ struct CreateRecipeProfileSelection: View {
     }
 
     var body: some View {
-
         VStack {
             VStack {
                 AlphanumericTextField(
@@ -45,19 +44,21 @@ struct CreateRecipeProfileSelection: View {
                     placeholder: "Majestic Cup"
                 )
                 .multilineTextAlignment(.center)
-                .clearButton(text: nameWrapper)
+                .highlightAnimation(isAnimating: $animateField)
             }
             Spacer()
         }
         .padding(.horizontal, 32)
-        .contentShape(Rectangle())
         .hideKeyboardOnTap()
     }
 }
 
 struct CreateRecipeProfileSelection_Previews: PreviewProvider {
     static var previews: some View {
-        CreateRecipeProfileSelection(recipeProfile: .constant(.empty))
-            .backgroundPrimary()
+        CreateRecipeProfileSelection(
+            recipeProfile: .constant(.empty),
+            animateField: .constant(false)
+        )
+        .backgroundPrimary()
     }
 }

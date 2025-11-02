@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AlphanumericTextField: View {
-
     enum Style {
         case plain
         case titled(String)
@@ -34,18 +33,8 @@ struct AlphanumericTextField: View {
                 }
             }
         }
-        .toolbar {
-            if isFocused {
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
-                    Button("Done") {
-                        hideKeyboard()
-                    }
-                    .bold()
-                    .foregroundColor(Color("backgroundSecondary"))
-                }
-            }
-        }
+        .keyboardDoneToolbar(isFocused: isFocused)
+        .clearButton(text: $text)
     }
 
     @ViewBuilder
@@ -56,6 +45,7 @@ struct AlphanumericTextField: View {
                     .foregroundColor(Color("foregroundPrimary").opacity(0.3))
             }
             .textFieldStyle(.plain)
+            .tint(Color("backgroundPrimary").opacity(0.6))
             .foregroundColor(Color("foregroundPrimary"))
             .padding()
             .focused($isFocused)

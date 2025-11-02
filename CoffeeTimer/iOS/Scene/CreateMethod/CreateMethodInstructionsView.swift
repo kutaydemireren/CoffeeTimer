@@ -57,6 +57,7 @@ struct CreateMethodInstructionsView: View {
     @EnvironmentObject var context: CreateBrewMethodContext
     @Environment(\.editMode) private var editMode
     @ObservedObject var viewModel = CreateMethodInstructionsViewModel()
+    @Binding var animateInstructions: Bool
 
     var didSelect: ((RecipeInstructionActionItem) -> Void)?
 
@@ -65,11 +66,7 @@ struct CreateMethodInstructionsView: View {
             content
                 .safeAreaInset(edge: .bottom, spacing: 0) {
                     addListActions
-                        .background(
-                            Color("backgroundPrimary")
-                                .ignoresSafeArea()
-                                .opacity(0.9)
-                        )
+                        .backgroundPrimary(opacity: 0.9)
                 }
         }
     }
@@ -90,6 +87,11 @@ struct CreateMethodInstructionsView: View {
                 }
                 .foregroundColor(Color("backgroundSecondary"))
             }
+            .scaleEffect((animateInstructions && context.instructions.isEmpty) ? 1.1 : 1)
+            .animation(
+                Animation.default.repeatCount(1, autoreverses: true),
+                value: animateInstructions
+            )
 
             Spacer()
 
@@ -155,7 +157,7 @@ struct CreateMethodInstructionsView: View {
 fileprivate var previewWithContext: some View {
     let context = CreateBrewMethodContext()
     context.instructions = .stub
-    return CreateMethodInstructionsView(viewModel: CreateMethodInstructionsViewModel())
+    return CreateMethodInstructionsView(viewModel: CreateMethodInstructionsViewModel(), animateInstructions: .constant(false))
         .backgroundPrimary()
         .environmentObject(context)
 }

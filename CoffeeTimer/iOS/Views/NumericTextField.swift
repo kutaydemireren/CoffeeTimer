@@ -55,18 +55,7 @@ struct NumericTextField: View {
                 textField
             }
         }
-        .toolbar {
-            if isFocused {
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
-                    Button("Done") {
-                        hideKeyboard()
-                    }
-                    .bold()
-                    .foregroundColor(Color("backgroundSecondary"))
-                }
-            }
-        }
+        .keyboardDoneToolbar(isFocused: isFocused)
     }
 
     @ViewBuilder
@@ -80,6 +69,7 @@ struct NumericTextField: View {
         .textFieldStyle(.plain)
         .keyboardType(keyboardType.uiKeyboardType)
         .focused($isFocused)
+        .tint(Color("backgroundPrimary").opacity(0.6))
         .foregroundColor(Color("foregroundPrimary"))
         .onChange(of: displayText, perform: didUpdate(displayText:))
         .onChange(of: input, perform: setDisplayText(_:))

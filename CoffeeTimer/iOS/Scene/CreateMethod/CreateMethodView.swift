@@ -7,11 +7,19 @@
 
 import SwiftUI
 
+enum CreateMethodMissingField {
+    case methodTitle
+    case instructions
+}
+
 final class CreateMethodViewModel: ObservableObject {
     private let pageCount = 2
 
     @Published var selectedPage = 1
     @Published var canCreate: Bool = false
+    
+    @Published var animateMethodTitle = false
+    @Published var animateInstructions = false
 
     private let createBrewMethodUseCase: CreateBrewMethodUseCase
 
@@ -23,31 +31,63 @@ final class CreateMethodViewModel: ObservableObject {
 
     func nextPage(in context: CreateBrewMethodContext) {
         var newSelectedPage = 1
+        var missingField: CreateMethodMissingField?
 
         if selectedPage < pageCount {
             newSelectedPage = (selectedPage % pageCount) + 1
         } else {
-            newSelectedPage = getNextMissingPage(in: context)
+            let result = getNextMissingPage(in: context)
+            newSelectedPage = result.page
+            missingField = result.missingField
         }
 
         selectedPage = newSelectedPage
+        
+        if let missingField = missingField {
+            triggerAnimation(for: missingField)
+        }
+    }
+    
+    private func triggerAnimation(for field: CreateMethodMissingField) {
+        animateMethodTitle = false
+        animateInstructions = false
+        
+        // Small delay to wait for page transition
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+            switch field {
+            case .methodTitle:
+                self?.animateMethodTitle = true
+            case .instructions:
+                self?.animateInstructions = true
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                switch field {
+                case .methodTitle:
+                    self?.animateMethodTitle = false
+                case .instructions:
+                    self?.animateInstructions = false
+                }
+            }
+        }
     }
 
-    private func getNextMissingPage(in context: CreateBrewMethodContext) -> Int {
+    private func getNextMissingPage(in context: CreateBrewMethodContext) -> (page: Int, missingField: CreateMethodMissingField?) {
         do {
             let _ = try createBrewMethodUseCase.canCreate(from: context)
+            return (pageCount, nil)
         } catch let error as CreateBrewMethodUseCaseError {
             switch error {
             case .missingMethodTitle:
-                return 1
+                return (1, .methodTitle)
             case .missingInstructions:
-                return 2
+                return (2, .instructions)
             }
         } catch _ {
             // Unknown error
         }
 
-        return pageCount
+        return (pageCount, nil)
     }
 
     func canCreate(from context: CreateBrewMethodContext) -> Bool {
@@ -88,19 +128,23 @@ struct CreateMethodView: View {
             content: {
                 // Wrapping in ZStack helps with the scrolling animation amongst pages
                 ZStack {
-                    CreateMethodDetailsView()
+                    CreateMethodDetailsView(
+                        animateMethodTitle: $viewModel.animateMethodTitle
+                    )
                 }
                 .tag(1)
 
                 ZStack {
-                    CreateMethodInstructionsView(didSelect: selectItem)
+                    CreateMethodInstructionsView(
+                        animateInstructions: $viewModel.animateInstructions,
+                        didSelect: selectItem
+                    )
                 }
                 .tag(2)
             }
         )
         .onChange(of: context.methodTitle, perform: didUpdate(_:))
         .onChange(of: context.instructions, perform: didUpdate(_:))
-        .hideKeyboardOnTap()
     }
 
     private func didUpdate<T>(_ newValue: T?) {

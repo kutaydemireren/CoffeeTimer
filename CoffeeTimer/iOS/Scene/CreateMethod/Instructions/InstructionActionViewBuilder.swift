@@ -349,7 +349,6 @@ final class InstructionActionViewBuilder {
                 }
             }
         }
-        .hideKeyboardOnTap()
     }
 }
 

@@ -8,16 +8,16 @@
 import Foundation
 
 struct FetchRecipeInstructionsRequest: Request {
-#if DEBUG
-    let host: String = "raw.githubusercontent.com"
+    let host: String
     let path: String
-#else
-    let host: String = "coffeetimer-4672c.firebaseapp.com"
-    let path: String
-#endif
 
     init(brewMethod: BrewMethod) {
-        path = "/kutaydemireren/CoffeeTimer/refs/heads/main/data/v0/brew-instructions/\(brewMethod.id).json"
-//        path = brewMethod.path
+#if DEBUG
+        host = "raw.githubusercontent.com"
+        path = "/kutaydemireren/CoffeeTimer/main/data/v0/brew-instructions/\(brewMethod.id).json"
+#else
+        host = "coffeetimer-4672c.firebaseapp.com"
+        path = brewMethod.path
+#endif
     }
 }
