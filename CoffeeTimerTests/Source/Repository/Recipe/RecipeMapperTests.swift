@@ -117,4 +117,92 @@ extension RecipeMapperTests {
         XCTAssertEqual(resultedRecipeDTO.ingredients, expectedRecipeDTO.ingredients)
         XCTAssertEqual(resultedRecipeDTO.brewQueue, expectedRecipeDTO.brewQueue)
     }
+    
+    func test_mapToRecipeDTO_shouldIncludeRecipeID() {
+        let recipeId = UUID()
+        let recipe = Recipe(
+            id: recipeId,
+            recipeProfile: .stubMini,
+            ingredients: .stubMini,
+            brewQueue: .stubMini,
+            cupsCount: 1.0,
+            cupSize: 200.0
+        )
+
+        let resultedRecipeDTO = sut.mapToRecipeDTO(recipe: recipe)
+
+        XCTAssertEqual(resultedRecipeDTO.id, recipeId.uuidString)
+    }
+    
+    func test_mapToRecipeDTO_shouldIncludeCupsCountAndCupSize() {
+        let recipe = Recipe(
+            recipeProfile: .stubMini,
+            ingredients: .stubMini,
+            brewQueue: .stubMini,
+            cupsCount: 2.0,
+            cupSize: 300.0
+        )
+
+        let resultedRecipeDTO = sut.mapToRecipeDTO(recipe: recipe)
+
+        XCTAssertEqual(resultedRecipeDTO.cupsCount, 2.0)
+        XCTAssertEqual(resultedRecipeDTO.cupSize, 300.0)
+    }
+}
+
+// MARK: Recipe to RecipeDTO - ID Mapping
+extension RecipeMapperTests {
+    func test_mapToRecipe_whenRecipeDTOHasID_shouldPreserveID() throws {
+        let recipeId = UUID()
+        var recipeDTO = RecipeDTO.stubMini
+        recipeDTO = RecipeDTO(
+            id: recipeId.uuidString,
+            recipeProfile: recipeDTO.recipeProfile,
+            ingredients: recipeDTO.ingredients,
+            brewQueue: recipeDTO.brewQueue,
+            cupsCount: recipeDTO.cupsCount,
+            cupSize: recipeDTO.cupSize
+        )
+
+        let resultedRecipe = try sut.mapToRecipe(recipeDTO: recipeDTO)
+
+        XCTAssertEqual(resultedRecipe.id, recipeId)
+    }
+    
+    func test_mapToRecipe_whenRecipeDTONoID_shouldGenerateNewID() throws {
+        var recipeDTO = RecipeDTO.stubMini
+        recipeDTO = RecipeDTO(
+            id: nil,
+            recipeProfile: recipeDTO.recipeProfile,
+            ingredients: recipeDTO.ingredients,
+            brewQueue: recipeDTO.brewQueue,
+            cupsCount: recipeDTO.cupsCount,
+            cupSize: recipeDTO.cupSize
+        )
+
+        let resultedRecipe = try sut.mapToRecipe(recipeDTO: recipeDTO)
+
+        XCTAssertNotNil(resultedRecipe.id)
+        // Verify it's a valid UUID
+        let idString = resultedRecipe.id.uuidString
+        XCTAssertEqual(UUID(uuidString: idString), resultedRecipe.id)
+    }
+    
+    func test_mapToRecipe_whenRecipeDTOHasInvalidID_shouldGenerateNewID() throws {
+        var recipeDTO = RecipeDTO.stubMini
+        recipeDTO = RecipeDTO(
+            id: "invalid-uuid",
+            recipeProfile: recipeDTO.recipeProfile,
+            ingredients: recipeDTO.ingredients,
+            brewQueue: recipeDTO.brewQueue,
+            cupsCount: recipeDTO.cupsCount,
+            cupSize: recipeDTO.cupSize
+        )
+
+        let resultedRecipe = try sut.mapToRecipe(recipeDTO: recipeDTO)
+
+        XCTAssertNotNil(resultedRecipe.id)
+        // Verify it generated a new UUID (not the invalid one)
+        XCTAssertNotEqual(resultedRecipe.id.uuidString, "invalid-uuid")
+    }
 }

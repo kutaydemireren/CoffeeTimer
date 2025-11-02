@@ -11,9 +11,12 @@ import Foundation
 class MockCreateContextToInputMapper: CreateContextToInputMapper {
     
     var _input: CreateRecipeInput!
-    var _error: Error!
+    var _error: Error?
+    var mapReceivedContext: CreateRecipeContext?
     
     func map(context: CreateRecipeContext) throws -> CreateRecipeInput {
+        mapReceivedContext = context
+        
         if let _error {
             throw _error
         }

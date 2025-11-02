@@ -13,7 +13,7 @@ final class MockFetchRecipeInstructionsUseCase: FetchRecipeInstructionsUseCase {
     var _instructionActions: [RecipeInstructionAction] = []
     var _error: Error?
 
-    func fetch(brewMethod: BrewMethod) throws -> RecipeInstructions {
+    func fetch(brewMethod: BrewMethod) async throws -> RecipeInstructions {
         if let _error {
             throw _error
         }

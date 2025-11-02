@@ -5,6 +5,7 @@
 //  Created by Kutay Demireren on 29/05/2023.
 //
 
+import UIKit
 @testable import CoffeeTimer
 
 struct MockStore {

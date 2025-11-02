@@ -149,6 +149,67 @@ extension RecipeRepositoryTests {
     }
 }
 
+// MARK: Update Saved Recipe
+extension RecipeRepositoryTests {
+    func test_updateSavedRecipe_whenRecipeNotExistsInSaved_shouldNotSave() {
+        let updateRecipe = Recipe.stubMini
+        let updateRecipeDTO = RecipeDTO.stubMini
+        
+        let alreadySavedRecipeDTOs = MockStore.savedRecipeDTOs
+        mockStorage.storageDictionary = [expectedSavedRecipesKey: alreadySavedRecipeDTOs]
+        
+        setupMapperReturn(expectedRecipeDTOs: [updateRecipeDTO], expectedRecipes: [updateRecipe])
+        
+        sut.update(savedRecipe: updateRecipe)
+        
+        XCTAssertEqual(mockStorage.loadCalledWithKey, expectedSavedRecipesKey)
+        XCTAssertEqual(mockMapper.mapToRecipeDTOReceivedRecipe, updateRecipe)
+        XCTAssertNil(mockStorage.saveCalledWithKey)
+        XCTAssertNil(mockStorage.saveCalledWithValue)
+    }
+    
+    func test_updateSavedRecipe_whenRecipeExistsByID_shouldUpdateInSavedRecipes() {
+        let recipeId = UUID()
+        let updateRecipe = Recipe(
+            id: recipeId,
+            recipeProfile: .stubMini,
+            ingredients: .stubMini,
+            brewQueue: .stubMini,
+            cupsCount: 1.0,
+            cupSize: 200.0
+        )
+        let updateRecipeDTO = RecipeDTO(
+            id: recipeId.uuidString,
+            recipeProfile: RecipeDTO.stubMini.recipeProfile,
+            ingredients: RecipeDTO.stubMini.ingredients,
+            brewQueue: RecipeDTO.stubMini.brewQueue,
+            cupsCount: 1.0,
+            cupSize: 200.0
+        )
+        
+        let alreadySavedRecipeDTOs = MockStore.savedRecipeDTOs + [updateRecipeDTO]
+        mockStorage.storageDictionary = [expectedSavedRecipesKey: alreadySavedRecipeDTOs]
+        
+        var expectedRecipeDTOs = MockStore.savedRecipeDTOs
+        expectedRecipeDTOs.append(updateRecipeDTO)
+        
+        setupMapperReturn(expectedRecipeDTOs: [updateRecipeDTO], expectedRecipes: [updateRecipe])
+        
+        sut.update(savedRecipe: updateRecipe)
+        
+        XCTAssertEqual(mockStorage.loadCalledWithKey, expectedSavedRecipesKey)
+        XCTAssertEqual(mockMapper.mapToRecipeDTOReceivedRecipe, updateRecipe)
+        XCTAssertEqual(mockStorage.saveCalledWithKey, expectedSavedRecipesKey)
+        
+        let savedDTOs = mockStorage.saveCalledWithValue as? [RecipeDTO]
+        XCTAssertNotNil(savedDTOs)
+        if let savedDTOs {
+            let updatedDTO = savedDTOs.first(where: { $0.id == recipeId.uuidString })
+            XCTAssertEqual(updatedDTO?.id, recipeId.uuidString)
+        }
+    }
+}
+
 // MARK: Remove
 extension RecipeRepositoryTests {
     func test_removeRecipe_whenRecipeNotExistsInSaved_shouldNotSave() {

@@ -127,6 +127,9 @@
 		F2AAB07D2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AAB07C2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift */; };
 		F2AAB0802EB7E3D500DDCFAD /* UpdateRecipeFromContextUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AAB07F2EB7E3D500DDCFAD /* UpdateRecipeFromContextUseCase.swift */; };
 		F2AAB0812EB7E3D500DDCFAD /* ConfigureContextFromRecipeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AAB07E2EB7E3D500DDCFAD /* ConfigureContextFromRecipeUseCase.swift */; };
+		F2AAB0842EB7E90600DDCFAD /* ConfigureContextFromRecipeUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AAB0822EB7E90600DDCFAD /* ConfigureContextFromRecipeUseCaseImpTests.swift */; };
+		F2AAB0852EB7E90600DDCFAD /* UpdateRecipeFromContextUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AAB0832EB7E90600DDCFAD /* UpdateRecipeFromContextUseCaseImpTests.swift */; };
+		F2AAB0872EB7E95100DDCFAD /* MockRecipeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AAB0862EB7E95100DDCFAD /* MockRecipeRepository.swift */; };
 		F2AFA14E2CF7B61800984AE2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2AFA14D2CF7B61800984AE2 /* GoogleService-Info.plist */; };
 		F2AFA1512CF7BA5A00984AE2 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = F2AFA1502CF7BA5A00984AE2 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		F2AFA1532CF7BA5A00984AE2 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = F2AFA1522CF7BA5A00984AE2 /* FirebaseCrashlytics */; };
@@ -273,6 +276,9 @@
 		F2AAB07C2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+HighlightAnimation.swift"; sourceTree = "<group>"; };
 		F2AAB07E2EB7E3D500DDCFAD /* ConfigureContextFromRecipeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureContextFromRecipeUseCase.swift; sourceTree = "<group>"; };
 		F2AAB07F2EB7E3D500DDCFAD /* UpdateRecipeFromContextUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRecipeFromContextUseCase.swift; sourceTree = "<group>"; };
+		F2AAB0822EB7E90600DDCFAD /* ConfigureContextFromRecipeUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureContextFromRecipeUseCaseImpTests.swift; sourceTree = "<group>"; };
+		F2AAB0832EB7E90600DDCFAD /* UpdateRecipeFromContextUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRecipeFromContextUseCaseImpTests.swift; sourceTree = "<group>"; };
+		F2AAB0862EB7E95100DDCFAD /* MockRecipeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecipeRepository.swift; sourceTree = "<group>"; };
 		F2AFA14D2CF7B61800984AE2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F2CCBBFB2CFE75610085C590 /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
 		F2CCBBFD2CFE76320085C590 /* chemex.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = chemex.lottie; sourceTree = "<group>"; };
@@ -316,6 +322,7 @@
 		CA02D0D92A255A530012EE87 /* Recipe */ = {
 			isa = PBXGroup;
 			children = (
+				F2AAB0862EB7E95100DDCFAD /* MockRecipeRepository.swift */,
 				CA02D0D72A255A440012EE87 /* MockRecipeMapper.swift */,
 			);
 			path = Recipe;
@@ -524,6 +531,8 @@
 		CA711D402A64302A00C21E41 /* Recipe */ = {
 			isa = PBXGroup;
 			children = (
+				F2AAB0822EB7E90600DDCFAD /* ConfigureContextFromRecipeUseCaseImpTests.swift */,
+				F2AAB0832EB7E90600DDCFAD /* UpdateRecipeFromContextUseCaseImpTests.swift */,
 				CA7790942A06E39000BEA142 /* CreateRecipeFromContextUseCaseImpTests.swift */,
 				CA7790982A06F34100BEA142 /* CreateContextToInputMapperImpTests.swift */,
 				CA1552892C0A5E2E000334FB /* CreateRecipeFromInputUseCaseImpTests.swift */,
@@ -1098,6 +1107,8 @@
 				F22E68D12CF38D9A00EE80FA /* CreateBrewMethodUseCaseImpTests.swift in Sources */,
 				CA7B804729BFAA21007D3DFC /* CountdownTimerImpTests.swift in Sources */,
 				CA02D0DC2A255A6D0012EE87 /* MockStorage.swift in Sources */,
+				F2AAB0842EB7E90600DDCFAD /* ConfigureContextFromRecipeUseCaseImpTests.swift in Sources */,
+				F2AAB0852EB7E90600DDCFAD /* UpdateRecipeFromContextUseCaseImpTests.swift in Sources */,
 				CA6263BB2A25492D003E167D /* DTOs+Stub.swift in Sources */,
 				CA1552862C0A5DB9000334FB /* TestError.swift in Sources */,
 				CA8C9AEB2C0B4339000A71AC /* FetchRecipeInstructionsUseCaseImpTests.swift in Sources */,
@@ -1113,6 +1124,7 @@
 				CA7790A82A06F40F00BEA142 /* MockCreateContextToInputMapper.swift in Sources */,
 				CA6263BC2A254955003E167D /* Entities+Stub.swift in Sources */,
 				F2DB5FBF2CF3BAFE000D67ED /* RecipeInstructionActionItem+Stub.swift in Sources */,
+				F2AAB0872EB7E95100DDCFAD /* MockRecipeRepository.swift in Sources */,
 				CA7790992A06F34100BEA142 /* CreateContextToInputMapperImpTests.swift in Sources */,
 				CA1552842C0A5D9A000334FB /* MockFetchRecipeInstructionsUseCase.swift in Sources */,
 				CA02D0D82A255A440012EE87 /* MockRecipeMapper.swift in Sources */,
