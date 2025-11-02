@@ -52,7 +52,10 @@ extension RecipeRepositoryTests {
     
     func test_getSelectedRecipe_shouldReturnExpectedRecipe() {
         let expectedRecipeDTO = RecipeDTO.stubMini
-        mockStorage.storageDictionary = [expectedSelectedRecipeKey: expectedRecipeDTO]
+        mockStorage.storageDictionary = [
+            expectedSelectedRecipeKey: expectedRecipeDTO,
+            expectedSavedRecipesKey: [expectedRecipeDTO]
+        ]
         
         let expectedRecipe = Recipe.stubMini
         setupMapperReturn(expectedRecipeDTOs: [expectedRecipeDTO], expectedRecipes: [expectedRecipe])
@@ -61,6 +64,85 @@ extension RecipeRepositoryTests {
         
         XCTAssertEqual(resultedRecipe, expectedRecipe)
         XCTAssertEqual(mockMapper.mapToRecipeReceivedRecipeDTO, expectedRecipeDTO)
+    }
+    
+    func test_getSelectedRecipe_whenOldRecipeWithoutID_shouldMatchByRecipeProfile() {
+        // Simulate an old selected recipe without ID in storage
+        let selectedRecipeDTO = RecipeDTO(
+            id: nil,
+            recipeProfile: RecipeDTO.stubMini.recipeProfile,
+            ingredients: RecipeDTO.stubMini.ingredients,
+            brewQueue: RecipeDTO.stubMini.brewQueue,
+            cupsCount: 1.0,
+            cupSize: 200.0
+        )
+        
+        // Same recipe in saved recipes list (also without ID)
+        let savedRecipeDTO = RecipeDTO(
+            id: nil,
+            recipeProfile: RecipeDTO.stubMini.recipeProfile,
+            ingredients: RecipeDTO.stubMini.ingredients,
+            brewQueue: RecipeDTO.stubMini.brewQueue,
+            cupsCount: 1.0,
+            cupSize: 200.0
+        )
+        
+        mockStorage.storageDictionary = [
+            expectedSelectedRecipeKey: selectedRecipeDTO,
+            expectedSavedRecipesKey: [savedRecipeDTO]
+        ]
+        
+        // When loaded, mapper generates new UUIDs (different for each load)
+        let selectedRecipeId = UUID()
+        let savedRecipeId = UUID()
+        let selectedRecipe = Recipe(
+            id: selectedRecipeId,
+            recipeProfile: .stubMini,
+            ingredients: .stubMini,
+            brewQueue: .stubMini,
+            cupsCount: 1.0,
+            cupSize: 200.0
+        )
+        let savedRecipe = Recipe(
+            id: savedRecipeId,
+            recipeProfile: .stubMini,
+            ingredients: .stubMini,
+            brewQueue: .stubMini,
+            cupsCount: 1.0,
+            cupSize: 200.0
+        )
+        
+        // Setup mapper to return different recipes for different DTOs
+        mockMapper.recipesDict[0] = selectedRecipe
+        mockMapper.recipeDTOsDict[0] = selectedRecipeDTO
+        mockMapper.recipesDict[1] = savedRecipe
+        mockMapper.recipeDTOsDict[1] = savedRecipeDTO
+        
+        let resultedRecipe = sut.getSelectedRecipe()
+        
+        // Should match by recipeProfile even though UUIDs differ
+        XCTAssertNotNil(resultedRecipe)
+        XCTAssertEqual(resultedRecipe?.recipeProfile, savedRecipe.recipeProfile)
+        XCTAssertEqual(resultedRecipe?.id, savedRecipeId) // Should return the one from the list
+    }
+    
+    func test_getSelectedRecipe_whenSelectedRecipeNotInList_shouldReturnNil() {
+        let selectedRecipeDTO = RecipeDTO.stubMini
+        let differentRecipeDTO = RecipeDTO.stubMiniIced
+        
+        mockStorage.storageDictionary = [
+            expectedSelectedRecipeKey: selectedRecipeDTO,
+            expectedSavedRecipesKey: [differentRecipeDTO]
+        ]
+        
+        let selectedRecipe = Recipe.stubMini
+        let differentRecipe = Recipe.stubMiniIced
+        setupMapperReturn(expectedRecipeDTOs: [selectedRecipeDTO, differentRecipeDTO], expectedRecipes: [selectedRecipe, differentRecipe])
+        
+        let resultedRecipe = sut.getSelectedRecipe()
+        
+        // Selected recipe is not in the saved recipes list, so should return nil
+        XCTAssertNil(resultedRecipe)
     }
     
     func test_updateSelectedRecipe_shouldUpdateSelectedRecipe() {

@@ -43,11 +43,27 @@ final class RecipeRepositoryImp: RecipeRepository {
 // MARK: Selected Recipe
 extension RecipeRepositoryImp {
     func getSelectedRecipe() -> Recipe? {
-        guard let recipeDTO = storage.load(forKey: selectedRecipeKey) as RecipeDTO? else {
+        guard let selectedRecipeDTO = storage.load(forKey: selectedRecipeKey) as RecipeDTO? else {
             return nil
         }
         
-        return try? mapper.mapToRecipe(recipeDTO: recipeDTO)
+        guard let selectedRecipe = try? mapper.mapToRecipe(recipeDTO: selectedRecipeDTO) else {
+            return nil
+        }
+        
+        // Match selected recipe against saved recipes list to ensure consistency
+        // This is critical for backwards compatibility: old recipes get new UUIDs when loaded,
+        // so we need to match them to the recipes in the list (which have the same UUIDs)
+        return savedRecipes.value.first { recipe in
+            // Try ID matching first
+            if let selectedId = selectedRecipeDTO.id,
+               selectedId == recipe.id.uuidString {
+                return true
+            }
+            
+            // Fallback to recipeProfile matching for old recipes without IDs
+            return selectedRecipe.recipeProfile == recipe.recipeProfile
+        }
     }
     
     func update(selectedRecipe: Recipe) {
