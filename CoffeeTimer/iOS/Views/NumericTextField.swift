@@ -69,6 +69,7 @@ struct NumericTextField: View {
         .textFieldStyle(.plain)
         .keyboardType(keyboardType.uiKeyboardType)
         .focused($isFocused)
+        .tint(Color("backgroundPrimary").opacity(0.6))
         .foregroundColor(Color("foregroundPrimary"))
         .onChange(of: displayText, perform: didUpdate(displayText:))
         .onChange(of: input, perform: setDisplayText(_:))

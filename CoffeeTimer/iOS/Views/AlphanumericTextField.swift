@@ -45,6 +45,7 @@ struct AlphanumericTextField: View {
                     .foregroundColor(Color("foregroundPrimary").opacity(0.3))
             }
             .textFieldStyle(.plain)
+            .tint(Color("backgroundPrimary").opacity(0.6))
             .foregroundColor(Color("foregroundPrimary"))
             .padding()
             .focused($isFocused)
