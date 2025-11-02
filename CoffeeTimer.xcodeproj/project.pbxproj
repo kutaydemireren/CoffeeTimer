@@ -121,6 +121,7 @@
 		F270D9EE2D00CE2500466D54 /* GiftCoffeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F270D9ED2D00CE2500466D54 /* GiftCoffeeView.swift */; };
 		F275237A2CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27523792CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift */; };
 		F27B2D692CF28D2100B425E9 /* IngredientAmountTypeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */; };
+		F2AAB07D2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AAB07C2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift */; };
 		F2AFA14E2CF7B61800984AE2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2AFA14D2CF7B61800984AE2 /* GoogleService-Info.plist */; };
 		F2AFA1512CF7BA5A00984AE2 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = F2AFA1502CF7BA5A00984AE2 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		F2AFA1532CF7BA5A00984AE2 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = F2AFA1522CF7BA5A00984AE2 /* FirebaseCrashlytics */; };
@@ -261,6 +262,7 @@
 		F270D9ED2D00CE2500466D54 /* GiftCoffeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftCoffeeView.swift; sourceTree = "<group>"; };
 		F27523792CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveBrewMethodUseCase.swift; sourceTree = "<group>"; };
 		F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientAmountTypeItem.swift; sourceTree = "<group>"; };
+		F2AAB07C2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+HighlightAnimation.swift"; sourceTree = "<group>"; };
 		F2AFA14D2CF7B61800984AE2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F2CCBBFB2CFE75610085C590 /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
 		F2CCBBFD2CFE76320085C590 /* chemex.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = chemex.lottie; sourceTree = "<group>"; };
@@ -809,6 +811,7 @@
 		CAF42CEB29EC9867004D7788 /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
+				F2AAB07C2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift */,
 				CA17289529EB4CA8000F867B /* View+Responder.swift */,
 				F22318F72EB3D33600B83265 /* View+KeyboardToolbar.swift */,
 				CAF42CDE29EC907F004D7788 /* View+ClearButton.swift */,
@@ -994,6 +997,7 @@
 				CA5A7D0F2A0EBA7400C7EC04 /* DTOs.swift in Sources */,
 				CABD23912C4EEB12005C599F /* InstructionActionViewBuilder.swift in Sources */,
 				CA8C9AF12C0B50ED000A71AC /* RecipeInstructionsRepositoryImp.swift in Sources */,
+				F2AAB07D2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift in Sources */,
 				CA1B52B52C0B980400C4B923 /* FetchRecipeInstructionsRequest.swift in Sources */,
 				F270D9EE2D00CE2500466D54 /* GiftCoffeeView.swift in Sources */,
 				CA7D9E2F2C4BEB8500908159 /* Titled.swift in Sources */,

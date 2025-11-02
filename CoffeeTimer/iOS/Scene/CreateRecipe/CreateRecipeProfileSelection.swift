@@ -25,6 +25,7 @@ extension RecipeProfile {
 
 struct CreateRecipeProfileSelection: View {
     @Binding var recipeProfile: RecipeProfile
+    @Binding var animateField: Bool
 
     private var nameWrapper: Binding<String> {
         .init(get: {
@@ -43,6 +44,7 @@ struct CreateRecipeProfileSelection: View {
                     placeholder: "Majestic Cup"
                 )
                 .multilineTextAlignment(.center)
+                .highlightAnimation(isAnimating: $animateField)
             }
             Spacer()
         }
@@ -53,7 +55,10 @@ struct CreateRecipeProfileSelection: View {
 
 struct CreateRecipeProfileSelection_Previews: PreviewProvider {
     static var previews: some View {
-        CreateRecipeProfileSelection(recipeProfile: .constant(.empty))
-            .backgroundPrimary()
+        CreateRecipeProfileSelection(
+            recipeProfile: .constant(.empty),
+            animateField: .constant(false)
+        )
+        .backgroundPrimary()
     }
 }
