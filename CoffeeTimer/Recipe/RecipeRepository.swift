@@ -14,5 +14,6 @@ protocol RecipeRepository: AnyObject {
     func getSelectedRecipe() -> Recipe?
     func save(_ recipe: Recipe)
     func update(selectedRecipe: Recipe)
+    func updateSavedRecipe(_ recipe: Recipe)
     func remove(recipe: Recipe)
 }

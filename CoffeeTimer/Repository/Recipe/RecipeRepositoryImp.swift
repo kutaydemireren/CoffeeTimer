@@ -79,6 +79,24 @@ extension RecipeRepositoryImp {
     }
 }
 
+// MARK: Update Saved Recipe
+extension RecipeRepositoryImp {
+    func updateSavedRecipe(_ recipe: Recipe) {
+        var savedRecipeDTOs = getSavedRecipeDTOs()
+        let updatedRecipeDTO = mapper.mapToRecipeDTO(recipe: recipe)
+        
+        // Find recipe by matching recipeProfile (name + brewMethod)
+        if let index = savedRecipeDTOs.firstIndex(where: { savedDTO in
+            savedDTO.recipeProfile?.name == updatedRecipeDTO.recipeProfile?.name &&
+            savedDTO.recipeProfile?.brewMethod?.id == updatedRecipeDTO.recipeProfile?.brewMethod?.id
+        }) {
+            savedRecipeDTOs[index] = updatedRecipeDTO
+            storage.save(savedRecipeDTOs, forKey: savedRecipesKey)
+            refreshSavedRecipes()
+        }
+    }
+}
+
 // MARK: Remove
 extension RecipeRepositoryImp {
     func remove(recipe: Recipe) {

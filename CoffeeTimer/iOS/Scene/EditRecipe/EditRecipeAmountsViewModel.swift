@@ -66,6 +66,7 @@ final class EditRecipeAmountsViewModel: ObservableObject {
             return
         }
         recipeRepository.update(selectedRecipe: updatedRecipe)
+        recipeRepository.updateSavedRecipe(updatedRecipe)
     }
 
     private func closestRatio(to value: Double, in ratios: [CoffeeToWaterRatio]) -> CoffeeToWaterRatio? {
