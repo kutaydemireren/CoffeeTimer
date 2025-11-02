@@ -8,6 +8,7 @@
 import Foundation
 
 struct RecipeDTO: Codable, Equatable {
+    let id: String?
     let recipeProfile: RecipeProfileDTO?
     let ingredients: [IngredientDTO]?
     let brewQueue: BrewQueueDTO?

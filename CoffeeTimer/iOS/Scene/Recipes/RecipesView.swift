@@ -179,7 +179,7 @@ struct RecipesView: View {
             ForEach(viewModel.recipes) { recipe in
                 RecipeRowView(
                     recipe: recipe,
-                    isSelected: viewModel.selectedRecipe == recipe
+                    isSelected: viewModel.selectedRecipe?.id == recipe.id
                 )
                 .onTapGesture {
                     viewModel.select(recipe: recipe)

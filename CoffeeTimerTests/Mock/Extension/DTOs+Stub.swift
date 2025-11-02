@@ -116,6 +116,7 @@ extension BrewQueueDTO {
 extension RecipeDTO {
     static var stubMini: RecipeDTO {
         return RecipeDTO(
+            id: UUID().uuidString,
             recipeProfile: .stubMini,
             ingredients: .stubMini,
             brewQueue: .stubMini,
@@ -126,6 +127,7 @@ extension RecipeDTO {
 
     static var stubMiniIced: RecipeDTO {
         return RecipeDTO(
+            id: UUID().uuidString,
             recipeProfile: .stubMiniIced,
             ingredients: .stubMiniIced,
             brewQueue: .stubMiniIced,
@@ -138,6 +140,7 @@ extension RecipeDTO {
 extension RecipeDTO {
     var excludingProfile: Self {
         return RecipeDTO(
+            id: id,
             recipeProfile: nil,
             ingredients: ingredients,
             brewQueue: brewQueue,
@@ -148,6 +151,7 @@ extension RecipeDTO {
 
     var excludingProfileName: Self {
         return RecipeDTO(
+            id: id,
             recipeProfile: .init(name: nil, brewMethod: nil),
             ingredients: ingredients,
             brewQueue: brewQueue,
@@ -158,6 +162,7 @@ extension RecipeDTO {
 
     var excludingBrewMethod: Self {
         return RecipeDTO(
+            id: id,
             recipeProfile: .init(name: "", brewMethod: nil),
             ingredients: ingredients,
             brewQueue: brewQueue,
@@ -168,6 +173,7 @@ extension RecipeDTO {
 
     var excludingIngredientType: Self {
         return RecipeDTO(
+            id: id,
             recipeProfile: recipeProfile,
             ingredients: [
                 .init(ingredientType: nil, amount: ingredients?.first!.amount)
@@ -180,6 +186,7 @@ extension RecipeDTO {
 
     var excludingIngredientAmount: Self {
         return RecipeDTO(
+            id: id,
             recipeProfile: recipeProfile,
             ingredients: [
                 .init(ingredientType: ingredients?.first!.ingredientType, amount: nil)
@@ -192,6 +199,7 @@ extension RecipeDTO {
 
     var excludingIngredientAmountType: Self {
         return RecipeDTO(
+            id: id,
             recipeProfile: recipeProfile,
             ingredients: [
                 .init(ingredientType: ingredients?.first!.ingredientType, amount: .init(amount: nil, type: nil))
@@ -204,6 +212,7 @@ extension RecipeDTO {
 
     var excludingBrewQueue: Self {
         return RecipeDTO(
+            id: id,
             recipeProfile: recipeProfile,
             ingredients: ingredients,
             brewQueue: nil,
@@ -214,6 +223,7 @@ extension RecipeDTO {
 
     var excludingBrewStageAction: Self {
         return RecipeDTO(
+            id: id,
             recipeProfile: recipeProfile,
             ingredients: ingredients,
             brewQueue: .init(stages: [
@@ -226,6 +236,7 @@ extension RecipeDTO {
 
     var excludingBrewStageRequirement: Self {
         return RecipeDTO(
+            id: id,
             recipeProfile: recipeProfile,
             ingredients: ingredients,
             brewQueue: .init(stages: [

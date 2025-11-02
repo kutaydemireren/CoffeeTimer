@@ -58,7 +58,15 @@ extension RecipeMapperImp {
             cupSize = totalLiquid
         }
         
-        return Recipe(recipeProfile: recipeProfile, ingredients: ingredients, brewQueue: brewQueue, cupsCount: cupsCount, cupSize: cupSize)
+        // Map ID with backwards compatibility - generate new UUID if missing
+        let id: UUID
+        if let idString = recipeDTO.id, let uuid = UUID(uuidString: idString) {
+            id = uuid
+        } else {
+            id = UUID()
+        }
+        
+        return Recipe(id: id, recipeProfile: recipeProfile, ingredients: ingredients, brewQueue: brewQueue, cupsCount: cupsCount, cupSize: cupSize)
     }
     
     private func mapToRecipeProfile(recipeProfileDTO: RecipeProfileDTO?) throws -> RecipeProfile {
@@ -236,7 +244,7 @@ extension RecipeMapperImp {
         let ingredientDTOs = mapToIngredientDTOs(ingredients: recipe.ingredients)
         let brewQueueDTO = mapToBrewQueueDTO(brewQueue: recipe.brewQueue)
         
-        return RecipeDTO(recipeProfile: recipeProfileDTO, ingredients: ingredientDTOs, brewQueue: brewQueueDTO, cupsCount: recipe.cupsCount, cupSize: recipe.cupSize)
+        return RecipeDTO(id: recipe.id.uuidString, recipeProfile: recipeProfileDTO, ingredients: ingredientDTOs, brewQueue: brewQueueDTO, cupsCount: recipe.cupsCount, cupSize: recipe.cupSize)
     }
     
     private func mapToRecipeProfileDTO(recipeProfile: RecipeProfile) -> RecipeProfileDTO {

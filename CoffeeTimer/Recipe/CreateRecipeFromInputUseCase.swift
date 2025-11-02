@@ -14,6 +14,7 @@ protocol CreateRecipeFromInputUseCase {
 struct CreateRecipeFromInputUseCaseImp: CreateRecipeFromInputUseCase {
     func create(from input: CreateRecipeInput, instructions: RecipeInstructions) -> Recipe {
         return Recipe(
+            id: input.id ?? UUID(),
             recipeProfile: input.recipeProfile,
             ingredients: getIngredients(from: input),
             brewQueue: getBrew(input: input, instructions: instructions),

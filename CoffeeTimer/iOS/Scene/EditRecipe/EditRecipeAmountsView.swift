@@ -31,6 +31,7 @@ struct EditRecipeAmountsView: View {
 
             footer
         }
+        .ignoresSafeArea(.keyboard)
         .backgroundPrimary()
         .onAppear {
             viewModel.configure(with: recipe)

@@ -29,6 +29,7 @@ struct MockStore {
     static var savedRecipeDTOs: [RecipeDTO] {
         return (0..<3).map { index in
             return RecipeDTO(
+                id: UUID().uuidString,
                 recipeProfile: .init(
                     name: "My Recipe - \(index)",
                     brewMethod: .none

@@ -48,12 +48,28 @@ struct InfoModel: Equatable, Hashable {
 }
 
 struct Recipe: Equatable, Identifiable {
-    let id = UUID()
+    let id: UUID
     let recipeProfile: RecipeProfile
     let ingredients: [Ingredient]
     let brewQueue: BrewQueue
     let cupsCount: Double
     let cupSize: Double
+
+    init(
+        id: UUID = UUID(),
+        recipeProfile: RecipeProfile,
+        ingredients: [Ingredient],
+        brewQueue: BrewQueue,
+        cupsCount: Double,
+        cupSize: Double
+    ) {
+        self.id = id
+        self.recipeProfile = recipeProfile
+        self.ingredients = ingredients
+        self.brewQueue = brewQueue
+        self.cupsCount = cupsCount
+        self.cupSize = cupSize
+    }
 
     static func ==(lhs: Recipe, rhs: Recipe) -> Bool {
         return lhs.recipeProfile == rhs.recipeProfile && lhs.ingredients == rhs.ingredients && lhs.brewQueue == rhs.brewQueue && lhs.cupsCount == rhs.cupsCount && lhs.cupSize == rhs.cupSize

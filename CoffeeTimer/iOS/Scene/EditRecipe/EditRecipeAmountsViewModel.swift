@@ -15,6 +15,7 @@ final class EditRecipeAmountsViewModel: ObservableObject {
 
     private let recipeRepository: RecipeRepository
     private let createRecipeFromContextUseCase: CreateRecipeFromContextUseCase
+    private var originalRecipeId: UUID?
 
     init(
         recipeRepository: RecipeRepository = RecipeRepositoryImp.shared,
@@ -25,6 +26,7 @@ final class EditRecipeAmountsViewModel: ObservableObject {
     }
 
     func configure(with recipe: Recipe) {
+        originalRecipeId = recipe.id
         context.recipeProfile = recipe.recipeProfile
         context.selectedBrewMethod = recipe.recipeProfile.brewMethod
         allRatios = recipe.recipeProfile.brewMethod.ratios
@@ -62,9 +64,26 @@ final class EditRecipeAmountsViewModel: ObservableObject {
     }
 
     func saveChanges() async {
-        guard let updatedRecipe = await createRecipeFromContextUseCase.create(from: context) else {
-            return
-        }
+        // Create recipe input manually to preserve original ID when editing
+        guard let _ = context.ratio else { return }
+        guard let selectedBrewMethod = context.selectedBrewMethod else { return }
+        
+        let createContextToInputMapper = CreateContextToInputMapperImp()
+        guard let input = try? createContextToInputMapper.map(context: context) else { return }
+        
+        let inputWithId = CreateRecipeInput(
+            recipeProfile: input.recipeProfile,
+            coffee: input.coffee,
+            water: input.water,
+            ice: input.ice,
+            cupsCount: input.cupsCount,
+            cupSize: input.cupSize,
+            id: originalRecipeId
+        )
+        
+        guard let instructions = try? await FetchRecipeInstructionsUseCaseImp().fetch(brewMethod: selectedBrewMethod) else { return }
+        
+        let updatedRecipe = CreateRecipeFromInputUseCaseImp().create(from: inputWithId, instructions: instructions)
         recipeRepository.update(selectedRecipe: updatedRecipe)
         recipeRepository.updateSavedRecipe(updatedRecipe)
     }

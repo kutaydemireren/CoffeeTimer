@@ -85,10 +85,11 @@ extension RecipeRepositoryImp {
         var savedRecipeDTOs = getSavedRecipeDTOs()
         let updatedRecipeDTO = mapper.mapToRecipeDTO(recipe: recipe)
         
-        // Find recipe by matching recipeProfile (name + brewMethod)
         if let index = savedRecipeDTOs.firstIndex(where: { savedDTO in
-            savedDTO.recipeProfile?.name == updatedRecipeDTO.recipeProfile?.name &&
-            savedDTO.recipeProfile?.brewMethod?.id == updatedRecipeDTO.recipeProfile?.brewMethod?.id
+            guard let savedId = savedDTO.id, let updatedId = updatedRecipeDTO.id else {
+                return false
+            }
+            return savedId == updatedId
         }) {
             savedRecipeDTOs[index] = updatedRecipeDTO
             storage.save(savedRecipeDTOs, forKey: savedRecipesKey)
