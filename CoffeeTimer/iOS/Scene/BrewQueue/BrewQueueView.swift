@@ -344,7 +344,7 @@ struct BrewQueueView: View {
             VStack {
                 StageHeaderView(header: viewModel.stageHeader)
                 Spacer()
-                actionButton
+                actionButtons
                     .padding()
             }
             .padding(24)
@@ -397,16 +397,13 @@ struct BrewQueueView: View {
     }
 
     @ViewBuilder
-    private var actionButton: some View {
+    private var actionButtons: some View {
         if !viewModel.isActive {
             HStack {
                 recipesButton
-                    .scaleEffect(viewModel.isButtonAnimating ? 1.1 : 1)
-                    .animation(
-                        Animation.default.repeatCount(1, autoreverses: true),
-                        value: viewModel.isButtonAnimating
-                    )
-                editButton
+                if viewModel.selectedRecipe != nil {
+                    editButton
+                }
             }
         } else {
             ZStack {
@@ -449,6 +446,11 @@ struct BrewQueueView: View {
         .foregroundColor(Color("foregroundPrimary"))
         .backgroundSecondary()
         .shadow(color: .blue.opacity(0.2), radius: 8, x: -2, y: -2)
+        .scaleEffect(viewModel.isButtonAnimating ? 1.1 : 1)
+        .animation(
+            Animation.default.repeatCount(1, autoreverses: true),
+            value: viewModel.isButtonAnimating
+        )
     }
 
     @ViewBuilder
