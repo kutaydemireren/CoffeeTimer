@@ -81,9 +81,9 @@ extension RecipeRepositoryImp {
 
 // MARK: Update Saved Recipe
 extension RecipeRepositoryImp {
-    func updateSavedRecipe(_ recipe: Recipe) {
+    func update(savedRecipe: Recipe) {
         var savedRecipeDTOs = getSavedRecipeDTOs()
-        let updatedRecipeDTO = mapper.mapToRecipeDTO(recipe: recipe)
+        let updatedRecipeDTO = mapper.mapToRecipeDTO(recipe: savedRecipe)
         
         if let index = savedRecipeDTOs.firstIndex(where: { savedDTO in
             guard let savedId = savedDTO.id, let updatedId = updatedRecipeDTO.id else {

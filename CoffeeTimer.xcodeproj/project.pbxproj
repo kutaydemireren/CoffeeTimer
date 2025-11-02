@@ -125,6 +125,8 @@
 		F275237A2CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27523792CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift */; };
 		F27B2D692CF28D2100B425E9 /* IngredientAmountTypeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */; };
 		F2AAB07D2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AAB07C2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift */; };
+		F2AAB0802EB7E3D500DDCFAD /* UpdateRecipeFromContextUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AAB07F2EB7E3D500DDCFAD /* UpdateRecipeFromContextUseCase.swift */; };
+		F2AAB0812EB7E3D500DDCFAD /* ConfigureContextFromRecipeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AAB07E2EB7E3D500DDCFAD /* ConfigureContextFromRecipeUseCase.swift */; };
 		F2AFA14E2CF7B61800984AE2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2AFA14D2CF7B61800984AE2 /* GoogleService-Info.plist */; };
 		F2AFA1512CF7BA5A00984AE2 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = F2AFA1502CF7BA5A00984AE2 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		F2AFA1532CF7BA5A00984AE2 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = F2AFA1522CF7BA5A00984AE2 /* FirebaseCrashlytics */; };
@@ -269,6 +271,8 @@
 		F27523792CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveBrewMethodUseCase.swift; sourceTree = "<group>"; };
 		F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientAmountTypeItem.swift; sourceTree = "<group>"; };
 		F2AAB07C2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+HighlightAnimation.swift"; sourceTree = "<group>"; };
+		F2AAB07E2EB7E3D500DDCFAD /* ConfigureContextFromRecipeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureContextFromRecipeUseCase.swift; sourceTree = "<group>"; };
+		F2AAB07F2EB7E3D500DDCFAD /* UpdateRecipeFromContextUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRecipeFromContextUseCase.swift; sourceTree = "<group>"; };
 		F2AFA14D2CF7B61800984AE2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F2CCBBFB2CFE75610085C590 /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
 		F2CCBBFD2CFE76320085C590 /* chemex.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = chemex.lottie; sourceTree = "<group>"; };
@@ -596,6 +600,8 @@
 		CA852F232BD5551900FEF144 /* Recipe */ = {
 			isa = PBXGroup;
 			children = (
+				F2AAB07E2EB7E3D500DDCFAD /* ConfigureContextFromRecipeUseCase.swift */,
+				F2AAB07F2EB7E3D500DDCFAD /* UpdateRecipeFromContextUseCase.swift */,
 				CA77909A2A06F35A00BEA142 /* CreateContextToInputMapper.swift */,
 				CA77909C2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift */,
 				CA15527F2C0A5D3F000334FB /* CreateRecipeFromInputUseCase.swift */,
@@ -1005,6 +1011,8 @@
 				CA7D9E332C4C153300908159 /* CreateMethodDetailsView.swift in Sources */,
 				CABD23972C4EEB63005C599F /* PutInstructionActionView.swift in Sources */,
 				CA17289629EB4CA8000F867B /* View+Responder.swift in Sources */,
+				F2AAB0802EB7E3D500DDCFAD /* UpdateRecipeFromContextUseCase.swift in Sources */,
+				F2AAB0812EB7E3D500DDCFAD /* ConfigureContextFromRecipeUseCase.swift in Sources */,
 				CA77909D2A06F37700BEA142 /* CreateRecipeFromContextUseCase.swift in Sources */,
 				CA91CEF729E5FA9100E9F5D1 /* AppFlowView.swift in Sources */,
 				CA7B804529BFA9E7007D3DFC /* CountdownTimer.swift in Sources */,
