@@ -208,6 +208,72 @@ extension RecipeRepositoryTests {
             XCTAssertEqual(updatedDTO?.id, recipeId.uuidString)
         }
     }
+    
+    func test_updateSavedRecipe_whenOldRecipeWithoutID_shouldMatchByRecipeProfileAndUpdate() {
+        // Simulate an old recipe without ID in storage
+        let oldRecipeDTO = RecipeDTO(
+            id: nil,
+            recipeProfile: RecipeDTO.stubMini.recipeProfile,
+            ingredients: RecipeDTO.stubMini.ingredients,
+            brewQueue: RecipeDTO.stubMini.brewQueue,
+            cupsCount: 1.0,
+            cupSize: 200.0
+        )
+        
+        // When loaded, mapper generates new ID
+        let loadedRecipeId = UUID()
+        let loadedRecipe = Recipe(
+            id: loadedRecipeId,
+            recipeProfile: .stubMini,
+            ingredients: .stubMini,
+            brewQueue: .stubMini,
+            cupsCount: 1.0,
+            cupSize: 200.0
+        )
+        
+        // Updated recipe (after editing) has the same generated ID
+        let updatedRecipe = Recipe(
+            id: loadedRecipeId,
+            recipeProfile: .stubMini,
+            ingredients: [
+                .init(ingredientType: .coffee, amount: .init(amount: 15, type: .gram)),
+                .init(ingredientType: .water, amount: .init(amount: 300, type: .millilitre))
+            ],
+            brewQueue: .stubMini,
+            cupsCount: 1.0,
+            cupSize: 200.0
+        )
+        
+        let updatedRecipeDTO = RecipeDTO(
+            id: loadedRecipeId.uuidString,
+            recipeProfile: RecipeDTO.stubMini.recipeProfile,
+            ingredients: [
+                .init(ingredientType: .coffee, amount: .init(amount: 15, type: .gram)),
+                .init(ingredientType: .water, amount: .init(amount: 300, type: .millilitre))
+            ],
+            brewQueue: RecipeDTO.stubMini.brewQueue,
+            cupsCount: 1.0,
+            cupSize: 200.0
+        )
+        
+        let alreadySavedRecipeDTOs = [oldRecipeDTO]
+        mockStorage.storageDictionary = [expectedSavedRecipesKey: alreadySavedRecipeDTOs]
+        
+        setupMapperReturn(expectedRecipeDTOs: [oldRecipeDTO, updatedRecipeDTO], expectedRecipes: [loadedRecipe, updatedRecipe])
+        
+        sut.update(savedRecipe: updatedRecipe)
+        
+        XCTAssertEqual(mockStorage.loadCalledWithKey, expectedSavedRecipesKey)
+        XCTAssertEqual(mockMapper.mapToRecipeDTOReceivedRecipe, updatedRecipe)
+        XCTAssertEqual(mockStorage.saveCalledWithKey, expectedSavedRecipesKey)
+        
+        let savedDTOs = mockStorage.saveCalledWithValue as? [RecipeDTO]
+        XCTAssertNotNil(savedDTOs)
+        XCTAssertEqual(savedDTOs?.count, 1)
+        // The updated DTO should now have an ID (migrated forward)
+        XCTAssertEqual(savedDTOs?.first?.id, loadedRecipeId.uuidString)
+        XCTAssertEqual(savedDTOs?.first?.ingredients?.first?.amount?.amount, 15)
+    }
 }
 
 // MARK: Remove
@@ -244,6 +310,53 @@ extension RecipeRepositoryTests {
         XCTAssertEqual(mockMapper.mapToRecipeDTOReceivedRecipe, removeRecipe)
         XCTAssertEqual(mockStorage.saveCalledWithKey, expectedSavedRecipesKey)
         XCTAssertEqual(mockStorage.saveCalledWithValue as? [RecipeDTO], expectedRecipeDTOs)
+    }
+    
+    func test_removeRecipe_whenOldRecipeWithoutID_shouldMatchByRecipeProfileAndRemove() {
+        // Simulate an old recipe without ID in storage
+        let oldRecipeDTO = RecipeDTO(
+            id: nil,
+            recipeProfile: RecipeDTO.stubMini.recipeProfile,
+            ingredients: RecipeDTO.stubMini.ingredients,
+            brewQueue: RecipeDTO.stubMini.brewQueue,
+            cupsCount: 1.0,
+            cupSize: 200.0
+        )
+        
+        // When loaded, mapper generates new ID
+        let loadedRecipeId = UUID()
+        let loadedRecipe = Recipe(
+            id: loadedRecipeId,
+            recipeProfile: .stubMini,
+            ingredients: .stubMini,
+            brewQueue: .stubMini,
+            cupsCount: 1.0,
+            cupSize: 200.0
+        )
+        
+        let loadedRecipeDTO = RecipeDTO(
+            id: loadedRecipeId.uuidString,
+            recipeProfile: RecipeDTO.stubMini.recipeProfile,
+            ingredients: RecipeDTO.stubMini.ingredients,
+            brewQueue: RecipeDTO.stubMini.brewQueue,
+            cupsCount: 1.0,
+            cupSize: 200.0
+        )
+        
+        let alreadySavedRecipeDTOs = [oldRecipeDTO]
+        mockStorage.storageDictionary = [expectedSavedRecipesKey: alreadySavedRecipeDTOs]
+        
+        setupMapperReturn(expectedRecipeDTOs: [oldRecipeDTO, loadedRecipeDTO], expectedRecipes: [loadedRecipe])
+        
+        sut.remove(recipe: loadedRecipe)
+        
+        XCTAssertEqual(mockStorage.loadCalledWithKey, expectedSavedRecipesKey)
+        XCTAssertEqual(mockMapper.mapToRecipeDTOReceivedRecipe, loadedRecipe)
+        XCTAssertEqual(mockStorage.saveCalledWithKey, expectedSavedRecipesKey)
+        
+        let savedDTOs = mockStorage.saveCalledWithValue as? [RecipeDTO]
+        XCTAssertNotNil(savedDTOs)
+        XCTAssertEqual(savedDTOs?.count, 0)
     }
 }
 

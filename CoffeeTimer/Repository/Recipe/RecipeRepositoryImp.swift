@@ -85,16 +85,33 @@ extension RecipeRepositoryImp {
         var savedRecipeDTOs = getSavedRecipeDTOs()
         let updatedRecipeDTO = mapper.mapToRecipeDTO(recipe: savedRecipe)
         
-        if let index = savedRecipeDTOs.firstIndex(where: { savedDTO in
-            guard let savedId = savedDTO.id, let updatedId = updatedRecipeDTO.id else {
-                return false
-            }
-            return savedId == updatedId
-        }) {
+        if let index = findRecipeIndex(in: savedRecipeDTOs, matching: updatedRecipeDTO) {
             savedRecipeDTOs[index] = updatedRecipeDTO
             storage.save(savedRecipeDTOs, forKey: savedRecipesKey)
             refreshSavedRecipes()
         }
+    }
+    
+    private func findRecipeIndex(in savedDTOs: [RecipeDTO], matching targetDTO: RecipeDTO) -> Int? {
+        return savedDTOs.firstIndex(where: { savedDTO in
+            // Primary: Match by ID if both have IDs
+            if let savedId = savedDTO.id, let targetId = targetDTO.id {
+                return savedId == targetId
+            }
+            
+            // Fallback: Match by recipeProfile (name + brewMethod ID) for backwards compatibility
+            // This handles old recipes without IDs
+            guard let savedProfile = savedDTO.recipeProfile,
+                  let targetProfile = targetDTO.recipeProfile,
+                  let savedName = savedProfile.name,
+                  let targetName = targetProfile.name,
+                  let savedBrewMethodId = savedProfile.brewMethod?.id,
+                  let targetBrewMethodId = targetProfile.brewMethod?.id else {
+                return false
+            }
+            
+            return savedName == targetName && savedBrewMethodId == targetBrewMethodId
+        })
     }
 }
 
@@ -102,7 +119,9 @@ extension RecipeRepositoryImp {
 extension RecipeRepositoryImp {
     func remove(recipe: Recipe) {
         var savedRecipeDTOs = getSavedRecipeDTOs()
-        if let index = savedRecipeDTOs.firstIndex(of: mapper.mapToRecipeDTO(recipe: recipe)) {
+        let recipeDTO = mapper.mapToRecipeDTO(recipe: recipe)
+        
+        if let index = findRecipeIndex(in: savedRecipeDTOs, matching: recipeDTO) {
             savedRecipeDTOs.remove(at: index)
             storage.save(savedRecipeDTOs, forKey: savedRecipesKey)
             refreshSavedRecipes()
