@@ -12,10 +12,18 @@ struct CreateRecipeCoffeeWaterSelection: View {
     @Binding var cupSizeAmount: Double
     @Binding var selectedRatio: CoffeeToWaterRatio?
     @Binding var allRatios: [CoffeeToWaterRatio]
-    @Binding var animateCupsCount: Bool
-    @Binding var animateRatio: Bool
+    var animateCupsCount: Binding<Bool>?
+    var animateRatio: Binding<Bool>?
     
     @EnvironmentObject var context: CreateRecipeContext
+    
+    private var animateCupsCountBinding: Binding<Bool> {
+        animateCupsCount ?? .constant(false)
+    }
+    
+    private var animateRatioBinding: Binding<Bool> {
+        animateRatio ?? .constant(false)
+    }
     
     var body: some View {
         VStack {
@@ -45,7 +53,7 @@ struct CreateRecipeCoffeeWaterSelection: View {
             ),
             input: $cupsCountAmount
         )
-        .highlightAnimation(isAnimating: $animateCupsCount)
+        .highlightAnimation(isAnimating: animateCupsCountBinding)
     }
 
     private var cupSizeField: some View {
@@ -55,7 +63,7 @@ struct CreateRecipeCoffeeWaterSelection: View {
             keyboardType: .number,
             input: $cupSizeAmount
         )
-        .highlightAnimation(isAnimating: $animateCupsCount)
+        .highlightAnimation(isAnimating: animateCupsCountBinding)
     }
 
     private var ratioPicker: some View {
@@ -65,7 +73,7 @@ struct CreateRecipeCoffeeWaterSelection: View {
             title: "How strong would you like?",
             placeholder: "Choose a preferred ratio"
         )
-        .highlightAnimation(isAnimating: $animateRatio)
+        .highlightAnimation(isAnimating: animateRatioBinding)
     }
 }
 

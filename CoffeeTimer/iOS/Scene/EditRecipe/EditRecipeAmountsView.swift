@@ -23,7 +23,9 @@ struct EditRecipeAmountsView: View {
                 cupsCountAmount: $viewModel.context.cupsCount,
                 cupSizeAmount: $viewModel.context.cupSize,
                 selectedRatio: $viewModel.context.ratio,
-                allRatios: $viewModel.allRatios
+                allRatios: $viewModel.allRatios,
+                animateCupsCount: nil,
+                animateRatio: nil
             )
             .environmentObject(viewModel.context)
 
