@@ -123,7 +123,7 @@ extension RecipeRepositoryTests {
         // Should match by recipeProfile even though UUIDs differ
         XCTAssertNotNil(resultedRecipe)
         XCTAssertEqual(resultedRecipe?.recipeProfile, savedRecipe.recipeProfile)
-        XCTAssertEqual(resultedRecipe?.id, savedRecipeId) // Should return the one from the list
+        XCTAssertEqual(resultedRecipe?.id, savedRecipeId)
     }
     
     func test_getSelectedRecipe_whenSelectedRecipeNotInList_shouldReturnNil() {
