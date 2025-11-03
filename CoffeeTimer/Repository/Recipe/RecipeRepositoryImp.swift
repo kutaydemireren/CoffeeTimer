@@ -28,20 +28,13 @@ final class RecipeRepositoryImp: RecipeRepository {
     private var mapper: RecipeMapper
 
     private var cancellables: [AnyCancellable] = []
-
-    private let migrationRunner: MigrationRunner
     
     init(
         storage: Storage = StorageImp(userDefaults: .standard),
-        mapper: RecipeMapper = RecipeMapperImp(),
-        migrationRunner: MigrationRunner = MigrationRunnerImp()
+        mapper: RecipeMapper = RecipeMapperImp()
     ) {
         self.storage = storage
         self.mapper = mapper
-        self.migrationRunner = migrationRunner
-        
-        // Run migrations before accessing recipes
-        try? migrationRunner.run(migrations: [RecipeMigration()])
         
         refreshSavedRecipes()
     }
@@ -58,7 +51,7 @@ extension RecipeRepositoryImp {
         // Ensure in-memory saved list is up-to-date before matching
         refreshSavedRecipes()
 
-        // Match by ID only - all recipes have IDs after migration
+        // Match by ID
         return savedRecipes.value.first { $0.id.uuidString == selectedId }
     }
 
@@ -109,7 +102,7 @@ extension RecipeRepositoryImp {
             return nil
         }
         
-        // Match by ID only - all recipes have IDs after migration
+        // Match by ID
         return savedDTOs.firstIndex { $0.id == targetId }
     }
 }

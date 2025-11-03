@@ -127,6 +127,7 @@
 		F2740B342EB91BC400AF6459 /* RecipeMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2740B302EB91BC400AF6459 /* RecipeMigration.swift */; };
 		F2740B382EB91C1300AF6459 /* MigrationRunnerImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2740B352EB91C1300AF6459 /* MigrationRunnerImpTests.swift */; };
 		F2740B392EB91C1300AF6459 /* RecipeMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2740B362EB91C1300AF6459 /* RecipeMigrationTests.swift */; };
+		F2740B3B2EB94DB800AF6459 /* AppInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2740B3A2EB94DB800AF6459 /* AppInitializer.swift */; };
 		F275237A2CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27523792CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift */; };
 		F27B2D692CF28D2100B425E9 /* IngredientAmountTypeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */; };
 		F2AAB07D2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AAB07C2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift */; };
@@ -281,6 +282,7 @@
 		F2740B302EB91BC400AF6459 /* RecipeMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeMigration.swift; sourceTree = "<group>"; };
 		F2740B352EB91C1300AF6459 /* MigrationRunnerImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationRunnerImpTests.swift; sourceTree = "<group>"; };
 		F2740B362EB91C1300AF6459 /* RecipeMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeMigrationTests.swift; sourceTree = "<group>"; };
+		F2740B3A2EB94DB800AF6459 /* AppInitializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInitializer.swift; sourceTree = "<group>"; };
 		F27523792CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveBrewMethodUseCase.swift; sourceTree = "<group>"; };
 		F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientAmountTypeItem.swift; sourceTree = "<group>"; };
 		F2AAB07C2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+HighlightAnimation.swift"; sourceTree = "<group>"; };
@@ -689,6 +691,7 @@
 		CA981F822A2695D8000254CD /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				F2740B3A2EB94DB800AF6459 /* AppInitializer.swift */,
 				CA367D3129A2B0370095B1B8 /* CoffeeTimerApp.swift */,
 				CA981F832A2695E6000254CD /* Resources */,
 				CA7B804929BFABA8007D3DFC /* Scene */,
@@ -1065,6 +1068,7 @@
 				CA5A7D0F2A0EBA7400C7EC04 /* DTOs.swift in Sources */,
 				CABD23912C4EEB12005C599F /* InstructionActionViewBuilder.swift in Sources */,
 				CA8C9AF12C0B50ED000A71AC /* RecipeInstructionsRepositoryImp.swift in Sources */,
+				F2740B3B2EB94DB800AF6459 /* AppInitializer.swift in Sources */,
 				F2AAB07D2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift in Sources */,
 				CA1B52B52C0B980400C4B923 /* FetchRecipeInstructionsRequest.swift in Sources */,
 				F270D9EE2D00CE2500466D54 /* GiftCoffeeView.swift in Sources */,

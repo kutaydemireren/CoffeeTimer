@@ -45,7 +45,7 @@ extension RecipeMapperImp {
         let ingredients = try mapToIngredients(ingredientDTOs: recipeDTO.ingredients)
         let brewQueue = try mapToBrewQueue(brewQueueDTO: recipeDTO.brewQueue)
         
-        // Default values for backwards compatibility with old recipes
+        // Default values when cupsCount/cupSize are missing
         let cupsCount = recipeDTO.cupsCount ?? 1.0
         let cupSize: Double
         if let persistedCupSize = recipeDTO.cupSize {
@@ -59,7 +59,7 @@ extension RecipeMapperImp {
             cupSize = totalLiquid
         }
         
-        // Map ID - all recipes have IDs after migration
+        // Map ID - recipe must have a valid ID
         guard let idString = recipeDTO.id,
               let uuid = UUID(uuidString: idString) else {
             throw RecipeMapperError.missingRecipeId

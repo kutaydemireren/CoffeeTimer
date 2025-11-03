@@ -9,8 +9,13 @@ import SwiftUI
 import FirebaseCore
 
 class AppDelegate: NSObject, UIApplicationDelegate {
+    private let appInitializer: AppInitializer = AppInitializerImp()
+    
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        // Run migrations before Firebase and other initialization
+        appInitializer.initialize()
+        
         FirebaseApp.configure()
         return true
     }
