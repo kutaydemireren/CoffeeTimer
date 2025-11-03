@@ -169,7 +169,7 @@ extension RecipeMapperTests {
         XCTAssertEqual(resultedRecipe.id, recipeId)
     }
     
-    func test_mapToRecipe_whenRecipeDTONoID_shouldGenerateNewID() throws {
+    func test_mapToRecipe_whenRecipeDTONoID_shouldThrowError() {
         var recipeDTO = RecipeDTO.stubMini
         recipeDTO = RecipeDTO(
             id: nil,
@@ -180,15 +180,12 @@ extension RecipeMapperTests {
             cupSize: recipeDTO.cupSize
         )
 
-        let resultedRecipe = try sut.mapToRecipe(recipeDTO: recipeDTO)
-
-        XCTAssertNotNil(resultedRecipe.id)
-        // Verify it's a valid UUID
-        let idString = resultedRecipe.id.uuidString
-        XCTAssertEqual(UUID(uuidString: idString), resultedRecipe.id)
+        XCTAssertThrowsError(try sut.mapToRecipe(recipeDTO: recipeDTO)) { error in
+            XCTAssertEqual(error as? RecipeMapperError, RecipeMapperError.missingRecipeId)
+        }
     }
     
-    func test_mapToRecipe_whenRecipeDTOHasInvalidID_shouldGenerateNewID() throws {
+    func test_mapToRecipe_whenRecipeDTOHasInvalidID_shouldThrowError() {
         var recipeDTO = RecipeDTO.stubMini
         recipeDTO = RecipeDTO(
             id: "invalid-uuid",
@@ -199,10 +196,8 @@ extension RecipeMapperTests {
             cupSize: recipeDTO.cupSize
         )
 
-        let resultedRecipe = try sut.mapToRecipe(recipeDTO: recipeDTO)
-
-        XCTAssertNotNil(resultedRecipe.id)
-        // Verify it generated a new UUID (not the invalid one)
-        XCTAssertNotEqual(resultedRecipe.id.uuidString, "invalid-uuid")
+        XCTAssertThrowsError(try sut.mapToRecipe(recipeDTO: recipeDTO)) { error in
+            XCTAssertEqual(error as? RecipeMapperError, RecipeMapperError.missingRecipeId)
+        }
     }
 }

@@ -29,13 +29,20 @@ final class RecipeRepositoryImp: RecipeRepository {
 
     private var cancellables: [AnyCancellable] = []
 
+    private let migrationRunner: MigrationRunner
+    
     init(
         storage: Storage = StorageImp(userDefaults: .standard),
-        mapper: RecipeMapper = RecipeMapperImp()
+        mapper: RecipeMapper = RecipeMapperImp(),
+        migrationRunner: MigrationRunner = MigrationRunnerImp()
     ) {
         self.storage = storage
         self.mapper = mapper
-
+        self.migrationRunner = migrationRunner
+        
+        // Run migrations before accessing recipes
+        try? migrationRunner.run(migrations: [RecipeMigration()])
+        
         refreshSavedRecipes()
     }
 }
@@ -43,31 +50,16 @@ final class RecipeRepositoryImp: RecipeRepository {
 // MARK: Selected Recipe
 extension RecipeRepositoryImp {
     func getSelectedRecipe() -> Recipe? {
-        guard let selectedRecipeDTO = storage.load(forKey: selectedRecipeKey) as RecipeDTO? else {
-            return nil
-        }
-
-        guard let selectedRecipe = try? mapper.mapToRecipe(recipeDTO: selectedRecipeDTO) else {
+        guard let selectedRecipeDTO = storage.load(forKey: selectedRecipeKey) as RecipeDTO?,
+              let selectedId = selectedRecipeDTO.id else {
             return nil
         }
 
         // Ensure in-memory saved list is up-to-date before matching
         refreshSavedRecipes()
 
-        // Match selected recipe against saved recipes list to ensure consistency
-        // This is critical for backwards compatibility: old recipes get new UUIDs when loaded,
-        // so we need to match them to the recipes in the list (which have the same UUIDs)
-        return savedRecipes.value.first { recipe in
-            // If selected recipe has an ID, ONLY match by ID (never fallback to recipeProfile)
-            // This prevents conflicts when multiple recipes have the same name
-            if let selectedId = selectedRecipeDTO.id {
-                return selectedId == recipe.id.uuidString
-            }
-            
-            // Fallback to recipeProfile matching ONLY for old recipes without IDs
-            // This handles backwards compatibility where old recipes don't have IDs
-            return selectedRecipe.recipeProfile == recipe.recipeProfile
-        }
+        // Match by ID only - all recipes have IDs after migration
+        return savedRecipes.value.first { $0.id.uuidString == selectedId }
     }
 
     func update(selectedRecipe: Recipe) {
@@ -113,25 +105,12 @@ extension RecipeRepositoryImp {
     }
 
     private func findRecipeIndex(in savedDTOs: [RecipeDTO], matching targetDTO: RecipeDTO) -> Int? {
-        return savedDTOs.firstIndex(where: { savedDTO in
-            // Primary: Match by ID if both have IDs
-            if let savedId = savedDTO.id, let targetId = targetDTO.id {
-                return savedId == targetId
-            }
-
-            // Fallback: Match by recipeProfile (name + brewMethod ID) for backwards compatibility
-            // This handles old recipes without IDs
-            guard let savedProfile = savedDTO.recipeProfile,
-                  let targetProfile = targetDTO.recipeProfile,
-                  let savedName = savedProfile.name,
-                  let targetName = targetProfile.name,
-                  let savedBrewMethodId = savedProfile.brewMethod?.id,
-                  let targetBrewMethodId = targetProfile.brewMethod?.id else {
-                return false
-            }
-
-            return savedName == targetName && savedBrewMethodId == targetBrewMethodId
-        })
+        guard let targetId = targetDTO.id else {
+            return nil
+        }
+        
+        // Match by ID only - all recipes have IDs after migration
+        return savedDTOs.firstIndex { $0.id == targetId }
     }
 }
 

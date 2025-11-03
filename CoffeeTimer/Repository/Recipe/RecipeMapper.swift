@@ -17,6 +17,7 @@ enum RecipeMapperError: Error {
     case missingBrewQueue
     case missingBrewStageAction
     case missingBrewStageRequirement
+    case missingRecipeId
 }
 
 protocol RecipeMapper {
@@ -58,13 +59,13 @@ extension RecipeMapperImp {
             cupSize = totalLiquid
         }
         
-        // Map ID with backwards compatibility - generate new UUID if missing
-        let id: UUID
-        if let idString = recipeDTO.id, let uuid = UUID(uuidString: idString) {
-            id = uuid
-        } else {
-            id = UUID()
+        // Map ID - all recipes have IDs after migration
+        guard let idString = recipeDTO.id,
+              let uuid = UUID(uuidString: idString) else {
+            throw RecipeMapperError.missingRecipeId
         }
+        
+        let id = uuid
         
         return Recipe(id: id, recipeProfile: recipeProfile, ingredients: ingredients, brewQueue: brewQueue, cupsCount: cupsCount, cupSize: cupSize)
     }
