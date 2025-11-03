@@ -145,6 +145,75 @@ extension RecipeRepositoryTests {
         XCTAssertNil(resultedRecipe)
     }
     
+    func test_getSelectedRecipe_whenMultipleRecipesWithSameName_shouldMatchByIDOnly() {
+        // Create two recipes with same name and brew method but different IDs
+        let recipe1Id = UUID()
+        let recipe2Id = UUID()
+        
+        let recipe1 = Recipe(
+            id: recipe1Id,
+            recipeProfile: .stubMini,
+            ingredients: [
+                .init(ingredientType: .coffee, amount: .init(amount: 10, type: .gram)),
+                .init(ingredientType: .water, amount: .init(amount: 200, type: .millilitre))
+            ],
+            brewQueue: .stubMini,
+            cupsCount: 1.0,
+            cupSize: 200.0
+        )
+        
+        let recipe2 = Recipe(
+            id: recipe2Id,
+            recipeProfile: .stubMini, // Same name and brew method
+            ingredients: [
+                .init(ingredientType: .coffee, amount: .init(amount: 15, type: .gram)),
+                .init(ingredientType: .water, amount: .init(amount: 300, type: .millilitre))
+            ],
+            brewQueue: .stubMini,
+            cupsCount: 1.0,
+            cupSize: 200.0
+        )
+        
+        let recipe1DTO = RecipeDTO(
+            id: recipe1Id.uuidString,
+            recipeProfile: RecipeDTO.stubMini.recipeProfile,
+            ingredients: [
+                .init(ingredientType: .coffee, amount: .init(amount: 10, type: .gram)),
+                .init(ingredientType: .water, amount: .init(amount: 200, type: .millilitre))
+            ],
+            brewQueue: RecipeDTO.stubMini.brewQueue,
+            cupsCount: 1.0,
+            cupSize: 200.0
+        )
+        
+        let recipe2DTO = RecipeDTO(
+            id: recipe2Id.uuidString,
+            recipeProfile: RecipeDTO.stubMini.recipeProfile, // Same name and brew method
+            ingredients: [
+                .init(ingredientType: .coffee, amount: .init(amount: 15, type: .gram)),
+                .init(ingredientType: .water, amount: .init(amount: 300, type: .millilitre))
+            ],
+            brewQueue: RecipeDTO.stubMini.brewQueue,
+            cupsCount: 1.0,
+            cupSize: 200.0
+        )
+        
+        // Select recipe2 (the second one)
+        mockStorage.storageDictionary = [
+            expectedSelectedRecipeKey: recipe2DTO,
+            expectedSavedRecipesKey: [recipe1DTO, recipe2DTO]
+        ]
+        
+        setupMapperReturn(expectedRecipeDTOs: [recipe1DTO, recipe2DTO], expectedRecipes: [recipe1, recipe2])
+        
+        let resultedRecipe = sut.getSelectedRecipe()
+        
+        // Should match recipe2 by ID, not recipe1 (even though they have the same name)
+        XCTAssertNotNil(resultedRecipe)
+        XCTAssertEqual(resultedRecipe?.id, recipe2Id)
+        XCTAssertEqual(resultedRecipe?.ingredients.first?.amount.amount, 15) // recipe2's coffee amount
+    }
+    
     func test_updateSelectedRecipe_shouldUpdateSelectedRecipe() {
         let expectedRecipeDTO = RecipeDTO.stubMini
         mockStorage.storageDictionary = [expectedSelectedRecipeKey: expectedRecipeDTO]

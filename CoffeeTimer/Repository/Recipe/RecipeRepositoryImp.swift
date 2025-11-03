@@ -58,13 +58,14 @@ extension RecipeRepositoryImp {
         // This is critical for backwards compatibility: old recipes get new UUIDs when loaded,
         // so we need to match them to the recipes in the list (which have the same UUIDs)
         return savedRecipes.value.first { recipe in
-            // Try ID matching first
-            if let selectedId = selectedRecipeDTO.id,
-               selectedId == recipe.id.uuidString {
-                return true
+            // If selected recipe has an ID, ONLY match by ID (never fallback to recipeProfile)
+            // This prevents conflicts when multiple recipes have the same name
+            if let selectedId = selectedRecipeDTO.id {
+                return selectedId == recipe.id.uuidString
             }
-
-            // Fallback to recipeProfile matching for old recipes without IDs
+            
+            // Fallback to recipeProfile matching ONLY for old recipes without IDs
+            // This handles backwards compatibility where old recipes don't have IDs
             return selectedRecipe.recipeProfile == recipe.recipeProfile
         }
     }
