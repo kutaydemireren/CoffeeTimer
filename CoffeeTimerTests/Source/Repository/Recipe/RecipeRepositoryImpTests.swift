@@ -51,12 +51,9 @@ extension RecipeRepositoryTests {
     
     func test_getSelectedRecipe_shouldReturnExpectedRecipe() {
         let expectedRecipeDTO = RecipeDTO.stubMini
-        mockStorage.storageDictionary = [
-            expectedSelectedRecipeKey: expectedRecipeDTO,
-            expectedSavedRecipesKey: [expectedRecipeDTO]
-        ]
+        mockStorage.storageDictionary = [expectedSelectedRecipeKey: expectedRecipeDTO]
         
-        // Create a Recipe with the same ID as the DTO so they match
+        // Create a Recipe with the same ID as the DTO
         guard let recipeId = expectedRecipeDTO.id, let uuid = UUID(uuidString: recipeId) else {
             XCTFail("RecipeDTO should have a valid ID")
             return
@@ -71,148 +68,13 @@ extension RecipeRepositoryTests {
             cupSize: 200.0
         )
         
-        // Setup mapper to handle both refreshSavedRecipes (loads saved recipes) and getSelectedRecipe (loads selected recipe)
-        // Both load the same DTO, so mapper should return the same recipe for both
-        // When refreshSavedRecipes runs, it loads savedRecipes and maps them
-        // When getSelectedRecipe runs, it calls refreshSavedRecipes again, then matches by ID
-        setupMapperReturn(expectedRecipeDTOs: [expectedRecipeDTO, expectedRecipeDTO], expectedRecipes: [expectedRecipe, expectedRecipe])
+        setupMapperReturn(expectedRecipeDTOs: [expectedRecipeDTO], expectedRecipes: [expectedRecipe])
         
         let resultedRecipe = sut.getSelectedRecipe()
         
         XCTAssertEqual(resultedRecipe, expectedRecipe)
-        XCTAssertTrue(mockStorage.loadCalls.contains(expectedSelectedRecipeKey))
-    }
-    
-    func test_getSelectedRecipe_whenSelectedRecipeMatchesSavedRecipe_shouldReturnRecipe() {
-        // Selected recipe matches a saved recipe by ID
-        let recipeId = UUID()
-        
-        let selectedRecipeDTO = RecipeDTO(
-            id: recipeId.uuidString,
-            recipeProfile: RecipeDTO.stubMini.recipeProfile,
-            ingredients: RecipeDTO.stubMini.ingredients,
-            brewQueue: RecipeDTO.stubMini.brewQueue,
-            cupsCount: 1.0,
-            cupSize: 200.0
-        )
-        
-        let savedRecipeDTO = RecipeDTO(
-            id: recipeId.uuidString,
-            recipeProfile: RecipeDTO.stubMini.recipeProfile,
-            ingredients: RecipeDTO.stubMini.ingredients,
-            brewQueue: RecipeDTO.stubMini.brewQueue,
-            cupsCount: 1.0,
-            cupSize: 200.0
-        )
-        
-        mockStorage.storageDictionary = [
-            expectedSelectedRecipeKey: selectedRecipeDTO,
-            expectedSavedRecipesKey: [savedRecipeDTO]
-        ]
-        
-        let recipe = Recipe(
-            id: recipeId,
-            recipeProfile: .stubMini,
-            ingredients: .stubMini,
-            brewQueue: .stubMini,
-            cupsCount: 1.0,
-            cupSize: 200.0
-        )
-        
-        setupMapperReturn(expectedRecipeDTOs: [savedRecipeDTO, selectedRecipeDTO], expectedRecipes: [recipe, recipe])
-        
-        let resultedRecipe = sut.getSelectedRecipe()
-        
-        XCTAssertNotNil(resultedRecipe)
-        XCTAssertEqual(resultedRecipe?.id, recipeId)
-    }
-    
-    func test_getSelectedRecipe_whenSelectedRecipeNotInList_shouldReturnNil() {
-        let selectedRecipeDTO = RecipeDTO.stubMini
-        let differentRecipeDTO = RecipeDTO.stubMiniIced
-        
-        mockStorage.storageDictionary = [
-            expectedSelectedRecipeKey: selectedRecipeDTO,
-            expectedSavedRecipesKey: [differentRecipeDTO]
-        ]
-        
-        let selectedRecipe = Recipe.stubMini
-        let differentRecipe = Recipe.stubMiniIced
-        setupMapperReturn(expectedRecipeDTOs: [selectedRecipeDTO, differentRecipeDTO], expectedRecipes: [selectedRecipe, differentRecipe])
-        
-        let resultedRecipe = sut.getSelectedRecipe()
-        
-        // Selected recipe is not in the saved recipes list, so should return nil
-        XCTAssertNil(resultedRecipe)
-    }
-    
-    func test_getSelectedRecipe_whenMultipleRecipesWithSameName_shouldMatchByIDOnly() {
-        // Create two recipes with same name and brew method but different IDs
-        let recipe1Id = UUID()
-        let recipe2Id = UUID()
-        
-        let recipe1 = Recipe(
-            id: recipe1Id,
-            recipeProfile: .stubMini,
-            ingredients: [
-                .init(ingredientType: .coffee, amount: .init(amount: 10, type: .gram)),
-                .init(ingredientType: .water, amount: .init(amount: 200, type: .millilitre))
-            ],
-            brewQueue: .stubMini,
-            cupsCount: 1.0,
-            cupSize: 200.0
-        )
-        
-        let recipe2 = Recipe(
-            id: recipe2Id,
-            recipeProfile: .stubMini, // Same name and brew method
-            ingredients: [
-                .init(ingredientType: .coffee, amount: .init(amount: 15, type: .gram)),
-                .init(ingredientType: .water, amount: .init(amount: 300, type: .millilitre))
-            ],
-            brewQueue: .stubMini,
-            cupsCount: 1.0,
-            cupSize: 200.0
-        )
-        
-        let recipe1DTO = RecipeDTO(
-            id: recipe1Id.uuidString,
-            recipeProfile: RecipeDTO.stubMini.recipeProfile,
-            ingredients: [
-                .init(ingredientType: .coffee, amount: .init(amount: 10, type: .gram)),
-                .init(ingredientType: .water, amount: .init(amount: 200, type: .millilitre))
-            ],
-            brewQueue: RecipeDTO.stubMini.brewQueue,
-            cupsCount: 1.0,
-            cupSize: 200.0
-        )
-        
-        let recipe2DTO = RecipeDTO(
-            id: recipe2Id.uuidString,
-            recipeProfile: RecipeDTO.stubMini.recipeProfile, // Same name and brew method
-            ingredients: [
-                .init(ingredientType: .coffee, amount: .init(amount: 15, type: .gram)),
-                .init(ingredientType: .water, amount: .init(amount: 300, type: .millilitre))
-            ],
-            brewQueue: RecipeDTO.stubMini.brewQueue,
-            cupsCount: 1.0,
-            cupSize: 200.0
-        )
-        
-        // Select recipe2 (the second one)
-        mockStorage.storageDictionary = [
-            expectedSelectedRecipeKey: recipe2DTO,
-            expectedSavedRecipesKey: [recipe1DTO, recipe2DTO]
-        ]
-        
-        setupMapperReturn(expectedRecipeDTOs: [recipe1DTO, recipe2DTO], expectedRecipes: [recipe1, recipe2])
-        
-        let resultedRecipe = sut.getSelectedRecipe()
-        
-        // Should match recipe2 by ID, not recipe1 (even though they have the same name)
-        XCTAssertNotNil(resultedRecipe)
-        XCTAssertEqual(resultedRecipe?.id, recipe2Id)
-        XCTAssertEqual(resultedRecipe?.ingredients.first?.amount.amount, 15) // recipe2's coffee amount
+        XCTAssertEqual(mockStorage.loadCalledWithKey, expectedSelectedRecipeKey)
+        XCTAssertEqual(mockMapper.mapToRecipeReceivedRecipeDTO, expectedRecipeDTO)
     }
     
     func test_updateSelectedRecipe_shouldUpdateSelectedRecipe() {

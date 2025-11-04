@@ -43,16 +43,11 @@ final class RecipeRepositoryImp: RecipeRepository {
 // MARK: Selected Recipe
 extension RecipeRepositoryImp {
     func getSelectedRecipe() -> Recipe? {
-        guard let selectedRecipeDTO = storage.load(forKey: selectedRecipeKey) as RecipeDTO?,
-              let selectedId = selectedRecipeDTO.id else {
+        guard let selectedRecipeDTO = storage.load(forKey: selectedRecipeKey) as RecipeDTO? else {
             return nil
         }
 
-        // Ensure in-memory saved list is up-to-date before matching
-        refreshSavedRecipes()
-
-        // Match by ID
-        return savedRecipes.value.first { $0.id.uuidString == selectedId }
+        return try? mapper.mapToRecipe(recipeDTO: selectedRecipeDTO)
     }
 
     func update(selectedRecipe: Recipe) {
