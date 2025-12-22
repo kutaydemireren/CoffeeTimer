@@ -2,7 +2,7 @@
 //  MockAnalyticsTracker.swift
 //  CoffeeTimerTests
 //
-//  Created by Kutay Demireren on [Date].
+//  Created by Kutay Demireren.
 //
 
 @testable import CoffeeTimer

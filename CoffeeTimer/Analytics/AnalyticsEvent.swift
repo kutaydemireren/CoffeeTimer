@@ -2,7 +2,7 @@
 //  AnalyticsEvent.swift
 //  CoffeeTimer
 //
-//  Created by Kutay Demireren on [Date].
+//  Created by Kutay Demireren.
 //
 
 import Foundation
