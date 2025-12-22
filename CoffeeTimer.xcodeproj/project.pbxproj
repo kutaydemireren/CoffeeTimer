@@ -129,6 +129,10 @@
 		F2740B392EB91C1300AF6459 /* RecipeMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2740B362EB91C1300AF6459 /* RecipeMigrationTests.swift */; };
 		F2740B3B2EB94DB800AF6459 /* AppInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2740B3A2EB94DB800AF6459 /* AppInitializer.swift */; };
 		F275237A2CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27523792CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift */; };
+		F276D1212EF95077009BDF1F /* AnalyticsTracker+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F276D11E2EF95077009BDF1F /* AnalyticsTracker+Preview.swift */; };
+		F276D1222EF95077009BDF1F /* FirebaseAnalyticsTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F276D11F2EF95077009BDF1F /* FirebaseAnalyticsTracker.swift */; };
+		F276D1232EF95077009BDF1F /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F276D11C2EF95077009BDF1F /* AnalyticsEvent.swift */; };
+		F276D1242EF95077009BDF1F /* AnalyticsTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F276D11D2EF95077009BDF1F /* AnalyticsTracker.swift */; };
 		F27B2D692CF28D2100B425E9 /* IngredientAmountTypeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */; };
 		F2AAB07D2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AAB07C2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift */; };
 		F2AAB0802EB7E3D500DDCFAD /* UpdateRecipeFromContextUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AAB07F2EB7E3D500DDCFAD /* UpdateRecipeFromContextUseCase.swift */; };
@@ -284,6 +288,10 @@
 		F2740B362EB91C1300AF6459 /* RecipeMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeMigrationTests.swift; sourceTree = "<group>"; };
 		F2740B3A2EB94DB800AF6459 /* AppInitializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInitializer.swift; sourceTree = "<group>"; };
 		F27523792CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveBrewMethodUseCase.swift; sourceTree = "<group>"; };
+		F276D11C2EF95077009BDF1F /* AnalyticsEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsEvent.swift; sourceTree = "<group>"; };
+		F276D11D2EF95077009BDF1F /* AnalyticsTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsTracker.swift; sourceTree = "<group>"; };
+		F276D11E2EF95077009BDF1F /* AnalyticsTracker+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnalyticsTracker+Preview.swift"; sourceTree = "<group>"; };
+		F276D11F2EF95077009BDF1F /* FirebaseAnalyticsTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAnalyticsTracker.swift; sourceTree = "<group>"; };
 		F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientAmountTypeItem.swift; sourceTree = "<group>"; };
 		F2AAB07C2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+HighlightAnimation.swift"; sourceTree = "<group>"; };
 		F2AAB07E2EB7E3D500DDCFAD /* ConfigureContextFromRecipeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureContextFromRecipeUseCase.swift; sourceTree = "<group>"; };
@@ -450,17 +458,18 @@
 		CA367D3029A2B0370095B1B8 /* CoffeeTimer */ = {
 			isa = PBXGroup;
 			children = (
-				CAEE2F6F2C42A03F00D7D61E /* button-click.wav */,
 				CAA325892BD438B1008440D0 /* instructions_v60_single.json */,
-				CA9BDA1D2A2CDC9E0068DFF7 /* Timer */,
-				CA852F232BD5551900FEF144 /* Recipe */,
-				CA8C9AEC2C0B5074000A71AC /* RecipeInstructions */,
+				CAEE2F6F2C42A03F00D7D61E /* button-click.wav */,
+				F276D1202EF95077009BDF1F /* Analytics */,
 				CAAB27C72C41C66200E3997E /* BrewMethod */,
 				CA5E907829D61AA400A78CF2 /* Entities */,
 				CA981F822A2695D8000254CD /* iOS */,
-				CA367D3729A2B0380095B1B8 /* Preview Content */,
-				CAF42CEE29EC98BF004D7788 /* Repository */,
 				CA8C9AF52C0B604C000A71AC /* Network */,
+				CA367D3729A2B0380095B1B8 /* Preview Content */,
+				CA852F232BD5551900FEF144 /* Recipe */,
+				CA8C9AEC2C0B5074000A71AC /* RecipeInstructions */,
+				CAF42CEE29EC98BF004D7788 /* Repository */,
+				CA9BDA1D2A2CDC9E0068DFF7 /* Timer */,
 			);
 			path = CoffeeTimer;
 			sourceTree = "<group>";
@@ -915,6 +924,17 @@
 			path = Migration;
 			sourceTree = "<group>";
 		};
+		F276D1202EF95077009BDF1F /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				F276D11C2EF95077009BDF1F /* AnalyticsEvent.swift */,
+				F276D11D2EF95077009BDF1F /* AnalyticsTracker.swift */,
+				F276D11E2EF95077009BDF1F /* AnalyticsTracker+Preview.swift */,
+				F276D11F2EF95077009BDF1F /* FirebaseAnalyticsTracker.swift */,
+			);
+			path = Analytics;
+			sourceTree = "<group>";
+		};
 		F2DB5FBC2CF3BAEB000D67ED /* Items */ = {
 			isa = PBXGroup;
 			children = (
@@ -1127,6 +1147,10 @@
 				F2740B342EB91BC400AF6459 /* RecipeMigration.swift in Sources */,
 				CAF42CE329EC9524004D7788 /* CreateRecipeFlowView.swift in Sources */,
 				CABD23A32C4EEC13005C599F /* RecipeInstructionActionItem.swift in Sources */,
+				F276D1212EF95077009BDF1F /* AnalyticsTracker+Preview.swift in Sources */,
+				F276D1222EF95077009BDF1F /* FirebaseAnalyticsTracker.swift in Sources */,
+				F276D1232EF95077009BDF1F /* AnalyticsEvent.swift in Sources */,
+				F276D1242EF95077009BDF1F /* AnalyticsTracker.swift in Sources */,
 				CA77909B2A06F35A00BEA142 /* CreateContextToInputMapper.swift in Sources */,
 				CABD239B2C4EEB8E005C599F /* InstructionRequirementItem.swift in Sources */,
 				CAFCF54B2A6F0A1700875CB7 /* HapticGenerator.swift in Sources */,
