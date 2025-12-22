@@ -341,6 +341,11 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     func dismissGiftCoffee() {
         isPresentingGiftView = false
     }
+    
+    func presentGiftView() {
+        isPresentingGiftView = true
+        analyticsTracker.track(event: AnalyticsEvent(name: "gift_view_opened"))
+    }
 
     func confirmPostBrew() {
         isPresentingPostBrew = false
@@ -527,7 +532,7 @@ struct BrewQueueView: View {
     @ViewBuilder
     private var giftButton: some View {
         Button {
-            viewModel.isPresentingGiftView = true
+            viewModel.presentGiftView()
         } label: {
             Image(systemName: "gift")
         }

@@ -55,6 +55,14 @@ final class BrewQueueViewModelAnalyticsTests: XCTestCase {
         XCTAssertNotNil(editEvent)
     }
     
+    func test_presentGiftView_shouldTrackGiftViewOpened() {
+        sut.presentGiftView()
+        
+        XCTAssertEqual(mockAnalyticsTracker.trackCallCount, 1)
+        let giftViewEvent = mockAnalyticsTracker.trackedEvents.first { $0.name == "gift_view_opened" }
+        XCTAssertNotNil(giftViewEvent)
+    }
+    
     func test_confirmGiftCoffee_shouldTrackBuyMeACoffeeOpened() {
         sut.confirmGiftCoffee()
         
