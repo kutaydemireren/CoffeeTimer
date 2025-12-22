@@ -174,16 +174,6 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     }
 
     func skipAction() {
-        if let currentStage = currentStage {
-            let actionName = stageActionName(for: currentStage.action)
-            analyticsTracker.track(event: AnalyticsEvent(
-                name: "brew_stage_skipped",
-                parameters: [
-                    "stage_index": Int(currentStageIndex),
-                    "action": actionName
-                ]
-            ))
-        }
         nextStage()
     }
 
@@ -359,7 +349,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     }
 
     private func redirectToBMC() {
-        Task {
+        Task { @MainActor in
             guard let url = URL(string: "https://buymeacoffee.com/coffeetimer") else { return }
             await urlOpener.open(url, options: [:])
         }
