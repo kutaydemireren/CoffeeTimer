@@ -55,6 +55,7 @@ struct EditRecipeAmountsView: View {
     private var footer: some View {
         HStack {
             Button {
+                viewModel.trackCancel()
                 dismiss()
             } label: {
                 Text("Cancel")

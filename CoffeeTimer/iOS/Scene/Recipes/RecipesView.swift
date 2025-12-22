@@ -75,22 +75,31 @@ final class RecipesViewModel: ObservableObject, Completable {
     private let getSavedRecipesUseCase: GetSavedRecipesUseCase
     private let updateSelectedRecipeUseCase: UpdateSelectedRecipeUseCase
     private let removeRecipeUseCase: RemoveRecipeUseCase
+    private let analyticsTracker: AnalyticsTracker
     
     init(
         getSavedRecipesUseCase: GetSavedRecipesUseCase = GetSavedRecipesUseCaseImp(),
         updateSelectedRecipeUseCase: UpdateSelectedRecipeUseCase = UpdateSelectedRecipeUseCaseImp(),
-        removeRecipeUseCase: RemoveRecipeUseCase = RemoveRecipeUseCaseImp()
+        removeRecipeUseCase: RemoveRecipeUseCase = RemoveRecipeUseCaseImp(),
+        analyticsTracker: AnalyticsTracker = AnalyticsTrackerImp()
     ) {
         self.getSavedRecipesUseCase = getSavedRecipesUseCase
         self.updateSelectedRecipeUseCase = updateSelectedRecipeUseCase
         self.removeRecipeUseCase = removeRecipeUseCase
+        self.analyticsTracker = analyticsTracker
 
         self.getSavedRecipesUseCase.savedRecipes
             .assign(to: &$recipes)
         refresh()
+        analyticsTracker.track(event: AnalyticsEvent(name: "recipes_opened"))
     }
     
     func select(recipe: Recipe) {
+        let brewMethodType = recipe.recipeProfile.brewMethod.path.hasPrefix("custom-method") ? "custom" : "built-in"
+        analyticsTracker.track(event: AnalyticsEvent(
+            name: "recipe_selected",
+            parameters: ["brew_method_type": brewMethodType]
+        ))
         updateSelectedRecipeUseCase.update(selectedRecipe: recipe)
         refresh()
         close()
@@ -107,10 +116,16 @@ final class RecipesViewModel: ObservableObject, Completable {
     }
     
     private func remove(recipe: Recipe) {
+        let brewMethodType = recipe.recipeProfile.brewMethod.path.hasPrefix("custom-method") ? "custom" : "built-in"
+        analyticsTracker.track(event: AnalyticsEvent(
+            name: "recipe_deleted",
+            parameters: ["brew_method_type": brewMethodType]
+        ))
         removeRecipeUseCase.remove(recipe: recipe)
     }
     
     func create() {
+        analyticsTracker.track(event: AnalyticsEvent(name: "recipe_create_started"))
         didCreate.send(self)
     }
 }

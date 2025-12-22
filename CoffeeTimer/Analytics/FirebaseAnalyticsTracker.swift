@@ -8,9 +8,8 @@
 import Foundation
 import FirebaseAnalytics
 
-struct FirebaseAnalyticsTracker: AnalyticsTracker {
-    func track(event: AnalyticsEvent) {
-        Analytics.logEvent(event.name, parameters: event.parameters)
+struct FirebaseAnalyticsTracker {
+    func logEvent(_ name: String, parameters: [String: Any]?) {
+        Analytics.logEvent(name, parameters: parameters)
     }
 }
-

@@ -32,19 +32,23 @@ final class CreateRecipeViewModel: ObservableObject {
     private var recipeRepository: RecipeRepository // TODO: use case - no repo in vm!
     private var getBrewMethodsUseCase: GetBrewMethodsUseCase
     private var removeBrewMethodUseCase: RemoveBrewMethodUseCase
+    private var analyticsTracker: AnalyticsTracker
 
     init(
         createRecipeFromContextUseCase: CreateRecipeFromContextUseCase = CreateRecipeFromContextUseCaseImp(),
         recipeRepository: RecipeRepository = RecipeRepositoryImp.shared,
         getBrewMethodsUseCase: GetBrewMethodsUseCase = GetBrewMethodsUseCaseImp(),
-        removeBrewMethodUseCase: RemoveBrewMethodUseCase = RemoveBrewMethodUseCaseImp()
+        removeBrewMethodUseCase: RemoveBrewMethodUseCase = RemoveBrewMethodUseCaseImp(),
+        analyticsTracker: AnalyticsTracker = AnalyticsTrackerImp()
     ) {
         self.createRecipeFromContextUseCase = createRecipeFromContextUseCase
         self.recipeRepository = recipeRepository
         self.getBrewMethodsUseCase = getBrewMethodsUseCase
         self.removeBrewMethodUseCase = removeBrewMethodUseCase
+        self.analyticsTracker = analyticsTracker
 
         refreshBrewMethods()
+        analyticsTracker.track(event: AnalyticsEvent(name: "create_recipe_opened"))
     }
 
     func refreshBrewMethods() {
@@ -109,16 +113,38 @@ final class CreateRecipeViewModel: ObservableObject {
     private func getNextMissingPage(in context: CreateRecipeContext) -> (page: Int, missingField: CreateRecipeMissingField?) {
         do {
             let _ = try createRecipeFromContextUseCase.canCreate(from: context)
+            analyticsTracker.track(event: AnalyticsEvent(
+                name: "create_recipe_validated",
+                parameters: ["result": "pass"]
+            ))
             return (pageCount, nil)
         } catch let error as CreateRecipeFromContextUseCaseError {
+            let missingField: CreateRecipeMissingField
             switch error {
             case .missingBrewMethod:
-                return (1, .brewMethod)
+                missingField = .brewMethod
             case .missingRecipeProfile:
-                return (2, .recipeProfile)
+                missingField = .recipeProfile
             case .missingCupsCount:
-                return (3, .cupsCount)
+                missingField = .cupsCount
             case .missingRatio:
+                missingField = .ratio
+            }
+            analyticsTracker.track(event: AnalyticsEvent(
+                name: "create_recipe_validated",
+                parameters: [
+                    "result": "fail",
+                    "missing_field": fieldName(for: missingField)
+                ]
+            ))
+            switch missingField {
+            case .brewMethod:
+                return (1, .brewMethod)
+            case .recipeProfile:
+                return (2, .recipeProfile)
+            case .cupsCount:
+                return (3, .cupsCount)
+            case .ratio:
                 return (3, .ratio)
             }
         } catch _ {
@@ -126,6 +152,15 @@ final class CreateRecipeViewModel: ObservableObject {
         }
 
         return (pageCount, nil)
+    }
+    
+    private func fieldName(for field: CreateRecipeMissingField) -> String {
+        switch field {
+        case .brewMethod: return "brew_method"
+        case .recipeProfile: return "recipe_profile"
+        case .cupsCount: return "cups_count"
+        case .ratio: return "ratio"
+        }
     }
 
     func canCreate(from context: CreateRecipeContext) -> Bool {
@@ -152,12 +187,44 @@ final class CreateRecipeViewModel: ObservableObject {
             }
 
             recipeRepository.save(recipe)
+            
+            let brewMethodType = recipe.recipeProfile.brewMethod.path.hasPrefix("custom-method") ? "custom" : "built-in"
+            let ratioId = context.ratio?.id ?? "unknown"
+            let cupsCountBand = cupsCountBand(for: recipe.cupsCount)
+            analyticsTracker.track(event: AnalyticsEvent(
+                name: "recipe_created",
+                parameters: [
+                    "brew_method_type": brewMethodType,
+                    "ratio_id": ratioId,
+                    "cups_count_band": cupsCountBand,
+                    "iced": recipe.recipeProfile.brewMethod.isIcedBrew
+                ]
+            ))
+        }
+    }
+    
+    private func cupsCountBand(for cupsCount: Double) -> String {
+        switch cupsCount {
+        case 0..<2: return "1"
+        case 2..<4: return "2-3"
+        case 4..<6: return "4-5"
+        default: return "6+"
         }
     }
 
     func didUpdate(context: CreateRecipeContext) {
         resetRatiosIfNeeded(context)
         canCreate = canCreate(from: context)
+    }
+    
+    func trackBrewMethodChosen(brewMethodType: String, methodId: String) {
+        analyticsTracker.track(event: AnalyticsEvent(
+            name: "brew_method_chosen",
+            parameters: [
+                "brew_method_type": brewMethodType,
+                "method_id": methodId
+            ]
+        ))
     }
 
     func remove(brewMethod: BrewMethod) {
@@ -220,10 +287,18 @@ struct CreateRecipeView: View {
                 .tag(3)
             }
         )
-        .onChange(of: context.selectedBrewMethod, perform: didUpdate(_:))
+        .onChange(of: context.selectedBrewMethod, perform: didUpdateBrewMethod(_:))
         .onChange(of: context.recipeProfile, perform: didUpdate(_:))
         .onChange(of: context.cupsCount, perform: didUpdate(_:))
         .onChange(of: context.ratio, perform: didUpdate(_:))
+    }
+
+    private func didUpdateBrewMethod(_ brewMethod: BrewMethod?) {
+        if let brewMethod = brewMethod {
+            let brewMethodType = brewMethod.path.hasPrefix("custom-method") ? "custom" : "built-in"
+            viewModel.trackBrewMethodChosen(brewMethodType: brewMethodType, methodId: brewMethod.id)
+        }
+        viewModel.didUpdate(context: context)
     }
 
     private func didUpdate<T>(_ newValue: T) {

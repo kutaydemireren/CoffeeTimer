@@ -10,6 +10,7 @@ import FirebaseCore
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     private let appInitializer: AppInitializer = AppInitializerImp()
+    private let analyticsTracker: AnalyticsTracker = AnalyticsTrackerImp()
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
@@ -17,6 +18,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         appInitializer.initialize()
         
         FirebaseApp.configure()
+        
+        // Track app open after Firebase is configured
+        analyticsTracker.track(event: AnalyticsEvent(name: "app_open"))
+        
         return true
     }
 }

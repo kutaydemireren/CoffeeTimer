@@ -22,11 +22,15 @@ final class CreateMethodViewModel: ObservableObject {
     @Published var animateInstructions = false
 
     private let createBrewMethodUseCase: CreateBrewMethodUseCase
+    private var analyticsTracker: AnalyticsTracker
 
     init(
-        createBrewMethodUseCase: CreateBrewMethodUseCase = CreateBrewMethodUseCaseImp()
+        createBrewMethodUseCase: CreateBrewMethodUseCase = CreateBrewMethodUseCaseImp(),
+        analyticsTracker: AnalyticsTracker = AnalyticsTrackerImp()
     ) {
         self.createBrewMethodUseCase = createBrewMethodUseCase
+        self.analyticsTracker = analyticsTracker
+        analyticsTracker.track(event: AnalyticsEvent(name: "create_method_opened"))
     }
 
     func nextPage(in context: CreateBrewMethodContext) {
@@ -75,12 +79,30 @@ final class CreateMethodViewModel: ObservableObject {
     private func getNextMissingPage(in context: CreateBrewMethodContext) -> (page: Int, missingField: CreateMethodMissingField?) {
         do {
             let _ = try createBrewMethodUseCase.canCreate(from: context)
+            analyticsTracker.track(event: AnalyticsEvent(
+                name: "create_method_validated",
+                parameters: ["result": "pass"]
+            ))
             return (pageCount, nil)
         } catch let error as CreateBrewMethodUseCaseError {
+            let missingField: CreateMethodMissingField
             switch error {
             case .missingMethodTitle:
-                return (1, .methodTitle)
+                missingField = .methodTitle
             case .missingInstructions:
+                missingField = .instructions
+            }
+            analyticsTracker.track(event: AnalyticsEvent(
+                name: "create_method_validated",
+                parameters: [
+                    "result": "fail",
+                    "missing_field": fieldName(for: missingField)
+                ]
+            ))
+            switch missingField {
+            case .methodTitle:
+                return (1, .methodTitle)
+            case .instructions:
                 return (2, .instructions)
             }
         } catch _ {
@@ -88,6 +110,13 @@ final class CreateMethodViewModel: ObservableObject {
         }
 
         return (pageCount, nil)
+    }
+    
+    private func fieldName(for field: CreateMethodMissingField) -> String {
+        switch field {
+        case .methodTitle: return "method_title"
+        case .instructions: return "instructions"
+        }
     }
 
     func canCreate(from context: CreateBrewMethodContext) -> Bool {
@@ -100,6 +129,24 @@ final class CreateMethodViewModel: ObservableObject {
 
     func create(from context: CreateBrewMethodContext) async throws {
         try await createBrewMethodUseCase.create(from: context)
+        
+        let isIced = context.instructions.contains { item in
+            switch item.action {
+            case .put(let putModel):
+                return putModel.ingredient == .ice
+            default:
+                return false
+            }
+        }
+        let stepCount = context.instructions.count
+        
+        analyticsTracker.track(event: AnalyticsEvent(
+            name: "method_created",
+            parameters: [
+                "iced": isIced,
+                "step_count": stepCount
+            ]
+        ))
     }
 
     func didUpdate(context: CreateBrewMethodContext) {

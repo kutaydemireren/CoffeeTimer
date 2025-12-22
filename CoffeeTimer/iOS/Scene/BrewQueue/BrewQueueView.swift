@@ -140,15 +140,18 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     private var recipeRepository: RecipeRepository
     private var hapticGenerator: HapticGenerator
     private var urlOpener: URLOpener
+    private var analyticsTracker: AnalyticsTracker
 
     init(
         recipeRepository: RecipeRepository = RecipeRepositoryImp.shared, // TODO: use case - no repo in vm!
         hapticGenerator: HapticGenerator = HapticGeneratorImp(),
-        urlOpener: URLOpener = UIApplication.shared
+        urlOpener: URLOpener = UIApplication.shared,
+        analyticsTracker: AnalyticsTracker = AnalyticsTrackerImp()
     ) {
         self.recipeRepository = recipeRepository
         self.hapticGenerator = hapticGenerator
         self.urlOpener = urlOpener
+        self.analyticsTracker = analyticsTracker
 
         loadInitialStage()
     }
@@ -171,10 +174,21 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     }
 
     func skipAction() {
+        if let currentStage = currentStage {
+            let actionName = stageActionName(for: currentStage.action)
+            analyticsTracker.track(event: AnalyticsEvent(
+                name: "brew_stage_skipped",
+                parameters: [
+                    "stage_index": Int(currentStageIndex),
+                    "action": actionName
+                ]
+            ))
+        }
         nextStage()
     }
 
     func endAction() {
+        analyticsTracker.track(event: AnalyticsEvent(name: "brew_cancelled"))
         resetQueue()
     }
 
@@ -188,6 +202,16 @@ final class BrewQueueViewModel: ObservableObject, Completable {
         UIApplication.shared.isIdleTimerDisabled = true
         isActive = true
         currentStageIndex = 0
+        
+        let brewMethodType = selectedRecipe?.recipeProfile.brewMethod.path.hasPrefix("custom-method") == true ? "custom" : "built-in"
+        let stageCount = brewQueue.stages.count
+        analyticsTracker.track(event: AnalyticsEvent(
+            name: "brew_started",
+            parameters: [
+                "brew_method_type": brewMethodType,
+                "stage_count": stageCount
+            ]
+        ))
     }
 
     private func nextStage() {
@@ -200,11 +224,43 @@ final class BrewQueueViewModel: ObservableObject, Completable {
             guard newStageIndex < brewQueue.stages.count else {
                 isPresentingPostBrew = true
                 resetQueue()
+                analyticsTracker.track(event: AnalyticsEvent(name: "brew_completed"))
                 return
             }
+            
+            // Track stage completion
+            if let currentStage = currentStage {
+                let actionName = stageActionName(for: currentStage.action)
+                let method = currentStage.passMethod == .auto ? "auto" : "user"
+                analyticsTracker.track(event: AnalyticsEvent(
+                    name: "brew_stage_completed",
+                    parameters: [
+                        "stage_index": Int(currentStageIndex),
+                        "action": actionName,
+                        "method": method
+                    ]
+                ))
+            }
+            
             currentStageIndex = newStageIndex
         } else {
             beginQueue()
+        }
+    }
+    
+    private func stageActionName(for action: BrewStageAction) -> String {
+        switch action {
+        case .boilWater: return "boil_water"
+        case .putCoffee: return "put_coffee"
+        case .putIce: return "put_ice"
+        case .pourWater: return "pour_water"
+        case .wet: return "wet"
+        case .swirl: return "swirl"
+        case .swirlThoroughly: return "swirl_thoroughly"
+        case .pause: return "pause"
+        case .finish: return "finish"
+        case .finishIced: return "finish_iced"
+        case .message: return "message"
         }
     }
 
@@ -224,6 +280,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
     func requestEdit() {
         guard let recipe = selectedRecipe else { return }
+        analyticsTracker.track(event: AnalyticsEvent(name: "edit_recipe_requested"))
         didRequestEdit.send(recipe)
     }
 
@@ -287,6 +344,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
     func confirmGiftCoffee() {
         isPresentingGiftView = false
+        analyticsTracker.track(event: AnalyticsEvent(name: "buy_me_a_coffee_opened"))
         redirectToBMC()
     }
 
@@ -296,6 +354,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
     func confirmPostBrew() {
         isPresentingPostBrew = false
+        analyticsTracker.track(event: AnalyticsEvent(name: "buy_me_a_coffee_opened"))
         redirectToBMC()
     }
 
