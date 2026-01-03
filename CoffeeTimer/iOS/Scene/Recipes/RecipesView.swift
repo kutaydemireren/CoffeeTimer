@@ -183,7 +183,8 @@ struct RecipesView: View {
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color("foregroundPrimary"))
                     .font(.title)
-                
+                    .frame(maxWidth: .infinity)
+
                 Spacer()
             }
         }
