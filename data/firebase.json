@@ -8,6 +8,14 @@
     ],
     "rewrites": [
       {
+        "source": "/support",
+        "destination": "/support/index.html"
+      },
+      {
+        "source": "/cooking/support",
+        "destination": "/cooking/support/index.html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
