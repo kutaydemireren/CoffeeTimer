@@ -46,32 +46,78 @@ final class ReviewPromptPolicyImpTests: XCTestCase {
         XCTAssertNil(storedState)
     }
 
-    func test_record_whenFirstBrewIsEnded_shouldNotTrigger() {
-        sut.record(.brewEnded(duration: meaningful))
+    private func endedBeforeHalfway(duration: TimeInterval) -> ReviewPromptEvent {
+        .brewEnded(duration: duration, completedSteps: 3, totalSteps: 10)
+    }
+
+    private func endedPastHalfway(duration: TimeInterval) -> ReviewPromptEvent {
+        .brewEnded(duration: duration, completedSteps: 5, totalSteps: 10)
+    }
+
+    func test_record_whenFirstBrewIsEndedPastHalfway_shouldTriggerBrewEnded() {
+        sut.record(endedPastHalfway(duration: meaningful))
+
+        XCTAssertEqual(sut.takePendingTrigger(), .brewEnded)
+        XCTAssertEqual(storedState?.meaningfulBrewCount, 1)
+    }
+
+    func test_record_whenEndedPastHalfwayIsShorterThanMeaningfulDuration_shouldNotCount() {
+        sut.record(endedPastHalfway(duration: meaningful - 1))
+
+        XCTAssertNil(sut.takePendingTrigger())
+        XCTAssertNil(storedState)
+    }
+
+    func test_record_whenFirstBrewIsEndedBeforeHalfway_shouldNotTrigger() {
+        sut.record(endedBeforeHalfway(duration: meaningful))
 
         XCTAssertNil(sut.takePendingTrigger())
         XCTAssertEqual(storedState?.meaningfulBrewCount, 1)
     }
 
-    func test_record_whenSecondBrewIsEnded_shouldTriggerBrewEnded() {
-        sut.record(.brewEnded(duration: meaningful))
-        sut.record(.brewEnded(duration: meaningful))
+    func test_record_whenSecondBrewIsEndedBeforeHalfway_shouldNotTrigger() {
+        sut.record(endedBeforeHalfway(duration: meaningful))
+        sut.record(endedBeforeHalfway(duration: meaningful))
+
+        XCTAssertNil(sut.takePendingTrigger())
+    }
+
+    func test_record_whenThirdBrewIsEndedBeforeHalfway_shouldTriggerBrewEnded() {
+        sut.record(endedBeforeHalfway(duration: meaningful))
+        sut.record(endedBeforeHalfway(duration: meaningful))
+        sut.record(endedBeforeHalfway(duration: meaningful))
 
         XCTAssertEqual(sut.takePendingTrigger(), .brewEnded)
     }
 
-    func test_record_whenEndedBrewFollowsShortBrew_shouldNotTrigger() {
-        sut.record(.brewEnded(duration: 5))
-        sut.record(.brewEnded(duration: meaningful))
+    func test_record_whenEndedBrewFollowsShortBrew_shouldNotCountShortBrew() {
+        sut.record(endedBeforeHalfway(duration: 5))
+        sut.record(endedBeforeHalfway(duration: meaningful))
 
         XCTAssertNil(sut.takePendingTrigger())
         XCTAssertEqual(storedState?.meaningfulBrewCount, 1)
     }
 
     func test_record_whenEndedBrewIsShorterThanMeaningfulDuration_shouldNotCount() {
-        sut.record(.brewEnded(duration: 5))
+        sut.record(endedBeforeHalfway(duration: 5))
 
         XCTAssertNil(storedState)
+    }
+
+    // MARK: - BrewSessionRules.isPastHalfway
+
+    func test_isPastHalfway_whenEvenStepCount_shouldStartAtHalf() {
+        XCTAssertFalse(BrewSessionRules.isPastHalfway(completedSteps: 4, totalSteps: 10))
+        XCTAssertTrue(BrewSessionRules.isPastHalfway(completedSteps: 5, totalSteps: 10))
+    }
+
+    func test_isPastHalfway_whenOddStepCount_shouldRoundUp() {
+        XCTAssertFalse(BrewSessionRules.isPastHalfway(completedSteps: 7, totalSteps: 15))
+        XCTAssertTrue(BrewSessionRules.isPastHalfway(completedSteps: 8, totalSteps: 15))
+    }
+
+    func test_isPastHalfway_whenNoSteps_shouldReturnFalse() {
+        XCTAssertFalse(BrewSessionRules.isPastHalfway(completedSteps: 0, totalSteps: 0))
     }
 
     // MARK: - Recipes, methods, amounts

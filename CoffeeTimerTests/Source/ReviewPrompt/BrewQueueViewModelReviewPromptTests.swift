@@ -60,7 +60,10 @@ final class BrewQueueViewModelReviewPromptTests: XCTestCase {
 
         XCTAssertTrue(sut.isPresentingPostBrew)
         XCTAssertFalse(sut.isActive)
-        XCTAssertEqual(mockReviewPromptPolicy.recordedEvents, [.brewEnded(duration: 90)])
+        XCTAssertEqual(
+            mockReviewPromptPolicy.recordedEvents,
+            [.brewEnded(duration: 90, completedSteps: 0, totalSteps: sut.brewQueue.stages.count)]
+        )
         let event = mockAnalyticsTracker.trackedEvents.first { $0.name == "post_brew_shown" }
         XCTAssertEqual(event?.parameters?["source"] as? String, "ended")
     }
@@ -71,6 +74,25 @@ final class BrewQueueViewModelReviewPromptTests: XCTestCase {
         let event = mockAnalyticsTracker.trackedEvents.first { $0.name == "brew_cancelled" }
         XCTAssertEqual(event?.parameters?["elapsed_seconds"] as? Int, 42)
         XCTAssertEqual(event?.parameters?["stage_index"] as? Int, 0)
+    }
+
+    func test_endAction_whenPastHalfway_shouldRecordCompletedSteps() {
+        let stageCount = sut.brewQueue.stages.count
+        sut.primaryAction()
+        mockDateProvider.advance(by: 90)
+        for _ in 0..<(stageCount / 2) {
+            sut.skipAction()
+        }
+
+        sut.endAction()
+
+        XCTAssertEqual(
+            mockReviewPromptPolicy.recordedEvents,
+            [.brewEnded(duration: 90, completedSteps: stageCount / 2, totalSteps: stageCount)]
+        )
+        let event = mockAnalyticsTracker.trackedEvents.first { $0.name == "brew_cancelled" }
+        XCTAssertEqual(event?.parameters?["stage_index"] as? Int, stageCount / 2)
+        XCTAssertEqual(event?.parameters?["stage_count"] as? Int, stageCount)
     }
 
     func test_endAction_whenPolicyHasPendingTrigger_shouldSetReviewPromptTrigger() {

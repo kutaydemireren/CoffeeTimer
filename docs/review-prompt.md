@@ -9,12 +9,15 @@ CoffeeTimer asks for an App Store review with Apple's native prompt (SwiftUI `@E
 | Moment | Where it is asked | Rule | Why |
 |---|---|---|---|
 | Brew completed (every step followed to the end) | Post-brew screen, 1.5 s after it appears | From the 1st meaningful brew on | Following every step to the end is the strongest signal the app gets, and usage is infrequent, so the app asks while the user's interest is fresh. |
-| Brew ended with "End" | Post-brew screen, 1.5 s after it appears | From the 2nd meaningful brew on | Most users end a brew early once they know the remaining steps, so this is where most brews finish. It is a weaker signal than a completed brew: an End on the very first brew may come from confusion. Because the app asks only once per version, asking on a weak first-brew End would also block a later, stronger moment. |
+| Brew ended with "End" past halfway | Post-brew screen, 1.5 s after it appears | From the 1st meaningful brew on | Most users end a brew early once they know the remaining steps, so this is where most brews finish. Ending after at least half of the steps is close to a full brew. Requiring halfway filters out users who quit early. |
+| Brew ended with "End" before halfway | Post-brew screen, 1.5 s after it appears | From the 3rd meaningful brew on | A weak signal: the user may have given up. Because the app asks only once per version, asking here early would block a later, stronger moment. |
 | Custom brew method created | Main screen, 1 s after the recipes screen closes | 1st method | Building a method is a deliberate investment in the app, and it is rare. |
 | Recipe created | Main screen, 1 s after the recipes screen closes | From the 2nd recipe on | The first recipe is often a trial. A second one means the user is coming back. |
 | Recipe amounts edited and saved | Main screen, 1 s after the edit sheet closes | From the 2nd save on | Adjusting amounts again shows the user is tuning the app to their routine. |
 
 A **meaningful brew** lasts at least 60 seconds from "Begin". Shorter brews are likely a misclick or a quick look at the steps. They don't count, whether they were completed by skipping every step or ended with "End".
+
+A brew is **past halfway** when at least half of its steps are done: the step on screen when "End" is tapped has a 0-based index of at least `ceil(stepCount / 2)`. For a 15-step recipe, that is the 9th step or later. Completed and ended brews share one meaningful-brew count, so a user who ended two brews before halfway gets asked when their 3rd meaningful brew ends.
 
 ### Rejected
 
@@ -48,5 +51,5 @@ Tapping "End" after at least 60 seconds now shows the same post-brew screen as a
 - `CoffeeTimer/ReviewPrompt/ReviewPromptPolicy.swift`: `ReviewPromptPolicy` / `ReviewPromptPolicyImp` hold the rules above. The counters and the last request (date and app version) are stored as one `ReviewPromptState` value under the `reviewPromptState` key through `StorageImp`. Screens call `record(_:)` for a moment, `takePendingTrigger()` at a settled screen, and `didRequestReview()` when they ask.
 - `CoffeeTimer/iOS/ViewModifiers/View+ReviewPrompt.swift`: the `.reviewPrompt(trigger:delay:confirm:)` modifier waits for the delay, asks the view model to confirm, then calls `requestReview`. The wait is cancelled if the screen goes away.
 - `BrewQueueViewModel` records brews and asks from the post-brew screen. `AppFlowViewModel` asks on the main screen after the recipes screen or the edit sheet closes. `CreateRecipeViewModel`, `CreateMethodViewModel` and `EditRecipeAmountsViewModel` record their moments.
-- Analytics: `review_prompt_requested` (`trigger`: `brew_completed`, `brew_ended`, `method_created`, `recipe_created`, `amounts_edited`) and `post_brew_shown` (`source`: `completed`, `ended`). `brew_cancelled` now carries `stage_index` and `elapsed_seconds`.
-- To change a rule, edit `ReviewPromptPolicyImp.Rules` or `BrewSessionRules.meaningfulDuration` and update this page and `ReviewPromptPolicyImpTests`.
+- Analytics: `review_prompt_requested` (`trigger`: `brew_completed`, `brew_ended`, `method_created`, `recipe_created`, `amounts_edited`) and `post_brew_shown` (`source`: `completed`, `ended`). `brew_cancelled` now carries `stage_index`, `stage_count` and `elapsed_seconds`.
+- To change a rule, edit `ReviewPromptPolicyImp.Rules`, `BrewSessionRules.meaningfulDuration` or `BrewSessionRules.isPastHalfway` and update this page and `ReviewPromptPolicyImpTests`.

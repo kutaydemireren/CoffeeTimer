@@ -187,18 +187,24 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
     func endAction() {
         let duration = brewDuration
+        let completedSteps = Int(currentStageIndex)
+        let totalSteps = brewQueue.stages.count
         analyticsTracker.track(event: AnalyticsEvent(
             name: "brew_cancelled",
             parameters: [
                 "stage_index": Int(currentStageIndex),
-                "elapsed_seconds": Int(duration)
+                "elapsed_seconds": Int(duration),
+                "stage_count": totalSteps
             ]
         ))
         resetQueue()
 
         // Ending in the first moments is likely a misclick or a quick look: go back to the start as before.
         guard duration >= BrewSessionRules.meaningfulDuration else { return }
-        presentPostBrew(source: "ended", event: .brewEnded(duration: duration))
+        presentPostBrew(
+            source: "ended",
+            event: .brewEnded(duration: duration, completedSteps: completedSteps, totalSteps: totalSteps)
+        )
     }
 
     private var brewDuration: TimeInterval {

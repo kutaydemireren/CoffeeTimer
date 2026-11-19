@@ -13,7 +13,8 @@ enum ReviewPromptEvent: Equatable {
     /// The user followed every step of a brew to the end.
     case brewCompleted(duration: TimeInterval)
     /// The user tapped "End" during a brew.
-    case brewEnded(duration: TimeInterval)
+    /// `completedSteps` is the number of steps before the one on screen (its 0-based index).
+    case brewEnded(duration: TimeInterval, completedSteps: Int, totalSteps: Int)
     case customMethodCreated
     case recipeCreated
     case recipeAmountsEdited
@@ -32,6 +33,13 @@ enum BrewSessionRules {
     /// Brews shorter than this are treated as a misclick or a quick look:
     /// ending one does not show the post-brew screen and does not count towards a review request.
     static let meaningfulDuration: TimeInterval = 60
+
+    /// A brew is past halfway when at least half of its steps are done:
+    /// the step on screen has a 0-based index of at least `ceil(totalSteps / 2)`.
+    /// For a 15-step recipe that is the 9th step or later.
+    static func isPastHalfway(completedSteps: Int, totalSteps: Int) -> Bool {
+        totalSteps > 0 && completedSteps * 2 >= totalSteps
+    }
 }
 
 /// Records positive moments and decides when the app may ask the system for a review.
@@ -62,8 +70,10 @@ final class ReviewPromptPolicyImp: ReviewPromptPolicy {
     enum Rules {
         /// A completed brew is a strong signal, so it asks from the user's 1st meaningful brew on.
         static let meaningfulBrewsForCompletedBrew = 1
-        /// An ended brew is a weaker signal (a first-brew End may be confusion), so it waits for the 2nd meaningful brew.
-        static let meaningfulBrewsForEndedBrew = 2
+        /// An End after at least half of the steps is close to a full brew, so it asks from the 1st meaningful brew on.
+        static let meaningfulBrewsForEndedBrewPastHalfway = 1
+        /// An End before halfway is a weak signal (it may be an early quitter), so it waits for the 3rd meaningful brew.
+        static let meaningfulBrewsForEndedBrew = 3
         static let customMethodsCreated = 1
         /// The first recipe is often a trial.
         static let recipesCreated = 2
@@ -101,10 +111,13 @@ final class ReviewPromptPolicyImp: ReviewPromptPolicy {
             if state.meaningfulBrewCount >= Rules.meaningfulBrewsForCompletedBrew {
                 trigger = .brewCompleted
             }
-        case .brewEnded(let duration):
+        case .brewEnded(let duration, let completedSteps, let totalSteps):
             guard duration >= BrewSessionRules.meaningfulDuration else { return }
             state.meaningfulBrewCount += 1
-            if state.meaningfulBrewCount >= Rules.meaningfulBrewsForEndedBrew {
+            let threshold = BrewSessionRules.isPastHalfway(completedSteps: completedSteps, totalSteps: totalSteps)
+                ? Rules.meaningfulBrewsForEndedBrewPastHalfway
+                : Rules.meaningfulBrewsForEndedBrew
+            if state.meaningfulBrewCount >= threshold {
                 trigger = .brewEnded
             }
         case .customMethodCreated:
