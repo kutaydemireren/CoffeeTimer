@@ -8,8 +8,8 @@ CoffeeTimer asks for an App Store review with Apple's native prompt (SwiftUI `@E
 
 | Moment | Where it is asked | Rule | Why |
 |---|---|---|---|
-| Brew completed (every step followed to the end) | Post-brew screen, 1.5 s after it appears | From the 2nd meaningful brew on | The user has just finished making coffee with the app. Waiting for the 2nd brew skips the first trial run. |
-| Brew ended with "End" | Post-brew screen, 1.5 s after it appears | From the 3rd meaningful brew on | Most users end a brew early once they know the remaining steps, so this is where most brews finish. It is a weaker signal than a completed brew, so it waits one brew longer. |
+| Brew completed (every step followed to the end) | Post-brew screen, 1.5 s after it appears | From the 1st meaningful brew on | Following every step to the end is the strongest signal the app gets, and usage is infrequent, so the app asks while the user's interest is fresh. |
+| Brew ended with "End" | Post-brew screen, 1.5 s after it appears | From the 2nd meaningful brew on | Most users end a brew early once they know the remaining steps, so this is where most brews finish. It is a weaker signal than a completed brew: an End on the very first brew may come from confusion. Because the app asks only once per version, asking on a weak first-brew End would also block a later, stronger moment. |
 | Custom brew method created | Main screen, 1 s after the recipes screen closes | 1st method | Building a method is a deliberate investment in the app, and it is rare. |
 | Recipe created | Main screen, 1 s after the recipes screen closes | From the 2nd recipe on | The first recipe is often a trial. A second one means the user is coming back. |
 | Recipe amounts edited and saved | Main screen, 1 s after the edit sheet closes | From the 2nd save on | Adjusting amounts again shows the user is tuning the app to their routine. |

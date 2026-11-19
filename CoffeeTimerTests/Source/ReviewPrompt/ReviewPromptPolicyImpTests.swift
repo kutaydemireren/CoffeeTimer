@@ -32,42 +32,40 @@ final class ReviewPromptPolicyImpTests: XCTestCase {
 
     // MARK: - Brews
 
-    func test_record_whenFirstCompletedBrew_shouldNotTrigger() {
-        sut.record(.brewCompleted(duration: meaningful))
-
-        XCTAssertNil(sut.takePendingTrigger())
-        XCTAssertEqual(storedState?.meaningfulBrewCount, 1)
-    }
-
-    func test_record_whenSecondCompletedBrew_shouldTriggerBrewCompleted() {
-        sut.record(.brewCompleted(duration: meaningful))
+    func test_record_whenFirstCompletedBrew_shouldTriggerBrewCompleted() {
         sut.record(.brewCompleted(duration: meaningful))
 
         XCTAssertEqual(sut.takePendingTrigger(), .brewCompleted)
+        XCTAssertEqual(storedState?.meaningfulBrewCount, 1)
     }
 
     func test_record_whenCompletedBrewIsShorterThanMeaningfulDuration_shouldNotCount() {
-        sut.record(.brewCompleted(duration: meaningful))
         sut.record(.brewCompleted(duration: meaningful - 1))
+
+        XCTAssertNil(sut.takePendingTrigger())
+        XCTAssertNil(storedState)
+    }
+
+    func test_record_whenFirstBrewIsEnded_shouldNotTrigger() {
+        sut.record(.brewEnded(duration: meaningful))
 
         XCTAssertNil(sut.takePendingTrigger())
         XCTAssertEqual(storedState?.meaningfulBrewCount, 1)
     }
 
-    func test_record_whenSecondBrewIsEnded_shouldNotTrigger() {
-        sut.record(.brewCompleted(duration: meaningful))
-        sut.record(.brewEnded(duration: meaningful))
-
-        XCTAssertNil(sut.takePendingTrigger())
-        XCTAssertEqual(storedState?.meaningfulBrewCount, 2)
-    }
-
-    func test_record_whenThirdBrewIsEnded_shouldTriggerBrewEnded() {
-        sut.record(.brewEnded(duration: meaningful))
+    func test_record_whenSecondBrewIsEnded_shouldTriggerBrewEnded() {
         sut.record(.brewEnded(duration: meaningful))
         sut.record(.brewEnded(duration: meaningful))
 
         XCTAssertEqual(sut.takePendingTrigger(), .brewEnded)
+    }
+
+    func test_record_whenEndedBrewFollowsShortBrew_shouldNotTrigger() {
+        sut.record(.brewEnded(duration: 5))
+        sut.record(.brewEnded(duration: meaningful))
+
+        XCTAssertNil(sut.takePendingTrigger())
+        XCTAssertEqual(storedState?.meaningfulBrewCount, 1)
     }
 
     func test_record_whenEndedBrewIsShorterThanMeaningfulDuration_shouldNotCount() {

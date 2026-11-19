@@ -60,10 +60,10 @@ final class ReviewPromptPolicyImp: ReviewPromptPolicy {
     static let shared = ReviewPromptPolicyImp()
 
     enum Rules {
-        /// A completed brew requests a review from the user's 2nd meaningful brew on.
-        static let meaningfulBrewsForCompletedBrew = 2
-        /// An ended brew is a weaker signal, so it waits for the 3rd meaningful brew.
-        static let meaningfulBrewsForEndedBrew = 3
+        /// A completed brew is a strong signal, so it asks from the user's 1st meaningful brew on.
+        static let meaningfulBrewsForCompletedBrew = 1
+        /// An ended brew is a weaker signal (a first-brew End may be confusion), so it waits for the 2nd meaningful brew.
+        static let meaningfulBrewsForEndedBrew = 2
         static let customMethodsCreated = 1
         /// The first recipe is often a trial.
         static let recipesCreated = 2
