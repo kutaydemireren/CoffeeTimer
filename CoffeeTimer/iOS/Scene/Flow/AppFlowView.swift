@@ -12,19 +12,32 @@ import SwiftUI
 final class AppFlowViewModel: ObservableObject {
     @Published var isRecipesPresented = false
     @Published var isEditRecipePresented = false
+    @Published private(set) var reviewPromptTrigger: ReviewPromptTrigger?
     private var recipeToEdit: Recipe?
+
+    /// Created once, so a brew keeps running while this flow re-renders.
+    let brewQueueViewModel: BrewQueueViewModel
+
+    private let reviewPromptPolicy: ReviewPromptPolicy
+    private let analyticsTracker: AnalyticsTracker
 
     private var cancellables: [AnyCancellable] = []
 
-    func makeBrewQueueVM() -> BrewQueueViewModel {
-        let viewModel = BrewQueueViewModel()
-        viewModel.didComplete
+    init(
+        brewQueueViewModel: BrewQueueViewModel = BrewQueueViewModel(),
+        reviewPromptPolicy: ReviewPromptPolicy = ReviewPromptPolicyImp.shared,
+        analyticsTracker: AnalyticsTracker = AnalyticsTrackerImp()
+    ) {
+        self.brewQueueViewModel = brewQueueViewModel
+        self.reviewPromptPolicy = reviewPromptPolicy
+        self.analyticsTracker = analyticsTracker
+
+        brewQueueViewModel.didComplete
             .sink(receiveValue: didComplete)
             .store(in: &cancellables)
-        viewModel.didRequestEdit
+        brewQueueViewModel.didRequestEdit
             .sink(receiveValue: didRequestEdit(_:))
             .store(in: &cancellables)
-        return viewModel
     }
 
     func makeRecipesFlowVM() -> RecipesFlowViewModel {
@@ -41,6 +54,8 @@ final class AppFlowViewModel: ObservableObject {
 
     private func didComplete(viewModel: RecipesFlowViewModel) {
         isRecipesPresented = false
+        brewQueueViewModel.refresh()
+        takePendingReviewPrompt()
     }
 
     private func didRequestEdit(_ recipe: Recipe) {
@@ -66,6 +81,34 @@ final class AppFlowViewModel: ObservableObject {
 
     private func didComplete(_ viewModel: EditRecipeFlowViewModel) {
         isEditRecipePresented = false
+        brewQueueViewModel.refresh()
+        takePendingReviewPrompt()
+    }
+
+    /// Positive moments inside a flow (creating a recipe or method, editing amounts)
+    /// are asked about once the flow is closed and the main screen is back.
+    private func takePendingReviewPrompt() {
+        reviewPromptTrigger = reviewPromptPolicy.takePendingTrigger()
+    }
+
+    /// Called by the main screen right before it asks the system for a review.
+    func confirmReviewRequest(_ trigger: ReviewPromptTrigger) -> Bool {
+        guard reviewPromptTrigger == trigger,
+              !isRecipesPresented,
+              !isEditRecipePresented,
+              !brewQueueViewModel.isActive,
+              !brewQueueViewModel.isPresentingPostBrew,
+              !brewQueueViewModel.isPresentingGiftView else {
+            reviewPromptTrigger = nil
+            return false
+        }
+        reviewPromptTrigger = nil
+        reviewPromptPolicy.didRequestReview()
+        analyticsTracker.track(event: AnalyticsEvent(
+            name: "review_prompt_requested",
+            parameters: ["trigger": trigger.rawValue]
+        ))
+        return true
     }
 
     func configure() {
@@ -86,13 +129,18 @@ struct AppFlowView: View {
             .sheet(isPresented: $viewModel.isEditRecipePresented) {
                 editRecipe()
             }
+            .reviewPrompt(
+                trigger: viewModel.reviewPromptTrigger,
+                delay: .seconds(1),
+                confirm: viewModel.confirmReviewRequest(_:)
+            )
             .task {
                 viewModel.configure()
             }
     }
 
     func brewQueue() -> some View {
-        BrewQueueView(viewModel: viewModel.makeBrewQueueVM())
+        BrewQueueView(viewModel: viewModel.brewQueueViewModel)
     }
 
     func recipes() -> some View {
