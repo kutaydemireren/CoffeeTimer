@@ -14,6 +14,7 @@
 		611FA89FCD53C160B713E55F /* View+ReviewPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD42D69E59D97085EE127 /* View+ReviewPrompt.swift */; };
 		A5E9B67BEB665B8723A9AD7F /* ReviewPromptPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC3ABD55BF2020A00B3791D /* ReviewPromptPolicy.swift */; };
 		B32EEC0579C34CE29F17E03A /* MockDateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D3BE7FFFD431B1F202E44D /* MockDateProvider.swift */; };
+		B6DE4688939EB4D6DFDB04F8 /* PostBrewViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF370867C06A5051398AAA76 /* PostBrewViewModelTests.swift */; };
 		BB4059B9E77ACAA4E4F1D75C /* ReviewPromptPolicyImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB1435BA24F1BCED3053BEA /* ReviewPromptPolicyImpTests.swift */; };
 		C6655F4CB78018789FCA42B9 /* DateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59228B618A22E3D598337B84 /* DateProvider.swift */; };
 		CA02D0D82A255A440012EE87 /* MockRecipeMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA02D0D72A255A440012EE87 /* MockRecipeMapper.swift */; };
@@ -296,6 +297,7 @@
 		CBC3ABD55BF2020A00B3791D /* ReviewPromptPolicy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReviewPromptPolicy.swift; sourceTree = "<group>"; };
 		CE3FD42D69E59D97085EE127 /* View+ReviewPrompt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "View+ReviewPrompt.swift"; sourceTree = "<group>"; };
 		E6EFB09A052CEBF42B147A4D /* BrewQueueViewModelReviewPromptTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BrewQueueViewModelReviewPromptTests.swift; sourceTree = "<group>"; };
+		EF370867C06A5051398AAA76 /* PostBrewViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PostBrewViewModelTests.swift; sourceTree = "<group>"; };
 		F208EF282EAE644C005B87DE /* EditRecipeFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecipeFlowView.swift; sourceTree = "<group>"; };
 		F208EF2A2EAE6549005B87DE /* EditRecipeAmountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecipeAmountsView.swift; sourceTree = "<group>"; };
 		F208EF2B2EAE6549005B87DE /* EditRecipeAmountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecipeAmountsViewModel.swift; sourceTree = "<group>"; };
@@ -376,6 +378,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09858441E8B52EBE7B854B60 /* BrewQueue */ = {
+			isa = PBXGroup;
+			children = (
+				EF370867C06A5051398AAA76 /* PostBrewViewModelTests.swift */,
+			);
+			name = BrewQueue;
+			path = BrewQueue;
+			sourceTree = "<group>";
+		};
 		29ECAF0AC1EAFFC63FC22ED1 /* ReviewPrompt */ = {
 			isa = PBXGroup;
 			children = (
@@ -667,6 +678,7 @@
 				CAB1925B2A0D6B4400043837 /* Repository */,
 				CA9BDA222A2CE9C30068DFF7 /* Timer */,
 				29ECAF0AC1EAFFC63FC22ED1 /* ReviewPrompt */,
+				09858441E8B52EBE7B854B60 /* BrewQueue */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -1345,6 +1357,7 @@
 				5BFEB526A6D07E3FED4375C1 /* BrewQueueViewModelReviewPromptTests.swift in Sources */,
 				518BBE10308962AB52074FD8 /* AppFlowViewModelReviewPromptTests.swift in Sources */,
 				40F1CD0EB460C75F23D9AFEC /* ReviewPromptEventRecordingTests.swift in Sources */,
+				B6DE4688939EB4D6DFDB04F8 /* PostBrewViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
