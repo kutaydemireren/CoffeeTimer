@@ -86,6 +86,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     @Published var isPresentingPostBrew: Bool = false
     @Published var isPresentingGiftView: Bool = false
     @Published var isButtonAnimating = false
+    @Published private(set) var reviewPromptTrigger: ReviewPromptTrigger?
 
     // TODO: Unify VMs for a single source
     var currentStageTimerViewModel: BrewStageTimerViewModel? {
@@ -106,6 +107,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     }
 
     private(set) var isActive = false
+    private var brewStartDate: Date?
 
     private var cancellables: [AnyCancellable] = []
 
@@ -141,17 +143,23 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     private var hapticGenerator: HapticGenerator
     private var urlOpener: URLOpener
     private var analyticsTracker: AnalyticsTracker
+    private var reviewPromptPolicy: ReviewPromptPolicy
+    private var dateProvider: DateProvider
 
     init(
         recipeRepository: RecipeRepository = RecipeRepositoryImp.shared, // TODO: use case - no repo in vm!
         hapticGenerator: HapticGenerator = HapticGeneratorImp(),
         urlOpener: URLOpener = UIApplication.shared,
-        analyticsTracker: AnalyticsTracker = AnalyticsTrackerImp()
+        analyticsTracker: AnalyticsTracker = AnalyticsTrackerImp(),
+        reviewPromptPolicy: ReviewPromptPolicy = ReviewPromptPolicyImp.shared,
+        dateProvider: DateProvider = DateProviderImp()
     ) {
         self.recipeRepository = recipeRepository
         self.hapticGenerator = hapticGenerator
         self.urlOpener = urlOpener
         self.analyticsTracker = analyticsTracker
+        self.reviewPromptPolicy = reviewPromptPolicy
+        self.dateProvider = dateProvider
 
         loadInitialStage()
     }
@@ -178,19 +186,67 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     }
 
     func endAction() {
-        analyticsTracker.track(event: AnalyticsEvent(name: "brew_cancelled"))
+        let duration = brewDuration
+        let completedSteps = Int(currentStageIndex)
+        let totalSteps = brewQueue.stages.count
+        analyticsTracker.track(event: AnalyticsEvent(
+            name: "brew_cancelled",
+            parameters: [
+                "stage_index": Int(currentStageIndex),
+                "elapsed_seconds": Int(duration),
+                "stage_count": totalSteps
+            ]
+        ))
         resetQueue()
+
+        // Ending in the first moments is likely a misclick or a quick look: go back to the start as before.
+        guard duration >= BrewSessionRules.meaningfulDuration else { return }
+        presentPostBrew(
+            source: "ended",
+            event: .brewEnded(duration: duration, completedSteps: completedSteps, totalSteps: totalSteps)
+        )
+    }
+
+    private var brewDuration: TimeInterval {
+        guard let brewStartDate else { return 0 }
+        return dateProvider.now.timeIntervalSince(brewStartDate)
     }
 
     private func resetQueue() {
         UIApplication.shared.isIdleTimerDisabled = false
         isActive = false
+        brewStartDate = nil
         currentStageIndex = 0
+    }
+
+    private func presentPostBrew(source: String, event: ReviewPromptEvent) {
+        isPresentingPostBrew = true
+        analyticsTracker.track(event: AnalyticsEvent(
+            name: "post_brew_shown",
+            parameters: ["source": source]
+        ))
+        reviewPromptPolicy.record(event)
+        reviewPromptTrigger = reviewPromptPolicy.takePendingTrigger()
+    }
+
+    /// Called by the post-brew screen right before it asks the system for a review.
+    func confirmReviewRequest(_ trigger: ReviewPromptTrigger) -> Bool {
+        guard isPresentingPostBrew, !isActive, reviewPromptTrigger == trigger else {
+            return false
+        }
+        reviewPromptTrigger = nil
+        reviewPromptPolicy.didRequestReview()
+        analyticsTracker.track(event: AnalyticsEvent(
+            name: "review_prompt_requested",
+            parameters: ["trigger": trigger.rawValue]
+        ))
+        return true
     }
 
     private func beginQueue() {
         UIApplication.shared.isIdleTimerDisabled = true
         isActive = true
+        brewStartDate = dateProvider.now
         currentStageIndex = 0
         
         let brewMethodType = selectedRecipe?.recipeProfile.brewMethod.path.hasPrefix("custom-method") == true ? "custom" : "built-in"
@@ -212,9 +268,10 @@ final class BrewQueueViewModel: ObservableObject, Completable {
         if isActive {
             let newStageIndex = currentStageIndex + 1
             guard newStageIndex < brewQueue.stages.count else {
-                isPresentingPostBrew = true
+                let duration = brewDuration
                 resetQueue()
                 analyticsTracker.track(event: AnalyticsEvent(name: "brew_completed"))
+                presentPostBrew(source: "completed", event: .brewCompleted(duration: duration))
                 return
             }
             
@@ -349,6 +406,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
     func confirmPostBrew() {
         isPresentingPostBrew = false
+        reviewPromptTrigger = nil
         analyticsTracker.track(event: AnalyticsEvent(name: "buy_me_a_coffee_opened"))
         redirectToBMC()
     }
@@ -362,6 +420,13 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
     func dismissPostBrew() {
         isPresentingPostBrew = false
+        reviewPromptTrigger = nil
+    }
+
+    /// Reloads the idle screen, e.g. after another recipe was selected.
+    func refresh() {
+        guard !isActive else { return }
+        loadInitialStage()
     }
 }
 
@@ -387,6 +452,11 @@ struct BrewQueueView: View {
         PostBrewView(
             confirm: viewModel.confirmPostBrew,
             dismiss: viewModel.dismissPostBrew
+        )
+        .reviewPrompt(
+            trigger: viewModel.reviewPromptTrigger,
+            delay: .seconds(1.5),
+            confirm: viewModel.confirmReviewRequest(_:)
         )
     }
 

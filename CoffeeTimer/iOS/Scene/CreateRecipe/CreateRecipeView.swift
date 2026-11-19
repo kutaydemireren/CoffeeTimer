@@ -33,14 +33,17 @@ final class CreateRecipeViewModel: ObservableObject {
     private var getBrewMethodsUseCase: GetBrewMethodsUseCase
     private var removeBrewMethodUseCase: RemoveBrewMethodUseCase
     private var analyticsTracker: AnalyticsTracker
+    private var reviewPromptPolicy: ReviewPromptPolicy
 
     init(
         createRecipeFromContextUseCase: CreateRecipeFromContextUseCase = CreateRecipeFromContextUseCaseImp(),
         recipeRepository: RecipeRepository = RecipeRepositoryImp.shared,
         getBrewMethodsUseCase: GetBrewMethodsUseCase = GetBrewMethodsUseCaseImp(),
         removeBrewMethodUseCase: RemoveBrewMethodUseCase = RemoveBrewMethodUseCaseImp(),
-        analyticsTracker: AnalyticsTracker = AnalyticsTrackerImp()
+        analyticsTracker: AnalyticsTracker = AnalyticsTrackerImp(),
+        reviewPromptPolicy: ReviewPromptPolicy = ReviewPromptPolicyImp.shared
     ) {
+        self.reviewPromptPolicy = reviewPromptPolicy
         self.createRecipeFromContextUseCase = createRecipeFromContextUseCase
         self.recipeRepository = recipeRepository
         self.getBrewMethodsUseCase = getBrewMethodsUseCase
@@ -200,6 +203,7 @@ final class CreateRecipeViewModel: ObservableObject {
                     "iced": recipe.recipeProfile.brewMethod.isIcedBrew
                 ]
             ))
+            reviewPromptPolicy.record(.recipeCreated)
         }
     }
     

@@ -23,17 +23,11 @@ final class PostBrewViewModel: BuyMeACoffeeViewModel {
         "Good coffee, good vibes. You’ve earned it!"
     ]
 
-    private var title: String {
-        titles.randomElement() ?? titles[0]
-    }
-
-    private var subtitle: String {
-        subtitles.randomElement() ?? subtitles[0]
-    }
-
-    var header: StageHeader {
-        .init(title: title, subtext: subtitle)
-    }
+    // Picked once, so the copy stays the same while the screen re-renders.
+    private(set) lazy var header: StageHeader = .init(
+        title: titles.randomElement() ?? titles[0],
+        subtext: subtitles.randomElement() ?? subtitles[0]
+    )
 
     private let ctaTexts = [
         "Love CoffeeTimer? Let me know by sharing a cup!",
@@ -42,22 +36,20 @@ final class PostBrewViewModel: BuyMeACoffeeViewModel {
         "Like CoffeeTimer? Your support helps me keep crafting.",
         "CoffeeTimer is made with love, and your support keeps me inspired."
     ]
-    var cta: String {
-        ctaTexts.randomElement() ?? ctaTexts[0]
-    }
+    private(set) lazy var cta: String = ctaTexts.randomElement() ?? ctaTexts[0]
 
-    var animation: String {
-        "post-brew-\([1, 2, 3].randomElement() ?? 1)"
-    }
+    let animation: String = "post-brew-\([1, 2, 3].randomElement() ?? 1)"
 }
 
 struct PostBrewView: View {
     var confirm: () -> Void
     var dismiss: () -> Void
 
+    @State private var viewModel = PostBrewViewModel()
+
     var body: some View {
         BuyMeACoffeeView(
-            viewModel:  PostBrewViewModel(),
+            viewModel: viewModel,
             confirm: confirm,
             dismiss: dismiss
         )

@@ -40,6 +40,8 @@ Brew methods and their step-by-step instructions are remote JSON, not bundled co
 - DEBUG builds fetch them from `raw.githubusercontent.com/.../main/data/v0/...`, so they read whatever is on `main` on GitHub. Release builds fetch from Firebase Hosting (`data/public/v0/...`). See `GetBrewMethodsRequest` and `FetchRecipeInstructionsRequest`.
 - `data/public/` is the Firebase Hosting site (coffeetimer.app). Besides the JSON it holds the privacy policy and support pages, including pages for the separate CookingTimer app.
 
+The App Store review prompt (when it is asked, the rules and why) is documented in [docs/review-prompt.md](docs/review-prompt.md).
+
 App startup (`CoffeeTimerApp` → `AppDelegate`) runs `AppInitializerImp` first. It applies `Migration`s through `MigrationRunnerImp`, which stores completed migration versions in `UserDefaults`, and only then configures Firebase. To change the persisted recipe format, add a new `Migration` with a higher `version` and register it in `AppInitializer.swift`.
 
 ## Conventions

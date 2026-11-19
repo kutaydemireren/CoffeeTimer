@@ -17,12 +17,15 @@ final class EditRecipeAmountsViewModel: ObservableObject {
     private let updateRecipeFromContextUseCase: UpdateRecipeFromContextUseCase
     private var originalRecipeId: UUID?
     private var analyticsTracker: AnalyticsTracker
+    private var reviewPromptPolicy: ReviewPromptPolicy
 
     init(
         configureContextFromRecipeUseCase: ConfigureContextFromRecipeUseCase = ConfigureContextFromRecipeUseCaseImp(),
         updateRecipeFromContextUseCase: UpdateRecipeFromContextUseCase = UpdateRecipeFromContextUseCaseImp(),
-        analyticsTracker: AnalyticsTracker = AnalyticsTrackerImp()
+        analyticsTracker: AnalyticsTracker = AnalyticsTrackerImp(),
+        reviewPromptPolicy: ReviewPromptPolicy = ReviewPromptPolicyImp.shared
     ) {
+        self.reviewPromptPolicy = reviewPromptPolicy
         self.configureContextFromRecipeUseCase = configureContextFromRecipeUseCase
         self.updateRecipeFromContextUseCase = updateRecipeFromContextUseCase
         self.analyticsTracker = analyticsTracker
@@ -38,8 +41,11 @@ final class EditRecipeAmountsViewModel: ObservableObject {
 
     func saveChanges() async {
         guard let recipeId = originalRecipeId else { return }
-        _ = await updateRecipeFromContextUseCase.update(recipeId: recipeId, from: context)
+        let updatedRecipe = await updateRecipeFromContextUseCase.update(recipeId: recipeId, from: context)
         analyticsTracker.track(event: AnalyticsEvent(name: "edit_amounts_saved"))
+        if updatedRecipe != nil {
+            reviewPromptPolicy.record(.recipeAmountsEdited)
+        }
     }
     
     func trackCancel() {

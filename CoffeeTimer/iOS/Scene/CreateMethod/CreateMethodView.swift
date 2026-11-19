@@ -23,13 +23,16 @@ final class CreateMethodViewModel: ObservableObject {
 
     private let createBrewMethodUseCase: CreateBrewMethodUseCase
     private var analyticsTracker: AnalyticsTracker
+    private var reviewPromptPolicy: ReviewPromptPolicy
 
     init(
         createBrewMethodUseCase: CreateBrewMethodUseCase = CreateBrewMethodUseCaseImp(),
-        analyticsTracker: AnalyticsTracker = AnalyticsTrackerImp()
+        analyticsTracker: AnalyticsTracker = AnalyticsTrackerImp(),
+        reviewPromptPolicy: ReviewPromptPolicy = ReviewPromptPolicyImp.shared
     ) {
         self.createBrewMethodUseCase = createBrewMethodUseCase
         self.analyticsTracker = analyticsTracker
+        self.reviewPromptPolicy = reviewPromptPolicy
         analyticsTracker.track(event: AnalyticsEvent(name: "create_method_opened"))
     }
 
@@ -147,6 +150,7 @@ final class CreateMethodViewModel: ObservableObject {
                 "step_count": stepCount
             ]
         ))
+        reviewPromptPolicy.record(.customMethodCreated)
     }
 
     func didUpdate(context: CreateBrewMethodContext) {
