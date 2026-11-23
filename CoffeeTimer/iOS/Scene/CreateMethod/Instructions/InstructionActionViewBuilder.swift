@@ -206,10 +206,10 @@ final class InstructionActionViewBuilder {
 
             if let duration, requirement?.wrappedValue == .countdown {
                 NumericTextField(
-                    title: "Duration (seconds) [limit = 300]",
+                    title: "Duration (seconds) [limit = 3600]",
                     placeholder: "",
                     keyboardType: .number,
-                    range: .init(minimum: 1, maximum: 300),
+                    range: .init(minimum: 1, maximum: 3600),
                     input: duration
                 )
             }

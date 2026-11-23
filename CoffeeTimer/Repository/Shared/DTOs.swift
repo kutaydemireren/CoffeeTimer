@@ -51,6 +51,14 @@ struct BrewMethodDTO: Codable, Equatable {
     let cupsCount: CupsCountDTO?
     let ratios: [CoffeeToWaterRatioDTO]
     let info: InfoModelDTO?
+    /// Optional, so methods saved before it existed (and built-in JSON) decode with `nil`.
+    var referenceDose: ReferenceDoseDTO? = nil
+}
+
+struct ReferenceDoseDTO: Codable, Equatable {
+    let coffee: Double?
+    let water: Double?
+    let ice: Double?
 }
 
 struct CupsCountDTO: Codable, Equatable {
