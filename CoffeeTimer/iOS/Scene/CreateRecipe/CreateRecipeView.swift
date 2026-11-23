@@ -291,10 +291,10 @@ struct CreateRecipeView: View {
                 .tag(3)
             }
         )
-        .onChange(of: context.selectedBrewMethod, perform: didUpdateBrewMethod(_:))
-        .onChange(of: context.recipeProfile, perform: didUpdate(_:))
-        .onChange(of: context.cupsCount, perform: didUpdate(_:))
-        .onChange(of: context.ratio, perform: didUpdate(_:))
+        .onChange(of: context.selectedBrewMethod) { _, newValue in didUpdateBrewMethod(newValue) }
+        .onChange(of: context.recipeProfile) { _, newValue in didUpdate(newValue) }
+        .onChange(of: context.cupsCount) { _, newValue in didUpdate(newValue) }
+        .onChange(of: context.ratio) { _, newValue in didUpdate(newValue) }
     }
 
     private func didUpdateBrewMethod(_ brewMethod: BrewMethod?) {

@@ -144,7 +144,7 @@ struct RecipesView: View {
                 Spacer()
             }
             .padding(.top)
-            .foregroundColor(Color("backgroundSecondary"))
+            .foregroundStyle(Color("backgroundSecondary"))
 
             content
                 .padding(.top, 20)
@@ -159,7 +159,7 @@ struct RecipesView: View {
                             .padding(.horizontal, 32)
                             .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 0)
                     }
-                    .foregroundColor(Color("backgroundSecondary"))
+                    .foregroundStyle(Color("backgroundSecondary"))
                 }
         }
         .backgroundPrimary()
@@ -181,7 +181,7 @@ struct RecipesView: View {
                 
                 Text("Please add a new recipe to get started")
                     .multilineTextAlignment(.center)
-                    .foregroundColor(Color("foregroundPrimary"))
+                    .foregroundStyle(Color("foregroundPrimary"))
                     .font(.title)
                     .frame(maxWidth: .infinity)
 

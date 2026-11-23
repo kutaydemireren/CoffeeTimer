@@ -30,7 +30,6 @@ extension RecipeMigrationTests {
             cupSize: 200.0
         )
         
-        let initialSaveKey = mockStorage.saveCalledWithKey
         mockStorage.storageDictionary[RecipeConstants.savedRecipesKey] = [recipeDTO]
         
         try sut.migrate(storage: mockStorage)

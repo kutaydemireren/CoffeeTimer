@@ -43,7 +43,7 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
 
     func remove(brewMethod: BrewMethod) async throws {
         let removeBrewMethodDTO = map(brewMethod: brewMethod)
-        var newBrewMethodDTOs = getSavedBrewMethodDTOs().filter { $0 != removeBrewMethodDTO }
+        let newBrewMethodDTOs = getSavedBrewMethodDTOs().filter { $0 != removeBrewMethodDTO }
         storage.save(newBrewMethodDTOs, forKey: savedBrewMethodsKey)
     }
 

@@ -194,8 +194,8 @@ struct CreateMethodView: View {
                 .tag(2)
             }
         )
-        .onChange(of: context.methodTitle, perform: didUpdate(_:))
-        .onChange(of: context.instructions, perform: didUpdate(_:))
+        .onChange(of: context.methodTitle) { _, newValue in didUpdate(newValue) }
+        .onChange(of: context.instructions) { _, newValue in didUpdate(newValue) }
     }
 
     private func didUpdate<T>(_ newValue: T?) {

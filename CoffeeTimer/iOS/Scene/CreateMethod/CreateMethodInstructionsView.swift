@@ -85,7 +85,7 @@ struct CreateMethodInstructionsView: View {
                     Text("New Instruction")
                         .font(.callout)
                 }
-                .foregroundColor(Color("backgroundSecondary"))
+                .foregroundStyle(Color("backgroundSecondary"))
             }
             .scaleEffect((animateInstructions && context.instructions.isEmpty) ? 1.1 : 1)
             .animation(
@@ -108,7 +108,7 @@ struct CreateMethodInstructionsView: View {
                     Image(systemName: "pencil")
                         .renderingMode(.template)
                 }
-                .foregroundColor(Color("backgroundSecondary"))
+                .foregroundStyle(Color("backgroundSecondary"))
             }
         }
         .padding()

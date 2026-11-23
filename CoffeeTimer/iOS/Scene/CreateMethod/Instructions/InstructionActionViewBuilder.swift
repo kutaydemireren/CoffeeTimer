@@ -277,7 +277,7 @@ final class InstructionActionViewBuilder {
                             )
 
                             Image(systemName: "xmark.app")
-                                .foregroundColor(Color("foregroundPrimary").opacity(0.8))
+                                .foregroundStyle(Color("foregroundPrimary").opacity(0.8))
 
                             Menu {
                                 Picker(selection: mainFactorOf, label: EmptyView()) {
@@ -287,7 +287,7 @@ final class InstructionActionViewBuilder {
                                 }
                             } label: {
                                 Text(mainFactorOf.wrappedValue.title)
-                                    .foregroundColor(Color("foregroundPrimary").opacity(0.8))
+                                    .foregroundStyle(Color("foregroundPrimary").opacity(0.8))
                                     .padding()
                                     .backgroundSecondary()
                             }
@@ -296,13 +296,13 @@ final class InstructionActionViewBuilder {
                         HStack {
                             Separator()
                             Image(systemName: "plus.circle")
-                                .foregroundColor(Color("foregroundPrimary").opacity(0.8))
+                                .foregroundStyle(Color("foregroundPrimary").opacity(0.8))
                             Separator()
                         }
 
                         Text("Not just right? Adjust the amount")
                             .multilineTextAlignment(.leading)
-                            .foregroundColor(Color("foregroundPrimary"))
+                            .foregroundStyle(Color("foregroundPrimary"))
                             .font(.footnote)
                             .padding(.horizontal)
 
@@ -317,13 +317,13 @@ final class InstructionActionViewBuilder {
                                 )
 
                                 Text("Leave empty for no addition")
-                                    .foregroundColor(Color("foregroundPrimary").opacity(0.8))
+                                    .foregroundStyle(Color("foregroundPrimary").opacity(0.8))
                                     .font(.caption)
                             }
 
                             VStack {
                                 Image(systemName: "xmark.square")
-                                    .foregroundColor(Color("foregroundPrimary").opacity(0.8))
+                                    .foregroundStyle(Color("foregroundPrimary").opacity(0.8))
                                 Text("")
                                     .font(.footnote)
                             }
@@ -337,7 +337,7 @@ final class InstructionActionViewBuilder {
                             } label: {
                                 VStack {
                                     Text(adjustmentFactorOf.wrappedValue.title)
-                                        .foregroundColor(Color("foregroundPrimary").opacity(0.8))
+                                        .foregroundStyle(Color("foregroundPrimary").opacity(0.8))
                                         .padding()
                                         .backgroundSecondary()
                                     Text("")

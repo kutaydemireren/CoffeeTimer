@@ -56,7 +56,7 @@ struct PagerView<Content: View>: View {
             }
         }
         .padding()
-        .foregroundColor(Color("backgroundSecondary"))
+        .foregroundStyle(Color("backgroundSecondary"))
     }
 }
 

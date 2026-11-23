@@ -42,11 +42,11 @@ struct AlphanumericTextField: View {
         HStack {
             TextField(text: $text) {
                 Text(placeholder)
-                    .foregroundColor(Color("foregroundPrimary").opacity(0.3))
+                    .foregroundStyle(Color("foregroundPrimary").opacity(0.3))
             }
             .textFieldStyle(.plain)
             .tint(Color("backgroundPrimary").opacity(0.6))
-            .foregroundColor(Color("foregroundPrimary"))
+            .foregroundStyle(Color("foregroundPrimary"))
             .padding()
             .focused($isFocused)
             .backgroundSecondary()

@@ -62,7 +62,7 @@ struct NumericTextField: View {
     private var textField: some View {
         TextField(text: isSingleValue ? .constant("\(range.minimum)") : $displayText) {
             Text(placeholder)
-                .foregroundColor(Color("foregroundPrimary").opacity(0.5))
+                .foregroundStyle(Color("foregroundPrimary").opacity(0.5))
         }
         .multilineTextAlignment(.center)
         .disabled(isSingleValue)
@@ -70,9 +70,9 @@ struct NumericTextField: View {
         .keyboardType(keyboardType.uiKeyboardType)
         .focused($isFocused)
         .tint(Color("backgroundPrimary").opacity(0.6))
-        .foregroundColor(Color("foregroundPrimary"))
-        .onChange(of: displayText, perform: didUpdate(displayText:))
-        .onChange(of: input, perform: setDisplayText(_:))
+        .foregroundStyle(Color("foregroundPrimary"))
+        .onChange(of: displayText) { _, newValue in didUpdate(displayText: newValue) }
+        .onChange(of: input) { _, newValue in setDisplayText(newValue) }
         .padding()
         .backgroundSecondary()
         .onAppear {

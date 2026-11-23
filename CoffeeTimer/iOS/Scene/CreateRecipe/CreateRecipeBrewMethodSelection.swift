@@ -43,7 +43,7 @@ struct BrewMethodView: View {
                 Spacer()
             }
         }
-        .foregroundColor(isSelected ? Color("foregroundPrimary") : Color("foregroundPrimary").opacity(0.8))
+        .foregroundStyle(isSelected ? Color("foregroundPrimary") : Color("foregroundPrimary").opacity(0.8))
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
@@ -137,7 +137,7 @@ struct CreateRecipeBrewMethodSelection: View {
 
                         Text("Or, create your own")
                     }
-                    .foregroundColor(Color("foregroundPrimary"))
+                    .foregroundStyle(Color("foregroundPrimary"))
                 }
                 .padding()
                 .backgroundSecondary(opacity: 0.6)
