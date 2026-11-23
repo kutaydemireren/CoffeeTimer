@@ -17,43 +17,27 @@ struct KeyboardDoneToolbarModifier: ViewModifier {
     let isFocused: Bool
 
     func body(content: Content) -> some View {
-        if #available(iOS 26, *) {
-            content
-                .toolbar {
-                    if isFocused {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            VStack {
-                                HStack {
-                                    Spacer()
-                                    Button("Done") {
-                                        content.hideKeyboard()
-                                    }
-                                    .bold()
-                                    .foregroundColor(Color("backgroundSecondary"))
-                                    .padding(8)
-                                    .glassEffect()
-                                }
+        content
+            .toolbar {
+                if isFocused {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        VStack {
+                            HStack {
                                 Spacer()
-                                    .padding(.bottom, 8)
+                                Button("Done") {
+                                    content.hideKeyboard()
+                                }
+                                .bold()
+                                .foregroundStyle(Color("backgroundSecondary"))
+                                .padding(8)
+                                .glassEffect()
                             }
-                        }
-                        .sharedBackgroundVisibility(.hidden)
-                    }
-                }
-        } else {
-            content
-                .toolbar {
-                    if isFocused {
-                        ToolbarItemGroup(placement: .keyboard) {
                             Spacer()
-                            Button("Done") {
-                                content.hideKeyboard()
-                            }
-                            .bold()
-                            .foregroundColor(Color("backgroundSecondary"))
+                                .padding(.bottom, 8)
                         }
                     }
+                    .sharedBackgroundVisibility(.hidden)
                 }
-        }
+            }
     }
 }

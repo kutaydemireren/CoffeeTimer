@@ -489,7 +489,7 @@ struct BrewQueueView: View {
             }
             .padding(.top, 24)
             .padding(.horizontal, 32)
-            .foregroundColor(Color("foregroundPrimary"))
+            .foregroundStyle(Color("foregroundPrimary"))
         }
         .backgroundPrimary()
     }
@@ -548,7 +548,7 @@ struct BrewQueueView: View {
             Image(systemName: "pencil")
         }
         .padding(12)
-        .foregroundColor(Color("foregroundPrimary"))
+        .foregroundStyle(Color("foregroundPrimary"))
         .backgroundSecondary()
         .shadow(color: .blue.opacity(0.2), radius: 8, x: -2, y: -2)
     }
@@ -567,7 +567,7 @@ struct BrewQueueView: View {
             }
         }
         .padding(12)
-        .foregroundColor(Color("foregroundPrimary"))
+        .foregroundStyle(Color("foregroundPrimary"))
         .backgroundSecondary()
         .shadow(color: .blue.opacity(0.2), radius: 8, x: -2, y: -2)
         .scaleEffect(viewModel.isButtonAnimating ? 1.1 : 1)
@@ -585,7 +585,7 @@ struct BrewQueueView: View {
             Text("Skip")
         }
         .padding()
-        .foregroundColor(Color("foregroundPrimary").opacity(0.8))
+        .foregroundStyle(Color("foregroundPrimary").opacity(0.8))
     }
 
     @ViewBuilder
@@ -596,7 +596,7 @@ struct BrewQueueView: View {
             Text("End")
         }
         .padding()
-        .foregroundColor(Color("foregroundPrimary").opacity(0.8))
+        .foregroundStyle(Color("foregroundPrimary").opacity(0.8))
     }
 
     @ViewBuilder

@@ -20,11 +20,11 @@ struct RecipeProfileView: View {
 
             VStack(alignment: alignment) {
                 Text(recipeProfile.name)
-                    .foregroundColor(Color("foregroundPrimary"))
+                    .foregroundStyle(Color("foregroundPrimary"))
                     .bold()
 
                 Text("(\(recipeProfile.brewMethod.title))")
-                    .foregroundColor(Color("foregroundSecondary"))
+                    .foregroundStyle(Color("foregroundSecondary"))
             }
         }
     }
@@ -50,7 +50,7 @@ struct RecipeRowView: View {
             RecipeProfileView(alignment: .leading, recipeProfile: recipe.recipeProfile)
             Text(recipe.ingredients.toRepresentableString(joining: " | "))
                 .font(.subheadline)
-                .foregroundColor(Color("foregroundSecondary"))
+                .foregroundStyle(Color("foregroundSecondary"))
                 .padding(.leading, 4)
         }
         .listRowSeparator(.hidden)

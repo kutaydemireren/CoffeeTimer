@@ -43,7 +43,7 @@ struct EditRecipeAmountsView: View {
         HStack {
             Text("Edit Amounts")
                 .font(.title3)
-                .foregroundColor(Color("foregroundPrimary"))
+                .foregroundStyle(Color("foregroundPrimary"))
         }
         .frame(maxWidth: .infinity)
         .padding(.horizontal, 24)
@@ -62,7 +62,7 @@ struct EditRecipeAmountsView: View {
                     .bold()
             }
             .padding()
-            .foregroundColor(Color("foregroundPrimary").opacity(0.8))
+            .foregroundStyle(Color("foregroundPrimary").opacity(0.8))
 
             Spacer()
 
@@ -77,7 +77,7 @@ struct EditRecipeAmountsView: View {
                     .bold()
             }
             .padding()
-            .foregroundColor(Color("foregroundPrimary"))
+            .foregroundStyle(Color("foregroundPrimary"))
             .backgroundSecondary()
             .shadow(color: .blue.opacity(0.2), radius: 8, x: -2, y: -2)
         }

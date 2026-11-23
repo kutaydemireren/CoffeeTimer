@@ -8,7 +8,7 @@
 import Foundation
 @testable import CoffeeTimer
 
-extension CreateRecipeInput: Equatable {
+extension CreateRecipeInput: @retroactive Equatable {
     public static func == (lhs: CreateRecipeInput, rhs: CreateRecipeInput) -> Bool {
         lhs.water == rhs.water &&
         lhs.coffee == rhs.coffee &&
@@ -16,13 +16,13 @@ extension CreateRecipeInput: Equatable {
     }
 }
 
-extension CreateRecipeContext: Equatable {
+extension CreateRecipeContext: @retroactive Equatable {
     public static func == (lhs: CreateRecipeContext, rhs: CreateRecipeContext) -> Bool {
         lhs.recipeProfile == rhs.recipeProfile
     }
 }
 
-extension RecipeInstructions: Equatable {
+extension RecipeInstructions: @retroactive Equatable {
     public static func == (lhs: RecipeInstructions, rhs: RecipeInstructions) -> Bool {
         return lhs.identifier == rhs.identifier
     }

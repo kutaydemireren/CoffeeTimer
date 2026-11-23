@@ -19,7 +19,7 @@ struct ClearButton: ViewModifier {
                     text = ""
                 } label: {
                     Image(systemName: "multiply.circle.fill")
-                        .foregroundColor(.init("backgroundPrimary"))
+                        .foregroundStyle(Color("backgroundPrimary"))
                 }
                 .padding(.trailing, 8)
             }

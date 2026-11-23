@@ -29,7 +29,7 @@ struct TitledContent<Content: View>: View {
 
             content()
         }
-        .foregroundColor(Color("foregroundPrimary"))
+        .foregroundStyle(Color("foregroundPrimary"))
         .padding()
         .backgroundSecondary()
     }

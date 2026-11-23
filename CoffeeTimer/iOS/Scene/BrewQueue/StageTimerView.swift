@@ -133,7 +133,7 @@ struct BrewStageView<ViewModel>: View where ViewModel: BrewStageViewModel {
                     }
                 }
             }
-            .foregroundColor(.init("backgroundSecondary"))
+            .foregroundStyle(Color("backgroundSecondary"))
             .padding()
             .multilineTextAlignment(.center)
         }

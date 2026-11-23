@@ -35,7 +35,7 @@ struct TitledPicker<T: Titled & Identifiable & Hashable>: View {
 
     private var pickerLabel: some View {
         Text(selectedItem?.title ?? placeholder)
-            .foregroundColor(Color("foregroundPrimary").opacity(0.8))
+            .foregroundStyle(Color("foregroundPrimary").opacity(0.8))
             .padding()
             .backgroundSecondary()
     }

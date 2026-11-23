@@ -134,7 +134,7 @@ extension RecipeInstructionsRepositoryImpTests {
     }
 
     func test_fetchInstructions_whenBrewMethodHasCustomMethodPath_PathNotFound_shouldThrowInvalidCustomMethod() async throws {
-        var localInstructions = loadMiniInstructions()
+        let localInstructions = loadMiniInstructions()
         mockStorage.storageDictionary[expectedSavedRecipeInstructionsKey] = [localInstructions]
         let remoteInstructions = loadMiniInstructions()
         mockNetworkManager._data = try! JSONEncoder().encode(remoteInstructions)

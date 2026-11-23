@@ -30,20 +30,20 @@ struct StageHeaderView: View {
         VStack {
             if let lightTitle = header.lightTitle {
                 Text(lightTitle)
-                    .foregroundColor(foregroundColor.opacity(0.6))
+                    .foregroundStyle(foregroundColor.opacity(0.6))
                     .font(.title3)
             }
 
             if let title = header.title {
                 Text(title)
-                    .foregroundColor(foregroundColor)
+                    .foregroundStyle(foregroundColor)
                     .font(.title)
                     .minimumScaleFactor(0.5)
             }
 
             if let subtext = header.subtext {
                 Text(subtext)
-                    .foregroundColor(foregroundColor)
+                    .foregroundStyle(foregroundColor)
                     .font(.title3)
             }
         }

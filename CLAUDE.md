@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-CoffeeTimer is a free, open-source iOS brewing timer (SwiftUI, iOS 17.6+, Swift 5) that walks the user through a brew step by step. It ships built-in brew methods (V60, Chemex, AeroPress, French Press, ...), custom recipes and methods, and a coffee/water ratio calculator. It is published on the App Store. Default branch is `main`; `develop` also exists.
+CoffeeTimer is a free, open-source iOS brewing timer (SwiftUI, iOS 26+, Swift 5) that walks the user through a brew step by step. It ships built-in brew methods (V60, Chemex, AeroPress, French Press, ...), custom recipes and methods, and a coffee/water ratio calculator. It is published on the App Store. Default branch is `main`; `develop` also exists.
 
 Dependencies come from Swift Package Manager through the Xcode project (no Package.swift): `firebase-ios-sdk` (Analytics without IDFA, Crashlytics) and `lottie-ios`.
 

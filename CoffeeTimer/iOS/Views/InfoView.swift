@@ -42,7 +42,7 @@ struct InfoView: View {
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .foregroundColor(Color("foregroundPrimary"))
+        .foregroundStyle(Color("foregroundPrimary"))
         .backgroundPrimary()
     }
 }

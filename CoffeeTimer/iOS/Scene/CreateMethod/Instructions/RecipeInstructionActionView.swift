@@ -68,7 +68,7 @@ struct RecipeInstructionActionView: View {
             }
             .padding()
         }
-        .onChange(of: selectedAction, perform: didUpdate(selectionAction:))
+        .onChange(of: selectedAction) { _, newValue in didUpdate(selectionAction: newValue) }
         .scrollIndicators(.hidden)
         .onDisappear {
             item = item.updating(action: selectedAction)

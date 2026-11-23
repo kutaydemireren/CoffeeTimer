@@ -96,7 +96,7 @@ struct CreateMethodDetailsView: View {
                 context.selectedMethod = .custom
             }
         }
-        .onChange(of: context.selectedMethod, perform: didUpdate(_:))
+        .onChange(of: context.selectedMethod) { _, newValue in didUpdate(newValue) }
         .padding()
         .hideKeyboardOnTap()
     }

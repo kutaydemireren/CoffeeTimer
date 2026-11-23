@@ -41,7 +41,7 @@ struct BuyMeACoffeeView<Model: BuyMeACoffeeViewModel>: View {
                     .bold()
                     .font(.callout)
                     .padding()
-                    .foregroundColor(Color("backgroundSecondary"))
+                    .foregroundStyle(Color("backgroundSecondary"))
                     .background(
                         RoundedRectangle(cornerRadius: 24)
                             .fill(Color("backgroundPrimary"))
@@ -64,7 +64,7 @@ struct BuyMeACoffeeView<Model: BuyMeACoffeeViewModel>: View {
             Spacer()
         }
         .padding()
-        .foregroundColor(Color("backgroundPrimary"))
+        .foregroundStyle(Color("backgroundPrimary"))
         .background {
             Color("backgroundSecondary")
                 .ignoresSafeArea()
