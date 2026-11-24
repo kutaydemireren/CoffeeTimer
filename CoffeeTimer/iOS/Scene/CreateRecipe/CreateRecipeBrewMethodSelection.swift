@@ -144,6 +144,19 @@ struct CreateRecipeBrewMethodSelection: View {
     }
     
     var body: some View {
+        VStack(spacing: 0) {
+            methodGrid()
+
+            // Pinned under the scrolling grid so it stays on screen at any method count,
+            // with room underneath for the pager's page dots.
+            customMethodAction()
+                .padding(.top, 8)
+                .padding(.bottom, pageIndicatorClearance)
+        }
+    }
+
+    @ViewBuilder
+    private func methodGrid() -> some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(brewMethods) { brewMethod in
@@ -164,8 +177,6 @@ struct CreateRecipeBrewMethodSelection: View {
                 }
             }
             .padding()
-
-            customMethodAction()
         }
         .overlay(alignment: .bottom) {
             if let deletedMethod {
@@ -177,25 +188,22 @@ struct CreateRecipeBrewMethodSelection: View {
         .animation(.default, value: deletedMethod)
     }
 
+    /// Space under "Or, create your own" so the pager's page dots never cover it.
+    private let pageIndicatorClearance: CGFloat = 36
+
     @ViewBuilder
     private func customMethodAction() -> some View {
-        HStack {
-            VStack {
-                Spacer()
+        Button(action: createMethod) {
+            HStack {
+                Image(uiImage: .add)
+                    .renderingMode(.template)
 
-                Button(action: createMethod) {
-                    HStack {
-                        Image(uiImage: .add)
-                            .renderingMode(.template)
-
-                        Text("Or, create your own")
-                    }
-                    .foregroundStyle(Color("foregroundPrimary"))
-                }
-                .padding()
-                .backgroundSecondary(opacity: 0.6)
+                Text("Or, create your own")
             }
+            .foregroundStyle(Color("foregroundPrimary"))
         }
+        .padding()
+        .backgroundSecondary(opacity: 0.6)
     }
 }
 
