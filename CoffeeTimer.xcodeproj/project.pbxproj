@@ -33,6 +33,7 @@
 		A5E9B67BEB665B8723A9AD7F /* ReviewPromptPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC3ABD55BF2020A00B3791D /* ReviewPromptPolicy.swift */; };
 		B0394B2702A3482D190003D7 /* MethodEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6A198F137D540870D81B71 /* MethodEditorViewModel.swift */; };
 		B16E17603245E643643E9878 /* MethodDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF6727DF8544A0A7003A627 /* MethodDraft.swift */; };
+		A1B2C3D4E5F6A7B8C9D0E1F2 /* MockRepeatingTickScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E2D3C4B5A6F7E8D9C0B1A2 /* MockRepeatingTickScheduler.swift */; };
 		B32EEC0579C34CE29F17E03A /* MockDateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D3BE7FFFD431B1F202E44D /* MockDateProvider.swift */; };
 		B6DE4688939EB4D6DFDB04F8 /* PostBrewViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF370867C06A5051398AAA76 /* PostBrewViewModelTests.swift */; };
 		BB4059B9E77ACAA4E4F1D75C /* ReviewPromptPolicyImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB1435BA24F1BCED3053BEA /* ReviewPromptPolicyImpTests.swift */; };
@@ -206,6 +207,7 @@
 		53CD01E3E779BF92484F11A9 /* SaveBrewMethodUseCaseImpTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SaveBrewMethodUseCaseImpTests.swift; sourceTree = "<group>"; };
 		57FBD647C477DB78B58761F6 /* WrittenForSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WrittenForSheet.swift; sourceTree = "<group>"; };
 		59228B618A22E3D598337B84 /* DateProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DateProvider.swift; sourceTree = "<group>"; };
+		F1E2D3C4B5A6F7E8D9C0B1A2 /* MockRepeatingTickScheduler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MockRepeatingTickScheduler.swift; sourceTree = "<group>"; };
 		62D3BE7FFFD431B1F202E44D /* MockDateProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MockDateProvider.swift; sourceTree = "<group>"; };
 		67BB88805C513AD4567A7871 /* MethodEditorViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MethodEditorViewModelTests.swift; sourceTree = "<group>"; };
 		6AC763BCF6E7A5A705A587F4 /* MockReviewPromptPolicy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MockReviewPromptPolicy.swift; sourceTree = "<group>"; };
@@ -989,6 +991,7 @@
 			isa = PBXGroup;
 			children = (
 				62D3BE7FFFD431B1F202E44D /* MockDateProvider.swift */,
+				F1E2D3C4B5A6F7E8D9C0B1A2 /* MockRepeatingTickScheduler.swift */,
 			);
 			name = Timer;
 			path = Timer;
@@ -1340,6 +1343,7 @@
 				CA1552822C0A5D71000334FB /* MockCreateRecipeFromInputUseCase.swift in Sources */,
 				186AA15196099805EA7BE2F7 /* MockReviewPromptPolicy.swift in Sources */,
 				B32EEC0579C34CE29F17E03A /* MockDateProvider.swift in Sources */,
+				A1B2C3D4E5F6A7B8C9D0E1F2 /* MockRepeatingTickScheduler.swift in Sources */,
 				BB4059B9E77ACAA4E4F1D75C /* ReviewPromptPolicyImpTests.swift in Sources */,
 				5BFEB526A6D07E3FED4375C1 /* BrewQueueViewModelReviewPromptTests.swift in Sources */,
 				518BBE10308962AB52074FD8 /* AppFlowViewModelReviewPromptTests.swift in Sources */,

@@ -14,10 +14,33 @@ final class CountdownTimerImpTests: XCTestCase {
     let expectedStepInterval: TimeInterval = 0.1
     let defaultInitialTimeLeft = 10.0
 
+    var mockScheduler: MockRepeatingTickScheduler!
+    var mockDateProvider: MockDateProvider!
     var sut: CountdownTimerImp!
 
     override func setUpWithError() throws {
-        sut = CountdownTimerImp(timeLeft: defaultInitialTimeLeft)
+        mockScheduler = MockRepeatingTickScheduler()
+        mockDateProvider = MockDateProvider()
+        sut = makeSUT(timeLeft: defaultInitialTimeLeft)
+    }
+
+    override func tearDownWithError() throws {
+        sut?.stop()
+        sut = nil
+        mockScheduler = nil
+        mockDateProvider = nil
+    }
+
+    private func makeSUT(timeLeft: TimeInterval) -> CountdownTimerImp {
+        CountdownTimerImp(timeLeft: timeLeft, scheduler: mockScheduler, dateProvider: mockDateProvider)
+    }
+
+    /// Moves the fake clock forward one step and fires one tick.
+    private func tick(times: Int = 1) {
+        for _ in 0..<times {
+            mockDateProvider.advance(by: expectedStepInterval)
+            mockScheduler.fire()
+        }
     }
 
     func test_start_shouldStartRunning() {
@@ -26,8 +49,14 @@ final class CountdownTimerImpTests: XCTestCase {
         XCTAssertTrue(sut.isRunning)
     }
 
+    func test_start_shouldScheduleExpectedStepInterval() {
+        try? sut.start()
+
+        XCTAssertEqual(mockScheduler.scheduledInterval, expectedStepInterval)
+    }
+
     func test_start_whenTimeLeftIsZero_shouldNotStartRunning() {
-        sut = CountdownTimerImp(timeLeft: 0)
+        sut = makeSUT(timeLeft: 0)
 
         try? sut.start()
 
@@ -35,7 +64,7 @@ final class CountdownTimerImpTests: XCTestCase {
     }
 
     func test_start_whenTimeLeftIsNegative_shouldNotStartRunning() {
-        sut = CountdownTimerImp(timeLeft: -5)
+        sut = makeSUT(timeLeft: -5)
 
         try? sut.start()
 
@@ -53,65 +82,57 @@ final class CountdownTimerImpTests: XCTestCase {
     func test_start_shouldCountdownByOneInterval() {
         let expectedTime = sut.timeLeft - expectedStepInterval
 
-        let exp = expectation(description: "time left should be updated 1 second after start")
-
         try? sut.start()
 
         var resultedTime: Double?
         let subs = sut.timeLeftPublisher
             .dropFirst() // skip receiving initial value
-            .sink { timeInterval in
-                resultedTime = timeInterval
-                exp.fulfill()
-            }
+            .sink { resultedTime = $0 }
 
-        wait(for: [exp], timeout: 1.0)
+        tick()
 
         subs.cancel()
-        XCTAssertEqual(resultedTime!, expectedTime, accuracy: 0.01)
+        XCTAssertEqual(resultedTime!, expectedTime, accuracy: 0.0001)
     }
 
     func test_start_shouldCountdownBeExpectedAfterWaiting() {
         let initialTimeLeft = 5.0
-        sut = CountdownTimerImp(timeLeft: initialTimeLeft)
+        sut = makeSUT(timeLeft: initialTimeLeft)
 
         try? sut.start()
 
-        let waitTime: TimeInterval = 2.0
-        let exp = expectation(description: "time left should be updated correctly after waiting")
+        tick(times: 20) // 2 seconds
 
-        DispatchQueue.global().asyncAfter(deadline: .now() + waitTime) {
-            DispatchQueue.main.async {
-                XCTAssertEqual(self.sut.timeLeft, max(0, initialTimeLeft - waitTime), accuracy: 0.1)
-                exp.fulfill()
-            }
-        }
+        XCTAssertEqual(sut.timeLeft, initialTimeLeft - 2.0, accuracy: 0.0001)
+    }
 
-        wait(for: [exp], timeout: waitTime + 0.5)
+    func test_start_whenTicksAreLate_shouldUseElapsedClockTime() {
+        try? sut.start()
+
+        mockDateProvider.advance(by: 1.5)
+        mockScheduler.fire()
+
+        XCTAssertEqual(sut.timeLeft, defaultInitialTimeLeft - 1.5, accuracy: 0.0001)
     }
 
     func test_start_whenTimeLeftReachEnd_shouldAutoStop() {
-        let expectedTime = 3.0
-        sut = CountdownTimerImp(timeLeft: expectedTime)
-
-        let exp = expectation(description: "time left should reach to 0 in 3 seconds after start")
+        sut = makeSUT(timeLeft: 3.0)
 
         try? sut.start()
 
+        var reachedZero = false
         let subs = sut.timeLeftPublisher
-            .sink { timeInterval in
-                if timeInterval <= 0 {
-                    exp.fulfill()
-                }
-            }
+            .sink { if $0 <= 0 { reachedZero = true } }
 
-        wait(for: [exp], timeout: expectedTime + 0.1)
+        tick(times: 31)
 
         subs.cancel()
+        XCTAssertTrue(reachedZero)
+        XCTAssertEqual(sut.timeLeft, 0)
         XCTAssertFalse(sut.isRunning)
     }
 
-    func test_stop_shouldStop() {  
+    func test_stop_shouldStop() {
         sut.stop()
 
         XCTAssertFalse(sut.isRunning)
@@ -123,5 +144,14 @@ final class CountdownTimerImpTests: XCTestCase {
         sut.stop()
 
         XCTAssertFalse(sut.isRunning)
+    }
+
+    func test_stop_whenAfterStarted_shouldNotCountdownAnymore() {
+        try? sut.start()
+        sut.stop()
+
+        tick()
+
+        XCTAssertEqual(sut.timeLeft, defaultInitialTimeLeft)
     }
 }
