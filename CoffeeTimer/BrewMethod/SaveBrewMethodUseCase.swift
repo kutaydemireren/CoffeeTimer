@@ -65,6 +65,10 @@ protocol SaveBrewMethodUseCase {
     /// Saved recipes made from the method with `methodId`.
     func recipesUsing(methodId: String) -> [Recipe]
     func save(_ draft: MethodDraft, mode: MethodSaveMode) async throws -> BrewMethod
+    /// Moves a saved or selected recipe onto `brewMethod`. Its name, cups and amounts stay the same;
+    /// its steps are rebuilt from the method's instructions.
+    @discardableResult
+    func switchRecipe(_ recipe: Recipe, to brewMethod: BrewMethod) async throws -> Recipe
 }
 
 struct SaveBrewMethodUseCaseImp: SaveBrewMethodUseCase {
@@ -129,6 +133,17 @@ struct SaveBrewMethodUseCaseImp: SaveBrewMethodUseCase {
         }
 
         return brewMethod
+    }
+
+    @discardableResult
+    func switchRecipe(_ recipe: Recipe, to brewMethod: BrewMethod) async throws -> Recipe {
+        let instructions = try await recipeInstructionsRepository.fetchInstructions(for: brewMethod)
+        let rebuilt = rebuild(recipe, brewMethod: brewMethod, instructions: instructions)
+        recipeRepository.update(savedRecipe: rebuilt)
+        if recipeRepository.getSelectedRecipe()?.id == recipe.id {
+            recipeRepository.update(selectedRecipe: rebuilt)
+        }
+        return rebuilt
     }
 
     /// Recipes store their brew steps, so recipes made from an updated method are rebuilt with its new steps.

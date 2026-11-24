@@ -102,4 +102,55 @@ final class AppFlowViewModelReviewPromptTests: XCTestCase {
         XCTAssertFalse(sut.confirmReviewRequest(.recipeCreated))
         XCTAssertEqual(mockReviewPromptPolicy.didRequestReviewCallCount, 0)
     }
+
+    // MARK: - Tweak this brew
+
+    private func completeBrew() {
+        let dateProvider = MockDateProvider()
+        brewQueueViewModel = BrewQueueViewModel(
+            recipeRepository: mockRecipeRepository,
+            analyticsTracker: MockAnalyticsTracker(),
+            reviewPromptPolicy: mockReviewPromptPolicy,
+            dateProvider: dateProvider
+        )
+        sut = AppFlowViewModel(
+            brewQueueViewModel: brewQueueViewModel,
+            tweakBrewViewModel: tweakBrewViewModel,
+            reviewPromptPolicy: mockReviewPromptPolicy,
+            analyticsTracker: mockAnalyticsTracker
+        )
+        brewQueueViewModel.primaryAction()
+        dateProvider.advance(by: 120)
+        for _ in 0..<brewQueueViewModel.brewQueue.stages.count {
+            brewQueueViewModel.skipAction()
+        }
+    }
+
+    private lazy var tweakBrewViewModel = TweakBrewViewModel(
+        fetchRecipeInstructionsUseCase: MockFetchRecipeInstructionsUseCase(),
+        saveBrewMethodUseCase: MockSaveBrewMethodUseCase(),
+        analyticsTracker: MockAnalyticsTracker()
+    )
+
+    func test_tweakClosed_shouldKeepThePostBrewScreen() {
+        completeBrew()
+        brewQueueViewModel.tweakBrew()
+
+        tweakBrewViewModel.didClose.send()
+
+        XCTAssertTrue(brewQueueViewModel.isPresentingPostBrew)
+        XCTAssertFalse(brewQueueViewModel.isTweakPresented)
+    }
+
+    func test_tweakFinished_shouldReturnToTheMainScreenAndTakePendingTrigger() {
+        completeBrew()
+        brewQueueViewModel.tweakBrew()
+        mockReviewPromptPolicy._pendingTrigger = .customMethodCreated
+
+        tweakBrewViewModel.didFinish.send()
+
+        XCTAssertFalse(brewQueueViewModel.isPresentingPostBrew)
+        XCTAssertFalse(brewQueueViewModel.isTweakPresented)
+        XCTAssertEqual(sut.reviewPromptTrigger, .customMethodCreated)
+    }
 }

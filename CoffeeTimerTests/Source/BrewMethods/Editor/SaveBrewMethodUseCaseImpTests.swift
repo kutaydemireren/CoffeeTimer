@@ -116,4 +116,54 @@ final class SaveBrewMethodUseCaseImpTests: XCTestCase {
         XCTAssertEqual(sut.recipesUsing(methodId: BrewMethod.oldCustom.id).count, 1)
         XCTAssertTrue(sut.recipesUsing(methodId: "unknown").isEmpty)
     }
+
+    // MARK: - Tweak this brew: switch a built-in recipe to its copy
+
+    private func recipeFromBuiltInV60() -> Recipe {
+        let input = CreateRecipeInput(
+            recipeProfile: RecipeProfile(name: "Morning V60", brewMethod: .v60Single),
+            coffee: .init(amount: 29, type: .gram),
+            water: .init(amount: 500, type: .millilitre),
+            ice: nil,
+            cupsCount: 2,
+            cupSize: 250
+        )
+        return CreateRecipeFromInputUseCaseImp().create(from: input, instructions: loadOldEditorV60Instructions())
+    }
+
+    func test_switchRecipe_whenSwitchedToASavedCopy_shouldRebuildTheRecipeWithTheCopysSteps() async throws {
+        let recipe = recipeFromBuiltInV60()
+        recipeRepository.savedRecipes.send([recipe])
+        recipeRepository.getSelectedRecipeReturnValue = recipe
+        var draft = MethodDraftFactory().draft(copying: .v60Single, instructions: loadOldEditorV60Instructions())
+        draft.steps[6].amount = .upTo(160)
+        let copy = try await sut.save(draft, mode: .asNew)
+        XCTAssertNil(recipeRepository.updateSavedRecipeCalledWith, "saving a copy leaves recipes alone")
+
+        let switched = try await sut.switchRecipe(recipe, to: copy)
+
+        XCTAssertEqual(copy.title, "My V60 Single")
+        XCTAssertEqual(switched.id, recipe.id)
+        XCTAssertEqual(switched.recipeProfile.name, "Morning V60")
+        XCTAssertEqual(switched.recipeProfile.brewMethod, copy)
+        XCTAssertEqual(switched.ingredients, recipe.ingredients)
+        XCTAssertEqual(switched.cupsCount, recipe.cupsCount)
+        XCTAssertEqual(switched.cupSize, recipe.cupSize)
+        XCTAssertEqual(switched.brewQueue.stages[6].action, .pourWater(.init(amount: 262, type: .millilitre)))
+        XCTAssertEqual(recipe.brewQueue.stages[6].action, .pourWater(.init(amount: 242, type: .millilitre)))
+        XCTAssertEqual(recipeRepository.updateSavedRecipeCalledWith, switched)
+        XCTAssertEqual(recipeRepository.updateSelectedRecipeCalledWith, switched)
+    }
+
+    func test_switchRecipe_whenRecipeIsNotSelected_shouldLeaveTheSelectedRecipeAlone() async throws {
+        let recipe = recipeFromBuiltInV60()
+        recipeRepository.getSelectedRecipeReturnValue = .stubSingleV60
+        let draft = MethodDraftFactory().draft(copying: .v60Single, instructions: loadOldEditorV60Instructions())
+        let copy = try await sut.save(draft, mode: .asNew)
+
+        _ = try await sut.switchRecipe(recipe, to: copy)
+
+        XCTAssertNotNil(recipeRepository.updateSavedRecipeCalledWith)
+        XCTAssertNil(recipeRepository.updateSelectedRecipeCalledWith)
+    }
 }

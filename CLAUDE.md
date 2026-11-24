@@ -59,3 +59,5 @@ App startup (`CoffeeTimerApp` → `AppDelegate`) runs `AppInitializerImp` first.
 - Never touch App Store Connect, TestFlight, signing or other release tooling.
 - Never run `firebase deploy` (from `data/`): it publishes the live brew data and website.
 - Edits to `data/v0` take effect for every DEBUG build once they reach `main` on GitHub. Keep the JSON schema backward compatible with the shipped app.
+
+More agent rules: [.claude/rules/](.claude/rules/).

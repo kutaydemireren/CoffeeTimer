@@ -23,6 +23,14 @@ final class MockSaveBrewMethodUseCase: SaveBrewMethodUseCase {
         if let _error { throw _error }
         return _savedMethod
     }
+
+    var switchRecipeCalls: [(recipe: Recipe, brewMethod: BrewMethod)] = []
+
+    func switchRecipe(_ recipe: Recipe, to brewMethod: BrewMethod) async throws -> Recipe {
+        switchRecipeCalls.append((recipe, brewMethod))
+        if let _error { throw _error }
+        return recipe
+    }
 }
 
 final class MockMethodDraftStore: MethodDraftStore {

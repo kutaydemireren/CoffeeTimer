@@ -44,6 +44,8 @@ final class PostBrewViewModel: BuyMeACoffeeViewModel {
 struct PostBrewView: View {
     var confirm: () -> Void
     var dismiss: () -> Void
+    /// "Tweak this brew"; hidden when `nil`.
+    var tweak: (() -> Void)? = nil
 
     @State private var viewModel = PostBrewViewModel()
 
@@ -51,7 +53,8 @@ struct PostBrewView: View {
         BuyMeACoffeeView(
             viewModel: viewModel,
             confirm: confirm,
-            dismiss: dismiss
+            dismiss: dismiss,
+            secondaryAction: tweak.map { BuyMeACoffeeSecondaryAction(title: "Tweak this brew", action: $0) }
         )
     }
 }
@@ -59,6 +62,7 @@ struct PostBrewView: View {
 #Preview {
     PostBrewView(
         confirm: { },
-        dismiss: { }
+        dismiss: { },
+        tweak: { }
     )
 }
