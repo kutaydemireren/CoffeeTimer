@@ -1,6 +1,15 @@
 # Creating a custom brew method
 
-Status: accepted design, not built yet. This page records how users will create their own brew method and why. The implementation should follow it. Every open question was settled on 2026-11-23; see [Decided (2026-11-23)](#decided-2026-11-23) and [Order of work](#order-of-work).
+Status: accepted design. Stages 1 and 2 of the [order of work](#order-of-work) are implemented (iOS 26, then the model changes); stages 3 (the new creation flow and tile menu) and 4 (Tweak this brew) are not built yet. This page records how users will create their own brew method and why. The implementation should follow it. Every open question was settled on 2026-11-23; see [Decided (2026-11-23)](#decided-2026-11-23).
+
+### What stage 2 put in the model
+
+- `BrewMethod.referenceDose` (`ReferenceDose`: coffee, water and optional ice, in grams) is optional and stored as an optional `referenceDose` key on `BrewMethodDTO`. Built-in JSON and methods saved before it decode with `nil`, so no migration was needed. Nothing sets it yet: the stage 3 editor will.
+- `BrewMethod.recipeRatios` lists the method's own ratio first (titled like "1:16.7 - As written", one decimal only when needed), then `ratios` without a duplicate. `defaultRatio` selects it in Create Recipe. Without a reference dose both behave as before.
+- Ice: with a reference dose that has ice, the recipe splits the total liquid so that ice / water equals the reference ice / water. Otherwise iced brews keep 40% of the total as ice.
+- Coffee is water / ratio in decimal maths, and coffee and step amounts round to the nearest gram.
+- Water is labelled in grams at display time (`String.brewDisplayText`, `IngredientAmount.toRepresentableString`). The instruction JSON and stored recipes still say ml, so recipes saved by older versions show grams too.
+- The old editor accepts countdowns up to 3600 s.
 
 ## The problem today
 
