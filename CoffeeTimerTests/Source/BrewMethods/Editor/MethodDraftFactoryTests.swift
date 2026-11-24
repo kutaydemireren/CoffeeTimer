@@ -60,8 +60,9 @@ final class MethodDraftFactoryTests: XCTestCase {
             XCTAssertEqual(after.map { $0?.requirement }, before.map { $0?.requirement })
             XCTAssertEqual(after.map { $0?.startMethod }, before.map { $0?.startMethod })
             XCTAssertEqual(after.map { $0?.passMethod }, before.map { $0?.passMethod })
-            XCTAssertEqual(after.map { $0?.message }, before.map { $0?.message })
-            XCTAssertEqual(after.map { ($0?.details ?? "").isEmpty ? nil : $0?.details }, before.map { ($0?.details ?? "").isEmpty ? nil : $0?.details })
+            // Saved text now says g where it said ml; the brew screen already showed g.
+            XCTAssertEqual(after.map { $0?.message.brewDisplayText }, before.map { $0?.message.brewDisplayText })
+            XCTAssertEqual(after.map { ($0?.details ?? "").brewDisplayText }, before.map { ($0?.details ?? "").brewDisplayText })
         }
     }
 
@@ -145,5 +146,27 @@ final class MethodDraftFactoryTests: XCTestCase {
         XCTAssertTrue(result.isIcedBrew)
         XCTAssertEqual(result.referenceDose, ReferenceDose(coffee: 15, water: 150, ice: 100))
         XCTAssertEqual(result.ratios, StaticCoffeetoWaterRatioGenerator.icedBrew())
+    }
+
+    func test_draft_shouldShowAndSaveWaterInGramsButKeepUneditedKeptStepsAsStored() {
+        let original = loadOldEditorV60Instructions()
+        let draft = sut.draft(editing: .oldCustom, instructions: original)
+
+        let pour = draft.steps[6]
+        XCTAssertEqual(pour.customText, "Pour #current.amount g of water in ~30 seconds")
+        XCTAssertEqual(pour.tip, "Remember to pour gently in cycles\nTotal: #current.water g of water")
+        XCTAssertEqual(draft.steps[2].tip, "Boil more than #total.water g of water")
+
+        let saved = MethodDraftCompiler().instructionSteps(for: draft)
+        XCTAssertEqual(saved[6].instructionAction?.message, "Pour #current.amount g of water in ~30 seconds")
+        // The bloom is kept as stored until edited, so it still says ml.
+        XCTAssertEqual(saved[3].instructionAction?.message, "To bloom, gently pour #current.amount ml of water")
+        // Once edited, it says g too.
+        XCTAssertEqual(draft.steps[3].customText, "To bloom, gently pour #current.amount g of water")
+    }
+
+    func test_waterInGrams_shouldOnlyChangeMillilitresAfterANumberOrToken() {
+        XCTAssertEqual("Pour 50 ml and #current.water ml, 30ml".waterInGrams, "Pour 50 g and #current.water g, 30 g")
+        XCTAssertEqual("Use a small bowl of ml-free text".waterInGrams, "Use a small bowl of ml-free text")
     }
 }

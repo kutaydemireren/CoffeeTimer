@@ -192,11 +192,11 @@ struct MethodStepMapperImp: MethodStepMapper {
             time: time,
             then: then,
             customText: nil,
-            tip: action.details ?? "",
+            tip: (action.details ?? "").waterInGrams,
             startsByItself: countdown == nil ? true : action.startMethod == .auto
         )
 
-        let message = action.message ?? ""
+        let message = (action.message ?? "").waterInGrams
         if message != MethodStepText.generated(for: step, duration: countdown) {
             step.customText = message
         }
@@ -217,8 +217,8 @@ struct MethodStepMapperImp: MethodStepMapper {
             amount: nil,
             time: time,
             then: countdown == nil ? nil : (action?.skipMethod == .auto ? .carryOn : .waitForTap),
-            customText: action?.message,
-            tip: action?.details ?? "",
+            customText: action?.message?.waterInGrams,
+            tip: (action?.details ?? "").waterInGrams,
             startsByItself: countdown == nil ? true : action?.startMethod == .auto,
             legacy: LegacyStep(step: instructionStep)
         )
@@ -251,5 +251,20 @@ struct MethodStepMapperImp: MethodStepMapper {
             guard factorOf == InstructionKeyword.ice.keyword, !hasAdjustment, let ice = dose.ice else { return nil }
             return .add(factor * ice)
         }
+    }
+}
+
+extension String {
+    private static let millilitreAfterNumberOrToken = try! NSRegularExpression(pattern: #"(\d|#[a-z]+\.[a-z]+) ?ml\b"#)
+
+    /// Stored step text with water in grams, for example "Pour #current.amount ml" becomes "Pour #current.amount g".
+    ///
+    /// The editor shows and saves grams, as the brew screen does (`brewDisplayText`). Steps kept exactly as stored are not changed.
+    var waterInGrams: String {
+        String.millilitreAfterNumberOrToken.stringByReplacingMatches(
+            in: self,
+            range: NSRange(startIndex..., in: self),
+            withTemplate: "$1 g"
+        )
     }
 }
