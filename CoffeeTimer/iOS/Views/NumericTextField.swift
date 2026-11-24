@@ -26,6 +26,14 @@ struct NumericTextField: View {
         }
     }
 
+    /// How the number is typed and shown.
+    enum Format {
+        /// A plain number, for example grams.
+        case number
+        /// Seconds typed and shown as m:ss, for example "1:15". A number without a colon is read as seconds.
+        case minutesSeconds
+    }
+
     struct Range {
         var minimum: Int = 1
         var maximum: Int = .max
@@ -35,6 +43,7 @@ struct NumericTextField: View {
     let placeholder: String
     var keyboardType: KeyboardType = .decimal
     var range = Range()
+    var format: Format = .number
 
     private var isSingleValue: Bool {
         return range.minimum == range.maximum
@@ -67,12 +76,18 @@ struct NumericTextField: View {
         .multilineTextAlignment(.center)
         .disabled(isSingleValue)
         .textFieldStyle(.plain)
-        .keyboardType(keyboardType.uiKeyboardType)
+        .keyboardType(format == .minutesSeconds ? .numbersAndPunctuation : keyboardType.uiKeyboardType)
         .focused($isFocused)
         .tint(Color("backgroundPrimary").opacity(0.6))
         .foregroundStyle(Color("foregroundPrimary"))
         .onChange(of: displayText) { _, newValue in didUpdate(displayText: newValue) }
         .onChange(of: input) { _, newValue in setDisplayText(newValue) }
+        .onChange(of: isFocused) { _, focused in
+            // A time typed only partly ("1:") shows the value it stands for once the field is left.
+            if !focused, format == .minutesSeconds {
+                displayText = input <= 0 ? "" : MethodTimeFormat.clock(UInt(input))
+            }
+        }
         .padding()
         .backgroundSecondary()
         .onAppear {
@@ -85,6 +100,14 @@ struct NumericTextField: View {
 
     private func didUpdate(displayText newValue: String) {
         guard isFocused else { return }
+
+        if format == .minutesSeconds {
+            // Partial input such as "1:" stays as typed; the value updates once it reads as a time in range.
+            if let seconds = MethodTimeFormat.parse(newValue), inRange(input: Double(seconds)) {
+                input = Double(seconds)
+            }
+            return
+        }
 
         guard let newInput = Double(newValue.filteringNonNumerics()), inRange(input: newInput) else {
             guard newValue != "-" else {
@@ -101,6 +124,12 @@ struct NumericTextField: View {
     }
 
     private func setDisplayText(_ newValue: Double) {
+        if format == .minutesSeconds {
+            if MethodTimeFormat.parse(displayText).map(Double.init) != newValue {
+                displayText = newValue <= 0 ? "" : MethodTimeFormat.clock(UInt(newValue))
+            }
+            return
+        }
         if Double(displayText) != newValue {
             displayText = newValue == 0 ? "" : "\(newValue)"
         }

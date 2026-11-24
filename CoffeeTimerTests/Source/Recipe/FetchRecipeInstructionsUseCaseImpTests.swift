@@ -78,33 +78,3 @@ final class FetchRecipeInstructionsUseCaseImpTests: XCTestCase {
         XCTAssertEqual(resultedInstructions, expectedInstructions)
     }
 }
-
-extension FetchRecipeInstructionsUseCaseImpTests {
-    
-    func test_fetchActions_whenErrorThrown_shouldThrowExpectedError() async {
-        mockRepository._error = TestError.notAllowed
-
-        await assertThrowsError {
-            try await sut.fetchActions(brewMethod: .frenchPress())
-        } _: { error in
-            XCTAssertEqual(error as? TestError, .notAllowed)
-        }
-    }
-
-    func test_fetchActions_shouldRequestExpectedBrewMethod() async throws {
-        let expectedBrewMethod = BrewMethod.frenchPress()
-        mockRepository._resultedRecipeInstructions = loadMiniInstructions()
-
-        _ = try await sut.fetchActions(brewMethod: expectedBrewMethod)
-
-        XCTAssertEqual(mockRepository._brewMethod, expectedBrewMethod)
-    }
-
-    func test_fetchActions_shouldReturnExpectedInstructionActions() async throws {
-        mockRepository._resultedRecipeInstructions = loadMiniInstructions()
-
-        let resultedInstructions = try await sut.fetchActions(brewMethod: .frenchPress())
-        
-        XCTAssertEqual(resultedInstructions, .stubMiniActions)
-    }
-}

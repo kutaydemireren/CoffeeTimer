@@ -1,6 +1,6 @@
 # Creating a custom brew method
 
-Status: accepted design. Stages 1 and 2 of the [order of work](#order-of-work) are implemented (iOS 26, then the model changes); stages 3 (the new creation flow and tile menu) and 4 (Tweak this brew) are not built yet. This page records how users will create their own brew method and why. The implementation should follow it. Every open question was settled on 2026-11-23; see [Decided (2026-11-23)](#decided-2026-11-23).
+Status: accepted design. Stages 1 to 3 of the [order of work](#order-of-work) are implemented (iOS 26, the model changes, then the new creation flow and tile menu); stage 4 (Tweak this brew) is not built yet. This page records how users will create their own brew method and why. The implementation should follow it. Every open question was settled on 2026-11-23; see [Decided (2026-11-23)](#decided-2026-11-23).
 
 ### What stage 2 put in the model
 
@@ -9,7 +9,27 @@ Status: accepted design. Stages 1 and 2 of the [order of work](#order-of-work) a
 - Ice: with a reference dose that has ice, the recipe splits the total liquid so that ice / water equals the reference ice / water. Otherwise iced brews keep 40% of the total as ice.
 - Coffee is water / ratio in decimal maths, and coffee and step amounts round to the nearest gram.
 - Water is labelled in grams at display time (`String.brewDisplayText`, `IngredientAmount.toRepresentableString`). The instruction JSON and stored recipes still say ml, so recipes saved by older versions show grams too.
-- The old editor accepts countdowns up to 3600 s.
+- The old editor accepted countdowns up to 3600 s (stage 3 replaced it; the new step sheet has the same limit).
+
+### What stage 3 built, and the choices it made
+
+The flow, method screen, step palette, step sheet and tile menu follow the sections below. The code lives in `CoffeeTimer/BrewMethod/Editor` (the editor model: `MethodDraft`, `MethodStepMapper`, `MethodTimeline`, `MethodStepText`, `MethodDraftCompiler`, `MethodDraftFactory`), `BrewMethod/SaveBrewMethodUseCase.swift` and `CoffeeTimer/iOS/Scene/MethodEditor`. The old editor in `Scene/CreateMethod` is gone.
+
+Where this page left room, stage 3 chose:
+
+- **Drafts.** There is one draft slot (`methodEditorDraft` in `UserDefaults`). The editor writes the draft on every change once it differs from what was opened, and clears it on save or Discard. Close with changes asks Keep as draft, Discard changes or Cancel. When a draft is kept, "Or, create your own" shows "Continue your draft" above the two start tiles.
+- **Try it.** Timers run 10 times faster (at least 1 s each), and the text keeps the real numbers. It sends no analytics and does not count toward the review prompt. The end of the brew, Done or Recipes returns to the method screen.
+- **Delete.** Delete on a tile removes the method at once and shows an Undo banner for 6 seconds; there is no confirmation. Undo puts the method back at the end of the grid. A removed method's steps are kept, as before.
+- **Old and built-in steps the fields can't express are kept as stored.** This covers a `put` whose amount is not one of the three forms below (for example the built-in V60 bloom, water = 2 × coffee), a pause without a countdown, and a step the app can't read. The row says "kept as saved". Saving writes such a step back byte for byte. Editing anything in its sheet rewrites it in grams from what it pours at the shown dose. The other old steps convert, and recipes made from them brew the same amounts, timers and text (a unit test checks this at several doses with steps saved by the old editor).
+- **Recognised amount forms.** Water: `f × water` (or `#total.water`) is Add an amount, `f × water − 1 × #current.water` is Up to a total, `1 × #remaining.water` is The rest. Coffee and ice: `f × coffee` or `f × ice`. An adjustment with factor 0, which the old editor wrote by default, counts as none.
+- **Dose for methods without a reference dose.** 15 g coffee and 250 g water. An iced one also gets 167 g ice, which keeps the 40% share of the total liquid that its recipes use today, to the nearest gram at usual cup sizes.
+- **Optional step fields.** Besides `kind`, saved steps carry `doneBy` (seconds) and `amountMode` (`upTo`, `add`, `rest`). The engine ignores both. `amountMode` is needed because the engine has no running water total before the first step that puts something in or a timed pause, so an "Up to" pour there is stored as an added amount (the same number) and reopens as "Up to".
+- **Brew-screen line.** The line is generated with tokens (for example "Pour up to #current.water g"). When the user rewrites it, the sheet shows placeholders such as `{amount}` and `{total}` with buttons to insert them. They are saved as tokens, so the numbers stay live. Copied steps keep their own wording.
+- **Timers and "Then".** New timed steps start by themselves; Then decides whether the next step starts by itself or waits for a tap. Steps kept from a copy keep their own start setting. A step without a timer always waits for a tap, as the brew screen already does.
+- **Defaults per kind.** Pour: up to the method's full water, no timer, waits for a tap. Wait: 30 s, carries on. Add coffee: all the coffee. Add ice: the method's ice (adding the first ice step to a hot method sets ice to 40% of the total liquid). Note: empty text, which Save asks for.
+- **Footer.** A water mismatch is a warning, not a block: some methods pour less on purpose. The fix is "Make the last pour the rest", "Add a pour" when there is none, or "Write it for N g water" when the pours go over.
+- **Save.** Messages, first one shown: "Add a name", "Add at least one step", "Set the coffee and water it is written for", "Set the ice it is written for", "Write the note in step N", "Set an amount in step N", "Step N starts at m:ss, so "Done by" must be later", "Timers go up to 60:00 (step N)". Editing a method that no recipe uses saves in place without asking. Update everywhere rebuilds the saved recipes that use the method (and the selected recipe) with their own amounts, cups and name. After saving, an empty recipe name is filled with the method's name, so the flow can go straight to cups, cup size and strength.
+- **Make it mine** names a copy "My V60" for a built-in method and "<name> copy" for the user's own.
 
 ## The problem today
 
@@ -211,7 +231,7 @@ The new screens reuse what the app already has. Paths are under `CoffeeTimer/iOS
 | Help text | `InfoButton` and `InfoView`, only where a short explanation helps |
 | After save: cups, size, strength | `CreateRecipeCoffeeWaterSelection`, with the method's own ratio first |
 
-The old editor views in `Scene/CreateMethod` (`InstructionActionViewBuilder`, the Message, Pause and Put action views, `CreateMethodDetailsView`) can be removed once the new screens replace them.
+The old editor views in `Scene/CreateMethod` (`InstructionActionViewBuilder`, the Message, Pause and Put action views, `CreateMethodDetailsView`) and their picker items in `Views/Items` were removed in stage 3.
 
 ## Watch in TestFlight
 

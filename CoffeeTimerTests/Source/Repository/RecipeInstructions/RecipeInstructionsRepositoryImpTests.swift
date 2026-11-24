@@ -172,7 +172,7 @@ extension RecipeInstructionsRepositoryImpTests {
         let existingInstructions = [loadMiniInstructions()]
         mockStorage.storageDictionary[expectedSavedRecipeInstructionsKey] = existingInstructions
 
-        let newInstruction = loadMiniIcedInstructions()
+        let newInstruction = RecipeInstructions(identifier: "another-method", steps: loadMiniIcedInstructions().steps)
         let expectedRecipeInstructions = existingInstructions + [newInstruction]
 
         try await sut.save(instructions: newInstruction)
@@ -180,5 +180,16 @@ extension RecipeInstructionsRepositoryImpTests {
         XCTAssertEqual(mockStorage.loadCalledWithKey, expectedSavedRecipeInstructionsKey)
         XCTAssertEqual(mockStorage.saveCalledWithKey, expectedSavedRecipeInstructionsKey)
         XCTAssertEqual(mockStorage.saveCalledWithValue as? [RecipeInstructions], expectedRecipeInstructions)
+    }
+
+    func test_save_whenSameIdentifierExists_shouldReplaceItInPlace() async throws {
+        let first = RecipeInstructions(identifier: "first", steps: [])
+        let existing = loadMiniInstructions()
+        mockStorage.storageDictionary[expectedSavedRecipeInstructionsKey] = [first, existing]
+        let updated = loadMiniIcedInstructions() // same identifier as `existing`
+
+        try await sut.save(instructions: updated)
+
+        XCTAssertEqual(mockStorage.saveCalledWithValue as? [RecipeInstructions], [first, updated])
     }
 }

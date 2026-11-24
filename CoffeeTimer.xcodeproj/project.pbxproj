@@ -8,19 +8,39 @@
 
 /* Begin PBXBuildFile section */
 		186AA15196099805EA7BE2F7 /* MockReviewPromptPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC763BCF6E7A5A705A587F4 /* MockReviewPromptPolicy.swift */; };
+		31560A55C35915ADAC7B36A0 /* SaveBrewMethodUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C92BE6CD62FD4C1E063C499 /* SaveBrewMethodUseCase.swift */; };
+		327A3C206C9E41DDBACDA9AF /* MethodStepMapperImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298411A798F3A1A6DEB8633B /* MethodStepMapperImpTests.swift */; };
+		328FA1711626A113396AFAB7 /* MethodStepText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454AED0A6D5356238A0C78B1 /* MethodStepText.swift */; };
 		40F1CD0EB460C75F23D9AFEC /* ReviewPromptEventRecordingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98ADF15FF07F24C2EB9E8806 /* ReviewPromptEventRecordingTests.swift */; };
+		42490F8392C03CD1C2430403 /* MethodDraftCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF6CC63E4EA3B765CB5F342 /* MethodDraftCompiler.swift */; };
 		518BBE10308962AB52074FD8 /* AppFlowViewModelReviewPromptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9157F894B762EB6E431C1E46 /* AppFlowViewModelReviewPromptTests.swift */; };
+		568A9DE61F234A511B0BA410 /* MethodTryItView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB1763F75CC6C8BDFE5693 /* MethodTryItView.swift */; };
+		57805D922EF2B420A7FA4D2B /* WrittenForSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBD647C477DB78B58761F6 /* WrittenForSheet.swift */; };
+		57FD2C40B86AE6946A10C39A /* RecipeInstructionStep+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1691261613717EE196F19D8F /* RecipeInstructionStep+Stub.swift */; };
 		5BFEB526A6D07E3FED4375C1 /* BrewQueueViewModelReviewPromptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFB09A052CEBF42B147A4D /* BrewQueueViewModelReviewPromptTests.swift */; };
+		5C279C3F9DE8A65D0C111D43 /* MethodEditorMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104DE629A5AB80F87650ADB5 /* MethodEditorMocks.swift */; };
+		60D8A442D6A247EAD277673A /* MethodDraftFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4A4CF06B6B407E09CBE344 /* MethodDraftFactory.swift */; };
 		611FA89FCD53C160B713E55F /* View+ReviewPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FD42D69E59D97085EE127 /* View+ReviewPrompt.swift */; };
 		68C0F39826515D969ED060B6 /* ReferenceDoseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56151FC1DA4F893D047ACAC /* ReferenceDoseTests.swift */; };
+		73496205FFFB09BFB8DA2528 /* MethodTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404231AA908AA470FA8E73E2 /* MethodTimeline.swift */; };
+		7ACBB14EB26538CED19C31C2 /* MethodDraft+Editing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776E02632B0D17793BD568E8 /* MethodDraft+Editing.swift */; };
+		A1A87137690EC333909B7F29 /* MethodEditorViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BB88805C513AD4567A7871 /* MethodEditorViewModelTests.swift */; };
+		A50114D99CDCFF27DFAAB340 /* MethodDraftFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A17231D93A9242A5C68D89 /* MethodDraftFactoryTests.swift */; };
+		A58D31602D30B9774C2F4C88 /* MethodDraftStoreImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0E225801ACFCB97402318B /* MethodDraftStoreImpTests.swift */; };
+		A594B2CF71377F56F7EB1D97 /* MethodStartChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A4F9968EC7E49A9A369382 /* MethodStartChoiceView.swift */; };
 		A5E9B67BEB665B8723A9AD7F /* ReviewPromptPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC3ABD55BF2020A00B3791D /* ReviewPromptPolicy.swift */; };
+		B0394B2702A3482D190003D7 /* MethodEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6A198F137D540870D81B71 /* MethodEditorViewModel.swift */; };
+		B16E17603245E643643E9878 /* MethodDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF6727DF8544A0A7003A627 /* MethodDraft.swift */; };
 		B32EEC0579C34CE29F17E03A /* MockDateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D3BE7FFFD431B1F202E44D /* MockDateProvider.swift */; };
 		B6DE4688939EB4D6DFDB04F8 /* PostBrewViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF370867C06A5051398AAA76 /* PostBrewViewModelTests.swift */; };
 		BB4059B9E77ACAA4E4F1D75C /* ReviewPromptPolicyImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB1435BA24F1BCED3053BEA /* ReviewPromptPolicyImpTests.swift */; };
+		BDD3D195EC9013463CB76FED /* SaveBrewMethodUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CD01E3E779BF92484F11A9 /* SaveBrewMethodUseCaseImpTests.swift */; };
+		C348420E0D36576369BBD7F7 /* StepPaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B875369EA4E1CE56A2F479 /* StepPaletteView.swift */; };
+		C36707283A07DB0479D22C59 /* MethodStepMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789036314D8D661BA415719B /* MethodStepMapper.swift */; };
 		C6655F4CB78018789FCA42B9 /* DateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59228B618A22E3D598337B84 /* DateProvider.swift */; };
+		C83DB803D836372CE8DE2CA9 /* StepSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC8D2214396150146A2DEE /* StepSheetView.swift */; };
 		CA02D0D82A255A440012EE87 /* MockRecipeMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA02D0D72A255A440012EE87 /* MockRecipeMapper.swift */; };
 		CA02D0DC2A255A6D0012EE87 /* MockStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA02D0DB2A255A6D0012EE87 /* MockStorage.swift */; };
-		CA0A13F32C4C3A9800453CC9 /* CreateMethodFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0A13F22C4C3A9800453CC9 /* CreateMethodFlowView.swift */; };
 		CA1552802C0A5D3F000334FB /* CreateRecipeFromInputUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA15527F2C0A5D3F000334FB /* CreateRecipeFromInputUseCase.swift */; };
 		CA1552822C0A5D71000334FB /* MockCreateRecipeFromInputUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1552812C0A5D71000334FB /* MockCreateRecipeFromInputUseCase.swift */; };
 		CA1552842C0A5D9A000334FB /* MockFetchRecipeInstructionsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA1552832C0A5D9A000334FB /* MockFetchRecipeInstructionsUseCase.swift */; };
@@ -70,12 +90,9 @@
 		CA7B804729BFAA21007D3DFC /* CountdownTimerImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804629BFAA21007D3DFC /* CountdownTimerImpTests.swift */; };
 		CA7B804B29BFABBB007D3DFC /* StageTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804A29BFABBB007D3DFC /* StageTimerView.swift */; };
 		CA7B804D29BFBD8C007D3DFC /* BrewQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7B804C29BFBD8C007D3DFC /* BrewQueueView.swift */; };
-		CA7D9E2B2C4BE4A900908159 /* CreateMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D9E2A2C4BE4A900908159 /* CreateMethodView.swift */; };
 		CA7D9E2D2C4BEB7600908159 /* TitledPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D9E2C2C4BEB7600908159 /* TitledPicker.swift */; };
 		CA7D9E2F2C4BEB8500908159 /* Titled.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D9E2E2C4BEB8500908159 /* Titled.swift */; };
 		CA7D9E312C4C066800908159 /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D9E302C4C066800908159 /* Separator.swift */; };
-		CA7D9E332C4C153300908159 /* CreateMethodDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D9E322C4C153300908159 /* CreateMethodDetailsView.swift */; };
-		CA7D9E352C4C15F500908159 /* CreateMethodInstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7D9E342C4C15F500908159 /* CreateMethodInstructionsView.swift */; };
 		CA852F252BD5552D00FEF144 /* RecipeInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA852F242BD5552D00FEF144 /* RecipeInstructions.swift */; };
 		CA852F262BD557A800FEF144 /* instructions_v60_single.json in Resources */ = {isa = PBXBuildFile; fileRef = CAA325892BD438B1008440D0 /* instructions_v60_single.json */; };
 		CA8B41B32C0CAC9800C0DA86 /* mini_instructions.json in Resources */ = {isa = PBXBuildFile; fileRef = CA8B41B22C0CAC9800C0DA86 /* mini_instructions.json */; };
@@ -90,22 +107,8 @@
 		CA91CEF729E5FA9100E9F5D1 /* AppFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA91CEF629E5FA9100E9F5D1 /* AppFlowView.swift */; };
 		CA9BDA292A2CFD290068DFF7 /* CreateRecipeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9BDA282A2CFD290068DFF7 /* CreateRecipeInput.swift */; };
 		CAB1925F2A0D6B6500043837 /* RecipeRepositoryImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB1925E2A0D6B6500043837 /* RecipeRepositoryImpTests.swift */; };
-		CABD23912C4EEB12005C599F /* InstructionActionViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABD23902C4EEB12005C599F /* InstructionActionViewBuilder.swift */; };
-		CABD23932C4EEB2F005C599F /* MessageInstructionActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABD23922C4EEB2F005C599F /* MessageInstructionActionView.swift */; };
-		CABD23952C4EEB48005C599F /* PauseInstructionActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABD23942C4EEB47005C599F /* PauseInstructionActionView.swift */; };
-		CABD23972C4EEB63005C599F /* PutInstructionActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABD23962C4EEB63005C599F /* PutInstructionActionView.swift */; };
-		CABD239B2C4EEB8E005C599F /* InstructionRequirementItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABD239A2C4EEB8E005C599F /* InstructionRequirementItem.swift */; };
-		CABD239D2C4EEBAB005C599F /* IngredientTypeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABD239C2C4EEBAB005C599F /* IngredientTypeItem.swift */; };
-		CABD239F2C4EEBB9005C599F /* InstructionInteractionMethodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABD239E2C4EEBB9005C599F /* InstructionInteractionMethodItem.swift */; };
-		CABD23A12C4EEBE2005C599F /* Instructions+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABD23A02C4EEBE2005C599F /* Instructions+Stub.swift */; };
-		CABD23A32C4EEC13005C599F /* RecipeInstructionActionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABD23A22C4EEC13005C599F /* RecipeInstructionActionItem.swift */; };
-		CAC371E72C558608004D7659 /* PauseActionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC371E62C558608004D7659 /* PauseActionModel.swift */; };
-		CAC371E92C558662004D7659 /* MessageActionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC371E82C558662004D7659 /* MessageActionModel.swift */; };
-		CAC371EB2C558687004D7659 /* PutActionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC371EA2C558687004D7659 /* PutActionModel.swift */; };
-		CAC371ED2C5586EF004D7659 /* Updatables.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC371EC2C5586EF004D7659 /* Updatables.swift */; };
 		CAC59D882C47137900301A43 /* mini_iced_instructions.json in Resources */ = {isa = PBXBuildFile; fileRef = CAC59D872C47137900301A43 /* mini_iced_instructions.json */; };
 		CAD01B4F2C395B5B004A1EFF /* StageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD01B4E2C395B5B004A1EFF /* StageHeaderView.swift */; };
-		CAD226D62C4D82EA00BD6DAD /* RecipeInstructionActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD226D52C4D82EA00BD6DAD /* RecipeInstructionActionView.swift */; };
 		CAE3944229DE13C0007611F1 /* CreateRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE3944129DE13C0007611F1 /* CreateRecipeView.swift */; };
 		CAEE2F702C42A03F00D7D61E /* button-click.wav in Resources */ = {isa = PBXBuildFile; fileRef = CAEE2F6F2C42A03F00D7D61E /* button-click.wav */; };
 		CAF42CDF29EC907F004D7788 /* View+ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CDE29EC907F004D7788 /* View+ClearButton.swift */; };
@@ -117,16 +120,14 @@
 		CAF42CF329EC9906004D7788 /* RecipeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CF229EC9906004D7788 /* RecipeRepository.swift */; };
 		CAF42CF529EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF42CF429EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift */; };
 		CAFCF54B2A6F0A1700875CB7 /* HapticGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */; };
+		CCD940C1C007A40248B35B04 /* MethodStepRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756C6C4FC445FA7F8BFDA145 /* MethodStepRowView.swift */; };
+		DAFDC8D30651A413AFEED161 /* MethodDraftStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FAE438804FBB02B36506CD /* MethodDraftStore.swift */; };
 		F208EF292EAE644C005B87DE /* EditRecipeFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F208EF282EAE644C005B87DE /* EditRecipeFlowView.swift */; };
 		F208EF2D2EAE6549005B87DE /* EditRecipeAmountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F208EF2B2EAE6549005B87DE /* EditRecipeAmountsViewModel.swift */; };
 		F208EF2E2EAE6549005B87DE /* EditRecipeAmountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F208EF2A2EAE6549005B87DE /* EditRecipeAmountsView.swift */; };
 		F222D3AF2CFB8CBC00AD7AF4 /* InfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D3AE2CFB8CBC00AD7AF4 /* InfoButton.swift */; };
 		F222D3B12CFBAA4000AD7AF4 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F222D3B02CFBAA4000AD7AF4 /* InfoView.swift */; };
 		F22318F82EB3D33600B83265 /* View+KeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22318F72EB3D33600B83265 /* View+KeyboardToolbar.swift */; };
-		F22E68CE2CF38D2E00EE80FA /* CreateBrewMethodContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22E68CD2CF38D2E00EE80FA /* CreateBrewMethodContext.swift */; };
-		F22E68D12CF38D9A00EE80FA /* CreateBrewMethodUseCaseImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22E68D02CF38D9A00EE80FA /* CreateBrewMethodUseCaseImpTests.swift */; };
-		F22E68D32CF38DB600EE80FA /* CreateBrewMethodUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22E68D22CF38DB600EE80FA /* CreateBrewMethodUseCase.swift */; };
-		F233D28D2CF3E52100E357A5 /* RecipeInstructionStepMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F233D28C2CF3E52100E357A5 /* RecipeInstructionStepMapper.swift */; };
 		F23A6E222CFFB14800AB94C4 /* PostBrewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23A6E212CFFB14800AB94C4 /* PostBrewView.swift */; };
 		F23A6E242CFFB5F100AB94C4 /* post-brew-1.lottie in Resources */ = {isa = PBXBuildFile; fileRef = F23A6E232CFFB5F100AB94C4 /* post-brew-1.lottie */; };
 		F23A6E262CFFBE8F00AB94C4 /* post-brew-2.lottie in Resources */ = {isa = PBXBuildFile; fileRef = F23A6E252CFFBE8F00AB94C4 /* post-brew-2.lottie */; };
@@ -145,7 +146,6 @@
 		F276D1232EF95077009BDF1F /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F276D11C2EF95077009BDF1F /* AnalyticsEvent.swift */; };
 		F276D1242EF95077009BDF1F /* AnalyticsTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F276D11D2EF95077009BDF1F /* AnalyticsTracker.swift */; };
 		F276D1262EF9575E009BDF1F /* AnalyticsTrackerImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F276D1252EF9575E009BDF1F /* AnalyticsTrackerImp.swift */; };
-		F276D12A2EF95D80009BDF1F /* MockCreateBrewMethodUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F276D1282EF95D80009BDF1F /* MockCreateBrewMethodUseCase.swift */; };
 		F276D12C2EF95D96009BDF1F /* MockConfigureContextFromRecipeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F276D12B2EF95D96009BDF1F /* MockConfigureContextFromRecipeUseCase.swift */; };
 		F276D12E2EF95DA0009BDF1F /* MockCreateRecipeFromContextUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F276D12D2EF95DA0009BDF1F /* MockCreateRecipeFromContextUseCase.swift */; };
 		F276D1302EF95DAE009BDF1F /* MockGetSavedRecipesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F276D12F2EF95DAE009BDF1F /* MockGetSavedRecipesUseCase.swift */; };
@@ -154,11 +154,9 @@
 		F276D1362EF95DBA009BDF1F /* MockUpdateSelectedRecipeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F276D1352EF95DBA009BDF1F /* MockUpdateSelectedRecipeUseCase.swift */; };
 		F276D13F2EF95DDB009BDF1F /* CreateRecipeViewModelAnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F276D13B2EF95DDB009BDF1F /* CreateRecipeViewModelAnalyticsTests.swift */; };
 		F276D1402EF95DDB009BDF1F /* BrewQueueViewModelAnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F276D1392EF95DDB009BDF1F /* BrewQueueViewModelAnalyticsTests.swift */; };
-		F276D1412EF95DDB009BDF1F /* CreateMethodViewModelAnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F276D13A2EF95DDB009BDF1F /* CreateMethodViewModelAnalyticsTests.swift */; };
 		F276D1422EF95DDB009BDF1F /* EditRecipeAmountsViewModelAnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F276D13C2EF95DDB009BDF1F /* EditRecipeAmountsViewModelAnalyticsTests.swift */; };
 		F276D1432EF95DDB009BDF1F /* RecipesViewModelAnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F276D13D2EF95DDB009BDF1F /* RecipesViewModelAnalyticsTests.swift */; };
 		F276D1462EF95ED8009BDF1F /* MockAnalyticsTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F276D1442EF95ED8009BDF1F /* MockAnalyticsTracker.swift */; };
-		F27B2D692CF28D2100B425E9 /* IngredientAmountTypeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */; };
 		F2AAB07D2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AAB07C2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift */; };
 		F2AAB0802EB7E3D500DDCFAD /* UpdateRecipeFromContextUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AAB07F2EB7E3D500DDCFAD /* UpdateRecipeFromContextUseCase.swift */; };
 		F2AAB0812EB7E3D500DDCFAD /* ConfigureContextFromRecipeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AAB07E2EB7E3D500DDCFAD /* ConfigureContextFromRecipeUseCase.swift */; };
@@ -172,10 +170,12 @@
 		F2CCBBFC2CFE75610085C590 /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CCBBFB2CFE75610085C590 /* AnimationView.swift */; };
 		F2CCBBFE2CFE76320085C590 /* chemex.lottie in Resources */ = {isa = PBXBuildFile; fileRef = F2CCBBFD2CFE76320085C590 /* chemex.lottie */; };
 		F2D5AB822CF66FCF004AE191 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D5AB812CF66FCF004AE191 /* PagerView.swift */; };
-		F2DB5FBF2CF3BAFE000D67ED /* RecipeInstructionActionItem+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DB5FBE2CF3BAFE000D67ED /* RecipeInstructionActionItem+Stub.swift */; };
 		F2FBE5152CFF7F860084D821 /* v60.lottie in Resources */ = {isa = PBXBuildFile; fileRef = F2FBE5142CFF7F860084D821 /* v60.lottie */; };
 		F2FBE5172CFF81570084D821 /* aeropress.lottie in Resources */ = {isa = PBXBuildFile; fileRef = F2FBE5162CFF81570084D821 /* aeropress.lottie */; };
 		F2FBE5192CFF815D0084D821 /* french-press.lottie in Resources */ = {isa = PBXBuildFile; fileRef = F2FBE5182CFF815D0084D821 /* french-press.lottie */; };
+		F65D922A06F856D390D03DDF /* MethodEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0582026EBDA0B2E0E90A93FA /* MethodEditorView.swift */; };
+		FD485FA4CEA3D26385E74F7C /* UndoBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C15176D76E1444411D3DD9 /* UndoBanner.swift */; };
+		FF6F92CCF1E3C87EFDC4CCB7 /* MethodDraftEditingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B01CCAD90A14FE11375A540 /* MethodDraftEditingTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -189,15 +189,35 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0582026EBDA0B2E0E90A93FA /* MethodEditorView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MethodEditorView.swift; sourceTree = "<group>"; };
+		104DE629A5AB80F87650ADB5 /* MethodEditorMocks.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MethodEditorMocks.swift; sourceTree = "<group>"; };
+		1691261613717EE196F19D8F /* RecipeInstructionStep+Stub.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "RecipeInstructionStep+Stub.swift"; sourceTree = "<group>"; };
+		298411A798F3A1A6DEB8633B /* MethodStepMapperImpTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MethodStepMapperImpTests.swift; sourceTree = "<group>"; };
+		38DC8D2214396150146A2DEE /* StepSheetView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StepSheetView.swift; sourceTree = "<group>"; };
+		3AF6727DF8544A0A7003A627 /* MethodDraft.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MethodDraft.swift; sourceTree = "<group>"; };
+		404231AA908AA470FA8E73E2 /* MethodTimeline.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MethodTimeline.swift; sourceTree = "<group>"; };
+		40A17231D93A9242A5C68D89 /* MethodDraftFactoryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MethodDraftFactoryTests.swift; sourceTree = "<group>"; };
+		454AED0A6D5356238A0C78B1 /* MethodStepText.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MethodStepText.swift; sourceTree = "<group>"; };
+		4B01CCAD90A14FE11375A540 /* MethodDraftEditingTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MethodDraftEditingTests.swift; sourceTree = "<group>"; };
+		53CD01E3E779BF92484F11A9 /* SaveBrewMethodUseCaseImpTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SaveBrewMethodUseCaseImpTests.swift; sourceTree = "<group>"; };
+		57FBD647C477DB78B58761F6 /* WrittenForSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WrittenForSheet.swift; sourceTree = "<group>"; };
 		59228B618A22E3D598337B84 /* DateProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DateProvider.swift; sourceTree = "<group>"; };
 		62D3BE7FFFD431B1F202E44D /* MockDateProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MockDateProvider.swift; sourceTree = "<group>"; };
+		67BB88805C513AD4567A7871 /* MethodEditorViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MethodEditorViewModelTests.swift; sourceTree = "<group>"; };
 		6AC763BCF6E7A5A705A587F4 /* MockReviewPromptPolicy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MockReviewPromptPolicy.swift; sourceTree = "<group>"; };
+		6EF6CC63E4EA3B765CB5F342 /* MethodDraftCompiler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MethodDraftCompiler.swift; sourceTree = "<group>"; };
+		756C6C4FC445FA7F8BFDA145 /* MethodStepRowView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MethodStepRowView.swift; sourceTree = "<group>"; };
+		776E02632B0D17793BD568E8 /* MethodDraft+Editing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "MethodDraft+Editing.swift"; sourceTree = "<group>"; };
+		789036314D8D661BA415719B /* MethodStepMapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MethodStepMapper.swift; sourceTree = "<group>"; };
+		7F6A198F137D540870D81B71 /* MethodEditorViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MethodEditorViewModel.swift; sourceTree = "<group>"; };
+		8C92BE6CD62FD4C1E063C499 /* SaveBrewMethodUseCase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SaveBrewMethodUseCase.swift; sourceTree = "<group>"; };
 		9157F894B762EB6E431C1E46 /* AppFlowViewModelReviewPromptTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppFlowViewModelReviewPromptTests.swift; sourceTree = "<group>"; };
 		98ADF15FF07F24C2EB9E8806 /* ReviewPromptEventRecordingTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReviewPromptEventRecordingTests.swift; sourceTree = "<group>"; };
 		A56151FC1DA4F893D047ACAC /* ReferenceDoseTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReferenceDoseTests.swift; sourceTree = "<group>"; };
+		C1A4F9968EC7E49A9A369382 /* MethodStartChoiceView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MethodStartChoiceView.swift; sourceTree = "<group>"; };
+		C4FAE438804FBB02B36506CD /* MethodDraftStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MethodDraftStore.swift; sourceTree = "<group>"; };
 		CA02D0D72A255A440012EE87 /* MockRecipeMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecipeMapper.swift; sourceTree = "<group>"; };
 		CA02D0DB2A255A6D0012EE87 /* MockStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStorage.swift; sourceTree = "<group>"; };
-		CA0A13F22C4C3A9800453CC9 /* CreateMethodFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMethodFlowView.swift; sourceTree = "<group>"; };
 		CA15527F2C0A5D3F000334FB /* CreateRecipeFromInputUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeFromInputUseCase.swift; sourceTree = "<group>"; };
 		CA1552812C0A5D71000334FB /* MockCreateRecipeFromInputUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCreateRecipeFromInputUseCase.swift; sourceTree = "<group>"; };
 		CA1552832C0A5D9A000334FB /* MockFetchRecipeInstructionsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFetchRecipeInstructionsUseCase.swift; sourceTree = "<group>"; };
@@ -248,12 +268,9 @@
 		CA7B804629BFAA21007D3DFC /* CountdownTimerImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimerImpTests.swift; sourceTree = "<group>"; };
 		CA7B804A29BFABBB007D3DFC /* StageTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageTimerView.swift; sourceTree = "<group>"; };
 		CA7B804C29BFBD8C007D3DFC /* BrewQueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewQueueView.swift; sourceTree = "<group>"; };
-		CA7D9E2A2C4BE4A900908159 /* CreateMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMethodView.swift; sourceTree = "<group>"; };
 		CA7D9E2C2C4BEB7600908159 /* TitledPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledPicker.swift; sourceTree = "<group>"; };
 		CA7D9E2E2C4BEB8500908159 /* Titled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Titled.swift; sourceTree = "<group>"; };
 		CA7D9E302C4C066800908159 /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
-		CA7D9E322C4C153300908159 /* CreateMethodDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMethodDetailsView.swift; sourceTree = "<group>"; };
-		CA7D9E342C4C15F500908159 /* CreateMethodInstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMethodInstructionsView.swift; sourceTree = "<group>"; };
 		CA852F242BD5552D00FEF144 /* RecipeInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructions.swift; sourceTree = "<group>"; };
 		CA8B41B22C0CAC9800C0DA86 /* mini_instructions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mini_instructions.json; sourceTree = "<group>"; };
 		CA8B41B42C0CB0CC00C0DA86 /* loadInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loadInstructions.swift; sourceTree = "<group>"; };
@@ -268,23 +285,9 @@
 		CA9BDA282A2CFD290068DFF7 /* CreateRecipeInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeInput.swift; sourceTree = "<group>"; };
 		CAA325892BD438B1008440D0 /* instructions_v60_single.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = instructions_v60_single.json; sourceTree = "<group>"; };
 		CAB1925E2A0D6B6500043837 /* RecipeRepositoryImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRepositoryImpTests.swift; sourceTree = "<group>"; };
-		CABD23902C4EEB12005C599F /* InstructionActionViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionActionViewBuilder.swift; sourceTree = "<group>"; };
-		CABD23922C4EEB2F005C599F /* MessageInstructionActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageInstructionActionView.swift; sourceTree = "<group>"; };
-		CABD23942C4EEB47005C599F /* PauseInstructionActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseInstructionActionView.swift; sourceTree = "<group>"; };
-		CABD23962C4EEB63005C599F /* PutInstructionActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutInstructionActionView.swift; sourceTree = "<group>"; };
-		CABD239A2C4EEB8E005C599F /* InstructionRequirementItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionRequirementItem.swift; sourceTree = "<group>"; };
-		CABD239C2C4EEBAB005C599F /* IngredientTypeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientTypeItem.swift; sourceTree = "<group>"; };
-		CABD239E2C4EEBB9005C599F /* InstructionInteractionMethodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionInteractionMethodItem.swift; sourceTree = "<group>"; };
-		CABD23A02C4EEBE2005C599F /* Instructions+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Instructions+Stub.swift"; sourceTree = "<group>"; };
-		CABD23A22C4EEC13005C599F /* RecipeInstructionActionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructionActionItem.swift; sourceTree = "<group>"; };
-		CAC371E62C558608004D7659 /* PauseActionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseActionModel.swift; sourceTree = "<group>"; };
-		CAC371E82C558662004D7659 /* MessageActionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageActionModel.swift; sourceTree = "<group>"; };
-		CAC371EA2C558687004D7659 /* PutActionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutActionModel.swift; sourceTree = "<group>"; };
-		CAC371EC2C5586EF004D7659 /* Updatables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatables.swift; sourceTree = "<group>"; };
 		CAC59D872C47137900301A43 /* mini_iced_instructions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mini_iced_instructions.json; sourceTree = "<group>"; };
 		CAD01B4E2C395B5B004A1EFF /* StageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageHeaderView.swift; sourceTree = "<group>"; };
 		CAD071E629DCCB000010E561 /* Entities+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entities+Stub.swift"; sourceTree = "<group>"; };
-		CAD226D52C4D82EA00BD6DAD /* RecipeInstructionActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructionActionView.swift; sourceTree = "<group>"; };
 		CAE3944129DE13C0007611F1 /* CreateRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeView.swift; sourceTree = "<group>"; };
 		CAEE2F6F2C42A03F00D7D61E /* button-click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "button-click.wav"; sourceTree = "<group>"; };
 		CAF42CDE29EC907F004D7788 /* View+ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ClearButton.swift"; sourceTree = "<group>"; };
@@ -298,7 +301,10 @@
 		CAFCF54A2A6F0A1700875CB7 /* HapticGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticGenerator.swift; sourceTree = "<group>"; };
 		CBC3ABD55BF2020A00B3791D /* ReviewPromptPolicy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReviewPromptPolicy.swift; sourceTree = "<group>"; };
 		CE3FD42D69E59D97085EE127 /* View+ReviewPrompt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "View+ReviewPrompt.swift"; sourceTree = "<group>"; };
+		D9B875369EA4E1CE56A2F479 /* StepPaletteView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StepPaletteView.swift; sourceTree = "<group>"; };
+		DA0E225801ACFCB97402318B /* MethodDraftStoreImpTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MethodDraftStoreImpTests.swift; sourceTree = "<group>"; };
 		E6EFB09A052CEBF42B147A4D /* BrewQueueViewModelReviewPromptTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BrewQueueViewModelReviewPromptTests.swift; sourceTree = "<group>"; };
+		EE4A4CF06B6B407E09CBE344 /* MethodDraftFactory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MethodDraftFactory.swift; sourceTree = "<group>"; };
 		EF370867C06A5051398AAA76 /* PostBrewViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PostBrewViewModelTests.swift; sourceTree = "<group>"; };
 		F208EF282EAE644C005B87DE /* EditRecipeFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecipeFlowView.swift; sourceTree = "<group>"; };
 		F208EF2A2EAE6549005B87DE /* EditRecipeAmountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecipeAmountsView.swift; sourceTree = "<group>"; };
@@ -306,10 +312,6 @@
 		F222D3AE2CFB8CBC00AD7AF4 /* InfoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoButton.swift; sourceTree = "<group>"; };
 		F222D3B02CFBAA4000AD7AF4 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		F22318F72EB3D33600B83265 /* View+KeyboardToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+KeyboardToolbar.swift"; sourceTree = "<group>"; };
-		F22E68CD2CF38D2E00EE80FA /* CreateBrewMethodContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBrewMethodContext.swift; sourceTree = "<group>"; };
-		F22E68D02CF38D9A00EE80FA /* CreateBrewMethodUseCaseImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBrewMethodUseCaseImpTests.swift; sourceTree = "<group>"; };
-		F22E68D22CF38DB600EE80FA /* CreateBrewMethodUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBrewMethodUseCase.swift; sourceTree = "<group>"; };
-		F233D28C2CF3E52100E357A5 /* RecipeInstructionStepMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructionStepMapper.swift; sourceTree = "<group>"; };
 		F23A6E212CFFB14800AB94C4 /* PostBrewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBrewView.swift; sourceTree = "<group>"; };
 		F23A6E232CFFB5F100AB94C4 /* post-brew-1.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = "post-brew-1.lottie"; sourceTree = "<group>"; };
 		F23A6E252CFFBE8F00AB94C4 /* post-brew-2.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = "post-brew-2.lottie"; sourceTree = "<group>"; };
@@ -328,7 +330,6 @@
 		F276D11E2EF95077009BDF1F /* AnalyticsTracker+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnalyticsTracker+Preview.swift"; sourceTree = "<group>"; };
 		F276D11F2EF95077009BDF1F /* FirebaseAnalyticsTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAnalyticsTracker.swift; sourceTree = "<group>"; };
 		F276D1252EF9575E009BDF1F /* AnalyticsTrackerImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsTrackerImp.swift; sourceTree = "<group>"; };
-		F276D1282EF95D80009BDF1F /* MockCreateBrewMethodUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCreateBrewMethodUseCase.swift; sourceTree = "<group>"; };
 		F276D12B2EF95D96009BDF1F /* MockConfigureContextFromRecipeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockConfigureContextFromRecipeUseCase.swift; sourceTree = "<group>"; };
 		F276D12D2EF95DA0009BDF1F /* MockCreateRecipeFromContextUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCreateRecipeFromContextUseCase.swift; sourceTree = "<group>"; };
 		F276D12F2EF95DAE009BDF1F /* MockGetSavedRecipesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGetSavedRecipesUseCase.swift; sourceTree = "<group>"; };
@@ -336,12 +337,10 @@
 		F276D1332EF95DB6009BDF1F /* MockUpdateRecipeFromContextUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUpdateRecipeFromContextUseCase.swift; sourceTree = "<group>"; };
 		F276D1352EF95DBA009BDF1F /* MockUpdateSelectedRecipeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUpdateSelectedRecipeUseCase.swift; sourceTree = "<group>"; };
 		F276D1392EF95DDB009BDF1F /* BrewQueueViewModelAnalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewQueueViewModelAnalyticsTests.swift; sourceTree = "<group>"; };
-		F276D13A2EF95DDB009BDF1F /* CreateMethodViewModelAnalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMethodViewModelAnalyticsTests.swift; sourceTree = "<group>"; };
 		F276D13B2EF95DDB009BDF1F /* CreateRecipeViewModelAnalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeViewModelAnalyticsTests.swift; sourceTree = "<group>"; };
 		F276D13C2EF95DDB009BDF1F /* EditRecipeAmountsViewModelAnalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecipeAmountsViewModelAnalyticsTests.swift; sourceTree = "<group>"; };
 		F276D13D2EF95DDB009BDF1F /* RecipesViewModelAnalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesViewModelAnalyticsTests.swift; sourceTree = "<group>"; };
 		F276D1442EF95ED8009BDF1F /* MockAnalyticsTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAnalyticsTracker.swift; sourceTree = "<group>"; };
-		F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientAmountTypeItem.swift; sourceTree = "<group>"; };
 		F2AAB07C2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+HighlightAnimation.swift"; sourceTree = "<group>"; };
 		F2AAB07E2EB7E3D500DDCFAD /* ConfigureContextFromRecipeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureContextFromRecipeUseCase.swift; sourceTree = "<group>"; };
 		F2AAB07F2EB7E3D500DDCFAD /* UpdateRecipeFromContextUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRecipeFromContextUseCase.swift; sourceTree = "<group>"; };
@@ -352,10 +351,11 @@
 		F2CCBBFB2CFE75610085C590 /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
 		F2CCBBFD2CFE76320085C590 /* chemex.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = chemex.lottie; sourceTree = "<group>"; };
 		F2D5AB812CF66FCF004AE191 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
-		F2DB5FBE2CF3BAFE000D67ED /* RecipeInstructionActionItem+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecipeInstructionActionItem+Stub.swift"; sourceTree = "<group>"; };
 		F2FBE5142CFF7F860084D821 /* v60.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = v60.lottie; sourceTree = "<group>"; };
 		F2FBE5162CFF81570084D821 /* aeropress.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = aeropress.lottie; sourceTree = "<group>"; };
 		F2FBE5182CFF815D0084D821 /* french-press.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = "french-press.lottie"; sourceTree = "<group>"; };
+		F6C15176D76E1444411D3DD9 /* UndoBanner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UndoBanner.swift; sourceTree = "<group>"; };
+		F8FB1763F75CC6C8BDFE5693 /* MethodTryItView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MethodTryItView.swift; sourceTree = "<group>"; };
 		FEB1435BA24F1BCED3053BEA /* ReviewPromptPolicyImpTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReviewPromptPolicyImpTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -410,6 +410,45 @@
 			path = ReviewPrompt;
 			sourceTree = "<group>";
 		};
+		44A4788BF55DA2E369344B6E /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				4B01CCAD90A14FE11375A540 /* MethodDraftEditingTests.swift */,
+				40A17231D93A9242A5C68D89 /* MethodDraftFactoryTests.swift */,
+				67BB88805C513AD4567A7871 /* MethodEditorViewModelTests.swift */,
+				298411A798F3A1A6DEB8633B /* MethodStepMapperImpTests.swift */,
+				53CD01E3E779BF92484F11A9 /* SaveBrewMethodUseCaseImpTests.swift */,
+				DA0E225801ACFCB97402318B /* MethodDraftStoreImpTests.swift */,
+			);
+			name = Editor;
+			path = Editor;
+			sourceTree = "<group>";
+		};
+		4ACF3937AD6C8912B907C123 /* MethodEditor */ = {
+			isa = PBXGroup;
+			children = (
+				0582026EBDA0B2E0E90A93FA /* MethodEditorView.swift */,
+				7F6A198F137D540870D81B71 /* MethodEditorViewModel.swift */,
+				C1A4F9968EC7E49A9A369382 /* MethodStartChoiceView.swift */,
+				756C6C4FC445FA7F8BFDA145 /* MethodStepRowView.swift */,
+				F8FB1763F75CC6C8BDFE5693 /* MethodTryItView.swift */,
+				D9B875369EA4E1CE56A2F479 /* StepPaletteView.swift */,
+				38DC8D2214396150146A2DEE /* StepSheetView.swift */,
+				57FBD647C477DB78B58761F6 /* WrittenForSheet.swift */,
+			);
+			name = MethodEditor;
+			path = MethodEditor;
+			sourceTree = "<group>";
+		};
+		5DBA733104928A7DC7F4309A /* BrewMethod */ = {
+			isa = PBXGroup;
+			children = (
+				104DE629A5AB80F87650ADB5 /* MethodEditorMocks.swift */,
+			);
+			name = BrewMethod;
+			path = BrewMethod;
+			sourceTree = "<group>";
+		};
 		88F21327F03629F4C7298415 /* ReviewPrompt */ = {
 			isa = PBXGroup;
 			children = (
@@ -457,7 +496,6 @@
 		CA17289229EB4B90000F867B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				CABD23992C4EEB82005C599F /* Items */,
 				CAF42CE029EC90CA004D7788 /* AlphanumericTextField.swift */,
 				F2CCBBFB2CFE75610085C590 /* AnimationView.swift */,
 				F270D9EB2D00CC0100466D54 /* BuyMeACoffeeView.swift */,
@@ -468,6 +506,7 @@
 				CA7D9E302C4C066800908159 /* Separator.swift */,
 				CA7790922A06DB5300BEA142 /* TitledContent.swift */,
 				CA7D9E2C2C4BEB7600908159 /* TitledPicker.swift */,
+				F6C15176D76E1444411D3DD9 /* UndoBanner.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -499,38 +538,11 @@
 			path = BrewMethod;
 			sourceTree = "<group>";
 		};
-		CA1BCC6F2C7A491700AAE107 /* Put */ = {
-			isa = PBXGroup;
-			children = (
-				CABD23962C4EEB63005C599F /* PutInstructionActionView.swift */,
-				CAC371EA2C558687004D7659 /* PutActionModel.swift */,
-			);
-			path = Put;
-			sourceTree = "<group>";
-		};
-		CA1BCC702C7A491D00AAE107 /* Pause */ = {
-			isa = PBXGroup;
-			children = (
-				CAC371E62C558608004D7659 /* PauseActionModel.swift */,
-				CABD23942C4EEB47005C599F /* PauseInstructionActionView.swift */,
-			);
-			path = Pause;
-			sourceTree = "<group>";
-		};
-		CA1BCC712C7A492100AAE107 /* Message */ = {
-			isa = PBXGroup;
-			children = (
-				CAC371E82C558662004D7659 /* MessageActionModel.swift */,
-				CABD23922C4EEB2F005C599F /* MessageInstructionActionView.swift */,
-			);
-			path = Message;
-			sourceTree = "<group>";
-		};
 		CA2A00CF2C0B908E0040B50D /* BrewMethods */ = {
 			isa = PBXGroup;
 			children = (
 				CA2A00D02C0B90A40040B50D /* GetBrewMethodsUseCaseImpTests.swift */,
-				F22E68D02CF38D9A00EE80FA /* CreateBrewMethodUseCaseImpTests.swift */,
+				44A4788BF55DA2E369344B6E /* Editor */,
 			);
 			path = BrewMethods;
 			sourceTree = "<group>";
@@ -578,7 +590,6 @@
 			children = (
 				CA6263BE2A25499A003E167D /* Entities+Stub.swift */,
 				CA367D3829A2B0380095B1B8 /* Preview Assets.xcassets */,
-				CABD23A02C4EEBE2005C599F /* Instructions+Stub.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -641,9 +652,9 @@
 		CA6263B92A2548F9003E167D /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				F2DB5FBC2CF3BAEB000D67ED /* Items */,
 				CAD071E629DCCB000010E561 /* Entities+Stub.swift */,
 				CA6263BA2A25492D003E167D /* DTOs+Stub.swift */,
+				DB2CB0AE6D237C779E1F20A5 /* Steps */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -699,13 +710,13 @@
 			isa = PBXGroup;
 			children = (
 				F276D1452EF95ED8009BDF1F /* Analytics */,
-				F276D1292EF95D80009BDF1F /* BrewMethod */,
 				CA6263B92A2548F9003E167D /* Extension */,
 				CAAB27C92C41CA0900E3997E /* Recipe */,
 				CAAB27CA2C41CA3900E3997E /* RecipeInstructions */,
 				CA02D0D62A255A360012EE87 /* Repository */,
 				88F21327F03629F4C7298415 /* ReviewPrompt */,
 				D2C88C11DC3DE60669E5DD78 /* Timer */,
+				5DBA733104928A7DC7F4309A /* BrewMethod */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -714,24 +725,13 @@
 			isa = PBXGroup;
 			children = (
 				CAF42CE929EC9821004D7788 /* BrewQueue */,
-				CA7D9E292C4BE45B00908159 /* CreateMethod */,
 				CAF42CEA29EC9842004D7788 /* CreateRecipe */,
 				F208EF2C2EAE6549005B87DE /* EditRecipe */,
 				CA91CEF429E5FA7D00E9F5D1 /* Flow */,
 				CA4758DB2A0C2CF20022BC7D /* Recipes */,
+				4ACF3937AD6C8912B907C123 /* MethodEditor */,
 			);
 			path = Scene;
-			sourceTree = "<group>";
-		};
-		CA7D9E292C4BE45B00908159 /* CreateMethod */ = {
-			isa = PBXGroup;
-			children = (
-				CABD238F2C4EEAFE005C599F /* Instructions */,
-				CA7D9E2A2C4BE4A900908159 /* CreateMethodView.swift */,
-				CA7D9E322C4C153300908159 /* CreateMethodDetailsView.swift */,
-				CA7D9E342C4C15F500908159 /* CreateMethodInstructionsView.swift */,
-			);
-			path = CreateMethod;
 			sourceTree = "<group>";
 		};
 		CA852F232BD5551900FEF144 /* Recipe */ = {
@@ -799,7 +799,6 @@
 				CA91CEF629E5FA9100E9F5D1 /* AppFlowView.swift */,
 				CAF42CE229EC9524004D7788 /* CreateRecipeFlowView.swift */,
 				CA4758E32A0C3C5C0022BC7D /* RecipesFlowView.swift */,
-				CA0A13F22C4C3A9800453CC9 /* CreateMethodFlowView.swift */,
 			);
 			path = Flow;
 			sourceTree = "<group>";
@@ -860,9 +859,8 @@
 				CA2A00CD2C0B8FF10040B50D /* GetBrewMethodsUseCase.swift */,
 				F27523792CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift */,
 				CA1B52AF2C0B97B300C4B923 /* BrewMethodRepository.swift */,
-				F22E68CD2CF38D2E00EE80FA /* CreateBrewMethodContext.swift */,
-				F22E68D22CF38DB600EE80FA /* CreateBrewMethodUseCase.swift */,
-				F233D28C2CF3E52100E357A5 /* RecipeInstructionStepMapper.swift */,
+				D6119DED6E9873C20029E981 /* Editor */,
+				8C92BE6CD62FD4C1E063C499 /* SaveBrewMethodUseCase.swift */,
 			);
 			path = BrewMethod;
 			sourceTree = "<group>";
@@ -899,39 +897,6 @@
 				CA3CA4A92A1A803600C76E28 /* Recipe */,
 			);
 			path = Repository;
-			sourceTree = "<group>";
-		};
-		CABD238F2C4EEAFE005C599F /* Instructions */ = {
-			isa = PBXGroup;
-			children = (
-				CABD23902C4EEB12005C599F /* InstructionActionViewBuilder.swift */,
-				CAD226D52C4D82EA00BD6DAD /* RecipeInstructionActionView.swift */,
-				CA1BCC712C7A492100AAE107 /* Message */,
-				CAC371E12C5585D1004D7659 /* Models */,
-				CA1BCC702C7A491D00AAE107 /* Pause */,
-				CA1BCC6F2C7A491700AAE107 /* Put */,
-			);
-			path = Instructions;
-			sourceTree = "<group>";
-		};
-		CABD23992C4EEB82005C599F /* Items */ = {
-			isa = PBXGroup;
-			children = (
-				CABD239A2C4EEB8E005C599F /* InstructionRequirementItem.swift */,
-				CABD239E2C4EEBB9005C599F /* InstructionInteractionMethodItem.swift */,
-				CABD239C2C4EEBAB005C599F /* IngredientTypeItem.swift */,
-				F27B2D682CF28D2100B425E9 /* IngredientAmountTypeItem.swift */,
-			);
-			path = Items;
-			sourceTree = "<group>";
-		};
-		CAC371E12C5585D1004D7659 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				CABD23A22C4EEC13005C599F /* RecipeInstructionActionItem.swift */,
-				CAC371EC2C5586EF004D7659 /* Updatables.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		CAD071E329DCCAD60010E561 /* Extensions */ = {
@@ -1020,6 +985,31 @@
 			path = Timer;
 			sourceTree = "<group>";
 		};
+		D6119DED6E9873C20029E981 /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				776E02632B0D17793BD568E8 /* MethodDraft+Editing.swift */,
+				3AF6727DF8544A0A7003A627 /* MethodDraft.swift */,
+				6EF6CC63E4EA3B765CB5F342 /* MethodDraftCompiler.swift */,
+				EE4A4CF06B6B407E09CBE344 /* MethodDraftFactory.swift */,
+				C4FAE438804FBB02B36506CD /* MethodDraftStore.swift */,
+				789036314D8D661BA415719B /* MethodStepMapper.swift */,
+				454AED0A6D5356238A0C78B1 /* MethodStepText.swift */,
+				404231AA908AA470FA8E73E2 /* MethodTimeline.swift */,
+			);
+			name = Editor;
+			path = Editor;
+			sourceTree = "<group>";
+		};
+		DB2CB0AE6D237C779E1F20A5 /* Steps */ = {
+			isa = PBXGroup;
+			children = (
+				1691261613717EE196F19D8F /* RecipeInstructionStep+Stub.swift */,
+			);
+			name = Steps;
+			path = Steps;
+			sourceTree = "<group>";
+		};
 		F208EF2C2EAE6549005B87DE /* EditRecipe */ = {
 			isa = PBXGroup;
 			children = (
@@ -1060,19 +1050,10 @@
 			path = Analytics;
 			sourceTree = "<group>";
 		};
-		F276D1292EF95D80009BDF1F /* BrewMethod */ = {
-			isa = PBXGroup;
-			children = (
-				F276D1282EF95D80009BDF1F /* MockCreateBrewMethodUseCase.swift */,
-			);
-			path = BrewMethod;
-			sourceTree = "<group>";
-		};
 		F276D13E2EF95DDB009BDF1F /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
 				F276D1392EF95DDB009BDF1F /* BrewQueueViewModelAnalyticsTests.swift */,
-				F276D13A2EF95DDB009BDF1F /* CreateMethodViewModelAnalyticsTests.swift */,
 				F276D13B2EF95DDB009BDF1F /* CreateRecipeViewModelAnalyticsTests.swift */,
 				F276D13C2EF95DDB009BDF1F /* EditRecipeAmountsViewModelAnalyticsTests.swift */,
 				F276D13D2EF95DDB009BDF1F /* RecipesViewModelAnalyticsTests.swift */,
@@ -1086,14 +1067,6 @@
 				F276D1442EF95ED8009BDF1F /* MockAnalyticsTracker.swift */,
 			);
 			path = Analytics;
-			sourceTree = "<group>";
-		};
-		F2DB5FBC2CF3BAEB000D67ED /* Items */ = {
-			isa = PBXGroup;
-			children = (
-				F2DB5FBE2CF3BAFE000D67ED /* RecipeInstructionActionItem+Stub.swift */,
-			);
-			path = Items;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1213,8 +1186,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CAC371ED2C5586EF004D7659 /* Updatables.swift in Sources */,
-				F22E68CE2CF38D2E00EE80FA /* CreateBrewMethodContext.swift in Sources */,
 				CAF42CE729EC9561004D7788 /* Completable.swift in Sources */,
 				F276D1262EF9575E009BDF1F /* AnalyticsTrackerImp.swift in Sources */,
 				CA3CA4AF2A1AA20B00C76E28 /* RecipeMapper.swift in Sources */,
@@ -1225,8 +1196,6 @@
 				F208EF292EAE644C005B87DE /* EditRecipeFlowView.swift in Sources */,
 				CAE3944229DE13C0007611F1 /* CreateRecipeView.swift in Sources */,
 				CA8C9AFA2C0B609D000A71AC /* Request.swift in Sources */,
-				CA7D9E332C4C153300908159 /* CreateMethodDetailsView.swift in Sources */,
-				CABD23972C4EEB63005C599F /* PutInstructionActionView.swift in Sources */,
 				CA17289629EB4CA8000F867B /* View+Responder.swift in Sources */,
 				F2AAB0802EB7E3D500DDCFAD /* UpdateRecipeFromContextUseCase.swift in Sources */,
 				F2AAB0812EB7E3D500DDCFAD /* ConfigureContextFromRecipeUseCase.swift in Sources */,
@@ -1235,78 +1204,60 @@
 				CA7B804529BFA9E7007D3DFC /* CountdownTimer.swift in Sources */,
 				CA2A00CE2C0B8FF10040B50D /* GetBrewMethodsUseCase.swift in Sources */,
 				F2D5AB822CF66FCF004AE191 /* PagerView.swift in Sources */,
-				CAD226D62C4D82EA00BD6DAD /* RecipeInstructionActionView.swift in Sources */,
-				CAC371EB2C558687004D7659 /* PutActionModel.swift in Sources */,
 				F208EF2D2EAE6549005B87DE /* EditRecipeAmountsViewModel.swift in Sources */,
 				F208EF2E2EAE6549005B87DE /* EditRecipeAmountsView.swift in Sources */,
 				CA5A7D0F2A0EBA7400C7EC04 /* DTOs.swift in Sources */,
-				CABD23912C4EEB12005C599F /* InstructionActionViewBuilder.swift in Sources */,
 				CA8C9AF12C0B50ED000A71AC /* RecipeInstructionsRepositoryImp.swift in Sources */,
 				F2740B3B2EB94DB800AF6459 /* AppInitializer.swift in Sources */,
 				F2AAB07D2EB7BF0C00DDCFAD /* View+HighlightAnimation.swift in Sources */,
 				CA1B52B52C0B980400C4B923 /* FetchRecipeInstructionsRequest.swift in Sources */,
 				F270D9EE2D00CE2500466D54 /* GiftCoffeeView.swift in Sources */,
 				CA7D9E2F2C4BEB8500908159 /* Titled.swift in Sources */,
-				F233D28D2CF3E52100E357A5 /* RecipeInstructionStepMapper.swift in Sources */,
 				F22318F82EB3D33600B83265 /* View+KeyboardToolbar.swift in Sources */,
 				CA9BDA292A2CFD290068DFF7 /* CreateRecipeInput.swift in Sources */,
 				CA5CA81929EB662F001E384D /* View+Background.swift in Sources */,
 				CA367D3229A2B0370095B1B8 /* CoffeeTimerApp.swift in Sources */,
-				CABD23952C4EEB48005C599F /* PauseInstructionActionView.swift in Sources */,
 				CA7B804D29BFBD8C007D3DFC /* BrewQueueView.swift in Sources */,
 				CA2A00CA2C0B65E10040B50D /* Errors.swift in Sources */,
 				CAF42CDF29EC907F004D7788 /* View+ClearButton.swift in Sources */,
-				CABD23932C4EEB2F005C599F /* MessageInstructionActionView.swift in Sources */,
 				CA1552882C0A5DEB000334FB /* FetchRecipeInstructionsUseCase.swift in Sources */,
 				CAD01B4F2C395B5B004A1EFF /* StageHeaderView.swift in Sources */,
 				CA17289429EB4B9F000F867B /* NumericTextField.swift in Sources */,
 				F275237A2CFD185500F42AC7 /* RemoveBrewMethodUseCase.swift in Sources */,
-				CABD23A12C4EEBE2005C599F /* Instructions+Stub.swift in Sources */,
 				CA7B804B29BFABBB007D3DFC /* StageTimerView.swift in Sources */,
-				F27B2D692CF28D2100B425E9 /* IngredientAmountTypeItem.swift in Sources */,
-				CAC371E92C558662004D7659 /* MessageActionModel.swift in Sources */,
 				F23A6E222CFFB14800AB94C4 /* PostBrewView.swift in Sources */,
 				CA6263B82A250F00003E167D /* Storage.swift in Sources */,
 				CA1B52B32C0B97E700C4B923 /* BrewMethodRepositoryImp.swift in Sources */,
 				CA1B52BC2C0BA30500C4B923 /* GetBrewMethodsRequest.swift in Sources */,
 				F222D3B12CFBAA4000AD7AF4 /* InfoView.swift in Sources */,
 				CA6263C72A254EB3003E167D /* Color+HexString.swift in Sources */,
-				F22E68D32CF38DB600EE80FA /* CreateBrewMethodUseCase.swift in Sources */,
 				CA6263BF2A25499A003E167D /* Entities+Stub.swift in Sources */,
 				CA4758E12A0C3A200022BC7D /* RecipeRowView.swift in Sources */,
-				CA0A13F32C4C3A9800453CC9 /* CreateMethodFlowView.swift in Sources */,
 				CA17289D29EB5097000F867B /* CreateRecipeCoffeeWaterSelection.swift in Sources */,
 				F222D3AF2CFB8CBC00AD7AF4 /* InfoButton.swift in Sources */,
 				CAF42CE529EC9548004D7788 /* Navigable.swift in Sources */,
 				CA5E907D29D61AED00A78CF2 /* Entities.swift in Sources */,
-				CABD239F2C4EEBB9005C599F /* InstructionInteractionMethodItem.swift in Sources */,
 				CA7D9E2D2C4BEB7600908159 /* TitledPicker.swift in Sources */,
 				CAF42CF329EC9906004D7788 /* RecipeRepository.swift in Sources */,
 				CA77908D2A06A39900BEA142 /* String+Filter.swift in Sources */,
-				CAC371E72C558608004D7659 /* PauseActionModel.swift in Sources */,
-				CA7D9E352C4C15F500908159 /* CreateMethodInstructionsView.swift in Sources */,
 				CA8C9AEE2C0B5081000A71AC /* RecipeInstructionsRepository.swift in Sources */,
 				CAF42CF529EC9D4D004D7788 /* CreateRecipeBrewMethodSelection.swift in Sources */,
 				CAF42CF129EC98E4004D7788 /* RecipeRepositoryImp.swift in Sources */,
 				F270D9EC2D00CC0100466D54 /* BuyMeACoffeeView.swift in Sources */,
 				CA7790932A06DB5300BEA142 /* TitledContent.swift in Sources */,
-				CABD239D2C4EEBAB005C599F /* IngredientTypeItem.swift in Sources */,
 				CA852F252BD5552D00FEF144 /* RecipeInstructions.swift in Sources */,
 				CA1B52B02C0B97B300C4B923 /* BrewMethodRepository.swift in Sources */,
-				CA7D9E2B2C4BE4A900908159 /* CreateMethodView.swift in Sources */,
 				CA8C9AF72C0B6061000A71AC /* NetworkManagerImp.swift in Sources */,
 				CAF42CE129EC90CA004D7788 /* AlphanumericTextField.swift in Sources */,
 				F2740B322EB91BC400AF6459 /* Migration.swift in Sources */,
 				F2740B332EB91BC400AF6459 /* MigrationRunner.swift in Sources */,
 				F2740B342EB91BC400AF6459 /* RecipeMigration.swift in Sources */,
 				CAF42CE329EC9524004D7788 /* CreateRecipeFlowView.swift in Sources */,
-				CABD23A32C4EEC13005C599F /* RecipeInstructionActionItem.swift in Sources */,
 				F276D1212EF95077009BDF1F /* AnalyticsTracker+Preview.swift in Sources */,
 				F276D1222EF95077009BDF1F /* FirebaseAnalyticsTracker.swift in Sources */,
 				F276D1232EF95077009BDF1F /* AnalyticsEvent.swift in Sources */,
 				F276D1242EF95077009BDF1F /* AnalyticsTracker.swift in Sources */,
 				CA77909B2A06F35A00BEA142 /* CreateContextToInputMapper.swift in Sources */,
-				CABD239B2C4EEB8E005C599F /* InstructionRequirementItem.swift in Sources */,
 				CAFCF54B2A6F0A1700875CB7 /* HapticGenerator.swift in Sources */,
 				CA17289F29EB58F1000F867B /* CreateRecipeProfileSelection.swift in Sources */,
 				CA1552802C0A5D3F000334FB /* CreateRecipeFromInputUseCase.swift in Sources */,
@@ -1315,6 +1266,24 @@
 				A5E9B67BEB665B8723A9AD7F /* ReviewPromptPolicy.swift in Sources */,
 				C6655F4CB78018789FCA42B9 /* DateProvider.swift in Sources */,
 				611FA89FCD53C160B713E55F /* View+ReviewPrompt.swift in Sources */,
+				7ACBB14EB26538CED19C31C2 /* MethodDraft+Editing.swift in Sources */,
+				B16E17603245E643643E9878 /* MethodDraft.swift in Sources */,
+				42490F8392C03CD1C2430403 /* MethodDraftCompiler.swift in Sources */,
+				60D8A442D6A247EAD277673A /* MethodDraftFactory.swift in Sources */,
+				DAFDC8D30651A413AFEED161 /* MethodDraftStore.swift in Sources */,
+				C36707283A07DB0479D22C59 /* MethodStepMapper.swift in Sources */,
+				328FA1711626A113396AFAB7 /* MethodStepText.swift in Sources */,
+				73496205FFFB09BFB8DA2528 /* MethodTimeline.swift in Sources */,
+				31560A55C35915ADAC7B36A0 /* SaveBrewMethodUseCase.swift in Sources */,
+				F65D922A06F856D390D03DDF /* MethodEditorView.swift in Sources */,
+				B0394B2702A3482D190003D7 /* MethodEditorViewModel.swift in Sources */,
+				A594B2CF71377F56F7EB1D97 /* MethodStartChoiceView.swift in Sources */,
+				CCD940C1C007A40248B35B04 /* MethodStepRowView.swift in Sources */,
+				568A9DE61F234A511B0BA410 /* MethodTryItView.swift in Sources */,
+				C348420E0D36576369BBD7F7 /* StepPaletteView.swift in Sources */,
+				C83DB803D836372CE8DE2CA9 /* StepSheetView.swift in Sources */,
+				57805D922EF2B420A7FA4D2B /* WrittenForSheet.swift in Sources */,
+				FD485FA4CEA3D26385E74F7C /* UndoBanner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1324,8 +1293,6 @@
 			files = (
 				CA2A00D12C0B90A40040B50D /* GetBrewMethodsUseCaseImpTests.swift in Sources */,
 				F276D1362EF95DBA009BDF1F /* MockUpdateSelectedRecipeUseCase.swift in Sources */,
-				F276D12A2EF95D80009BDF1F /* MockCreateBrewMethodUseCase.swift in Sources */,
-				F22E68D12CF38D9A00EE80FA /* CreateBrewMethodUseCaseImpTests.swift in Sources */,
 				CA7B804729BFAA21007D3DFC /* CountdownTimerImpTests.swift in Sources */,
 				F276D12E2EF95DA0009BDF1F /* MockCreateRecipeFromContextUseCase.swift in Sources */,
 				CA02D0DC2A255A6D0012EE87 /* MockStorage.swift in Sources */,
@@ -1352,10 +1319,8 @@
 				CA7790A82A06F40F00BEA142 /* MockCreateContextToInputMapper.swift in Sources */,
 				F276D1302EF95DAE009BDF1F /* MockGetSavedRecipesUseCase.swift in Sources */,
 				CA6263BC2A254955003E167D /* Entities+Stub.swift in Sources */,
-				F2DB5FBF2CF3BAFE000D67ED /* RecipeInstructionActionItem+Stub.swift in Sources */,
 				F276D13F2EF95DDB009BDF1F /* CreateRecipeViewModelAnalyticsTests.swift in Sources */,
 				F276D1402EF95DDB009BDF1F /* BrewQueueViewModelAnalyticsTests.swift in Sources */,
-				F276D1412EF95DDB009BDF1F /* CreateMethodViewModelAnalyticsTests.swift in Sources */,
 				F276D1422EF95DDB009BDF1F /* EditRecipeAmountsViewModelAnalyticsTests.swift in Sources */,
 				F276D1432EF95DDB009BDF1F /* RecipesViewModelAnalyticsTests.swift in Sources */,
 				F2AAB0872EB7E95100DDCFAD /* MockRecipeRepository.swift in Sources */,
@@ -1371,6 +1336,14 @@
 				40F1CD0EB460C75F23D9AFEC /* ReviewPromptEventRecordingTests.swift in Sources */,
 				B6DE4688939EB4D6DFDB04F8 /* PostBrewViewModelTests.swift in Sources */,
 				68C0F39826515D969ED060B6 /* ReferenceDoseTests.swift in Sources */,
+				5C279C3F9DE8A65D0C111D43 /* MethodEditorMocks.swift in Sources */,
+				57FD2C40B86AE6946A10C39A /* RecipeInstructionStep+Stub.swift in Sources */,
+				FF6F92CCF1E3C87EFDC4CCB7 /* MethodDraftEditingTests.swift in Sources */,
+				A50114D99CDCFF27DFAAB340 /* MethodDraftFactoryTests.swift in Sources */,
+				A1A87137690EC333909B7F29 /* MethodEditorViewModelTests.swift in Sources */,
+				327A3C206C9E41DDBACDA9AF /* MethodStepMapperImpTests.swift in Sources */,
+				BDD3D195EC9013463CB76FED /* SaveBrewMethodUseCaseImpTests.swift in Sources */,
+				A58D31602D30B9774C2F4C88 /* MethodDraftStoreImpTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

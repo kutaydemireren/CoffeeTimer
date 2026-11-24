@@ -54,15 +54,24 @@ final class ReviewPromptEventRecordingTests: XCTestCase {
         XCTAssertTrue(mockReviewPromptPolicy.recordedEvents.isEmpty)
     }
 
+    @MainActor
     func test_createMethod_whenMethodCreated_shouldRecordCustomMethodCreated() async throws {
-        let sut = CreateMethodViewModel(
-            createBrewMethodUseCase: MockCreateBrewMethodUseCase(),
+        var draft = MethodDraft.scratch()
+        draft.name = "Kalita"
+        draft.steps = [MethodStep(kind: .pour, amount: .rest)]
+        let sut = MethodEditorViewModel(
+            draft: draft,
+            saveBrewMethodUseCase: MockSaveBrewMethodUseCase(),
+            draftStore: MockMethodDraftStore(),
             analyticsTracker: MockAnalyticsTracker(),
             reviewPromptPolicy: mockReviewPromptPolicy
         )
+        let recorded = expectation(description: "recorded")
+        mockReviewPromptPolicy.onRecord = { _ in recorded.fulfill() }
 
-        try await sut.create(from: CreateBrewMethodContext())
+        sut.save()
 
+        await fulfillment(of: [recorded], timeout: 1)
         XCTAssertEqual(mockReviewPromptPolicy.recordedEvents, [.customMethodCreated])
     }
 

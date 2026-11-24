@@ -10,7 +10,9 @@ import Combine
 
 final class CreateRecipeFlowViewModel: ObservableObject, Completable {
     @Published var context = CreateRecipeContext()
-    @Published var isCreateMethodPresented = false
+    @Published var isStartChoicePresented = false
+    @Published var methodEditor: MethodEditorViewModel?
+    @Published private(set) var storedDraftName: String?
 
     var didComplete = PassthroughSubject<CreateRecipeFlowViewModel, Never>()
 
@@ -18,22 +20,83 @@ final class CreateRecipeFlowViewModel: ObservableObject, Completable {
 
     @MainActor let createRecipeViewModel = CreateRecipeViewModel()
 
-    func makeCreateMethodVM() -> CreateMethodFlowViewModel {
-        let viewModel = CreateMethodFlowViewModel()
-        viewModel.didComplete
-            .sink(receiveValue: didComplete)
-            .store(in: &cancellables)
-        return viewModel
+    private let fetchRecipeInstructionsUseCase: FetchRecipeInstructionsUseCase
+    private let draftStore: MethodDraftStore
+    private let factory: MethodDraftFactory
+
+    init(
+        fetchRecipeInstructionsUseCase: FetchRecipeInstructionsUseCase = FetchRecipeInstructionsUseCaseImp(),
+        draftStore: MethodDraftStore = MethodDraftStoreImp(),
+        factory: MethodDraftFactory = MethodDraftFactory()
+    ) {
+        self.fetchRecipeInstructionsUseCase = fetchRecipeInstructionsUseCase
+        self.draftStore = draftStore
+        self.factory = factory
     }
 
-    func crateMethod() {
-        isCreateMethodPresented = true
+    /// "Or, create your own".
+    @MainActor
+    func createMethod() {
+        storedDraftName = draftStore.load()?.name
+        isStartChoicePresented = true
     }
 
-    private func didComplete(_ viewModel: CreateMethodFlowViewModel) {
-        isCreateMethodPresented = false
+    @MainActor
+    func startFromScratch() {
+        isStartChoicePresented = false
+        openEditor(with: .scratch())
+    }
+
+    @MainActor
+    func startFrom(_ brewMethod: BrewMethod) {
+        isStartChoicePresented = false
+        makeItMine(brewMethod)
+    }
+
+    @MainActor
+    func continueDraft() {
+        isStartChoicePresented = false
+        guard let draft = draftStore.load() else { return }
+        openEditor(with: draft)
+    }
+
+    @MainActor
+    func makeItMine(_ brewMethod: BrewMethod) {
         Task {
-            await createRecipeViewModel.refreshBrewMethods()
+            guard let instructions = try? await fetchRecipeInstructionsUseCase.fetch(brewMethod: brewMethod) else { return }
+            openEditor(with: factory.draft(copying: brewMethod, instructions: instructions))
+        }
+    }
+
+    @MainActor
+    func edit(_ brewMethod: BrewMethod) {
+        Task {
+            guard let instructions = try? await fetchRecipeInstructionsUseCase.fetch(brewMethod: brewMethod) else { return }
+            openEditor(with: factory.draft(editing: brewMethod, instructions: instructions))
+        }
+    }
+
+    @MainActor
+    private func openEditor(with draft: MethodDraft) {
+        let viewModel = MethodEditorViewModel(draft: draft)
+        viewModel.didSave
+            .sink { [weak self] brewMethod in self?.didSave(brewMethod) }
+            .store(in: &cancellables)
+        viewModel.didClose
+            .sink { [weak self] in self?.methodEditor = nil }
+            .store(in: &cancellables)
+        // Let the start sheet go away before the editor covers the screen.
+        Task {
+            try? await Task.sleep(for: .milliseconds(350))
+            methodEditor = viewModel
+        }
+    }
+
+    @MainActor
+    private func didSave(_ brewMethod: BrewMethod) {
+        methodEditor = nil
+        Task {
+            await createRecipeViewModel.continueWith(savedMethod: brewMethod, in: context)
         }
     }
 }
@@ -43,8 +106,19 @@ struct CreateRecipeFlowView: View {
 
     var body: some View {
         createRecipe
-            .fullScreenCover(isPresented: $viewModel.isCreateMethodPresented) {
-                createMethod
+            .sheet(isPresented: $viewModel.isStartChoicePresented) {
+                MethodStartChoiceView(
+                    brewMethods: viewModel.createRecipeViewModel.brewMethods,
+                    draftName: viewModel.storedDraftName,
+                    startFromScratch: viewModel.startFromScratch,
+                    startFrom: viewModel.startFrom(_:),
+                    continueDraft: viewModel.continueDraft,
+                    close: { viewModel.isStartChoicePresented = false }
+                )
+            }
+            .fullScreenCover(item: $viewModel.methodEditor) { editor in
+                MethodEditorView(viewModel: editor)
+                    .keyboardToolbarHost()
             }
     }
 
@@ -53,14 +127,11 @@ struct CreateRecipeFlowView: View {
         CreateRecipeView(
             viewModel: viewModel.createRecipeViewModel,
             close: viewModel.close,
-            createMethod: viewModel.crateMethod
+            createMethod: viewModel.createMethod,
+            makeItMine: viewModel.makeItMine(_:),
+            editMethod: viewModel.edit(_:)
         )
         .environmentObject(viewModel.context)
-    }
-
-    @ViewBuilder
-    var createMethod: some View {
-        CreateMethodFlowView(viewModel: viewModel.makeCreateMethodVM())
     }
 }
 

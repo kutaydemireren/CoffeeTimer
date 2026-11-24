@@ -36,24 +36,36 @@ struct PagerView<Content: View>: View {
 
     @ViewBuilder
     private func header() -> some View {
+        if canCreate {
+            ScreenHeaderView(close: close, primaryTitle: "Save") {
+                Task {
+                    try await create()
+                    close()
+                }
+            }
+        } else {
+            ScreenHeaderView(close: close, primaryTitle: "Next") {
+                withAnimation { nextPage() }
+            }
+        }
+    }
+}
+
+/// The app's screen header: Close on the leading side, one action (Next, Save) on the trailing side.
+struct ScreenHeaderView: View {
+    var closeTitle = "Close"
+    var close: () -> Void
+    var primaryTitle: String
+    var primary: () -> Void
+
+    var body: some View {
         HStack {
-            Button("Close", action: close)
+            Button(closeTitle, action: close)
                 .frame(alignment: .topLeading)
 
             Spacer()
 
-            if canCreate {
-                Button("Save") {
-                    Task {
-                        try await create()
-                        close()
-                    }
-                }
-            } else {
-                Button("Next") {
-                    withAnimation { nextPage() }
-                }
-            }
+            Button(primaryTitle, action: primary)
         }
         .padding()
         .foregroundStyle(Color("backgroundSecondary"))
