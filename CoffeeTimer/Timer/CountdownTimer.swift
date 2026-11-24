@@ -21,6 +21,25 @@ protocol CountdownTimer {
     func stop()
 }
 
+/// Schedules a repeating tick. Lets tests drive the countdown without waiting on real time.
+protocol RepeatingTickScheduler {
+    func scheduleRepeating(interval: TimeInterval, action: @escaping () -> Void) -> RepeatingTick
+}
+
+protocol RepeatingTick {
+    func invalidate()
+}
+
+extension Timer: RepeatingTick {}
+
+struct RepeatingTickSchedulerImp: RepeatingTickScheduler {
+    func scheduleRepeating(interval: TimeInterval, action: @escaping () -> Void) -> RepeatingTick {
+        let timer = Timer(timeInterval: interval, repeats: true) { _ in action() }
+        RunLoop.current.add(timer, forMode: .common)
+        return timer
+    }
+}
+
 final class CountdownTimerImp: CountdownTimer {
 
     private let stepInterval: TimeInterval = 0.1
@@ -28,7 +47,7 @@ final class CountdownTimerImp: CountdownTimer {
     var isRunning: Bool {
         return timer != nil
     }
-    private var timer: Timer?
+    private var timer: RepeatingTick?
 
     var timeLeftPublisher: Published<TimeInterval>.Publisher {
         $timeLeft
@@ -37,8 +56,17 @@ final class CountdownTimerImp: CountdownTimer {
 
     private var endTime: Date?
 
-    init(timeLeft: TimeInterval) {
+    private let scheduler: RepeatingTickScheduler
+    private let dateProvider: DateProvider
+
+    init(
+        timeLeft: TimeInterval,
+        scheduler: RepeatingTickScheduler = RepeatingTickSchedulerImp(),
+        dateProvider: DateProvider = DateProviderImp()
+    ) {
         self.timeLeft = timeLeft
+        self.scheduler = scheduler
+        self.dateProvider = dateProvider
     }
 
     deinit {
@@ -49,23 +77,24 @@ final class CountdownTimerImp: CountdownTimer {
         guard !isRunning else { throw CountdownTimerError.alreadyRunning }
         guard canStart() else { return }
 
-        endTime = Date().addingTimeInterval(timeLeft)
-        let timer = Timer(timeInterval: stepInterval, target: self, selector: #selector(timerDidFire), userInfo: nil, repeats: true)
-        RunLoop.current.add(timer, forMode: .common)
-        self.timer = timer
+        endTime = dateProvider.now.addingTimeInterval(timeLeft)
+        // Strong capture on purpose: it matches the old target/selector Timer, which retained self until stop().
+        timer = scheduler.scheduleRepeating(interval: stepInterval) {
+            self.timerDidFire()
+        }
     }
 
     private func canStart() -> Bool {
         return timeLeft > 0
     }
 
-    @objc private func timerDidFire() {
+    private func timerDidFire() {
         guard let endTime else {
             stop()
             return
         }
 
-        let newTimeLeft = max(0, endTime.timeIntervalSinceNow)
+        let newTimeLeft = max(0, endTime.timeIntervalSince(dateProvider.now))
 
         if newTimeLeft == 0 {
             stop()
