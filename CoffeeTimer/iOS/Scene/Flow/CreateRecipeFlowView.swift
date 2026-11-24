@@ -118,6 +118,7 @@ struct CreateRecipeFlowView: View {
             }
             .fullScreenCover(item: $viewModel.methodEditor) { editor in
                 MethodEditorView(viewModel: editor)
+                    .keyboardToolbarHost()
             }
     }
 

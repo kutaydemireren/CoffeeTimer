@@ -11,6 +11,14 @@ extension View {
     func keyboardDoneToolbar(isFocused: Bool) -> some View {
         self.modifier(KeyboardDoneToolbarModifier(isFocused: isFocused))
     }
+
+    /// Keyboard toolbars (the "Done" button above the keyboard) only show inside a navigation stack.
+    /// Wraps a presented sheet or cover in one, with its bar hidden.
+    func keyboardToolbarHost() -> some View {
+        NavigationStack {
+            self.toolbar(.hidden, for: .navigationBar)
+        }
+    }
 }
 
 struct KeyboardDoneToolbarModifier: ViewModifier {

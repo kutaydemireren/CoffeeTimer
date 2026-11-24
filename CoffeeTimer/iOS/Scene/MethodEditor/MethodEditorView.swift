@@ -49,10 +49,12 @@ struct MethodEditorView: View {
         .sheet(item: editingStepBinding) { item in
             if let step = viewModel.binding(forStep: item.id) {
                 StepSheetView(viewModel: viewModel, step: step)
+                    .keyboardToolbarHost()
             }
         }
         .sheet(isPresented: $viewModel.isWrittenForPresented) {
             WrittenForSheet(viewModel: viewModel)
+                .keyboardToolbarHost()
         }
         .fullScreenCover(isPresented: $viewModel.isTryItPresented) {
             MethodTryItView(recipe: viewModel.dryRunRecipe(), speedUp: MethodEditorViewModel.tryItSpeedUp) {

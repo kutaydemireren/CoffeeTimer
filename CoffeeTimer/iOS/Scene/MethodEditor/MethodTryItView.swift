@@ -26,27 +26,26 @@ struct MethodTryItView: View {
     }
 
     var body: some View {
-        ZStack(alignment: .top) {
-            BrewQueueView(viewModel: viewModel)
-
-            HStack {
-                Text("Trying it \u{00B7} timers \(speedUp)\u{00D7} faster")
-                    .font(.subheadline)
-                    .foregroundStyle(Color("foregroundPrimary"))
-                Spacer()
-                Button("Done", action: close)
-                    .bold()
-                    .foregroundStyle(Color("backgroundSecondary"))
+        BrewQueueView(viewModel: viewModel)
+            .safeAreaInset(edge: .top, spacing: 0) {
+                HStack {
+                    Text("Trying it \u{00B7} timers \(speedUp)\u{00D7} faster")
+                        .font(.subheadline)
+                        .foregroundStyle(Color("foregroundPrimary"))
+                    Spacer()
+                    Button("Done", action: close)
+                        .bold()
+                        .foregroundStyle(Color("backgroundSecondary"))
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .backgroundPrimary()
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 8)
-            .backgroundPrimary(opacity: 0.9)
-        }
-        // The brew is not saved: the end of it, and "Recipes", lead back to the method screen.
-        .onReceive(viewModel.$isPresentingPostBrew) { isPresenting in
-            if isPresenting { close() }
-        }
-        .onReceive(viewModel.didComplete) { _ in close() }
+            // The brew is not saved: the end of it, and "Recipes", lead back to the method screen.
+            .onReceive(viewModel.$isPresentingPostBrew) { isPresenting in
+                if isPresenting { close() }
+            }
+            .onReceive(viewModel.didComplete) { _ in close() }
     }
 }
 

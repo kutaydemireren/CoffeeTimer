@@ -82,6 +82,12 @@ struct NumericTextField: View {
         .foregroundStyle(Color("foregroundPrimary"))
         .onChange(of: displayText) { _, newValue in didUpdate(displayText: newValue) }
         .onChange(of: input) { _, newValue in setDisplayText(newValue) }
+        .onChange(of: isFocused) { _, focused in
+            // A time typed only partly ("1:") shows the value it stands for once the field is left.
+            if !focused, format == .minutesSeconds {
+                displayText = input <= 0 ? "" : MethodTimeFormat.clock(UInt(input))
+            }
+        }
         .padding()
         .backgroundSecondary()
         .onAppear {

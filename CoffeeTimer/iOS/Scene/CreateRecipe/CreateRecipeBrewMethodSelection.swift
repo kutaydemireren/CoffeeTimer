@@ -167,7 +167,7 @@ struct CreateRecipeBrewMethodSelection: View {
 
             customMethodAction()
         }
-        .safeAreaInset(edge: .bottom) {
+        .overlay(alignment: .bottom) {
             if let deletedMethod {
                 UndoBanner(text: "Deleted \u{201C}\(deletedMethod.title)\u{201D}", undo: undoDelete)
                     .padding()
