@@ -67,9 +67,14 @@ struct RecipeInstructionsRepositoryImp: RecipeInstructionsRepository {
         return recipeInstructions
     }
 
+    /// Adds the instructions, or replaces the saved instructions with the same identifier in place.
     func save(instructions: RecipeInstructions) async throws {
         var newInstructions = getSavedInstructions()
-        newInstructions.append(instructions)
+        if let index = newInstructions.firstIndex(where: { $0.identifier == instructions.identifier }) {
+            newInstructions[index] = instructions
+        } else {
+            newInstructions.append(instructions)
+        }
         storage.save(newInstructions, forKey: savedInstructionsKey)
     }
 

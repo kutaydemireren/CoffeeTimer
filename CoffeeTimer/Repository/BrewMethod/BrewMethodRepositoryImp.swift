@@ -35,15 +35,20 @@ struct BrewMethodRepositoryImp: BrewMethodRepository {
         return map(brewMethodDTOs: brewMethodDTOs)
     }
 
+    /// Adds the method, or replaces the saved method with the same id in place.
     func save(brewMethod: BrewMethod) async throws {
         var newBrewMethodDTOs = getSavedBrewMethodDTOs()
-        newBrewMethodDTOs.append(map(brewMethod: brewMethod))
+        let brewMethodDTO = map(brewMethod: brewMethod)
+        if let index = newBrewMethodDTOs.firstIndex(where: { $0.id == brewMethod.id }) {
+            newBrewMethodDTOs[index] = brewMethodDTO
+        } else {
+            newBrewMethodDTOs.append(brewMethodDTO)
+        }
         storage.save(newBrewMethodDTOs, forKey: savedBrewMethodsKey)
     }
 
     func remove(brewMethod: BrewMethod) async throws {
-        let removeBrewMethodDTO = map(brewMethod: brewMethod)
-        let newBrewMethodDTOs = getSavedBrewMethodDTOs().filter { $0 != removeBrewMethodDTO }
+        let newBrewMethodDTOs = getSavedBrewMethodDTOs().filter { $0.id != brewMethod.id }
         storage.save(newBrewMethodDTOs, forKey: savedBrewMethodsKey)
     }
 

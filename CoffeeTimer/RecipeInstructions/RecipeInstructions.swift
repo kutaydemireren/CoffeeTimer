@@ -51,15 +51,27 @@ struct RecipeInstructionStep: Codable {
 
     private enum CodingKeys: String, CodingKey {
         case action
+        case kind
+        case doneBy
+        case amountMode
     }
 
     let action: Action?
     let instructionAction: InstructionAction?
+    /// The step kind chosen in the method editor ("pour", "wait", ...). Optional: the brew ignores it, and so do older app versions.
+    let kind: String?
+    /// "Done by" time in seconds from the start of the brew, as typed in the method editor. The brew itself runs on the countdown.
+    let doneBy: UInt?
+    /// The amount mode chosen in the method editor ("upTo", "add", "rest"), for amounts the factors alone can't tell apart.
+    let amountMode: String?
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let action = (try? container.decode(Action.self, forKey: .action)) ?? .unknown
         self.action = action
+        kind = try? container.decodeIfPresent(String.self, forKey: .kind)
+        doneBy = try? container.decodeIfPresent(UInt.self, forKey: .doneBy)
+        amountMode = try? container.decodeIfPresent(String.self, forKey: .amountMode)
 
         switch action {
         case .put:
@@ -77,6 +89,9 @@ struct RecipeInstructionStep: Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         try container.encodeIfPresent(action, forKey: .action)
+        try container.encodeIfPresent(kind, forKey: .kind)
+        try container.encodeIfPresent(doneBy, forKey: .doneBy)
+        try container.encodeIfPresent(amountMode, forKey: .amountMode)
 
         switch action {
         case .put:
@@ -96,9 +111,12 @@ struct RecipeInstructionStep: Codable {
         }
     }
 
-    init(action: Action, instructionAction: InstructionAction) {
+    init(action: Action, instructionAction: InstructionAction, kind: String? = nil, doneBy: UInt? = nil, amountMode: String? = nil) {
         self.action = action
         self.instructionAction = instructionAction
+        self.kind = kind
+        self.doneBy = doneBy
+        self.amountMode = amountMode
     }
 }
 
