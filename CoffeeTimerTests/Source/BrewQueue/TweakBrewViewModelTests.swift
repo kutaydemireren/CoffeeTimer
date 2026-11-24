@@ -13,6 +13,7 @@ import Combine
 final class TweakBrewViewModelTests: XCTestCase {
     private var fetchInstructions: MockFetchRecipeInstructionsUseCase!
     private var saveUseCase: MockSaveBrewMethodUseCase!
+    private var getBrewMethods: MockGetBrewMethodsUseCase!
     private var analyticsTracker: MockAnalyticsTracker!
     private var sut: TweakBrewViewModel!
     private var cancellables: [AnyCancellable] = []
@@ -23,6 +24,7 @@ final class TweakBrewViewModelTests: XCTestCase {
         fetchInstructions = MockFetchRecipeInstructionsUseCase()
         fetchInstructions._instructions = loadOldEditorV60Instructions()
         saveUseCase = MockSaveBrewMethodUseCase()
+        getBrewMethods = MockGetBrewMethodsUseCase()
         analyticsTracker = MockAnalyticsTracker()
         finishCount = 0
         closeCount = 0
@@ -30,6 +32,7 @@ final class TweakBrewViewModelTests: XCTestCase {
         sut = TweakBrewViewModel(
             fetchRecipeInstructionsUseCase: fetchInstructions,
             saveBrewMethodUseCase: saveUseCase,
+            getBrewMethodsUseCase: getBrewMethods,
             analyticsTracker: analyticsTracker,
             transitionDelay: .zero,
             makeEditor: { draft in
@@ -87,6 +90,22 @@ final class TweakBrewViewModelTests: XCTestCase {
         XCTAssertEqual(editor.draft.origin, .copy(of: BrewMethod.v60Single.id))
         XCTAssertEqual(editor.draft.name, "My V60 Single")
         XCTAssertNil(editor.draft.editedMethodId)
+    }
+
+    func test_tweak_whenBuiltInMethodWasCopiedBefore_shouldNumberTheCopyName() async throws {
+        getBrewMethods._brewMethods = [.v60Single, .preview(title: "My V60 Single")]
+
+        await sut.tweak(recipe(with: .v60Single))
+
+        XCTAssertEqual(try XCTUnwrap(sut.methodEditor).draft.name, "My V60 Single 2")
+    }
+
+    func test_tweak_whenMethodsCannotBeFetched_shouldStillOpenTheCopyWithThePlainName() async throws {
+        getBrewMethods._error = TestError.notAllowed
+
+        await sut.tweak(recipe(with: .v60Single))
+
+        XCTAssertEqual(try XCTUnwrap(sut.methodEditor).draft.name, "My V60 Single")
     }
 
     func test_tweak_whenInstructionsCannotBeFetched_shouldNotOpenEditorAndClose() async {

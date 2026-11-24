@@ -29,7 +29,7 @@ Where this page left room, stage 3 chose:
 - **Defaults per kind.** Pour: up to the method's full water, no timer, waits for a tap. Wait: 30 s, carries on. Add coffee: all the coffee. Add ice: the method's ice (adding the first ice step to a hot method sets ice to 40% of the total liquid). Note: empty text, which Save asks for.
 - **Footer.** A water mismatch is a warning, not a block: some methods pour less on purpose. The fix is "Make the last pour the rest", "Add a pour" when there is none, or "Write it for N g water" when the pours go over.
 - **Save.** Messages, first one shown: "Add a name", "Add at least one step", "Set the coffee and water it is written for", "Set the ice it is written for", "Write the note in step N", "Set an amount in step N", "Step N starts at m:ss, so "Done by" must be later", "Timers go up to 60:00 (step N)". Editing a method that no recipe uses saves in place without asking. Update everywhere rebuilds the saved recipes that use the method (and the selected recipe) with their own amounts, cups and name. After saving, an empty recipe name is filled with the method's name, so the flow can go straight to cups, cup size and strength.
-- **Make it mine** names a copy "My V60" for a built-in method and "<name> copy" for the user's own.
+- **Make it mine** names a copy "My V60" for a built-in method and "<name> copy" for the user's own. When that name is already taken by one of the user's methods, the copy gets the first free number from 2: "My V60 2", "My V60 3" (`MethodDraftFactory.copyName`). This is only the default; the user can rename it.
 
 ## The problem today
 

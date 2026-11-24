@@ -28,6 +28,7 @@ final class TweakBrewViewModel: ObservableObject {
 
     private let fetchRecipeInstructionsUseCase: FetchRecipeInstructionsUseCase
     private let saveBrewMethodUseCase: SaveBrewMethodUseCase
+    private let getBrewMethodsUseCase: GetBrewMethodsUseCase
     private let factory: MethodDraftFactory
     private let analyticsTracker: AnalyticsTracker
     private let makeEditor: @MainActor (MethodDraft) -> MethodEditorViewModel
@@ -39,6 +40,7 @@ final class TweakBrewViewModel: ObservableObject {
     init(
         fetchRecipeInstructionsUseCase: FetchRecipeInstructionsUseCase = FetchRecipeInstructionsUseCaseImp(),
         saveBrewMethodUseCase: SaveBrewMethodUseCase = SaveBrewMethodUseCaseImp(),
+        getBrewMethodsUseCase: GetBrewMethodsUseCase = GetBrewMethodsUseCaseImp(),
         factory: MethodDraftFactory = MethodDraftFactory(),
         analyticsTracker: AnalyticsTracker = AnalyticsTrackerImp(),
         transitionDelay: Duration = .milliseconds(350),
@@ -46,6 +48,7 @@ final class TweakBrewViewModel: ObservableObject {
     ) {
         self.fetchRecipeInstructionsUseCase = fetchRecipeInstructionsUseCase
         self.saveBrewMethodUseCase = saveBrewMethodUseCase
+        self.getBrewMethodsUseCase = getBrewMethodsUseCase
         self.factory = factory
         self.analyticsTracker = analyticsTracker
         self.transitionDelay = transitionDelay
@@ -75,9 +78,14 @@ final class TweakBrewViewModel: ObservableObject {
         self.recipe = recipe
         savedCopy = nil
 
-        let draft = MethodDraftFactory.isOwn(brewMethod)
-            ? factory.draft(editing: brewMethod, instructions: instructions)
-            : factory.draft(copying: brewMethod, instructions: instructions)
+        let draft: MethodDraft
+        if MethodDraftFactory.isOwn(brewMethod) {
+            draft = factory.draft(editing: brewMethod, instructions: instructions)
+        } else {
+            // Without the list the copy still opens, just with the plain default name.
+            let existingTitles = (try? await getBrewMethodsUseCase.getAll())?.map(\.title) ?? []
+            draft = factory.draft(copying: brewMethod, instructions: instructions, existingTitles: existingTitles)
+        }
         openEditor(with: draft)
     }
 

@@ -116,6 +116,56 @@ final class MethodDraftFactoryTests: XCTestCase {
         XCTAssertEqual(draft.water, 500)
     }
 
+    func test_draftCopying_whenCopyNameIsTaken_shouldNumberIt() {
+        let draft = sut.draft(copying: .v60Single, instructions: loadMiniInstructions(), existingTitles: ["V60 Single", "My V60 Single"])
+
+        XCTAssertEqual(draft.name, "My V60 Single 2")
+    }
+
+    // MARK: Copy names
+
+    func test_copyName_whenBuiltInAndNameIsFree_shouldBeMyMethod() {
+        let name = MethodDraftFactory.copyName(for: .v60Single, among: ["V60 Single", "Chemex"])
+
+        XCTAssertEqual(name, "My V60 Single")
+    }
+
+    func test_copyName_whenBuiltInCopiedOnce_shouldAdd2() {
+        let name = MethodDraftFactory.copyName(for: .v60Single, among: ["V60 Single", "My V60 Single"])
+
+        XCTAssertEqual(name, "My V60 Single 2")
+    }
+
+    func test_copyName_whenBuiltInCopiedTwice_shouldAdd3() {
+        let name = MethodDraftFactory.copyName(for: .v60Single, among: ["My V60 Single", "My V60 Single 2"])
+
+        XCTAssertEqual(name, "My V60 Single 3")
+    }
+
+    func test_copyName_whenANumberIsFree_shouldUseTheFirstFreeOne() {
+        let name = MethodDraftFactory.copyName(for: .v60Single, among: ["My V60 Single", "My V60 Single 3"])
+
+        XCTAssertEqual(name, "My V60 Single 2")
+    }
+
+    func test_copyName_whenOnlyANumberedCopyExists_shouldUseThePlainName() {
+        let name = MethodDraftFactory.copyName(for: .v60Single, among: ["My V60 Single 2"])
+
+        XCTAssertEqual(name, "My V60 Single")
+    }
+
+    func test_copyName_whenTakenWithOtherCaseOrSpaces_shouldStillNumberIt() {
+        let name = MethodDraftFactory.copyName(for: .v60Single, among: [" my v60 single "])
+
+        XCTAssertEqual(name, "My V60 Single 2")
+    }
+
+    func test_copyName_whenOwnMethodCopiedBefore_shouldNumberTheCopy() {
+        let name = MethodDraftFactory.copyName(for: .oldCustom, among: ["Old V60 Mine", "Old V60 Mine copy"])
+
+        XCTAssertEqual(name, "Old V60 Mine copy 2")
+    }
+
     func test_brewMethod_whenNew_shouldBeACustomMethodWithItsOwnRatioFirst() {
         var draft = MethodDraft.scratch()
         draft.name = " Kalita Wave "

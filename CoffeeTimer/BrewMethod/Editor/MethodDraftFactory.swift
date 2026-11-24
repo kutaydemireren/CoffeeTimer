@@ -37,11 +37,33 @@ struct MethodDraftFactory {
     }
 
     /// "Make it mine": a new method with a copy of the steps.
-    func draft(copying brewMethod: BrewMethod, instructions: RecipeInstructions) -> MethodDraft {
+    ///
+    /// `existingTitles` are the titles of the methods the user already has, so a second copy
+    /// of the same method gets a different default name ("My V60 2").
+    func draft(copying brewMethod: BrewMethod, instructions: RecipeInstructions, existingTitles: [String] = []) -> MethodDraft {
         var draft = draft(from: brewMethod, instructions: instructions)
-        draft.name = MethodDraftFactory.isOwn(brewMethod) ? "\(brewMethod.title) copy" : "My \(brewMethod.title)"
+        draft.name = MethodDraftFactory.copyName(for: brewMethod, among: existingTitles)
         draft.origin = .copy(of: brewMethod.id)
         return draft
+    }
+
+    /// The default name of a copy: "My V60" for a built-in method, "V60 Mine copy" for an own one.
+    /// When that name is taken, it gets the first free number from 2: "My V60 2", "My V60 3".
+    /// Names are compared ignoring case and surrounding spaces.
+    static func copyName(for brewMethod: BrewMethod, among existingTitles: [String]) -> String {
+        let base = isOwn(brewMethod) ? "\(brewMethod.title) copy" : "My \(brewMethod.title)"
+        let taken = Set(existingTitles.map(normalizedTitle))
+        guard taken.contains(normalizedTitle(base)) else { return base }
+
+        var number = 2
+        while taken.contains(normalizedTitle("\(base) \(number)")) {
+            number += 1
+        }
+        return "\(base) \(number)"
+    }
+
+    private static func normalizedTitle(_ title: String) -> String {
+        title.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
     }
 
     /// Edit: the same method, saved under the same id unless the user picks "Save as new".

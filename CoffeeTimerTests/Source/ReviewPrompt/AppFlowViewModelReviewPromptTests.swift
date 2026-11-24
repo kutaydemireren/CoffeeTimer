@@ -129,6 +129,7 @@ final class AppFlowViewModelReviewPromptTests: XCTestCase {
     private lazy var tweakBrewViewModel = TweakBrewViewModel(
         fetchRecipeInstructionsUseCase: MockFetchRecipeInstructionsUseCase(),
         saveBrewMethodUseCase: MockSaveBrewMethodUseCase(),
+        getBrewMethodsUseCase: MockGetBrewMethodsUseCase(),
         analyticsTracker: MockAnalyticsTracker()
     )
 

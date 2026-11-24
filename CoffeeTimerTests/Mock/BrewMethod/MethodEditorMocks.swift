@@ -33,6 +33,16 @@ final class MockSaveBrewMethodUseCase: SaveBrewMethodUseCase {
     }
 }
 
+final class MockGetBrewMethodsUseCase: GetBrewMethodsUseCase {
+    var _brewMethods: [BrewMethod] = []
+    var _error: Error?
+
+    func getAll() async throws -> [BrewMethod] {
+        if let _error { throw _error }
+        return _brewMethods
+    }
+}
+
 final class MockMethodDraftStore: MethodDraftStore {
     var stored: MethodDraft?
     var saveCount = 0
