@@ -64,7 +64,8 @@ final class CreateRecipeFlowViewModel: ObservableObject, Completable {
     func makeItMine(_ brewMethod: BrewMethod) {
         Task {
             guard let instructions = try? await fetchRecipeInstructionsUseCase.fetch(brewMethod: brewMethod) else { return }
-            openEditor(with: factory.draft(copying: brewMethod, instructions: instructions))
+            let existingTitles = createRecipeViewModel.brewMethods.map(\.title)
+            openEditor(with: factory.draft(copying: brewMethod, instructions: instructions, existingTitles: existingTitles))
         }
     }
 
