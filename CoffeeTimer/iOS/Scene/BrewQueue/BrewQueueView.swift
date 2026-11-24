@@ -102,6 +102,8 @@ extension BrewQueue {
 final class BrewQueueViewModel: ObservableObject, Completable {
     let didComplete = PassthroughSubject<BrewQueueViewModel, Never>()
     let didRequestEdit = PassthroughSubject<Recipe, Never>()
+    /// "Tweak this brew" on the post-brew screen, with the recipe just brewed.
+    let didRequestTweak = PassthroughSubject<Recipe, Never>()
 
     var stageHeader = StageHeader.welcomeNotReady
 
@@ -109,6 +111,8 @@ final class BrewQueueViewModel: ObservableObject, Completable {
     @Published var isPresentingPostBrew: Bool = false
     @Published var isPresentingGiftView: Bool = false
     @Published var isButtonAnimating = false
+    /// Whether the method editor opened from "Tweak this brew" covers the post-brew screen.
+    @Published private(set) var isTweakPresented = false
     @Published private(set) var reviewPromptTrigger: ReviewPromptTrigger?
 
     // TODO: Unify VMs for a single source
@@ -254,7 +258,7 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
     /// Called by the post-brew screen right before it asks the system for a review.
     func confirmReviewRequest(_ trigger: ReviewPromptTrigger) -> Bool {
-        guard isPresentingPostBrew, !isActive, reviewPromptTrigger == trigger else {
+        guard isPresentingPostBrew, !isActive, !isTweakPresented, reviewPromptTrigger == trigger else {
             return false
         }
         reviewPromptTrigger = nil
@@ -443,7 +447,24 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
     func dismissPostBrew() {
         isPresentingPostBrew = false
+        isTweakPresented = false
         reviewPromptTrigger = nil
+    }
+
+    /// "Tweak this brew": opens the method editor on the method of the recipe just brewed.
+    func tweakBrew() {
+        guard isPresentingPostBrew, let recipe = selectedRecipe else { return }
+        isTweakPresented = true
+        analyticsTracker.track(event: AnalyticsEvent(
+            name: "tweak_brew_opened",
+            parameters: ["brew_method_type": MethodDraftFactory.isOwn(recipe.recipeProfile.brewMethod) ? "custom" : "built-in"]
+        ))
+        didRequestTweak.send(recipe)
+    }
+
+    /// The tweak editor was closed without saving: the post-brew screen is back.
+    func tweakDidClose() {
+        isTweakPresented = false
     }
 
     /// Reloads the idle screen, e.g. after another recipe was selected.
@@ -474,7 +495,8 @@ struct BrewQueueView: View {
     private var postBrew: some View {
         PostBrewView(
             confirm: viewModel.confirmPostBrew,
-            dismiss: viewModel.dismissPostBrew
+            dismiss: viewModel.dismissPostBrew,
+            tweak: viewModel.selectedRecipe != nil ? viewModel.tweakBrew : nil
         )
         .reviewPrompt(
             trigger: viewModel.reviewPromptTrigger,

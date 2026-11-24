@@ -17,6 +17,7 @@ final class AppFlowViewModel: ObservableObject {
 
     /// Created once, so a brew keeps running while this flow re-renders.
     let brewQueueViewModel: BrewQueueViewModel
+    let tweakBrewViewModel: TweakBrewViewModel
 
     private let reviewPromptPolicy: ReviewPromptPolicy
     private let analyticsTracker: AnalyticsTracker
@@ -25,10 +26,12 @@ final class AppFlowViewModel: ObservableObject {
 
     init(
         brewQueueViewModel: BrewQueueViewModel = BrewQueueViewModel(),
+        tweakBrewViewModel: TweakBrewViewModel = TweakBrewViewModel(),
         reviewPromptPolicy: ReviewPromptPolicy = ReviewPromptPolicyImp.shared,
         analyticsTracker: AnalyticsTracker = AnalyticsTrackerImp()
     ) {
         self.brewQueueViewModel = brewQueueViewModel
+        self.tweakBrewViewModel = tweakBrewViewModel
         self.reviewPromptPolicy = reviewPromptPolicy
         self.analyticsTracker = analyticsTracker
 
@@ -38,6 +41,24 @@ final class AppFlowViewModel: ObservableObject {
         brewQueueViewModel.didRequestEdit
             .sink(receiveValue: didRequestEdit(_:))
             .store(in: &cancellables)
+        brewQueueViewModel.didRequestTweak
+            .sink { [weak tweakBrewViewModel] recipe in
+                Task { @MainActor in await tweakBrewViewModel?.tweak(recipe) }
+            }
+            .store(in: &cancellables)
+        tweakBrewViewModel.didClose
+            .sink { [weak brewQueueViewModel] in brewQueueViewModel?.tweakDidClose() }
+            .store(in: &cancellables)
+        tweakBrewViewModel.didFinish
+            .sink { [weak self] in self?.didFinishTweak() }
+            .store(in: &cancellables)
+    }
+
+    /// A tweak was saved: back to the main screen, which shows the recipe as it brews now.
+    private func didFinishTweak() {
+        brewQueueViewModel.dismissPostBrew()
+        brewQueueViewModel.refresh()
+        takePendingReviewPrompt()
     }
 
     func makeRecipesFlowVM() -> RecipesFlowViewModel {
@@ -141,6 +162,7 @@ struct AppFlowView: View {
 
     func brewQueue() -> some View {
         BrewQueueView(viewModel: viewModel.brewQueueViewModel)
+            .tweakBrew(viewModel.tweakBrewViewModel)
     }
 
     func recipes() -> some View {

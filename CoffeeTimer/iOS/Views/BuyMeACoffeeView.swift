@@ -13,10 +13,17 @@ protocol BuyMeACoffeeViewModel {
     var animation: String { get }
 }
 
+/// A quiet extra button below the tip, styled like "Maybe next time!".
+struct BuyMeACoffeeSecondaryAction {
+    let title: String
+    let action: () -> Void
+}
+
 struct BuyMeACoffeeView<Model: BuyMeACoffeeViewModel>: View {
     let viewModel: Model
     let confirm: () -> Void
     let dismiss: () -> Void
+    var secondaryAction: BuyMeACoffeeSecondaryAction? = nil
 
     var body: some View {
         VStack {
@@ -49,16 +56,11 @@ struct BuyMeACoffeeView<Model: BuyMeACoffeeViewModel>: View {
             }
             .padding(.bottom, 20)
 
-            Button {
-                dismiss()
-            } label: {
-                Text("Maybe next time!")
-                    .font(.callout)
-                    .padding(12)
-                    .overlay {
-                        Capsule()
-                            .stroke(Color("backgroundPrimary"), lineWidth: 2)
-                    }
+            secondaryButton(title: "Maybe next time!", action: dismiss)
+
+            if let secondaryAction {
+                secondaryButton(title: secondaryAction.title, action: secondaryAction.action)
+                    .padding(.top, 12)
             }
 
             Spacer()
@@ -68,6 +70,20 @@ struct BuyMeACoffeeView<Model: BuyMeACoffeeViewModel>: View {
         .background {
             Color("backgroundSecondary")
                 .ignoresSafeArea()
+        }
+    }
+
+    private func secondaryButton(title: String, action: @escaping () -> Void) -> some View {
+        Button {
+            action()
+        } label: {
+            Text(title)
+                .font(.callout)
+                .padding(12)
+                .overlay {
+                    Capsule()
+                        .stroke(Color("backgroundPrimary"), lineWidth: 2)
+                }
         }
     }
 }
