@@ -27,6 +27,9 @@ final class CreateRecipeViewModel: ObservableObject {
     @Published var animateRecipeProfile = false
     @Published var animateCupsCount = false
     @Published var animateRatio = false
+    /// The method just deleted from the grid, while its Undo is offered.
+    @Published private(set) var deletedMethod: BrewMethod?
+    private var deletedMethodDismissTask: Task<Void, Never>?
 
     private var createRecipeFromContextUseCase: CreateRecipeFromContextUseCase
     private var recipeRepository: RecipeRepository // TODO: use case - no repo in vm!
@@ -56,7 +59,29 @@ final class CreateRecipeViewModel: ObservableObject {
 
     func refreshBrewMethods() {
         Task {
-            self.brewMethods = try await getBrewMethodsUseCase.getAll()
+            await reloadBrewMethods()
+        }
+    }
+
+    func reloadBrewMethods() async {
+        if let brewMethods = try? await getBrewMethodsUseCase.getAll() {
+            self.brewMethods = brewMethods
+        }
+    }
+
+    /// After a method is saved: select it and carry on to cups, cup size and strength, with its own ratio selected.
+    func continueWith(savedMethod: BrewMethod, in context: CreateRecipeContext) async {
+        await reloadBrewMethods()
+        let method = brewMethods.first { $0.id == savedMethod.id } ?? savedMethod
+        if context.recipeProfile.name.trimmingCharacters(in: .whitespaces).isEmpty {
+            context.recipeProfile = RecipeProfile(name: method.title, brewMethod: method)
+        } else {
+            context.selectedBrewMethod = method
+        }
+        allRatios = []
+        didUpdate(context: context)
+        withAnimation {
+            selectedPage = pageCount
         }
     }
 
@@ -231,10 +256,33 @@ final class CreateRecipeViewModel: ObservableObject {
         ))
     }
 
-    func remove(brewMethod: BrewMethod) {
+    func remove(brewMethod: BrewMethod, in context: CreateRecipeContext) {
+        if context.selectedBrewMethod?.id == brewMethod.id {
+            context.selectedBrewMethod = nil
+        }
+        deletedMethod = brewMethod
+        analyticsTracker.track(event: AnalyticsEvent(name: "method_deleted"))
         Task {
             await removeBrewMethodUseCase.remove(brewMethod: brewMethod)
-            refreshBrewMethods()
+            await reloadBrewMethods()
+        }
+
+        deletedMethodDismissTask?.cancel()
+        deletedMethodDismissTask = Task { [weak self] in
+            try? await Task.sleep(for: .seconds(6))
+            guard !Task.isCancelled else { return }
+            self?.deletedMethod = nil
+        }
+    }
+
+    func undoDelete() {
+        guard let brewMethod = deletedMethod else { return }
+        deletedMethodDismissTask?.cancel()
+        deletedMethod = nil
+        analyticsTracker.track(event: AnalyticsEvent(name: "method_delete_undone"))
+        Task {
+            await removeBrewMethodUseCase.restore(brewMethod: brewMethod)
+            await reloadBrewMethods()
         }
     }
 }
@@ -245,6 +293,8 @@ struct CreateRecipeView: View {
 
     var close: () -> Void
     var createMethod: () -> Void
+    var makeItMine: (BrewMethod) -> Void = { _ in }
+    var editMethod: (BrewMethod) -> Void = { _ in }
 
     var body: some View {
         PagerView(
@@ -264,8 +314,14 @@ struct CreateRecipeView: View {
                         brewMethods: $viewModel.brewMethods,
                         selectedBrewMethod: $context.selectedBrewMethod,
                         animateSelection: $viewModel.animateBrewMethod,
-                        createMethod: createMethod,
-                        deleteMethod: viewModel.remove(brewMethod:)
+                        menuActions: BrewMethodMenuActions(
+                            makeItMine: makeItMine,
+                            edit: editMethod,
+                            delete: { viewModel.remove(brewMethod: $0, in: context) }
+                        ),
+                        deletedMethod: viewModel.deletedMethod,
+                        undoDelete: viewModel.undoDelete,
+                        createMethod: createMethod
                     )
                 }
                 .tag(1)

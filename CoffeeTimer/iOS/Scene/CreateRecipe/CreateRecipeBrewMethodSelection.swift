@@ -7,9 +7,21 @@
 
 import SwiftUI
 
+/// Actions in a method tile's menu. Built-in methods offer only Make it mine.
+struct BrewMethodMenuActions {
+    var makeItMine: (BrewMethod) -> Void
+    var edit: (BrewMethod) -> Void
+    var delete: (BrewMethod) -> Void
+}
+
 struct BrewMethodView: View {
     let brewMethod: BrewMethod
     var isSelected = false
+    var menuActions: BrewMethodMenuActions? = nil
+
+    private var isOwn: Bool {
+        MethodDraftFactory.isOwn(brewMethod)
+    }
 
     private var hasInfo: Bool {
         !brewMethod.info.body.isEmpty
@@ -34,17 +46,53 @@ struct BrewMethodView: View {
 
             VStack {
                 HStack {
+                    if hasInfo && menuActions != nil {
+                        InfoButton(infoModel: brewMethod.info)
+                    }
                     Spacer()
-                    if hasInfo {
+                    if let menuActions {
+                        menu(menuActions)
+                    } else if hasInfo {
                         InfoButton(infoModel: brewMethod.info)
                     }
                 }
-                .padding([.top, .trailing], 8)
+                .padding([.top, .horizontal], 8)
                 Spacer()
             }
         }
         .foregroundStyle(isSelected ? Color("foregroundPrimary") : Color("foregroundPrimary").opacity(0.8))
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    @ViewBuilder
+    private func menu(_ actions: BrewMethodMenuActions) -> some View {
+        Menu {
+            Button {
+                actions.makeItMine(brewMethod)
+            } label: {
+                Label("Make it mine", systemImage: "square.on.square")
+            }
+
+            if isOwn {
+                Button {
+                    actions.edit(brewMethod)
+                } label: {
+                    Label("Edit", systemImage: "pencil")
+                }
+
+                Button(role: .destructive) {
+                    actions.delete(brewMethod)
+                } label: {
+                    Label("Delete", systemImage: "trash")
+                }
+            }
+        } label: {
+            Image(systemName: "ellipsis.circle")
+                .font(.title3)
+                .padding(4)
+                .contentShape(Rectangle())
+        }
+        .accessibilityLabel("\(brewMethod.title) menu")
     }
 }
 
@@ -85,8 +133,11 @@ struct CreateRecipeBrewMethodSelection: View {
     @Binding var selectedBrewMethod: BrewMethod?
     @Binding var animateSelection: Bool
 
+    var menuActions: BrewMethodMenuActions?
+    var deletedMethod: BrewMethod? = nil
+    var undoDelete: () -> Void = { }
+
     var createMethod: () -> Void
-    var deleteMethod: (BrewMethod) -> Void
 
     private var shouldAnimate: Bool {
         animateSelection && selectedBrewMethod == nil
@@ -98,7 +149,8 @@ struct CreateRecipeBrewMethodSelection: View {
                 ForEach(brewMethods) { brewMethod in
                     BrewMethodView(
                         brewMethod: brewMethod,
-                        isSelected: selectedBrewMethod == brewMethod
+                        isSelected: selectedBrewMethod == brewMethod,
+                        menuActions: menuActions
                     )
                     .frame(height: height)
                     .scaleEffect(shouldAnimate ? 1.1 : 1)
@@ -109,19 +161,20 @@ struct CreateRecipeBrewMethodSelection: View {
                     .onTapGesture {
                         selectedBrewMethod = brewMethod
                     }
-                    .contextMenu {
-                        Button(role: .destructive) {
-                            deleteMethod(brewMethod)
-                        } label: {
-                            Label("Delete", systemImage: "trash")
-                        }
-                    }
                 }
             }
             .padding()
 
             customMethodAction()
         }
+        .safeAreaInset(edge: .bottom) {
+            if let deletedMethod {
+                UndoBanner(text: "Deleted \u{201C}\(deletedMethod.title)\u{201D}", undo: undoDelete)
+                    .padding()
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
+        }
+        .animation(.default, value: deletedMethod)
     }
 
     @ViewBuilder
@@ -185,16 +238,16 @@ struct CreateRecipeBrewMethodSelection_Previews: PreviewProvider {
                 brewMethods: .constant(methodsSmall),
                 selectedBrewMethod: .constant(.v60Single),
                 animateSelection: .constant(false),
-                createMethod: { },
-                deleteMethod: { _ in }
+                menuActions: .init(makeItMine: { _ in }, edit: { _ in }, delete: { _ in }),
+                createMethod: { }
             )
 
             CreateRecipeBrewMethodSelection(
                 brewMethods: .constant(methodsLarge),
                 selectedBrewMethod: .constant(.v60Single),
                 animateSelection: .constant(false),
-                createMethod: { },
-                deleteMethod: { _ in }
+                menuActions: .init(makeItMine: { _ in }, edit: { _ in }, delete: { _ in }),
+                createMethod: { }
             )
         }
         .tabViewStyle(.page)
