@@ -42,7 +42,7 @@ Brew methods and their step-by-step instructions are remote JSON, not bundled co
 
 The App Store review prompt (when it is asked, the rules and why) is documented in [docs/review-prompt.md](docs/review-prompt.md).
 
-The accepted design for creating a custom brew method (flow, decisions, engine mapping, components to reuse) is in [docs/custom-method-creation.md](docs/custom-method-creation.md).
+The accepted design for creating a custom brew method (flow, decisions, engine mapping, components to reuse) is in [docs/custom-method-creation.md](docs/custom-method-creation.md). The method editor works in grams for a reference dose (`BrewMethod/Editor`, `Scene/MethodEditor`) and saves the same `put` / `message` / `pause` instruction steps the brew engine already runs; the page lists the choices it made.
 
 App startup (`CoffeeTimerApp` → `AppDelegate`) runs `AppInitializerImp` first. It applies `Migration`s through `MigrationRunnerImp`, which stores completed migration versions in `UserDefaults`, and only then configures Firebase. To change the persisted recipe format, add a new `Migration` with a higher `version` and register it in `AppInitializer.swift`.
 
