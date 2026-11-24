@@ -1,6 +1,6 @@
 # Creating a custom brew method
 
-Status: accepted design. Stages 1 to 3 of the [order of work](#order-of-work) are implemented (iOS 26, the model changes, then the new creation flow and tile menu); stage 4 (Tweak this brew) is not built yet. This page records how users will create their own brew method and why. The implementation should follow it. Every open question was settled on 2026-11-23; see [Decided (2026-11-23)](#decided-2026-11-23).
+Status: accepted design. All 4 stages of the [order of work](#order-of-work) are implemented: iOS 26, the model changes, the new creation flow and tile menu, and Tweak this brew. This page records how users will create their own brew method and why. The implementation should follow it. Every open question was settled on 2026-11-23; see [Decided (2026-11-23)](#decided-2026-11-23).
 
 ### What stage 2 put in the model
 
@@ -139,6 +139,8 @@ Tapping a row opens a sheet for that step:
 ### 6. Tweak this brew
 
 The post-brew screen gets a quiet secondary button, "Tweak this brew", below the Buy Me a Coffee tip. On `main` that screen already shows after both completed and ended brews (see [review-prompt.md](review-prompt.md)); the review prompt timing does not change. The button opens the same method screen on the method just brewed. For a built-in method it opens a copy ("My V60"), and on save offers to switch this recipe to the copy. This ships in the same release as the new flow.
+
+As built: the user's own method opens as with Edit on its tile (Update everywhere or Save as new when recipes use it). After a built-in copy is saved, a prompt offers "Switch to My V60" or "Keep V60"; dismissing it keeps the recipe on the built-in. Switching keeps the recipe's name, cups and amounts and rebuilds its steps from the copy. Close without changes goes back to the post-brew screen; a save goes to the main screen. Analytics: `tweak_brew_opened` (`brew_method_type`: `built-in` or `custom`) and `tweak_brew_recipe_switch` (`switched`).
 
 ## Walkthroughs
 

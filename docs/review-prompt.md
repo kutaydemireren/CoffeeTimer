@@ -11,7 +11,7 @@ CoffeeTimer asks for an App Store review with Apple's native prompt (SwiftUI `@E
 | Brew completed (every step followed to the end) | Post-brew screen, 1.5 s after it appears | From the 1st meaningful brew on | Following every step to the end is the strongest signal the app gets, and usage is infrequent, so the app asks while the user's interest is fresh. |
 | Brew ended with "End" past halfway | Post-brew screen, 1.5 s after it appears | From the 1st meaningful brew on | Most users end a brew early once they know the remaining steps, so this is where most brews finish. Ending after at least half of the steps is close to a full brew. Requiring halfway filters out users who quit early. |
 | Brew ended with "End" before halfway | Post-brew screen, 1.5 s after it appears | From the 3rd meaningful brew on | A weak signal: the user may have given up. Because the app asks only once per version, asking here early would block a later, stronger moment. |
-| Custom brew method created | Main screen, 1 s after the recipes screen closes | 1st method | Building a method is a deliberate investment in the app, and it is rare. |
+| Custom brew method created | Main screen, 1 s after the recipes screen closes, or after a "Tweak this brew" save returns to it | 1st method | Building a method is a deliberate investment in the app, and it is rare. |
 | Recipe created | Main screen, 1 s after the recipes screen closes | From the 2nd recipe on | The first recipe is often a trial. A second one means the user is coming back. |
 | Recipe amounts edited and saved | Main screen, 1 s after the edit sheet closes | From the 2nd save on | Adjusting amounts again shows the user is tuning the app to their routine. |
 
@@ -41,6 +41,7 @@ A brew is **past halfway** when at least half of its steps are done: the step on
 - **At least 30 days between requests**, even across versions. Apple also shows the prompt at most 3 times in 365 days and may show nothing at all, so the app does not try harder than that.
 - **No days-since-install or minimum-launch gate.** Usage is infrequent (a brew or two a day at most), so extra gates would delay the prompt by weeks and miss the user's early interest.
 - **Never mid-flow.** Moments inside the recipes screen (creating a recipe or a custom method) are kept pending until that screen closes. Right before asking, the app checks again that no brew is running and no sheet or full-screen flow is open. If one is, the request is dropped. A pending moment is also dropped once the app has checked it, so it never shows up later out of context.
+- **Tweak this brew** on the post-brew screen does not change when the post-brew prompt is asked. While its method editor covers the screen, a post-brew request that comes due is dropped, like any request while a flow is open.
 
 ## Ending a brew early
 

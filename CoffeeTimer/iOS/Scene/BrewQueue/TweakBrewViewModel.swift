@@ -182,7 +182,8 @@ private struct TweakBrewModifier: ViewModifier {
                 Button(viewModel.switchTitle) {
                     viewModel.switchToCopy()
                 }
-                Button(viewModel.keepTitle, role: .cancel) {
+                // Not a cancel button: iOS hides those in this dialog, and declining must stay visible.
+                Button(viewModel.keepTitle) {
                     viewModel.keepRecipe()
                 }
             } message: {
