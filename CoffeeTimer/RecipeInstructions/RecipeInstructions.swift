@@ -406,8 +406,9 @@ struct PutInstructionAction: InstructionAction, Equatable {
     }
 
     private func calculate(amount: InstructionAmount?, input: RecipeInstructionInput, in context: InstructionActionContext) -> IngredientAmount {
+        let total = calculate(factor: amount?.mainFactor, input: input, in: context) + calculate(factor: amount?.adjustmentFactor, input: input, in: context)
         return IngredientAmount(
-            amount: UInt(calculate(factor: amount?.mainFactor, input: input, in: context) + calculate(factor: amount?.adjustmentFactor, input: input, in: context)),
+            amount: UInt(max(0, total.rounded())),
             type: amount?.type?.map() ?? .gram
         )
     }

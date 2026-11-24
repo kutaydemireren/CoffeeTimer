@@ -96,4 +96,56 @@ final class CreateRecipeFromInputUseCaseImpTests: XCTestCase {
 
         XCTAssertEqual(resultedRecipe.brewQueue, .stubMiniIced)
     }
+
+    func test_create_whenStepAmountHasFraction_shouldRoundToNearestGram() {
+        let pourFifth = PutInstructionAction(
+            requirement: nil, startMethod: .auto, skipMethod: .userInteractive,
+            message: "Pour #current.amount ml", details: nil,
+            ingredient: .water,
+            amount: .init(type: .millilitre, mainFactor: .init(factor: 0.2, factorOf: "water"), adjustmentFactor: nil)
+        )
+        let pourUpToSixtyPercent = PutInstructionAction(
+            requirement: nil, startMethod: .auto, skipMethod: .userInteractive,
+            message: "Pour #current.amount ml", details: nil,
+            ingredient: .water,
+            amount: .init(
+                type: .millilitre,
+                mainFactor: .init(factor: 0.6, factorOf: "water"),
+                adjustmentFactor: .init(factor: -1, factorOf: "#current.water")
+            )
+        )
+        let pourRest = PutInstructionAction(
+            requirement: nil, startMethod: .auto, skipMethod: .userInteractive,
+            message: "Pour #current.amount ml", details: nil,
+            ingredient: .water,
+            amount: .init(type: .millilitre, mainFactor: .init(factor: 1, factorOf: "#remaining.water"), adjustmentFactor: nil)
+        )
+        let instructions = RecipeInstructions(
+            identifier: "rounding",
+            steps: [
+                .init(action: .put, instructionAction: pourFifth),
+                .init(action: .put, instructionAction: pourUpToSixtyPercent),
+                .init(action: .put, instructionAction: pourRest)
+            ]
+        )
+
+        let resultedRecipe = sut.create(
+            from: CreateRecipeInput(
+                recipeProfile: .empty,
+                coffee: .init(amount: 14, type: .gram),
+                water: .init(amount: 233, type: .millilitre),
+                ice: nil,
+                cupsCount: 1.0,
+                cupSize: 233.0
+            ),
+            instructions: instructions
+        )
+
+        // 0.2 × 233 = 46.6 → 47 (was 46); 0.6 × 233 − 47 = 92.8 → 93; the rest 233 − 140 = 93.
+        XCTAssertEqual(resultedRecipe.brewQueue.stages.map(\.action), [
+            .pourWater(.init(amount: 47, type: .millilitre)),
+            .pourWater(.init(amount: 93, type: .millilitre)),
+            .pourWater(.init(amount: 93, type: .millilitre))
+        ])
+    }
 }

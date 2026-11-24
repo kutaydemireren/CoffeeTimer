@@ -45,8 +45,31 @@ extension IngredientAmount {
         case .gram:
             return "\(amount) g"
         case .millilitre:
-            return "\(amount) ml"
+            // Water is shown in grams everywhere (1 ml of water weighs 1 g).
+            return "\(amount) g"
         }
+    }
+}
+
+extension String {
+    private static let trailingZeroDecimals = try! NSRegularExpression(pattern: #"(\d+)\.0+(?!\d)"#)
+    private static let millilitreUnit = try! NSRegularExpression(pattern: #"(\d) ?ml\b"#)
+
+    /// Brew-screen text as shown to the user: whole numbers without ".0" and water in grams instead of ml.
+    ///
+    /// Display only. Stored recipes and the brew instruction JSON keep their own text, so recipes saved by
+    /// older versions are relabelled too.
+    var brewDisplayText: String {
+        let wholeNumbers = Self.trailingZeroDecimals.stringByReplacingMatches(
+            in: self,
+            range: NSRange(startIndex..., in: self),
+            withTemplate: "$1"
+        )
+        return Self.millilitreUnit.stringByReplacingMatches(
+            in: wholeNumbers,
+            range: NSRange(wholeNumbers.startIndex..., in: wholeNumbers),
+            withTemplate: "$1 g"
+        )
     }
 }
 
@@ -349,8 +372,8 @@ final class BrewQueueViewModel: ObservableObject, Completable {
 
         stageHeader = StageHeader(
             lightTitle: .brewQueue.stageHeader(for: currentStage.action),
-            title: currentStage.message,
-            subtext: currentStage.details
+            title: currentStage.message.brewDisplayText,
+            subtext: currentStage.details?.brewDisplayText
         )
 
         switch currentStage.requirement {

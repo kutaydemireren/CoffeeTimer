@@ -175,10 +175,10 @@ final class CreateRecipeViewModel: ObservableObject {
     }
 
     private func resetRatiosIfNeeded(_ context: CreateRecipeContext) {
-        let newRatios = context.selectedBrewMethod?.ratios
+        let newRatios = context.selectedBrewMethod?.recipeRatios
         if let newRatios, newRatios != allRatios {
             self.allRatios = newRatios
-            context.ratio = nil
+            context.ratio = context.selectedBrewMethod?.defaultRatio
         }
     }
 

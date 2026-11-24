@@ -33,7 +33,7 @@ final class EditRecipeAmountsViewModel: ObservableObject {
 
     func configure(with recipe: Recipe) {
         originalRecipeId = recipe.id
-        allRatios = recipe.recipeProfile.brewMethod.ratios
+        allRatios = recipe.recipeProfile.brewMethod.recipeRatios
         
         configureContextFromRecipeUseCase.configure(context: context, from: recipe, with: allRatios)
         analyticsTracker.track(event: AnalyticsEvent(name: "edit_amounts_opened"))
